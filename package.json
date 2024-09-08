@@ -4,8 +4,12 @@
   "description": "A web application for employees to submit and manage vacation requests",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SebMendozaGonzalez/PTO-Site.git"
@@ -26,5 +30,9 @@
   "homepage": "https://github.com/SebMendozaGonzalez/PTO-Site#readme",
   "dependencies": {
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4"
   }
 }
