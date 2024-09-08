@@ -28,4 +28,4 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-//noentiendo x2
+//prueba 2
