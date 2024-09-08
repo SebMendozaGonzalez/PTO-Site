@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/cddcfd0f-29f2-4918-b041-3096957e15f4/resourceGroups/ResourceGroup/providers/Microsoft.Web/sites/QuantumVacations",
+    "appService.deploySubpath": "."
+}
