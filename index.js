@@ -15,11 +15,11 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // API routes
 app.get('/api/hello', (req, res) => {
-  res.send({ message: 'Hello from the backend!' });
+  res.send({ message: 'Vea que el backend sí funciona bien ' });
 });
 
 // Serve the React app
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
@@ -27,3 +27,5 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+//prueba 3

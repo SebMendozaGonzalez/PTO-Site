@@ -10,7 +10,6 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "npm run client-build"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SebMendozaGonzalez/PTO-Site.git"
@@ -30,6 +29,7 @@
   },
   "homepage": "https://github.com/SebMendozaGonzalez/PTO-Site#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2"
   },
   "devDependencies": {
