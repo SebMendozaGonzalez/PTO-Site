@@ -19,19 +19,34 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: 'lts/*'  # Use the latest LTS version of Node.js
 
-      - name: npm install, build, and test
+      # Install backend and frontend dependencies
+      - name: Install dependencies
         run: |
           npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm install --prefix client
       
+      # Build frontend
+      - name: Build frontend
+        run: |
+          npm run build --prefix client
+
+      # Run tests if any
+      - name: Run tests
+        run: |
+          npm run test --if-present
+
+      # Upload artifact for deployment
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: |
+            . 
+            !node_modules
+            !client/node_modules
+          if-no-files-found: warn
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,21 +55,24 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write # This is required for requesting the JWT
 
     steps:
+      # Download artifact from build job
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: node-app
       
+      # Login to Azure
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_25D19C5D60BC4EF7B32B7FA4AD1B7DF2 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A33C5653070F47428457CE75EF77E7AB }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1489BC954B1E4B7DA7EE5FF02F92BC2E }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      # Deploy to Azure Web App
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
@@ -62,4 +80,3 @@ jobs:
           app-name: 'QuantumVacations'
           slot-name: 'Production'
           package: .
-          
