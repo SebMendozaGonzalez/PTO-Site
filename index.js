@@ -5,7 +5,6 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware to handle CORS
-const cors = require('cors');
 app.use(cors({
   origin: 'http://localhost:3000', // Allow frontend on port 3000
   credentials: true
