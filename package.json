@@ -29,11 +29,11 @@
   },
   "homepage": "https://github.com/SebMendozaGonzalez/PTO-Site#readme",
   "dependencies": {
-    "express": "^4.19.2",
-    "cors": "^2.8.5"
+    "express": "latest",
+    "cors": "latest"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "nodemon": "^3.1.4"
+    "concurrently": "latest",
+    "nodemon": "latest"
   }
 }
