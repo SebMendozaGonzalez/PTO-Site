@@ -1,16 +1,23 @@
 version: '3'
-
 services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile  # Path to backend Dockerfile
+      dockerfile: Dockerfile  # Path to backend Dockerfile (root)
     ports:
       - "5000:5000"
+    depends_on:
+      - frontend
+    environment:
+      NODE_ENV: production
+    command: npm start
 
   frontend:
     build:
-      context: ./client
-      dockerfile: Dockerfile  # Path to frontend Dockerfile
+      context: ./client  # Path to frontend Dockerfile (inside client folder)
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      NODE_ENV: production
+    command: serve -s build

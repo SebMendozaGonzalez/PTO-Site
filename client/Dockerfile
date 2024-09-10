@@ -18,7 +18,9 @@ RUN npm run build
 
 # Serve the app using a static server
 RUN npm install -g serve
-CMD ["serve", "-s", "build"]
 
 # Expose the port the app runs on
 EXPOSE 3000
+
+# Command to serve the React app
+CMD ["serve", "-s", "build"]
