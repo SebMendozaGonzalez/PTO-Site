@@ -38,8 +38,3 @@ jobs:
           containerAppName: quantumvacationsapp
           resourceGroup: DefaultResourceGroup-CQ
           imageToBuild: quantumvacationsregistry.azurecr.io/quantumvacationsapp:${{ github.sha }}
-          
-            
-
-     
-
