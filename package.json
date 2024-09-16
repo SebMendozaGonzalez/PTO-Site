@@ -30,11 +30,20 @@
   },
   "homepage": "https://github.com/SebMendozaGonzalez/PTO-Site#readme",
   "dependencies": {
-    "express": "latest",
-    "cors": "latest"
+    "@babel/preset-react": "^7.24.7",
+    "babel-loader": "^9.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "html-webpack-plugin": "^5.6.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   },
   "devDependencies": {
-    "concurrently": "latest",
+    "concurrently": "^9.0.1",
     "nodemon": "latest"
   }
 }
