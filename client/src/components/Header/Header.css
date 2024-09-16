@@ -1,0 +1,49 @@
+/* src/components/Header/Header.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f9f4f4; /* Light background */
+  color: #1949a8; /* Text color */
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Set a maximum width for the content */
+  margin: 0 auto; /* Center the header content horizontally */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
+.logo-container .company-logo {
+  height: 50px;
+}
+
+.nav-options {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: #1949a8;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.btn-login {
+  background-color: #020242;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background-color: #0e40a4;
+}
