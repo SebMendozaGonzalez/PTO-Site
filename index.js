@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const leaderRoutes = require('./routes/leaderRoutes'); 
+require('dotenv').config();
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -13,16 +16,14 @@ app.use(cors({
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Use API routes for leader actions
+app.use('/api/leaders', leaderRoutes);
+
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// API routes
-app.get('/api/hello', (req, res) => {
-  res.send({ message: 'Hello from the backend!' });
-});
-
-// Serve the React app
-app.get('/', (req, res) => {
+// Catch-all for serving the React app
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
