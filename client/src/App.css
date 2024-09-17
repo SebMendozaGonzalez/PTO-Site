@@ -3,11 +3,11 @@
   text-align: center;
   font-family: 'Arial', sans-serif;
   background-color: #F8F9FA; /* Cloud white */
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 /* Header styles */
