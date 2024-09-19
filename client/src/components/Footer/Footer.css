@@ -5,7 +5,7 @@
   padding: 1rem;
   background-color: #000042;
   color: white;
-  position: fixed;
+  position: relative;
 
   bottom: 0;
   left: 0; /* Ensure the footer starts from the left side */

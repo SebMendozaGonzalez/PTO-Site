@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import logo from './quantum-long-logo.png'
+import logo from '../../images/quantum-long-logo.png'
 
 const Header = () => {
   return (

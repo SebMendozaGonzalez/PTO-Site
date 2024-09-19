@@ -1,0 +1,8 @@
+.botón{
+    margin-left: 10rem;
+    width: 15rem;
+}
+
+.dark-button2{
+    background: var(--negative-dark-gradient);
+}

@@ -1,7 +1,7 @@
 // src/components/Footer/Footer.js
 import React from 'react';
 import './Footer.css';
-import white_logo from './white-quantum-long-logo.png'
+import white_logo from '../../images/white-quantum-long-logo.png'
 
 const Footer = () => {
   return (
