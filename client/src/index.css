@@ -6,8 +6,8 @@
   --light_primary: #a4c3ff;
   --light_small: #f7f8fa;
   --light_background: #4162ed;
-  --dark-gradient: linear-gradient(90.05deg, #1a3086 1%, #436bb9 85%);
-  --negative-dark-gradient: linear-gradient(97.05deg, #436bb9 2%, #081d6e 130%);
+  --dark-gradient: linear-gradient(90.05deg, #000042 20%, #436bb9 85%);
+  --negative-dark-gradient: linear-gradient(97.05deg, #436bb9 2%, #000042 130%);
   --light-gradient: linear-gradient(270deg, #a0c0ff 35%, #315cb1 90%);
   --negative-light-gradient: linear-gradient(270deg, #315cb1 20%, #a0c0ff 80%);
   --blue: #4066ff;
@@ -139,7 +139,7 @@ button *{
 }
 .fonts-regular-italic {
   font-family: "Poppins", sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   font-style: italic;
   color: var(--small);
 }
