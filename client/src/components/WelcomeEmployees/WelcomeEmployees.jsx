@@ -5,7 +5,7 @@ function WelcomeEmployees() {
   return (
     <div className='flexColStart paddings innerWidth'>
 
-        <h1 className='fonts-secondary'>Welcome, Employee!</h1>
+        <h1 className='fonts-secondary'>Welcome, Sebastián!</h1>
         
         <div className = "flexStart" style= {{marginRight:"40rem", fontSize: "20px"}}>
             <span className="fonts-regular">

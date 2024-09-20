@@ -1,0 +1,31 @@
+.paragraph>h2{
+    font-size: 2rem;
+}
+.paragraph>h3{
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+.paragraph>p{
+    text-align: left;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding-bottom: 1rem;
+}
+
+.paragraph>p>strong{
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.button{
+    color: white;
+    font: inherit;
+    font-size: inherit;
+    margin-left: 10rem;
+    width: 15rem;
+    background: var(--negative-dark-gradient);
+}
+.button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }

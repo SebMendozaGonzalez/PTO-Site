@@ -3,13 +3,13 @@
   --secondary: rgb(21,96,246);
   --small: #072052;
   --links: #315cb1;
-  --light_primary: #a4c3ff;
+  --light_primary: #6597fd;
   --light_small: #f7f8fa;
   --light_background: #4162ed;
   --dark-gradient: linear-gradient(90.05deg, #000042 20%, #436bb9 85%);
   --negative-dark-gradient: linear-gradient(97.05deg, #436bb9 2%, #000042 130%);
-  --light-gradient: linear-gradient(270deg, #a0c0ff 35%, #315cb1 90%);
-  --negative-light-gradient: linear-gradient(270deg, #315cb1 20%, #a0c0ff 80%);
+  --light-gradient: linear-gradient(270deg, #83abfc 35%, #315cb1 70%);
+  --negative-light-gradient: linear-gradient(270deg, #315cb1 20%, #83abfc 80%);
   --blue: #4066ff;
   --lightBlue: #eeeeff;
   --shadow: 0px 23px 21px -8px rgba(136, 160, 255, 0.25);
