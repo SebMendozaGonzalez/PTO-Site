@@ -7,9 +7,11 @@ const EnterEmployee = () =>{
     <div className="flexEnd innerWidth paddings" style={{background: "Var(--light-gradient)"}}>
 
         <div className='paddings botón'>
-            <button className='dark-button button' style={{width: "11rem"}}>
-                <Link to="/employee-portal" className="nav-link">Enter as an Employee</Link>
-            </button>
+            <Link to="/employee-portal" className="nav-link">
+                <button className='button' style={{width: "11rem"}}>
+                    Enter as an Employee
+                </button>
+            </Link>
         </div>
 
         <div className='flexColEnd'>

@@ -17,11 +17,12 @@ const EnterLeader = () => {
             </div>
 
             <div className='paddings botón'>
-                <button className='dark-button dark-button2 button' style={{width: "11rem"}} >
-                <Link to="/leader-portal" className="nav-link">Enter as a <br /> Leader</Link>
-                </button>
+                <Link to="/leader-portal" className="nav-link">
+                    <button className='button' style={{width: "11rem"}}>
+                        Enter as an Leader
+                    </button>
+                </Link>
             </div>
-    
         </div>
         
     );

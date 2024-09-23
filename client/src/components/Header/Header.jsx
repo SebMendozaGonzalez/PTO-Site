@@ -11,10 +11,21 @@ const Header = () => {
         <img src={logo} alt="Company Logo" className="company-logo" />
       </div>
       <nav className="nav-options">
-        <Link to="/" className="nav-link">Home</Link>
-        <Link to="/employee-portal" className="nav-link">Employee Portal</Link>
-        <Link to="/leader-portal" className="nav-link">Leader Portal</Link>
-        <button className="btn-login dark-button button">Login</button>
+
+        <Link to="/" className="nav-link">
+        <span>Home</span>
+        </Link>
+        <Link to="/employee-portal" className="nav-link">
+        <span>Employee Portal</span>
+        </Link>
+        <Link to="/leader-portal" className="nav-link">
+        <span>Leader Portal</span>
+        </Link>
+        
+        <div className='btn-login'>
+          <button className="button">Login</button>
+        </div>
+        
       </nav>
     </header>
   );

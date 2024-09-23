@@ -16,6 +16,12 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
 }
 
+span{
+  text-align: left;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
 .logo-container .company-logo {
   height: 50px;
 }
@@ -31,17 +37,10 @@
 }
 
 .nav-link:hover {
-  text-decoration: underline;
+  transform: scale(1.14);
 }
 
-.btn-login {
-  background-color: #020242;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+.btn-login *{
+  max-height: 2.6em;
 }
 
-.btn-login:hover {
-  background-color: #0e40a4;
-}

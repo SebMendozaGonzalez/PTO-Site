@@ -3,7 +3,7 @@
   --secondary: rgb(21,96,246);
   --small: #072052;
   --links: #315cb1;
-  --light_primary: #6597fd;
+  --light_primary: #6296ff;
   --light_small: #f7f8fa;
   --light_background: #4162ed;
   --dark-gradient: linear-gradient(90.05deg, #000042 20%, #436bb9 85%);
@@ -72,16 +72,6 @@
 
 /*Buttons*/
 
-.dark-button {
-  font-weight: 500;
-  padding: 0.6rem 1.4rem;
-  color: var(--primary);
-  background: var(--dark-gradient);
-  border: none;
-  border-radius: 4px;
-  transition: all 300ms ease-in;
-  color: var(--light_small);
-}
 .light-button {
   font-weight: 500;
   padding: 0.6rem 1.4rem;
@@ -92,18 +82,49 @@
   transition: all 300ms ease-in;
 }
 
+
+.button {
+  background-color: #050f38; /* Blue background */
+  color: white; /* White text */
+  padding: 0.8em 1.2em; /* Spacing inside the button */
+  font-weight: 600;
+  font-size: 0.9em;
+  border: none; /* No border */
+  border-radius: 2em; /* Rounded edges */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-align: center; /* Center the text */
+  display: inline-flex; /* For inline layout */
+  align-items: center; /* Vertically centers the content */
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
 .button:hover {
+  background-color: white; /* White background on hover */
+  color: #0e40a4; /* Blue text on hover */
+  border: 0.1em solid #0e40a4;
   cursor: pointer;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
-.dark-button * {
-  color: inherit;
-  font-family: inherit;
+
+.button::after {
+  content: '🡢'; /* Right arrow icon */
+  margin-left: 1em; /* Space between text and arrow */
 }
-.light-button * {
-  color: inherit;
-  font-family: inherit;
+
+@media screen and (max-width: 768px) {
+  .button {
+      padding: 10px 20px; /* Adjust padding for smaller screens */
+      font-size: 14px; /* Reduce font size on smaller screens */
+  }
 }
+
+@media screen and (max-width: 480px) {
+  .button {
+      padding: 8px 16px; /* Further reduce padding for very small screens */
+      font-size: 12px; /* Smaller font size on small devices */
+  }
+}
+
 button *{
   text-decoration: inherit;
 }

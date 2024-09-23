@@ -1,8 +1,8 @@
 .dashboard-employee {
-    background: linear-gradient(170deg, #253364 13%, #4076e8 90%);;
+    background: linear-gradient(199deg, #050f38 70%, #a4c3ff 100%);;
     box-shadow:15px 8px 10px 10px rgba(0, 0, 0, 0.25);
     width: 100%;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 0.7rem 0.7rem 0.7rem 0.7rem;
 }
 
 h1 {
@@ -28,11 +28,11 @@ h3 {
 
 
 .image-container {
-    width: 350px;
-    height: 400px;
+    width: 23em;
+    height: 25em;
     overflow: hidden;
-    border-radius: 140px 140px 0 0; /* Makes the top rounded */
-    border: 8px solid rgba(255, 255, 255, 0.12); /* Window frame */
+    border-radius: 10em 10em 0 0; /* Makes the top rounded */
+    border: 0.3em solid rgba(255, 255, 255, 0.12); /* Window frame */
     position: relative;
 }
 
@@ -43,4 +43,13 @@ h3 {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.dashboardText {
+    width: 49em;
+    height: auto;
+}
+
+.insideStuff{
+    margin: auto;
 }

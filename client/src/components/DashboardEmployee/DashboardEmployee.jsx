@@ -4,17 +4,15 @@ import Image from "../../images/yo.jpg"
 
 function DashboardEmployee() {
   return (
-    <div className='dashboard-employee flexColStart paddings'>
-        <div className='paddings'>
-            <h1>Employee Dashboard</h1>
-        </div>
-        <div className='flexCenter'>
+    <div className='flexColStart paddings dashboard-employee'>
+        
 
-          <div className='paddings image-container' style = {{marginLeft: "4rem"}}>
+        <div className='flexCenter insideStuff'>
+          <div className='paddings image-container' style = {{marginLeft: "4em"}}>
             <img src={Image} alt="employee_img" />
           </div>
           
-          <div style = {{marginLeft: "4rem"}}>
+          <div className = "dashboardText" style = {{marginLeft: "3em"}}>
             <div className='flexCenter'>
             <div className='flexColCenter paddings'>
                 <h2>Accumulated days</h2>
@@ -25,11 +23,11 @@ function DashboardEmployee() {
                 <h3>20</h3>
             </div>
             <div className='flexColCenter paddings'>
-                <h2>Remaining days</h2>
+                <h2>Unused days</h2>
                 <h3>25</h3>
             </div>
             </div>
-            <div className='flexCenter' style={{fontSizeAdjust: "0.45"}}>
+            <div className='flexCenter'>
                 <div className='flexColCenter paddings'>
                     <h2>Days in the company</h2>
                     <h3>376</h3>

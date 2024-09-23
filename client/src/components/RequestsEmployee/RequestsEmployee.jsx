@@ -19,8 +19,8 @@ function RequestsEmployee() {
                 However, exceptions can be done, depending on your situation. 
                 <strong className='fonts-secondary'> Here</strong> you can request exceptional time off.
             </p>
-            <div className='btn-container paddings'>
-                <button className='button dark-button'>
+            <div className='paddings'>
+                <button className='button'>
                     Request PTO
                 </button>
             </div>
@@ -37,52 +37,69 @@ function RequestsEmployee() {
 
             </p>
             
-            <h3>Maternity License</h3>
-            <p>
-                Maternity licenses are given within a span of <strong className="fonts-secondary"> 18 weeks</strong>, 
-                which is the same as <strong className="fonts-secondary">126 days</strong>.
+            <div className='licenses flexColStart'>
+
+                <h3>Maternity License</h3>
+                <div className='license-container flexCenter'>
+                    <p>
+                        Maternity licenses are given within a span of <strong className="fonts-secondary">18 weeks</strong>, 
+                        which is the same as <strong className="fonts-secondary">126 business days</strong>.
+                    </p>
+                    <div className='paddings'>
+                        <button className='button innerWidth'>
+                            Request
+                        </button>
+                    </div>
+                </div>
                 
-            </p>
-            <div className='btn-container paddings'>
-                <button className='button dark-button innerWidth'>
-                    Request
-                </button>
-            </div>
-
-            <h3>Paternity License</h3>
-            <p>
-                Paternity licenses are given within a span of <strong className="fonts-secondary"> 2 weeks</strong>, 
-                which is the same as <strong className="fonts-secondary">14 days</strong>.
                 
-            </p>
-            <div className='btn-container paddings'>
-                <button className='button dark-button innerWidth'>
-                    Request                   
-                </button>
-            </div>
 
-            <h3>Domestic Calamity License</h3>
-            <p>
-                Domestic calamity licenses are unforseen things that happen in your home that prevent
-                your presence at the workplace.
-            </p>
-            <div className='btn-container paddings'>
-                <button className='button dark-button innerWidth'>
-                    Request                   
-                </button>
-            </div>
+                <h3>Paternity License</h3>
+                <div className='license-container flexCenter'>
+                    <p>
+                        Paternity licenses are given within a span of <strong className="fonts-secondary"> 2 weeks</strong>, 
+                        which is the same as <strong className="fonts-secondary">14 business days</strong>.
+                        
+                    </p>
+                    <div className='paddings'>
+                        <button className='button innerWidth'>
+                            Request                   
+                        </button>
+                    </div>
+                </div>
+                
 
-            <h3>Bereavement</h3>
-            <p>
-                Bereavement is a license granted to you by law that covers leaves caused by the death of a family member. <br />
-                When this happens, you get <strong className="fonts-secondary">5 business days</strong> of permit, 
-                while getting <strong className="fonts-secondary">30 business days</strong> to send proof.
-            </p>
-            <div className='btn-container paddings'>
-                <button className='button dark-button innerWidth'>
-                    Request                   
-                </button>
+                <h3>Domestic Calamity License</h3>
+                <div className='license-container flexCenter'>
+                    <p>
+                        Domestic calamity licenses cover unforseen things that happen in your home that prevent
+                        your presence at the workplace. They span <strong className="fonts-secondary">1 business day</strong>.
+                    </p>
+                    <div className='paddings'>
+                        <button className='button innerWidth'>
+                            Request                   
+                        </button>
+                    </div>
+                </div>
+                
+
+                <h3>Bereavement</h3>
+                <div className='license-container flexCenter'>
+                    <p>
+                        Bereavement is a license granted to you by law that covers leaves caused by the death of a family member. 
+                        When this happens, you get <strong className="fonts-secondary">5 business days</strong> of permit, 
+                        while getting <strong className="fonts-secondary">30 business days</strong> to send proof.
+                    </p>
+                    <div className='paddings'>
+                        <button className='button innerWidth'>
+                            Request                   
+                        </button>
+                    </div>
+                </div>
+                
             </div>
+            
+            
 
         </div>
         <div className='flexColStart paddings paragraph'>
@@ -96,7 +113,7 @@ function RequestsEmployee() {
                 one week of anticipation.
             </p>
             <div className='btn-container paddings'>
-                <button className='button dark-button'>
+                <button className='button'>
                     Request UTO
                 </button>
             </div>
