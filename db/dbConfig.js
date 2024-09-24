@@ -1,29 +1,9 @@
-const sql = require('mssql');
+const { Pool } = require('pg');
 require('dotenv').config(); // Load environment variables from .env file
 
-// Database config loaded from .env
-const config = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER,
-  database: process.env.DB_NAME,
-  options: {
-    encrypt: true, // For Azure
-  }
-};
+// Create a new pool using the connection string from the .env file
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL, // Ensure DATABASE_URL is defined in your .env file
+});
 
-// Function to connect to the database
-const connectToDb = async () => {
-  try {
-    const pool = await sql.connect(config);
-    return pool;
-  } catch (err) {
-    console.error('Database connection failed:', err);
-    throw err;
-  }
-};
-
-module.exports = {
-  connectToDb,
-  sql
-};
+module.exports = pool; // Export the pool to be used in other parts of your application

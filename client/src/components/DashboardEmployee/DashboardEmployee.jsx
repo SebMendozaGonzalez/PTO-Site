@@ -33,7 +33,7 @@ function DashboardEmployee() {
                     <h3>376</h3>
                 </div>
                 <div className='flexColCenter paddings'>
-                    <h2>Days compensated</h2>
+                    <h2>Cashed days</h2>
                     <h3>5</h3>
                 </div>
             </div>

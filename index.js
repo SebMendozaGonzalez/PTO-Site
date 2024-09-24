@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const leaderRoutes = require('./routes/leaderRoutes'); 
+const leaderPortalRoutes = require('./routes/leaderPortal'); // Corrected variable name
 require('dotenv').config();
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(cors({
 app.use(express.json());
 
 // Use API routes for leader actions
-app.use('/api/leaders', leaderRoutes);
+app.use('/leader-portal', leaderPortalRoutes); // Use the correct variable
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -31,5 +31,3 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-//Veamos si ya todo está melo
