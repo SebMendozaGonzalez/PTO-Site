@@ -1,0 +1,23 @@
+.table-leaders {
+    margin-top: 4rem;
+}
+
+.filter-input{
+    padding: 0.8rem 1.2rem; /* Spacing inside the button */
+    font-weight: 400;
+    font-size: 0.7rem;
+    border: 0.1rem solid #050f38;
+    border-radius: 0.4rem; /* Rounded edges */
+    text-align: center; /* Center the text */
+    display: inline-flex; /* For inline layout */
+    align-items: center;
+    max-height: 1rem;
+    max-width: 7rem;
+}
+
+.filter-label{
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--primary);
+}
