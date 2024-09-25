@@ -5,8 +5,9 @@ import { format } from 'date-fns'; // Import format from date-fns
 import './TableLeaders.css';
 
 const TableLeaders = () => {
-  const [employees, setEmployees] = useState([]); 
-  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 }); // Initialize pagination model
+  const [employees, setEmployees] = useState([]);
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 });
+  const [filterLeaderId, setFilterLeaderId] = useState(''); // State for leader ID filter
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -37,6 +38,11 @@ const TableLeaders = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  // Filter employees by leader ID
+  const filteredEmployees = employees.filter(employee => {
+    return filterLeaderId ? employee.leader_id === filterLeaderId : true; // Filter by leader ID if set
+  });
+
   const columns = [
     { field: 'employee_id', headerName: 'ID', width: 105 },
     { field: 'name', headerName: 'Name', width: 160 },
@@ -51,14 +57,24 @@ const TableLeaders = () => {
 
   return (
     <div className='table-leaders paddings'>
+      <div>
+        <label htmlFor="leaderId">Filter by Leader ID: </label>
+        <input
+          id="leaderId"
+          type="text"
+          value={filterLeaderId}
+          onChange={(e) => setFilterLeaderId(e.target.value)}
+          placeholder="Enter Leader ID"
+        />
+      </div>
       <div style={{ height: 400, width: '85rem' }}>
         <DataGrid
-          rows={employees} 
+          rows={filteredEmployees} // Use filtered employees
           columns={columns} 
           pagination
-          paginationModel={paginationModel} // Set the pagination model
-          onPaginationModelChange={(newModel) => setPaginationModel(newModel)} // Update pagination model on change
-          pageSizeOptions={[5, 10]} // Include the page size options
+          paginationModel={paginationModel}
+          onPaginationModelChange={(newModel) => setPaginationModel(newModel)}
+          pageSizeOptions={[5, 10]} 
           getRowId={(row) => row.employee_id} 
         />
       </div>
