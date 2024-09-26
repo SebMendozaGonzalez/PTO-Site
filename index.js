@@ -3,6 +3,7 @@ const path = require('path');
 const cors = require('cors');
 const employeesInfoRoute = require('./routes/employeesInfo');
 const vacationsInfoRoute = require('./routes/vacationsInfo');
+const vacationsXemployeeInfoRoute = require('./routes/vacationsXemployeeInfo');
 require('dotenv').config();
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.json());
 // API routes for data
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
+app.use('/vacationsXemployee-info', vacationsXemployeeInfoRoute);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));

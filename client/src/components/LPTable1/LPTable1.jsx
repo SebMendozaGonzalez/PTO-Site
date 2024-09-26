@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
-import { format } from 'date-fns'; // Import format from date-fns
+import { format } from 'date-fns';
 import './LPTable1.css';
 
-const LPTable1 = () => {
+const LPTable1 = ({ filterLeaderId, filterLeaderName }) => {
   const [employees, setEmployees] = useState([]);
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 5 });
-  const [filterLeaderId, setFilterLeaderId] = useState(''); // State for leader ID filter
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +20,7 @@ const LPTable1 = () => {
             start_date: format(new Date(employee.start_date), 'MM/dd/yyyy'),
             date_of_birth: format(new Date(employee.date_of_birth), 'MM/dd/yyyy')
           }));
-          setEmployees(formattedEmployees); 
+          setEmployees(formattedEmployees);
         } else {
           throw new Error('Expected an array but received: ' + JSON.stringify(response.data));
         }
@@ -38,9 +37,11 @@ const LPTable1 = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  // Filter employees by leader ID
+  // Apply filter by leader ID and name
   const filteredEmployees = employees.filter(employee => {
-    return filterLeaderId ? employee.leader_id === filterLeaderId : true; // Filter by leader ID if set
+    const matchesLeaderId = filterLeaderId ? employee.leader_id === filterLeaderId : true;
+    const matchesLeaderName = filterLeaderName ? employee.name.toLowerCase().includes(filterLeaderName.toLowerCase()) : true;
+    return matchesLeaderId && matchesLeaderName;
   });
 
   const columns = [
@@ -57,26 +58,15 @@ const LPTable1 = () => {
 
   return (
     <div className='table-leaders paddings flexColStart'>
-      <div className='paddings'>
-        <label htmlFor="leaderId" className='filter-label'>Filter by Leader ID: </label>
-        <input
-          id="leaderId"
-          type="text"
-          value={filterLeaderId}
-          onChange={(e) => setFilterLeaderId(e.target.value)}
-          placeholder="Enter Leader ID"
-          className='filter-input'
-        />
-      </div>
       <div style={{ height: 400, width: '85rem' }}>
         <DataGrid
-          rows={filteredEmployees} // Use filtered employees
-          columns={columns} 
+          rows={filteredEmployees}
+          columns={columns}
           pagination
           paginationModel={paginationModel}
           onPaginationModelChange={(newModel) => setPaginationModel(newModel)}
-          pageSizeOptions={[5, 10]} 
-          getRowId={(row) => row.employee_id} 
+          pageSizeOptions={[5, 10]}
+          getRowId={(row) => row.employee_id}
         />
       </div>
     </div>

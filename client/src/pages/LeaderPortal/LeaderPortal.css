@@ -1,6 +1,7 @@
 .leader-portal {
-  padding: 20px;
-  margin-top: 5rem;
+  padding: 2rem;
+  margin-top: 10rem;
+  overflow-x: hidden;
 }
 
 .employee-table {
