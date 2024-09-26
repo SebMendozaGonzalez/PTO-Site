@@ -48,15 +48,15 @@ const LPTable = ({ filterLeaderId, filterLeaderName }) => {
   });
 
   const columnDefs = [
-    { field: 'employee_id', headerName: 'ID', width: 100 },
-    { field: 'name', headerName: 'Name', width: 150 },
-    { field: 'position', headerName: 'Position', width: 200 },
+    { field: 'employee_id', headerName: 'ID', width: 125 },
+    { field: 'name', headerName: 'Name', width: 180 },
+    { field: 'position', headerName: 'Position', width: 230 },
     { field: 'start_date', headerName: 'Start Date', width: 120 },
     { field: 'end_date', headerName: 'End Date', width: 120 },
-    { field: 'total_days', headerName: 'Total Days', width: 140 },
-    { field: 'accued_days', headerName: 'Accumulated', width: 140 },
-    { field: 'used_days', headerName: 'Used Days', width: 140 },
-    { field: 'remaining_days', headerName: 'Unused Days', width: 140 },
+    { field: 'total_days', headerName: 'Total Days', width: 130 },
+    { field: 'accued_days', headerName: 'Accumulated', width: 150 },
+    { field: 'used_days', headerName: 'Used Days', width: 130 },
+    { field: 'remaining_days', headerName: 'Unused Days', width: 145},
   ];
 
   return (
@@ -68,7 +68,7 @@ const LPTable = ({ filterLeaderId, filterLeaderName }) => {
           pagination={true}
           paginationPageSize={5}
           domLayout="normal" // Ensure the normal layout is used to keep header and footer fixed
-          enableCellTextSelection={true} // Allows text selection
+          enableCellTextSelection={true} 
           suppressHorizontalScroll={false}
           alwaysShowHorizontalScroll={true} // Always show horizontal scrollbar
         />
