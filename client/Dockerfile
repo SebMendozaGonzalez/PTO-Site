@@ -1,5 +1,5 @@
-# Use an official Node.js runtime as a parent image
-FROM node:latest
+# Stage 1: Build the React app
+FROM node:20 AS builder
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,14 +13,23 @@ RUN npm install
 # Copy the rest of the frontend code
 COPY . .
 
-# Build the React app
+# Build the React app for production
 RUN npm run build
 
-# Serve the app using a static server
+# Stage 2: Serve the app
+FROM node:20-slim
+
+# Set the working directory for serving
+WORKDIR /app
+
+# Install `serve` globally to serve the static files
 RUN npm install -g serve
+
+# Copy the build files from the builder stage
+COPY --from=builder /app/build /app/build
 
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Command to serve the React app
-CMD ["serve", "-s", "build"]
+# Command to serve the React app (correct path)
+CMD ["serve", "-s", "build", "--single"]

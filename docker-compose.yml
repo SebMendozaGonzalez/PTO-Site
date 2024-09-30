@@ -1,23 +1,24 @@
+version: '3.8'  # Specify a version for better compatibility
 
 services:
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile  # Path to backend Dockerfile (root)
+      context: .  # Path to the backend Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
-    depends_on:
-      - frontend
     environment:
       NODE_ENV: production
+    depends_on:
+      - frontend  # This ensures that the frontend starts after the backend
     command: npm start
 
   frontend:
     build:
-      context: ./client  # Path to frontend Dockerfile (inside client folder)
+      context: ./client  # Path to the frontend Dockerfile
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
       NODE_ENV: production
-    command: serve -s build
+    command: serve -s build --single
