@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import './LPTable.css';
 
-const LPTable = ({ filterLeaderId, filterLeaderName }) => {
+const LPTable = ({ filterLeaderName }) => {
   const [employees, setEmployees] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -56,19 +56,19 @@ const LPTable = ({ filterLeaderId, filterLeaderName }) => {
     { field: 'total_days', headerName: 'Total Days', width: 130 },
     { field: 'accued_days', headerName: 'Accumulated', width: 150 },
     { field: 'used_days', headerName: 'Used Days', width: 130 },
-    { field: 'remaining_days', headerName: 'Unused Days', width: 145},
+    { field: 'remaining_days', headerName: 'Unused Days', width: 145 },
   ];
 
   return (
     <div className='table-container'>
       <div className="ag-theme-alpine table">
-      <AgGridReact
+        <AgGridReact
           rowData={filteredEmployees}
           columnDefs={columnDefs}
           pagination={true}
           paginationPageSize={5}
           domLayout="normal" // Ensure the normal layout is used to keep header and footer fixed
-          enableCellTextSelection={true} 
+          enableCellTextSelection={true}
           suppressHorizontalScroll={false}
           alwaysShowHorizontalScroll={true} // Always show horizontal scrollbar
         />

@@ -6,6 +6,8 @@ import EmployeePortal from './pages/EmployeePortal/EmployeePortal';
 import LeaderPortal from './pages/LeaderPortal/LeaderPortal';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import RequestPortal from './pages/RequestPortal/RequestPortal';
+
 import './App.css';
 
 const App = () => {
@@ -17,6 +19,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/employee-portal" element={<EmployeePortal />} />
           <Route path="/leader-portal" element={<LeaderPortal />} />
+          <Route path="/request-portal" element={<RequestPortal/>}></Route>
         </Routes>
       </main>
       <Footer />

@@ -5,10 +5,10 @@ function LeaderPortal() {
   const [filterLeaderName, setFilterLeaderName] = useState(''); // State for leader name filter (if applicable)
 
   return (
-    <div className='leader-portal flexColStart'>
+    <div className='flexColStart leader-portal'>
       
       <div className='paddings'>
-        <label htmlFor="leaderName" className='filter-label'>Filter by Leader Name: </label>
+        <label htmlFor="leaderName" className='filter-label fonts-primary'>Leader Name: </label>
         <input
           id="leaderName"
           type="text"
