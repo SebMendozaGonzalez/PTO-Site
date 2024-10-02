@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'  # Ensure this matches your GitHub environment
+      name: 'production'  # Ensure this matches your GitHub environment
     permissions:
       id-token: write  # This is required for requesting the JWT
 
