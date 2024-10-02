@@ -29,7 +29,7 @@ const RequestPortal = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/request', formData);
+            //const response = await axios.post('http://localhost:5000/request', formData);
             setResponseMessage('Request submitted successfully!');
             setFormData({
                 type_of_to: '',
