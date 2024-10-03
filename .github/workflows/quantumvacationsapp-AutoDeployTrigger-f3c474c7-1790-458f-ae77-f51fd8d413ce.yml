@@ -31,7 +31,7 @@ jobs:
         run: cp -r ./client/build ./build
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip ./* -x node_modules/\*
+        run: zip -r release.zip ./* -x node_modules/\* -x client/node_modules/\* -x .git/\* -x .github/\* -x tests/\* -x logs/\* -x *.md
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -60,6 +60,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'quantumvacations'
-          slot-name: 'Production'
+          slot-name: 'staging'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1500A234A93C48A2808D617C1AD5E816 }}
