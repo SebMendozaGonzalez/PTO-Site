@@ -20,6 +20,18 @@ app.use(cors({
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+const checkRole = (role) => {
+  return (req, res, next) => {
+    const userRoles = req.user.roles; // Assuming you are storing roles in user object
+    if (userRoles && userRoles.includes(role)) {
+      next();
+    } else {
+      res.status(403).send('You don\' have the permissions to enter this page');
+    }
+  };
+};
+
+
 // API routes for data
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
@@ -27,6 +39,10 @@ app.use('/vacationsXemployee-info', vacationsXemployeeInfoRoute);
 app.use('/requests-info', requestsInfoRoute)
 app.use('/request', vacationRequestRoute);
 
+// Protect the leader portal route
+app.get('/leader-portal', checkRole('Leader'), (req, res) => {
+  res.send('Welcome to the Leader Portal');
+});
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
