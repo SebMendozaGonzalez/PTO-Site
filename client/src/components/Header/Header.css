@@ -37,7 +37,7 @@ span{
 }
 
 .nav-link:hover {
-  transform: scale(1.14);
+  color: #81a4e9;
 }
 
 .btn-login *{
