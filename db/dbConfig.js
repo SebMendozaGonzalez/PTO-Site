@@ -1,9 +1,30 @@
-const { Pool } = require('pg');
-require('dotenv').config(); // Load environment variables from .env file
+const sql = require('mssql');
 
-// Create a new pool using the connection string from the .env file
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL, // Ensure DATABASE_URL is defined in your .env file
-});
+// Database configuration using Azure App Service environment variables
+const dbConfig = {
+    user: process.env.SQLAZURECONNSTR_quantumvacations_User,
+    password: process.env.SQLAZURECONNSTR_quantumvacations_Password,
+    server: process.env.SQLAZURECONNSTR_quantumvacations_Server, 
+    database: process.env.SQLAZURECONNSTR_quantumvacations_InitialCatalog,
+    options: {
+        encrypt: true, // Use encryption for Azure SQL
+        trustServerCertificate: false // Use if required by the configuration
+    }
+};
 
-module.exports = pool; // Export the pool to be used in other parts of your application
+// Function to connect to the SQL database
+async function connectToDatabase() {
+    try {
+        const pool = await sql.connect(dbConfig);
+        console.log('Connected to Azure SQL Database');
+        return pool;
+    } catch (error) {
+        console.error('Database connection failed: ', error);
+        throw error;
+    }
+}
+
+// Export the connection function
+module.exports = {
+    connectToDatabase
+};

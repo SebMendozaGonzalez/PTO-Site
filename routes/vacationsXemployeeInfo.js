@@ -1,16 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../db/dbConfig');
+const { connectToDatabase } = require('../db/dbConfig');
 
-
-router.get('/', async (req, res) => {
+async function getEmployees(req, res) {
     try {
-        const result = await pool.query('SELECT * FROM vacationsXemployee ORDER BY employee_id DESC');
-        res.json(result.rows);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server error');
+        const pool = await connectToDatabase();
+        const result = await pool.request().query('SELECT * FROM Employees');
+        res.json(result.recordset);
+    } catch (error) {
+        res.status(500).send('Error fetching employees: ' + error);
     }
-});
+}
 
-module.exports = router;
+module.exports = { getEmployees };
