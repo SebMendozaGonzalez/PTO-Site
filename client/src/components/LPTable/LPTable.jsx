@@ -13,7 +13,7 @@ const LPTable = ({ filterLeaderName }) => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('https://quantumvacations-b0cndcaagsgzhtfq.brazilsouth-01.azurewebsites.net/vacationsXemployee-info');
+        const response = await axios.get('https://quantumhr.azurewebsites.net');
         if (Array.isArray(response.data)) {
           const formattedEmployees = response.data.map(employee => ({
             ...employee,
