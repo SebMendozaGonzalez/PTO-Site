@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../db/dbConfig');  // Your PostgreSQL Pool
 
 // Route to handle vacation requests
-router.post('/requests', async (req, res) => {
+router.post('/', async (req, res) => {
     const { type_of_to, start_date, end_date, explanation, employee_id, is_exception } = req.body;
 
     try {
