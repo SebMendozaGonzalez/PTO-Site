@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 
 // Middleware to handle CORS
 app.use(cors({
-  origin: 'https://quantumvacations-b0cndcaagsgzhtfq.brazilsouth-01.azurewebsites.net',
+  origin: 'https://quantumhr.azurewebsites.net',
   credentials: true
 }));
 
