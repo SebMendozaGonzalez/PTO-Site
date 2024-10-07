@@ -37,7 +37,7 @@ jobs:
         run: zip -r release.zip ./* -x node_modules/\* -x client/node_modules/\* -x .git/\* -x .github/\* -x tests/\* -x logs/\* -x *.md
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: node-app
           path: release.zip
