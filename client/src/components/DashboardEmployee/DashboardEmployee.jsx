@@ -16,25 +16,25 @@ function DashboardEmployee() {
             <div className='flexCenter'>
             <div className='flexColCenter paddings'>
                 <h2>Accumulated days</h2>
-                <h3>45</h3>
+                <h3>43.13</h3>
             </div>
             <div className='flexColCenter paddings'>
                 <h2>Used days</h2>
-                <h3>20</h3>
+                <h3>13</h3>
             </div>
             <div className='flexColCenter paddings'>
-                <h2>Unused days</h2>
-                <h3>25</h3>
+                <h2>Available days</h2>
+                <h3>30</h3>
             </div>
             </div>
             <div className='flexCenter'>
                 <div className='flexColCenter paddings'>
                     <h2>Days in the company</h2>
-                    <h3>376</h3>
+                    <h3>1035</h3>
                 </div>
                 <div className='flexColCenter paddings'>
-                    <h2>Cashed days</h2>
-                    <h3>5</h3>
+                    <h2>Liquidated days</h2>
+                    <h3>0</h3>
                 </div>
             </div>
           </div>
