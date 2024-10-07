@@ -13,26 +13,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Set up Node.js
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
+      # Install backend dependencies using npm ci (faster and deterministic)
       - name: Install backend dependencies
-        run: npm install
+        run: npm ci
 
+      # Install frontend dependencies and build the frontend
       - name: Install frontend dependencies and build
         working-directory: ./client
         run: |
-          npm install
-          npm run build 
+          npm ci
+          npm run build
 
+      # Copy frontend build to backend
       - name: Copy React build to backend
         run: cp -r ./client/build ./build
 
+      # Zip the backend including frontend build, excluding unnecessary files
       - name: Zip artifact for deployment
         run: zip -r release.zip ./* -x node_modules/\* -x client/node_modules/\* -x .git/\* -x .github/\* -x tests/\* -x logs/\* -x *.md
 
+      # Upload the zipped artifact for deployment
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
@@ -47,17 +53,17 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+      # Download the artifact from the build job
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: node-app
 
+      # Unzip the artifact for deployment
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      # Since node_modules/ is not part of the artifact, Oryx will run npm install for us automatically
-      # So we don't need to add npm install manually again here.
-
+      # Deploy the app to Azure Web App using the publish profile
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
