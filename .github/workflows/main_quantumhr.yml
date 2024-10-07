@@ -18,7 +18,6 @@ jobs:
         with:
           node-version: '20.x'
 
-      # Install backend dependencies for build
       - name: Install backend dependencies
         run: npm install
 
@@ -56,9 +55,8 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      # Reinstall dependencies before deploying to ensure everything is set up properly
-      - name: Install backend dependencies before deployment
-        run: npm install
+      # Since node_modules/ is not part of the artifact, Oryx will run npm install for us automatically
+      # So we don't need to add npm install manually again here.
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
