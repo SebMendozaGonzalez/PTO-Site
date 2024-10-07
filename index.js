@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 
 // Middleware to handle CORS
 app.use(cors({
-  origin: 'https://quantumvacations-b0cndcaagsgzhtfq.brazilsouth-01.azurewebsites.net/',
+  origin: 'https://quantumvacations-b0cndcaagsgzhtfq.brazilsouth-01.azurewebsites.net',
   credentials: true
 }));
 
@@ -50,6 +50,10 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 // Catch-all for serving the React app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
 });
 
 // Start the server
