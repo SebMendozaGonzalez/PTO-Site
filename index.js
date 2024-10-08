@@ -43,6 +43,19 @@ app.get('/leader-portal', checkRole('Leader'), (req, res) => {
   res.send('Welcome to the Leader Portal');
 });
 
+// Example using Express.js
+// src/server.js (or wherever your server code is)
+app.get('/logout', (req, res) => {
+  // Clear session or token data
+  req.session = null; // Or whatever method you use to manage sessions
+  
+  // Redirect to the Azure AD logout URL
+  const logoutUrl = `https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://quantumhr.azurewebsites.net`;
+  res.redirect(logoutUrl); // Redirect to Azure AD to sign out
+});
+
+
+
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 

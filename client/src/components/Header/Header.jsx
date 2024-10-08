@@ -1,3 +1,4 @@
+// src/components/Header/Header.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react'; // Import useMsal hook
@@ -12,7 +13,9 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    instance.logoutRedirect(); // Log out and redirect
+    instance.logoutRedirect({
+      postLogoutRedirectUri: "https://quantumhr.azurewebsites.net", // Redirect after logout
+    });
   };
 
   return (
@@ -31,14 +34,11 @@ const Header = () => {
           <span>Leader Portal</span>
         </Link>
 
-
         {accounts.length > 0 ? (
           <button className="button btn" onClick={handleLogout}>Logout</button> // Show Logout if logged in
         ) : (
           <button className="button btn" onClick={handleLogin}>Login</button> // Show Login if not logged in
         )}
-
-
       </nav>
     </header>
   );
