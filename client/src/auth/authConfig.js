@@ -1,16 +1,21 @@
 // src/auth/authConfig.js
+import { PublicClientApplication } from '@azure/msal-browser';
+
 const msalConfig = {
     auth: {
         clientId: "a564ad6f-c874-40c5-82c4-fbb412756468",
         authority: "https://login.microsoftonline.com/33d1ad6a-c8e7-4be9-bd3b-9942f85502bf",
-        redirectUri: "https://quantumhr.azurewebsites.net/.auth/login/aad/callback" // Change this to your production URL later
+        redirectUri: "https://quantumhr.azurewebsites.net/.auth/login/aad/callback"
     },
     cache: {
-        cacheLocation: "localStorage", // This can also be 'sessionStorage'
-        storeAuthStateInCookie: true, // Set this to true if you're having issues on IE11 or Edge
+        cacheLocation: "localStorage",
+        storeAuthStateInCookie: true,
     },
-    scopes: ["openid", "profile"] // Include this line
+    scopes: ["openid", "profile"]
 };
 
-// Export the configuration object
-export default msalConfig;
+// Create an instance of PublicClientApplication
+const msalInstance = new PublicClientApplication(msalConfig);
+
+// Export the MSAL instance
+export default msalInstance;

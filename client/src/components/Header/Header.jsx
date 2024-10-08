@@ -1,12 +1,12 @@
-// src/components/Header/Header.jsx
+// src/components/Header/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useMsal } from '@azure/msal-react'; // Import useMsal hook
+import { useMsal } from '@azure/msal-react';
 import './Header.css';
 import logo from '../../images/quantum-long-logo.png';
 
 const Header = () => {
-  const { instance, accounts } = useMsal(); // Destructure instance and accounts
+  const { instance, accounts } = useMsal(); // Use useMsal to access instance and accounts
 
   // Debugging: Check the accounts state
   console.log('Accounts:', accounts);
