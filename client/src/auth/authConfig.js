@@ -1,5 +1,4 @@
-import { PublicClientApplication } from '@azure/msal-browser';
-
+// src/auth/authConfig.js
 const msalConfig = {
     auth: {
         clientId: "a564ad6f-c874-40c5-82c4-fbb412756468",
@@ -13,6 +12,5 @@ const msalConfig = {
     scopes: ["openid", "profile"] // Include this line
 };
 
-const msalInstance = new PublicClientApplication(msalConfig);
-
-export default msalInstance;
+// Export the configuration object
+export default msalConfig;

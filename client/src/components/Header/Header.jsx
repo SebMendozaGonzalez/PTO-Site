@@ -11,9 +11,9 @@ const Header = () => {
   console.log('Accounts:', accounts);
 
   const handleLogin = () => {
-    instance.loginRedirect();  // Use MSAL's login method
+    instance.loginRedirect({ scopes: msalConfig.scopes }); // Pass scopes in the login method
   };
-
+  
   const handleLogout = () => {
     instance.logoutRedirect(); // Use MSAL's logout method
   };
