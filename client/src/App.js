@@ -3,7 +3,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { MsalProvider } from '@azure/msal-react';
 import { PublicClientApplication } from '@azure/msal-browser';
-import authConfig from '.src/auth/authConfig'; // Adjust the path if necessary
+import authConfig from './src/auth/authConfig'; // Adjust the path if necessary
 import Home from './pages/Home/Home';
 import EmployeePortal from './pages/EmployeePortal/EmployeePortal';
 import LeaderPortal from './pages/LeaderPortal/LeaderPortal';
