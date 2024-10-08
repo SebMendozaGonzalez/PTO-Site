@@ -6,8 +6,6 @@ import './WelcomeEmployees.css';
 function WelcomeEmployees() {
   const { accounts } = useMsal();
 
-  console.log(accounts); // Add this line for debugging
-
   return (
       <div className='flexColStart paddings innerWidth welcomeEmployees'>
           <h1 className='fonts-secondary' style={{ fontWeight: "700" }}>
