@@ -1,17 +1,18 @@
+// src/components/Header/Header.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useMsal } from '@azure/msal-react';
+import { useMsal } from '@azure/msal-react'; // Import useMsal hook
 import './Header.css';
 import logo from '../../images/quantum-long-logo.png';
 
 const Header = () => {
-  const { instance, accounts } = useMsal();
+  const { instance, accounts } = useMsal(); // Destructure instance and accounts
 
   // Debugging: Check the accounts state
   console.log('Accounts:', accounts);
 
   const handleLogin = () => {
-    instance.loginRedirect({ scopes: msalConfig.scopes }); // Pass scopes in the login method
+    instance.loginRedirect({ scopes: ["openid", "profile"] }); // Pass scopes in the login method
   };
   
   const handleLogout = () => {
