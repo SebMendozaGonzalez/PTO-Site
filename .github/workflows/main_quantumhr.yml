@@ -68,7 +68,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az webapp config appsettings set --name quantumhr --resource-group <Your_Resource_Group> --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
+            az webapp config appsettings set --name quantumhr --resource-group ResouceGroup --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
 
       # Deploy the app to Azure Web App using the publish profile
       - name: 'Deploy to Azure Web App'
