@@ -1,22 +1,27 @@
-// src/components/Header/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react';
 import './Header.css';
 import logo from '../../images/quantum-long-logo.png';
+import msalConfig from '../auth/authConfig';
 
 const Header = () => {
-  const { instance, accounts } = useMsal(); // Use useMsal to access instance and accounts
+  const { instance, accounts } = useMsal();
 
-  // Debugging: Check the accounts state
-  console.log('Accounts:', accounts);
-
-  const handleLogin = () => {
-    instance.loginRedirect({ scopes: ["openid", "profile"] }); // Pass scopes in the login method
+  const handleLogin = async () => {
+    try {
+      await instance.loginRedirect({ scopes: msalConfig.scopes });
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
-  
-  const handleLogout = () => {
-    instance.logoutRedirect(); // Use MSAL's logout method
+
+  const handleLogout = async () => {
+    try {
+      await instance.logoutRedirect();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   return (
@@ -36,9 +41,9 @@ const Header = () => {
         </Link>
 
         {accounts.length > 0 ? (
-          <button className="button btn" onClick={handleLogout}>Logout</button> // Show Logout if logged in
+          <button className="button btn" onClick={handleLogout}>Logout</button>
         ) : (
-          <button className="button btn" onClick={handleLogin}>Login</button> // Show Login if not logged in
+          <button className="button btn" onClick={handleLogin}>Login</button>
         )}
       </nav>
     </header>
