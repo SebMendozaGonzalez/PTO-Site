@@ -31,7 +31,6 @@ const checkRole = (role) => {
   };
 };
 
-
 // API routes for data
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
