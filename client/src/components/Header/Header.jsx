@@ -16,12 +16,26 @@ const Header = () => {
   }, [accounts]);
 
   const handleLogin = () => {
-    instance.loginRedirect();
+    instance.loginRedirect({ scopes: ["openid", "profile", "User.Read"] })
+      .then(response => {
+        console.log('Login response:', response);
+      })
+      .catch(error => {
+        console.log('Login error:', error);
+      });
   };
+  
 
   const handleLogout = () => {
-    instance.logoutRedirect();
+    instance.logoutRedirect()
+      .then(response => {
+        console.log('Logout response:', response);
+      })
+      .catch(error => {
+        console.log('Logout error:', error);
+      });
   };
+  
 
   return (
     <header className="header">
