@@ -1,12 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useMsal } from '@azure/msal-react'; // Import useMsal hook
 import './Header.css';
 import logo from '../../images/quantum-long-logo.png';
 
 const Header = () => {
-  
+  const { instance, accounts } = useMsal(); // Destructure instance and accounts
+
   const handleLogin = () => {
     window.location.href = '/.auth/login/aad';  // Redirect to Microsoft Entra login
+  };
+
+  const handleLogout = () => {
+    instance.logoutRedirect(); // Log out and redirect
   };
 
   return (
@@ -25,12 +31,18 @@ const Header = () => {
           <span>Leader Portal</span>
         </Link>
 
-        <div className='btn-login'>
-          <button className="button" onClick={handleLogin}>Login</button>
-        </div>
+
+        {accounts.length > 0 ? (
+          <button className="button btn" onClick={handleLogout}>Logout</button> // Show Logout if logged in
+        ) : (
+          <button className="button btn" onClick={handleLogin}>Login</button> // Show Login if not logged in
+        )}
+
+
       </nav>
     </header>
   );
 };
 
 export default Header;
+
