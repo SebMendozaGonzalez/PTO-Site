@@ -1,21 +1,21 @@
-// src/components/Header/Header.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useMsal } from '@azure/msal-react'; // Import useMsal hook
+import { useMsal } from '@azure/msal-react';
 import './Header.css';
 import logo from '../../images/quantum-long-logo.png';
 
 const Header = () => {
-  const { instance, accounts } = useMsal(); // Destructure instance and accounts
+  const { instance, accounts } = useMsal();
+
+  // Debugging: Check the accounts state
+  console.log('Accounts:', accounts);
 
   const handleLogin = () => {
-    window.location.href = '/.auth/login/aad';  // Redirect to Microsoft Entra login
+    instance.loginRedirect();  // Use MSAL's login method
   };
 
   const handleLogout = () => {
-    instance.logoutRedirect({
-      postLogoutRedirectUri: "https://quantumhr.azurewebsites.net", // Redirect after logout
-    });
+    instance.logoutRedirect(); // Use MSAL's logout method
   };
 
   return (
