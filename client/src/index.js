@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { MsalProvider, useMsal } from '@azure/msal-react'; // Import MsalProvider and useMsal
-import msalInstance from './auth/authConfig'; // Import the msal instance
+import { MsalProvider, useMsal } from '@azure/msal-react';
+import msalInstance from './auth/authConfig'; 
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -12,7 +12,11 @@ const AuthRedirectHandler = () => {
     const { instance } = useMsal(); // Get the MSAL instance
 
     useEffect(() => {
-        instance.handleRedirectPromise()
+        // Call the initialize method (if necessary)
+        instance.initialize()
+            .then(() => {
+                return instance.handleRedirectPromise();
+            })
             .then((authResult) => {
                 if (authResult) {
                     console.log('Login successful:', authResult);
@@ -32,7 +36,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>
-        <MsalProvider instance={msalInstance}> {/* Wrap your App with MsalProvider */}
+        <MsalProvider instance={msalInstance}>
             <Router>
                 <AuthRedirectHandler /> {/* Add the AuthRedirectHandler */}
                 <App />
@@ -42,4 +46,3 @@ root.render(
 );
 
 reportWebVitals();
-
