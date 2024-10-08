@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react';
 import './Header.css';
@@ -6,21 +6,21 @@ import logo from '../../images/quantum-long-logo.png';
 
 const Header = () => {
   const { instance, accounts } = useMsal();
+  const [userName, setUserName] = useState('');
 
-  const handleLogin = async () => {
-    try {
-      await instance.loginRedirect({ scopes: ["openid", "profile"] }); // Directly pass the scopes here
-    } catch (error) {
-      console.error("Login failed:", error);
+  // This useEffect will run when the component mounts, checking if user is logged in
+  useEffect(() => {
+    if (accounts && accounts.length > 0) {
+      setUserName(accounts[0].name);  // Set the user's name
     }
+  }, [accounts]);
+
+  const handleLogin = () => {
+    instance.loginRedirect();
   };
 
-  const handleLogout = async () => {
-    try {
-      await instance.logoutRedirect();
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+  const handleLogout = () => {
+    instance.logoutRedirect();
   };
 
   return (
@@ -40,7 +40,10 @@ const Header = () => {
         </Link>
 
         {accounts.length > 0 ? (
-          <button className="button btn" onClick={handleLogout}>Logout</button>
+          <>
+            <span>Welcome, {userName}</span>
+            <button className="button btn" onClick={handleLogout}>Logout</button>
+          </>
         ) : (
           <button className="button btn" onClick={handleLogin}>Login</button>
         )}
