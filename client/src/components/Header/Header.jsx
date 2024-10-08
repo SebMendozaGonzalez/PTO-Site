@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react';
 import './Header.css';
 import logo from '../../images/quantum-long-logo.png';
-import msalConfig from '../../auth/authConfig';
 
 const Header = () => {
   const { instance, accounts } = useMsal();
 
   const handleLogin = async () => {
     try {
-      await instance.loginRedirect({ scopes: msalConfig.scopes });
+      await instance.loginRedirect({ scopes: ["openid", "profile"] }); // Directly pass the scopes here
     } catch (error) {
       console.error("Login failed:", error);
     }
