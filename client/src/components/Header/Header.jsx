@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react';
 import './Header.css';
-import logo from '../../images/quantum-long-logo.png';
-import msalConfig from '../auth/authConfig';
+import logo from './../images/quantum-long-logo.png';
+import msalConfig from './auth/authConfig';
 
 const Header = () => {
   const { instance, accounts } = useMsal();
