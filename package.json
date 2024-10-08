@@ -30,6 +30,8 @@
   },
   "homepage": "https://github.com/SebMendozaGonzalez/PTO-Site#readme",
   "dependencies": {
+    "@azure/msal-browser": "^3.25.0",
+    "@azure/msal-react": "^2.1.1",
     "@babel/preset-react": "^7.24.7",
     "axios": "^1.7.7",
     "babel-loader": "^9.2.0",
