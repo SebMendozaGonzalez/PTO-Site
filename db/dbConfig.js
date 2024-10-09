@@ -1,16 +1,21 @@
 const sql = require('mssql');
 
+// Extracting the necessary environment variables
+const server = process.env.AZURE_SQL_SERVER;
+const database = process.env.AZURE_SQL_DATABASE;
+const port = parseInt(process.env.AZURE_SQL_PORT);
+const authenticationType = process.env.AZURE_SQL_AUTHENTICATIONTYPE; // You can use this if needed
+
 // Database configuration using Azure App Service environment variables
 const dbConfig = {
-    server: process.env.AZURE_SQL_SERVER, 
-    database: process.env.AZURE_SQL_DATABASE,
-    port: parseInt(process.env.AZURE_SQL_PORT), // Ensure port is an integer
+    server, 
+    port,
+    database,
     authentication: {
-        type: 'azure-active-directory-default' // Azure AD default authentication
+        type: authenticationType
     },
     options: {
-        encrypt: true, // Use encryption for Azure SQL
-        trustServerCertificate: false // Set to true only if needed
+        encrypt: true
     }
 };
 
