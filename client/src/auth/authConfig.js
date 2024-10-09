@@ -13,3 +13,6 @@ const msalConfig = {
 };
 
 export const msalInstance = new PublicClientApplication(msalConfig);
+
+// Expose msalInstance to window for debugging in the console
+window.msalInstance = msalInstance;
