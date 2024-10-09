@@ -2,13 +2,13 @@ const sql = require('mssql');
 
 // Database configuration using Azure App Service environment variables
 const dbConfig = {
-    user: process.env.SQLAZURECONNSTR_quantumvacations_User,
-    password: process.env.SQLAZURECONNSTR_quantumvacations_Password,
-    server: process.env.SQLAZURECONNSTR_quantumvacations_Server, 
-    database: process.env.SQLAZURECONNSTR_quantumvacations_InitialCatalog,
+    user: process.env.AZURE_SQL_SERVER_User, // Replace with actual service connector environment variables
+    password: process.env.AZURE_SQL_SERVER_Password,
+    server: process.env.AZURE_SQL_SERVER, 
+    database: process.env.AZURE_SQL_DATABASE,
     options: {
         encrypt: true, // Use encryption for Azure SQL
-        trustServerCertificate: false // Use if required by the configuration
+        trustServerCertificate: false // Set to true if required by your configuration
     }
 };
 
