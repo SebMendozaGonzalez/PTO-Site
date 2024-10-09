@@ -20,21 +20,7 @@ app.use(cors({
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-const checkRole = (role) => {
-  return (req, res, next) => {
-    const userRoles = req.user.roles; // Assuming you are storing roles in user object
-    if (userRoles && userRoles.includes(role)) {
-      next();
-    } else {
-      res.status(403).send('You don\' have the permissions to enter this page');
-    }
-  };
-};
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
 // API routes for data
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
@@ -43,22 +29,9 @@ app.use('/requests-info', requestsInfoRoute)
 app.use('/request', vacationRequestRoute);
 
 // Protect the leader portal route
-app.get('/leader-portal', checkRole('Leader'), (req, res) => {
+app.get('/leader-portal', (req, res) => {
   res.send('Welcome to the Leader Portal');
 });
-
-// Example using Express.js
-// src/server.js (or wherever your server code is)
-app.get('/logout', (req, res) => {
-  // Clear session or token data
-  req.session = null; // Or whatever method you use to manage sessions
-  
-  // Redirect to the Azure AD logout URL
-  const logoutUrl = `https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://quantumhr.azurewebsites.net`;
-  res.redirect(logoutUrl); // Redirect to Azure AD to sign out
-});
-
-
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
