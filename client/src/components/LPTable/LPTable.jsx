@@ -13,12 +13,11 @@ const LPTable = ({ filterLeaderName }) => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('https://quantumhr.azurewebsites.net');
+        const response = await axios.get('https://quantumhr.azurewebsites.net/employees-info');
         if (Array.isArray(response.data)) {
           const formattedEmployees = response.data.map(employee => ({
             ...employee,
             start_date: new Date(employee.start_date).toLocaleDateString('en-US'),
-            end_date: new Date(employee.end_date).toLocaleDateString('en-US'),
             date_of_birth: new Date(employee.end_date).toLocaleDateString('en-US'),
           }));
           setEmployees(formattedEmployees);
@@ -52,11 +51,7 @@ const LPTable = ({ filterLeaderName }) => {
     { field: 'name', headerName: 'Name', width: 180 },
     { field: 'position', headerName: 'Position', width: 230 },
     { field: 'start_date', headerName: 'Start Date', width: 120 },
-    { field: 'end_date', headerName: 'End Date', width: 120 },
-    { field: 'total_days', headerName: 'Total Days', width: 130 },
-    { field: 'accued_days', headerName: 'Accumulated', width: 150 },
-    { field: 'used_days', headerName: 'Used Days', width: 130 },
-    { field: 'remaining_days', headerName: 'Unused Days', width: 145 },
+    { field: 'leader', headerName: 'Leader', width: 230 },
   ];
 
   return (
