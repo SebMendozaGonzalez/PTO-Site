@@ -21,8 +21,6 @@ function DashboardEmployee({ employee }) {
       };
       fetchVacationInfo();
 
-      if (error) return <div>{error}</div>
-
       // Fetch the employee photo URL
       const fetchPhotoUrl = async () => {
         try {
@@ -36,6 +34,8 @@ function DashboardEmployee({ employee }) {
     }
   }, [employee]);
 
+  // Handle errors here
+  if (error) return <div>{error}</div>; // Show error message if it exists
   if (!employee) return null;
   if (!vacationInfo) return <div>Loading vacation info...</div>;
 
