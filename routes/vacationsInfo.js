@@ -12,7 +12,7 @@ router.get('/:employee_id', async (req, res) => {
             FROM vacations 
             WHERE employee_id = @employee_id
         `, {
-            employee_id: parseInt(employee_id),
+            employee_id: employee_id,
         });
         res.json(result.recordset[0] || {});  // Return the first matching record or an empty object
     } catch (err) {
