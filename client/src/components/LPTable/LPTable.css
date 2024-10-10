@@ -88,3 +88,11 @@
   background-color: #4163ec;
   border-radius: 10px;
 }
+
+
+.paragraph>p{
+  text-align: left;
+  font-weight: 500;
+  padding-bottom: 1rem;
+  font-size: 2em;
+}
