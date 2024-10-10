@@ -43,7 +43,7 @@ const LPTable = ({ filterLeaderName }) => {
       ? employee.leader && employee.leader.toLowerCase().includes(filterLeaderName.toLowerCase())
       : true;
 
-    return matchesLeaderName && employee.status === "ACTIVO";
+    return matchesLeaderName;
   });
 
   const columnDefs = [
