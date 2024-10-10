@@ -16,7 +16,7 @@ function DashboardEmployee({ employee }) {
           setVacationInfo(response.data);
         } catch (err) {
           console.error('Error fetching vacation info:', err);
-          setError('Failed to fetch vacations info');
+          setError('Failed to fetch vacations info'); //nose
         }
       };
       fetchVacationInfo();
@@ -27,7 +27,7 @@ function DashboardEmployee({ employee }) {
           const response = await axios.get(`https://quantumhr.azurewebsites.net/blob/photo/${employee.employee_id}`);
           setPhotoUrl(response.data.photoUrl);
         } catch (err) {
-          console.error('Error fetching photo URL:', err);
+          console.error('Error fetching photo URL:', err); // Default photo if fetching fails
         }
       };
       fetchPhotoUrl();
