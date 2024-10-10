@@ -1,25 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './DashboardEmployee.css';
+import axios from 'axios';
 import Image from "../../images/yo.jpg";
 
 function DashboardEmployee({ employee }) {
-  if (!employee) return null;
+  const [vacationInfo, setVacationInfo] = useState(null);  // State for vacation data
 
-  // Placeholder vacation data - replace with actual data when available
-  const accumulatedDays = 43.13; // Replace with employee-specific data
-  const usedDays = 13; // Replace with employee-specific data
-  const availableDays = accumulatedDays - usedDays;
-  const daysInCompany = 1035; // Example value, calculate based on employee start date
+  useEffect(() => {
+    if (employee) {
+      // Fetch vacation info for the selected employee
+      const fetchVacationInfo = async () => {
+        try {
+          const response = await axios.get(`https://quantumhr.azurewebsites.net/vacations-info/${employee.employee_id}`);
+          setVacationInfo(response.data);
+        } catch (err) {
+          console.error('Error fetching vacation info:', err);
+        }
+      };
+      fetchVacationInfo();
+    }
+  }, [employee]);
+
+  if (!employee) return null;
+  if (!vacationInfo) return <div>Loading vacation info...</div>;
+
+  const accumulatedDays = vacationInfo.accued_days || 0;
+  const usedDays = vacationInfo.used_days || 0;
+  const availableDays = vacationInfo.remaining_days || 0;
+  const daysInCompany = vacationInfo.total_days || 0;
 
   return (
     <div className='flexColStart paddings dashboard-employee'>
       <div className='flexCenter insideStuff'>
-        <div className='paddings image-container' style = {{marginLeft: "4em"}}>
+        <div className='paddings image-container' style={{ marginLeft: "4em" }}>
           <img src={Image} alt="employee_img" />
         </div>
         
-        <div className = "dashboardText" style = {{marginLeft: "3em"}}>
-          <h2>{employee.name}'s Vacation Info</h2>
+        <div className="dashboardText" style={{ marginLeft: "3em" }}>
           <div className='flexCenter'>
             <div className='flexColCenter paddings'>
               <h2>Accumulated days</h2>
@@ -41,7 +58,7 @@ function DashboardEmployee({ employee }) {
             </div>
             <div className='flexColCenter paddings'>
               <h2>Liquidated days</h2>
-              <h3>0</h3>
+              <h3>{vacationInfo.compensated_days || 0}</h3>
             </div>
           </div>
         </div>
