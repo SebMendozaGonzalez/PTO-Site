@@ -15,7 +15,8 @@ const dbConfig = {
         type: authenticationType
     },
     options: {
-        encrypt: true
+        encrypt: true,
+        trustServerCertificate: false
     }
 };
 
