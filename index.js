@@ -28,7 +28,7 @@ app.use('/vacations-info', vacationsInfoRoute);
 app.use('/vacationsXemployee-info', vacationsXemployeeInfoRoute);
 app.use('/requests-info', requestsInfoRoute)
 app.use('/request', vacationRequestRoute);
-app.use('blob', blobRoute)
+app.use('/blob', blobRoute)
 
 // Protect the leader portal route
 app.get('/leader-portal', (req, res) => {
