@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import './LPTable.css';
 
-const LPTable = ({ filterLeaderName }) => {
+const LPTable = ({ filterLeaderName, onEmployeeSelect }) => {
   const [employees, setEmployees] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -57,6 +57,10 @@ const LPTable = ({ filterLeaderName }) => {
     { field: 'emergency_phone', headerName: 'Emergency #', width: 160 },
   ];
 
+  const onRowClicked = (event) => {
+    onEmployeeSelect(event.data); // Pass the selected employee's data to the parent component
+  };
+
   return (
     <div className='flexColStart'>
       <div>
@@ -73,6 +77,7 @@ const LPTable = ({ filterLeaderName }) => {
             enableCellTextSelection={true}
             suppressHorizontalScroll={false}
             alwaysShowHorizontalScroll={true} // Always show horizontal scrollbar
+            onRowClicked={onRowClicked} // to capture row click events
           />
         </div>
       </div>
