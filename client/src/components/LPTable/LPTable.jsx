@@ -58,20 +58,26 @@ const LPTable = ({ filterLeaderName }) => {
   ];
 
   return (
-    <div className='table-container'>
-      <div className="ag-theme-alpine table">
-        <AgGridReact
-          rowData={filteredEmployees}
-          columnDefs={columnDefs}
-          pagination={true}
-          paginationPageSize={5}
-          domLayout="normal" // Ensure the normal layout is used to keep header and footer fixed
-          enableCellTextSelection={true}
-          suppressHorizontalScroll={false}
-          alwaysShowHorizontalScroll={true} // Always show horizontal scrollbar
-        />
+    <div>
+      <div className='fonts-primary paddings'>
+        <p> The following are the members of your team: <br/></p>
+      </div>
+      <div className='table-container paddings'>
+        <div className="ag-theme-alpine table">
+          <AgGridReact
+            rowData={filteredEmployees}
+            columnDefs={columnDefs}
+            pagination={true}
+            paginationPageSize={5}
+            domLayout="normal" // Ensure the normal layout is used to keep header and footer fixed
+            enableCellTextSelection={true}
+            suppressHorizontalScroll={false}
+            alwaysShowHorizontalScroll={true} // Always show horizontal scrollbar
+          />
+        </div>
       </div>
     </div>
+
   );
 };
 
