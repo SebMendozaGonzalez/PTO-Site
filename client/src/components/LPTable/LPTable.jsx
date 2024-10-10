@@ -59,7 +59,7 @@ const LPTable = ({ filterLeaderName }) => {
 
   return (
     <div className='flexColStart'>
-      <div className='paddings'>
+      <div>
         <p className='fonts-regular' style={{fontSize:"1.8 rem"}}> The following are the members of your team: <br/></p>
       </div>
       <div className='table-container paddings'>
