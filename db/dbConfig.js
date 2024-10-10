@@ -9,9 +9,9 @@ const authenticationType = process.env.AZURE_SQL_AUTHENTICATIONTYPE; // You can 
 // Database configuration using Azure App Service environment variables
 const dbConfig = {
     
-    server: server, 
-    port: port,
-    database: database,
+    server, 
+    port,
+    database,
     authentication: {
         type: authenticationType
     },
