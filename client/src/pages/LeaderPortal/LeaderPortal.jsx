@@ -25,9 +25,10 @@ function LeaderPortal() {
         <WelcomeLeaders />
         <LPTable filterLeaderName={filterLeaderName} />
         
-        <div style={{ transform: 'scale(0.75)',
+        <div style={{ transform: 'scale(0.7)',
            transformOrigin: 'top left',
-           marginLeft: "2rem" }}>
+           marginLeft: "2rem",
+           width:"100%" }}>
           <DashboardEmployee />
         </div>
       </div>
