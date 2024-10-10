@@ -51,11 +51,10 @@ const LPTable = ({ filterLeaderName }) => {
     { field: 'name', headerName: 'Name', width: 180 },
     { field: 'position', headerName: 'Position', width: 230 },
     { field: 'start_date', headerName: 'Start Date', width: 120 },
-    { field: 'data_of_birth', headerName: 'Date of Birth', width: 200 },
-    { field: 'email_surgical', headerName: 'Email Surgical', width: 230 },
-    { field: 'email_quantum', headerName: 'Email Quantum', width: 230 },
-    { field: 'emergency_contact', headerName: 'Emergency person', width: 230 },
-    { field: 'emergency_phone', headerName: 'Emergency phone', width: 230 },
+    { field: 'date_of_birth', headerName: 'Date of Birth', width: 150 },
+    { field: 'email_surgical', headerName: 'Email', width: 200 },
+    { field: 'emergency_contact', headerName: 'Emergency person', width: 140 },
+    { field: 'emergency_phone', headerName: 'Emergency phone', width: 160 },
   ];
 
   return (
