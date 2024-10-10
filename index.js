@@ -6,6 +6,7 @@ const vacationsInfoRoute = require('./routes/vacationsInfo');
 const vacationsXemployeeInfoRoute = require('./routes/vacationsXemployeeInfo');
 const requestsInfoRoute = require('./routes/requestsInfo');
 const vacationRequestRoute = require('./routes/requestRoute');
+const blobRoute = require('./routes/blobRoutes')
 require('dotenv').config();
 
 const app = express();
@@ -27,6 +28,7 @@ app.use('/vacations-info', vacationsInfoRoute);
 app.use('/vacationsXemployee-info', vacationsXemployeeInfoRoute);
 app.use('/requests-info', requestsInfoRoute)
 app.use('/request', vacationRequestRoute);
+app.use('blob', blobRoute)
 
 // Protect the leader portal route
 app.get('/leader-portal', (req, res) => {

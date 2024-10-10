@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './DashboardEmployee.css';
 import axios from 'axios';
-import Image from "../../images/yo.jpg";
 
 function DashboardEmployee({ employee }) {
   const [vacationInfo, setVacationInfo] = useState(null);  // State for vacation data
+  const [photoUrl, setPhotoUrl] = useState(null);          // State for employee photo URL
 
   useEffect(() => {
     if (employee) {
@@ -18,6 +18,17 @@ function DashboardEmployee({ employee }) {
         }
       };
       fetchVacationInfo();
+
+      // Fetch the employee photo URL
+      const fetchPhotoUrl = async () => {
+        try {
+          const response = await axios.get(`https://quantumhr.azurewebsites.net/api/photo/${employee.employee_id}`);
+          setPhotoUrl(response.data.photoUrl);
+        } catch (err) {
+          console.error('Error fetching photo URL:', err);
+        }
+      };
+      fetchPhotoUrl();
     }
   }, [employee]);
 
@@ -33,7 +44,11 @@ function DashboardEmployee({ employee }) {
     <div className='flexColStart paddings dashboard-employee'>
       <div className='flexCenter insideStuff'>
         <div className='paddings image-container' style={{ marginLeft: "4em" }}>
-          <img src={Image} alt="employee_img" />
+          {photoUrl ? (
+            <img src={photoUrl} alt="employee_img" />
+          ) : (
+            <div>Loading photo...</div> // Optional loading state for photo
+          )}
         </div>
         
         <div className="dashboardText" style={{ marginLeft: "3em" }}>
