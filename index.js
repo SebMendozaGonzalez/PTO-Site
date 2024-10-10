@@ -60,6 +60,13 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something went wrong!');
 });
 
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
