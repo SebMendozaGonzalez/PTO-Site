@@ -5,6 +5,7 @@ import axios from 'axios';
 function DashboardEmployee({ employee }) {
   const [vacationInfo, setVacationInfo] = useState(null);  // State for vacation data
   const [photoUrl, setPhotoUrl] = useState(null);          // State for employee photo URL
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (employee) {
@@ -15,9 +16,12 @@ function DashboardEmployee({ employee }) {
           setVacationInfo(response.data);
         } catch (err) {
           console.error('Error fetching vacation info:', err);
+          setError('Failed to fetch vacations info');
         }
       };
       fetchVacationInfo();
+
+      if (error) return <div>{error}</div>
 
       // Fetch the employee photo URL
       const fetchPhotoUrl = async () => {
