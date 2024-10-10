@@ -22,7 +22,7 @@ function DashboardEmployee({ employee }) {
       // Fetch the employee photo URL
       const fetchPhotoUrl = async () => {
         try {
-          const response = await axios.get(`https://quantumhr.azurewebsites.net/api/photo/${employee.employee_id}`);
+          const response = await axios.get(`https://quantumhr.azurewebsites.net/blob/photo/${employee.employee_id}`);
           setPhotoUrl(response.data.photoUrl);
         } catch (err) {
           console.error('Error fetching photo URL:', err);
