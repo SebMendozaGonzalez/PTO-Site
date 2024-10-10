@@ -22,9 +22,12 @@ function LeaderPortal() {
       </div>
 
       <div className='paddings'>
-        <WelcomeLeaders/>
+        <WelcomeLeaders />
         <LPTable filterLeaderName={filterLeaderName} />
-        <DashboardEmployee/>
+        
+        <div style={{ transform: 'scale(0.6)', transformOrigin: 'top left' }}>
+          <DashboardEmployee />
+        </div>
       </div>
       
     </div>
