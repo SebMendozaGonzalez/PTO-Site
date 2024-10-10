@@ -18,7 +18,7 @@ const LPTable = ({ filterLeaderName }) => {
           const formattedEmployees = response.data.map(employee => ({
             ...employee,
             start_date: new Date(employee.start_date).toLocaleDateString('en-US'),
-            date_of_birth: new Date(employee.end_date).toLocaleDateString('en-US'),
+            date_of_birth: new Date(employee.date_of_birth).toLocaleDateString('en-US'),
           }));
           setEmployees(formattedEmployees);
         } else {
