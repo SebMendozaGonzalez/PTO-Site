@@ -64,7 +64,7 @@ const LPTable = ({ filterLeaderName, onEmployeeSelect }) => {
   return (
     <div className='flexColStart'>
       <div>
-        <p className='fonts-regular' style={{fontSize:"1.8 rem"}}> The following are the members of your team: <br/></p>
+        <p className='fonts-regular' style={{fontSize:"2.5 rem", paddingLeft: "2rem"}}> The following are the members of your team: <br/></p>
       </div>
       <div className='table-container paddings'>
         <div className="ag-theme-alpine table">
