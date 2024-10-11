@@ -6,6 +6,7 @@ const vacationsInfoRoute = require('./routes/vacationsInfo');
 const vacationsXemployeeInfoRoute = require('./routes/vacationsXemployeeInfo');
 const requestsInfoRoute = require('./routes/requestsInfo');
 const vacationRequestRoute = require('./routes/requestRoute');
+const photoRoute = require('./routes/photoRoute');
 require('dotenv').config();
 
 const app = express();
@@ -30,6 +31,8 @@ app.use('/request', vacationRequestRoute);
 app.use('/employee-photos', express.static('/employee-photos', {
   fallthrough: false // Ensures that 404 is sent when a file is not found
 }));
+app.use('/employee-photos', photoRoute);
+
 
 
 // Protect the leader portal route

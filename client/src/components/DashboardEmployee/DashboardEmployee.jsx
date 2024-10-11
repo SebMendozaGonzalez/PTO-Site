@@ -27,16 +27,11 @@ function DashboardEmployee({ employee }) {
           await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/${employee.employee_id}.jpeg`);
           setPhotoUrl(`/employee-photos/${employee.employee_id}.jpeg`);
         } catch (err) {
-          if (err.response && err.response.status === 404) {
-            // Set default photo if not found (404 error)
-            setPhotoUrl(`/employee-photos/0.jpeg`);
-          } else {
-            console.error('Error fetching photo URL:', err);
-          }
+          console.error('Error fetching photo URL:', err);
         }
       };
       fetchPhotoUrl();
-    }else{
+    } else {
       const fetchVacationInfo = async () => {
         try {
           const response = await axios.get(`https://quantumhr.azurewebsites.net/vacations-info/1007055144`);
@@ -51,15 +46,10 @@ function DashboardEmployee({ employee }) {
       // Fetch the employee photo URL
       const fetchPhotoUrl = async () => {
         try {
-          await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/1007055144.jpeg`);
-          setPhotoUrl(`/employee-photos/1007055144.jpeg`);
+          await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/${employee.employee_id}.jpeg`);
+          setPhotoUrl(`/employee-photos/${employee.employee_id}.jpeg`);
         } catch (err) {
-          if (err.response && err.response.status === 404) {
-            // Set default photo if not found (404 error)
-            setPhotoUrl(`/employee-photos/0.jpeg`);
-          } else {
-            console.error('Error fetching photo URL:', err);
-          }
+          console.error('Error fetching photo URL:', err);
         }
       };
       fetchPhotoUrl();
