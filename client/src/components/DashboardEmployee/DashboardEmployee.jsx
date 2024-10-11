@@ -59,7 +59,7 @@ function DashboardEmployee({ employee_id }) {
   return (
     <div className='flexColStart paddings dashboard-employee'>
       <div className='flexCenter insideStuff'>
-        <div className='paddings image-container' style={{ marginLeft: "4em" }}>
+        <div className='paddings image-container' style={{ marginLeft: "3em" }}>
           {photoUrl ? (
             <img src={photoUrl} alt="Employee" />
           ) : (
