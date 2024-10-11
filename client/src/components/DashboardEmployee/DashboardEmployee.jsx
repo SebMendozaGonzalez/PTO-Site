@@ -36,6 +36,33 @@ function DashboardEmployee({ employee }) {
         }
       };
       fetchPhotoUrl();
+    }else{
+      const fetchVacationInfo = async () => {
+        try {
+          const response = await axios.get(`https://quantumhr.azurewebsites.net/vacations-info/1007055144.jpeg`);
+          setVacationInfo(response.data);
+        } catch (err) {
+          console.error('Error fetching vacation info:', err);
+          setError('Failed to fetch vacation info');
+        }
+      };
+      fetchVacationInfo();
+
+      // Fetch the employee photo URL
+      const fetchPhotoUrl = async () => {
+        try {
+          await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/1007055144.jpeg`);
+          setPhotoUrl(`/employee-photos/1007055144.jpeg`);
+        } catch (err) {
+          if (err.response && err.response.status === 404) {
+            // Set default photo if not found (404 error)
+            setPhotoUrl(`/employee-photos/0.jpeg`);
+          } else {
+            console.error('Error fetching photo URL:', err);
+          }
+        }
+      };
+      fetchPhotoUrl();
     }
   }, [employee]);
 
