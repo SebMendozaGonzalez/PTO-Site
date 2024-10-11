@@ -1,28 +1,26 @@
 const express = require('express');
-const path = require('path');
 const fs = require('fs');
-
+const path = require('path');
 const router = express.Router();
 
-// Define the directory where the photos are stored
-const photoDirectory = '/employee-photos'; // Mounted Azure Blob Storage path
+// Define the base directory where the photos are mounted
+const photosDir = '/employee-photos';
 
-// Route to serve employee photos
 router.get('/:employee_id.jpeg', (req, res) => {
-    const employeeId = req.params.employee_id;
-    const photoPath = path.join(photoDirectory, `${employeeId}.jpeg`);
+  const photoPath = path.join(photosDir, `${req.params.employee_id}.jpeg`);
+  const defaultPhoto = path.join(photosDir, '0.jpeg');
 
-    // Check if the photo exists
-    fs.access(photoPath, fs.constants.F_OK, (err) => {
-        if (err) {
-            // If the photo is not found, serve the default photo
-            const defaultPhotoPath = path.join(photoDirectory, '0.jpeg');
-            return res.sendFile(defaultPhotoPath);
-        } else {
-            // If found, serve the employee photo
-            return res.sendFile(photoPath);
-        }
-    });
+  // Check if the requested photo exists
+  fs.access(photoPath, fs.constants.F_OK, (err) => {
+    if (err) {
+      // If photo doesn't exist, send the default photo
+      console.log(`Photo not found for employee: ${req.params.employee_id}. Serving default photo.`);
+      res.sendFile(defaultPhoto);
+    } else {
+      // If photo exists, send the requested photo
+      res.sendFile(photoPath);
+    }
+  });
 });
 
 module.exports = router;

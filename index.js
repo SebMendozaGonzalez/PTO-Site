@@ -28,9 +28,6 @@ app.use('/vacations-info', vacationsInfoRoute);
 app.use('/vacationsXemployee-info', vacationsXemployeeInfoRoute);
 app.use('/requests-info', requestsInfoRoute)
 app.use('/request', vacationRequestRoute);
-app.use('/employee-photos', express.static('/employee-photos', {
-  fallthrough: false // Ensures that 404 is sent when a file is not found
-}));
 app.use('/employee-photos', photoRoute);
 
 
