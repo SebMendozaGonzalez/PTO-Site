@@ -3,7 +3,9 @@ import './RequestsCalendar.css'
 
 function RequestsCalendar({employee_id}) {
   return (
-    <div>The Employee ID is {employee_id}</div>
+    <div className='paddings flexColCenter request-calendar'>
+      this is the employee_id: {employee_id}
+    </div>
   )
 }
 

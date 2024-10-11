@@ -3,6 +3,7 @@ import LPTable from '../../components/LPTable/LPTable';
 import WelcomeLeaders from '../../components/WelcomeLeaders/WelcomeLeaders';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
+import './LeaderPortal.css'
 
 function LeaderPortal() {
   const [filterLeaderName, setFilterLeaderName] = useState(''); // State for leader name filter (if applicable)
@@ -14,7 +15,7 @@ function LeaderPortal() {
   };
 
   return (
-    <div className='flexColCenter leader-portal'>
+    <div className='leader-portal'>
       <div className='paddings'>
         <label htmlFor="leaderName" className='filter-label fonts-primary'>Leader Name: </label>
         <input
