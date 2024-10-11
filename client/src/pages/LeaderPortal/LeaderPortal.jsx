@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import LPTable from '../../components/LPTable/LPTable';
 import WelcomeLeaders from '../../components/WelcomeLeaders/WelcomeLeaders';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
+import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 
 function LeaderPortal() {
   const [filterLeaderName, setFilterLeaderName] = useState(''); // State for leader name filter (if applicable)
@@ -31,13 +32,16 @@ function LeaderPortal() {
         <LPTable filterLeaderName={filterLeaderName} onEmployeeSelect={handleEmployeeSelect} />
 
         <div style={{
-          transform: 'scale(0.9)',
+          transform: 'scale(0.91)',
           transformOrigin: 'top left',
           marginLeft: "2rem",
           width: "100%"
         }}>
           {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
         </div>
+
+        {selectedEmployeeId && <RequestsCalendar employee_id={selectedEmployeeId}/>}
+
       </div>
     </div>
   );

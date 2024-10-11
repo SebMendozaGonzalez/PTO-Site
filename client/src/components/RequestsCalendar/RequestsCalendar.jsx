@@ -1,8 +1,8 @@
 import React from 'react'
 
-function RequestsCalendar() {
+function RequestsCalendar({employee_id}) {
   return (
-    <div>RequestsCalendar</div>
+    <div>The Employee ID is {employee_id}</div>
   )
 }
 
