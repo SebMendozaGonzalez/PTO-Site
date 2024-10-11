@@ -5,16 +5,15 @@ import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmplo
 
 function LeaderPortal() {
   const [filterLeaderName, setFilterLeaderName] = useState(''); // State for leader name filter (if applicable)
-  const [selectedEmployee, setSelectedEmployee] = useState(null); // State for selected employee
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null); // State for selected employee_id
 
   // Function to handle employee selection from LPTable
   const handleEmployeeSelect = (employee) => {
-    setSelectedEmployee(employee);
+    setSelectedEmployeeId(employee.employee_id);
   };
 
   return (
     <div className='flexColCenter leader-portal'>
-
       <div className='paddings'>
         <label htmlFor="leaderName" className='filter-label fonts-primary'>Leader Name: </label>
         <input
@@ -37,10 +36,9 @@ function LeaderPortal() {
           marginLeft: "2rem",
           width: "100%"
         }}>
-          {selectedEmployee && <DashboardEmployee employee={selectedEmployee} />}
+          {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
         </div>
       </div>
-
     </div>
   );
 }

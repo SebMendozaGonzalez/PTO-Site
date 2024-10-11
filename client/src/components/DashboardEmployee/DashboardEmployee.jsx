@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './DashboardEmployee.css';
 import axios from 'axios';
 
-function DashboardEmployee({ employee }) {
+function DashboardEmployee({ employee_id }) {
   const [vacationInfo, setVacationInfo] = useState(null); // State for vacation data
   const [photoUrl, setPhotoUrl] = useState(null); // State for employee photo URL
   const [error, setError] = useState(null);
 
-  // Use the passed employee or default to employee 1007055144
-  const employeeId = employee ? employee.employee_id : '1007055144';
+  // Use the passed employee_id or default to employee 1007055144
+  const employeeId = employee_id || '1007055144';
 
   useEffect(() => {
     // Fetch vacation info for the selected employee or default employee

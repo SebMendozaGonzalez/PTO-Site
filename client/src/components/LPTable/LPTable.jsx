@@ -37,7 +37,6 @@ const LPTable = ({ filterLeaderName, onEmployeeSelect }) => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  // Apply filter by leader ID and name
   const filteredEmployees = employees.filter(employee => {
     const matchesLeaderName = filterLeaderName
       ? employee.leader && employee.leader.toLowerCase().includes(filterLeaderName.toLowerCase())
@@ -58,13 +57,13 @@ const LPTable = ({ filterLeaderName, onEmployeeSelect }) => {
   ];
 
   const onRowClicked = (event) => {
-    onEmployeeSelect(event.data); // Pass the selected employee's data to the parent component
+    onEmployeeSelect(event.data);
   };
 
   return (
     <div className='flexColStart'>
       <div>
-        <p className='fonts-regular' style={{fontSize:"2.5 rem", paddingLeft: "2rem"}}> The following are the members of your team: <br/></p>
+        <p className='fonts-regular' style={{ fontSize: "2.5 rem", paddingLeft: "2rem" }}> The following are the members of your team: <br /></p>
       </div>
       <div className='table-container paddings'>
         <div className="ag-theme-alpine table">
@@ -82,7 +81,6 @@ const LPTable = ({ filterLeaderName, onEmployeeSelect }) => {
         </div>
       </div>
     </div>
-
   );
 };
 
