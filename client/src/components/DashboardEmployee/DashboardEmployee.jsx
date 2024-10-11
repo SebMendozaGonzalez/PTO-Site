@@ -44,10 +44,15 @@ function DashboardEmployee({ employee }) {
   if (!employee) return null;
   if (!vacationInfo) return <div>Loading vacation info...</div>;
 
-  const accumulatedDays = vacationInfo.accued_days || 0;
-  const usedDays = vacationInfo.used_days || 0;
-  const availableDays = vacationInfo.remaining_days || 0;
-  const daysInCompany = vacationInfo.total_days || 0;
+  const formatDecimal = (num) => {
+    return Number(num).toFixed(2);
+  };
+
+  const accumulatedDays = formatDecimal(vacationInfo.accued_days || 0);
+  const usedDays = formatDecimal(vacationInfo.used_days || 0);
+  const availableDays = formatDecimal(vacationInfo.remaining_days || 0);
+  const daysInCompany = formatDecimal(vacationInfo.total_days || 0);
+
 
   return (
     <div className='flexColStart paddings dashboard-employee'>
