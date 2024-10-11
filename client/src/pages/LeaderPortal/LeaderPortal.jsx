@@ -15,7 +15,7 @@ function LeaderPortal() {
   };
 
   return (
-    <div className='leader-portal'>
+    <div className='flexColCenter innerWidth leader-portal'>
       <div className='paddings'>
         <label htmlFor="leaderName" className='filter-label fonts-primary'>Leader Name: </label>
         <input
