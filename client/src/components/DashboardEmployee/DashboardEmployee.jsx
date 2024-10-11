@@ -5,12 +5,17 @@ import axios from 'axios';
 function DashboardEmployee({ employee_id }) {
   const [vacationInfo, setVacationInfo] = useState(null); // State for vacation data
   const [photoUrl, setPhotoUrl] = useState(null); // State for employee photo URL
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null); // State for error messages
 
-  // Use the passed employee_id or default to employee 1007055144
+  // Use the passed employee_id or default to '1007055144'
   const employeeId = employee_id || '1007055144';
 
   useEffect(() => {
+    // Reset states when employeeId changes to allow a fresh fetch
+    setVacationInfo(null);
+    setPhotoUrl(null);
+    setError(null); // Clear any previous errors
+
     // Fetch vacation info for the selected employee or default employee
     const fetchVacationInfo = async () => {
       try {
@@ -38,15 +43,13 @@ function DashboardEmployee({ employee_id }) {
       }
     };
     fetchPhotoUrl();
-  }, [employeeId]); // Only run effect when employeeId changes
+  }, [employeeId]); // Effect runs whenever employeeId changes
 
   // Handle errors here
   if (error) return <div>{error}</div>; // Show error message if it exists
-  if (!vacationInfo) return <div>Loading vacation info...</div>;
+  if (!vacationInfo) return <div>Loading vacation info...</div>; // Show loading while fetching
 
-  const formatDecimal = (num) => {
-    return Number(num).toFixed(2);
-  };
+  const formatDecimal = (num) => Number(num).toFixed(2);
 
   const accumulatedDays = formatDecimal(vacationInfo.accued_days || 0);
   const usedDays = formatDecimal(vacationInfo.used_days || 0);

@@ -23,7 +23,7 @@ function EmployeePortal() {
       </div>
 
       <WelcomeEmployees />
-      <DashboardEmployee employee_id={filterEmployeeId} /> {/* Pass filterEmployeeId as employee_id prop */}
+      <DashboardEmployee employee_id={filterEmployeeId} />
       <RequestsEmployee />
     </div>
   );
