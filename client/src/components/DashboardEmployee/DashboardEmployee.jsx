@@ -46,8 +46,8 @@ function DashboardEmployee({ employee }) {
       // Fetch the employee photo URL
       const fetchPhotoUrl = async () => {
         try {
-          await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/${employee.employee_id}.jpeg`);
-          setPhotoUrl(`/employee-photos/${employee.employee_id}.jpeg`);
+          await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/1007055144.jpeg`);
+          setPhotoUrl(`/employee-photos/1007055144.jpeg`);
         } catch (err) {
           console.error('Error fetching photo URL:', err);
         }
