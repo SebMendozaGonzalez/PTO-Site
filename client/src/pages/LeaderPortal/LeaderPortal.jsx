@@ -32,7 +32,7 @@ function LeaderPortal() {
         <LPTable filterLeaderName={filterLeaderName} onEmployeeSelect={handleEmployeeSelect} />
 
         <div style={{
-          transform: 'scale(0.92)',
+          transform: 'scale(0.9)',
           transformOrigin: 'top left',
           marginLeft: "2rem",
           width: "100%"
