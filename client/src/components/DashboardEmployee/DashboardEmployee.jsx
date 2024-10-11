@@ -7,58 +7,41 @@ function DashboardEmployee({ employee }) {
   const [photoUrl, setPhotoUrl] = useState(null); // State for employee photo URL
   const [error, setError] = useState(null);
 
+  // Use the passed employee or default to employee 1007055144
+  const employeeId = employee ? employee.employee_id : '1007055144';
+
   useEffect(() => {
-    if (employee) {
-      // Fetch vacation info for the selected employee
-      const fetchVacationInfo = async () => {
-        try {
-          const response = await axios.get(`https://quantumhr.azurewebsites.net/vacations-info/${employee.employee_id}`);
-          setVacationInfo(response.data);
-        } catch (err) {
-          console.error('Error fetching vacation info:', err);
-          setError('Failed to fetch vacation info');
-        }
-      };
-      fetchVacationInfo();
+    // Fetch vacation info for the selected employee or default employee
+    const fetchVacationInfo = async () => {
+      try {
+        const response = await axios.get(`https://quantumhr.azurewebsites.net/vacations-info/${employeeId}`);
+        setVacationInfo(response.data);
+      } catch (err) {
+        console.error('Error fetching vacation info:', err);
+        setError('Failed to fetch vacation info');
+      }
+    };
+    fetchVacationInfo();
 
-      // Fetch the employee photo URL
-      const fetchPhotoUrl = async () => {
-        try {
-          await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/${employee.employee_id}.jpeg`);
-          setPhotoUrl(`/employee-photos/${employee.employee_id}.jpeg`);
-        } catch (err) {
+    // Fetch the employee photo URL
+    const fetchPhotoUrl = async () => {
+      try {
+        await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/${employeeId}.jpeg`);
+        setPhotoUrl(`/employee-photos/${employeeId}.jpeg`);
+      } catch (err) {
+        if (err.response && err.response.status === 404) {
+          // Set default photo if not found (404 error)
+          setPhotoUrl(`/employee-photos/0.jpeg`);
+        } else {
           console.error('Error fetching photo URL:', err);
         }
-      };
-      fetchPhotoUrl();
-    } else {
-      const fetchVacationInfo = async () => {
-        try {
-          const response = await axios.get(`https://quantumhr.azurewebsites.net/vacations-info/1007055144`);
-          setVacationInfo(response.data);
-        } catch (err) {
-          console.error('Error fetching vacation info:', err);
-          setError('Failed to fetch vacation info');
-        }
-      };
-      fetchVacationInfo();
-
-      // Fetch the employee photo URL
-      const fetchPhotoUrl = async () => {
-        try {
-          await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/1007055144.jpeg`);
-          setPhotoUrl(`/employee-photos/1007055144.jpeg`);
-        } catch (err) {
-          console.error('Error fetching photo URL:', err);
-        }
-      };
-      fetchPhotoUrl();
-    }
-  }, [employee]);
+      }
+    };
+    fetchPhotoUrl();
+  }, [employeeId]); // Only run effect when employeeId changes
 
   // Handle errors here
   if (error) return <div>{error}</div>; // Show error message if it exists
-  if (!employee) return null;
   if (!vacationInfo) return <div>Loading vacation info...</div>;
 
   const formatDecimal = (num) => {
@@ -69,7 +52,6 @@ function DashboardEmployee({ employee }) {
   const usedDays = formatDecimal(vacationInfo.used_days || 0);
   const availableDays = formatDecimal(vacationInfo.remaining_days || 0);
   const daysInCompany = formatDecimal(vacationInfo.total_days || 0);
-
 
   return (
     <div className='flexColStart paddings dashboard-employee'>
