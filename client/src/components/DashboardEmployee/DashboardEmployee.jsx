@@ -3,8 +3,8 @@ import './DashboardEmployee.css';
 import axios from 'axios';
 
 function DashboardEmployee({ employee }) {
-  const [vacationInfo, setVacationInfo] = useState(null);  // State for vacation data
-  const [photoUrl, setPhotoUrl] = useState(null);          // State for employee photo URL
+  const [vacationInfo, setVacationInfo] = useState(null); // State for vacation data
+  const [photoUrl, setPhotoUrl] = useState(null); // State for employee photo URL
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function DashboardEmployee({ employee }) {
           setVacationInfo(response.data);
         } catch (err) {
           console.error('Error fetching vacation info:', err);
-          setError('Failed to fetch vacations info');
+          setError('Failed to fetch vacation info');
         }
       };
       fetchVacationInfo();
@@ -37,8 +37,7 @@ function DashboardEmployee({ employee }) {
       };
       fetchPhotoUrl();
     }
-}, [employee]);
-
+  }, [employee]);
 
   // Handle errors here
   if (error) return <div>{error}</div>; // Show error message if it exists
@@ -55,12 +54,12 @@ function DashboardEmployee({ employee }) {
       <div className='flexCenter insideStuff'>
         <div className='paddings image-container' style={{ marginLeft: "4em" }}>
           {photoUrl ? (
-            <img src={photoUrl} alt="employee_img" />
+            <img src={photoUrl} alt="Employee" />
           ) : (
             <div>Loading photo...</div> // Optional loading state for photo
           )}
         </div>
-        
+
         <div className="dashboardText" style={{ marginLeft: "3em" }}>
           <div className='flexCenter'>
             <div className='flexColCenter paddings'>
