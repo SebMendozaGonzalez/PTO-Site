@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - quantumhr
 
 on:
@@ -16,20 +13,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Set up Node.js version
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
-      - name: npm install, build, and test
+      # Install backend dependencies using npm ci (faster and deterministic)
+      - name: Install backend dependencies
+        run: npm ci
+
+      # Install frontend dependencies and build the frontend
+      - name: Install frontend dependencies and build
+        working-directory: ./client
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm ci
+          npm run build
 
+      # Copy frontend build to backend
+      - name: Copy React build to backend
+        run: cp -r ./client/build ./build
+
+      # Zip the backend including frontend build, excluding unnecessary files
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip -r release.zip ./* -x node_modules/\* -x client/node_modules/\* -x .git/\* -x .github/\* -x tests/\* -x logs/\* -x *.md
 
+      # Upload the zipped artifact for deployment
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -43,17 +52,20 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write # This is required for requesting the JWT
 
     steps:
+      # Download the artifact from the build job
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: node-app
 
+      # Unzip the artifact for deployment
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
+
+      # Login to Azure using service principal
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -61,6 +73,7 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_17B4FB278711448ABAD9EA57573DB02A }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_007E344BC335424E845D31347001C69B }}
 
+      # Deploy the app to Azure Web App using the publish profile
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -68,4 +81,3 @@ jobs:
           app-name: 'quantumhr'
           slot-name: 'Production'
           package: .
-          
