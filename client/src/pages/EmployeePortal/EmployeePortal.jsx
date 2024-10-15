@@ -24,7 +24,7 @@ function EmployeePortal() {
 
       <WelcomeEmployees />
       <DashboardEmployee employee_id={filterEmployeeId} />
-      <RequestsEmployee />
+      <RequestsEmployee employee_id={filterEmployeeId} />
     </div>
   );
 }

@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-//import axios from 'axios';
 import './RequestPortal.css';
 import { useLocation } from 'react-router-dom';
 
 const RequestPortal = () => {
     const location = useLocation();
-    const { type } = location.state || {};
+    const { type, employee_id } = location.state || {};
     const [formData, setFormData] = useState({
-        type_of_to: '',
+        type_of_to: type || '',
         start_date: '',
         end_date: '',
         explanation: '',
         is_exception: false,
-        employee_id: ''
+        employee_id: employee_id || ''
     });
 
     const [responseMessage, setResponseMessage] = useState('');
@@ -29,7 +28,6 @@ const RequestPortal = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            //const response = await axios.post('http://localhost:5000/request', formData);
             setResponseMessage('Request submitted successfully!');
             setFormData({
                 type_of_to: '',
@@ -39,7 +37,7 @@ const RequestPortal = () => {
                 employee_id: ''
             });
         } catch (err) {
-            setError('Failed to submit request: ' + err.response.data.message);
+            setError('Failed to submit request: ' + err.response?.data?.message);
         }
     };
 
@@ -50,14 +48,13 @@ const RequestPortal = () => {
             {responseMessage && <p className="success-message">{responseMessage}</p>}
             {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit} className='paddings innerWidth form'>
-
                 <div className='flexCenter'>
                     <div className='flexColStart pack'>
                         <label>Type of Time Off:</label>
                         <input
                             type="text"
                             name="type_of_to"
-                            value={type}
+                            value={formData.type_of_to}
                             readOnly
                             className="blocked-input"
                             required
@@ -65,7 +62,14 @@ const RequestPortal = () => {
                     </div>
                     <div className='flexColStart pack'>
                         <label>Employee ID:</label>
-                        <input type="text" name="employee_id" value={formData.employee_id} onChange={handleChange} required />
+                        <input
+                            type="text"
+                            name="employee_id"
+                            value={formData.employee_id}
+                            readOnly
+                            className="blocked-input"
+                            required
+                        />
                     </div>
                 </div>
 
@@ -84,11 +88,10 @@ const RequestPortal = () => {
                     <label>Explanation:</label>
                     <textarea name="explanation" value={formData.explanation} onChange={handleChange}></textarea>
                 </div>
-                
+
                 <div>
-                    <button type="submit">Submit</button> 
+                    <button type="submit">Submit</button>
                 </div>
-                
             </form>
         </div>
     );

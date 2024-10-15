@@ -3,7 +3,7 @@ import './RequestEmployee.css'
 import { Link } from 'react-router-dom';
 
 
-function RequestsEmployee() {
+function RequestsEmployee({employee_id}) {
     return (
         <div className='paddings flexColStart innerWidth' style={{ marginTop: "2rem" }}>
             <div className='flexColStart paddings'>
@@ -22,7 +22,7 @@ function RequestsEmployee() {
                     <strong className='fonts-secondary'> Here</strong> you can request exceptional time off.
                 </p>
                 <div className='paddings'>
-                    <Link to="/request-portal" state={{ type: 'Paid Time Off' }}>
+                    <Link to="/request-portal" state={{ type: 'Paid Time Off', employee_id }}>
                         <button className='button'>
                             Request PTO
                         </button>
@@ -50,7 +50,7 @@ function RequestsEmployee() {
                             which is the same as <strong className="fonts-secondary">126 business days</strong>.
                         </p>
                         <div className='paddings'>
-                            <Link to="/request-portal" state={{ type: 'Maternity License' }}>
+                            <Link to="/request-portal" state={{ type: 'Maternity License', employee_id }}>
                                 <button className='button innerWidth'>
                                     Request
                                 </button>
@@ -68,7 +68,7 @@ function RequestsEmployee() {
 
                         </p>
                         <div className='paddings'>
-                            <Link to="/request-portal" state={{ type: 'Paternity License' }}>
+                            <Link to="/request-portal" state={{ type: 'Paternity License', employee_id }}>
                                 <button className='button innerWidth'>
                                     Request
                                 </button>
@@ -84,7 +84,7 @@ function RequestsEmployee() {
                             your presence at the workplace. They span <strong className="fonts-secondary">1 business day</strong>.
                         </p>
                         <div className='paddings'>
-                            <Link to="/request-portal" state={{ type: 'Domestic Calamity License' }}>
+                            <Link to="/request-portal" state={{ type: 'Domestic Calamity License', employee_id }}>
                                 <button className='button innerWidth'>
                                     Request
                                 </button>
@@ -101,7 +101,7 @@ function RequestsEmployee() {
                             while getting <strong className="fonts-secondary">30 business days</strong> to send proof.
                         </p>
                         <div className='paddings'>
-                            <Link to="/request-portal" state={{ type: 'Bereavement License' }}>
+                            <Link to="/request-portal" state={{ type: 'Bereavement License', employee_id }}>
                                 <button className='button innerWidth'>
                                     Request
                                 </button>
@@ -125,7 +125,7 @@ function RequestsEmployee() {
                     one week of anticipation.
                 </p>
                 <div className='btn-container paddings'>
-                    <Link to="/request-portal" state={{ type: 'Unpaid Time Off' }}>
+                    <Link to="/request-portal" state={{ type: 'Unpaid Time Off', employee_id }}>
                         <button className='button innerWidth'>
                             Request UTO
                         </button>
