@@ -22,7 +22,6 @@ jobs:
           now=$(date +%s)
           cutoff=$(($now - 432000))  # 432000 seconds = 5 days
           
-          # Pass the cutoff value to jq using --argjson
           artifacts=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts" | jq --argjson cutoff "$cutoff" -r '.artifacts[] | select(.expired == false) | select((.created_at | fromdateiso8601) < $cutoff) | .id')
           
           if [ -n "$artifacts" ]; then
@@ -31,8 +30,6 @@ jobs:
           else
             echo "No artifacts older than 5 days found."
           fi
-
-
 
   build:
     runs-on: ubuntu-latest
@@ -47,16 +44,14 @@ jobs:
         with:
           node-version: '20.x'
 
-      # Install backend dependencies using npm ci (faster and deterministic)
-      - name: Install backend dependencies
+      # Install dependencies using npm ci
+      - name: Install dependencies
         run: npm ci
 
-      # Install frontend dependencies and build the frontend
-      - name: Install frontend dependencies and build
+      # Build the frontend
+      - name: Build frontend
         working-directory: ./client
-        run: |
-          npm ci
-          npm run build
+        run: npm run build
 
       # Copy frontend build to backend
       - name: Copy React build to backend
@@ -80,7 +75,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write 
 
     steps:
       # Download the artifact from the build job
