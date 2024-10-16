@@ -21,7 +21,9 @@ jobs:
         run: |
           now=$(date +%s)
           cutoff=$(($now - 432000))  # 432000 seconds = 5 days
-          artifacts=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts" | jq -r '.artifacts[] | select(.expired == false) | select((.created_at | fromdateiso8601) < $cutoff) | .id')
+          
+          # Pass the cutoff value to jq using --argjson
+          artifacts=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts" | jq --argjson cutoff "$cutoff" -r '.artifacts[] | select(.expired == false) | select((.created_at | fromdateiso8601) < $cutoff) | .id')
           
           if [ -n "$artifacts" ]; then
             echo "$artifacts" | xargs -I {} curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/{}"
@@ -29,6 +31,7 @@ jobs:
           else
             echo "No artifacts older than 5 days found."
           fi
+
 
 
   build:
