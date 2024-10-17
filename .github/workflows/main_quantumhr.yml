@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy Node.js app to Azure Web App - quantumhr
 
 on:
@@ -6,65 +9,27 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: read
-  actions: write
-
 jobs:
-  cleanup:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Delete old artifacts
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          now=$(date +%s)
-          cutoff=$(($now - 86400))  # 86400 secs = 1 day
-          
-          artifacts=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts" | jq --argjson cutoff "$cutoff" -r '.artifacts[] | select(.expired == false) | select((.created_at | fromdateiso8601) < $cutoff) | .id')
-          
-          if [ -n "$artifacts" ]; then
-            echo "$artifacts" | xargs -I {} curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/{}"
-            echo "Deleted old artifacts."
-          else
-            echo "No artifacts older than one day found."
-          fi
-
   build:
     runs-on: ubuntu-latest
-    needs: cleanup
 
     steps:
       - uses: actions/checkout@v4
 
-      # Set up Node.js version
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
-      # Install dependencies using npm ci
-      - name: Install dependencies
-        run: npm ci
-
-      # Build the frontend
-      - name: Build frontend
-        working-directory: ./client
+      - name: npm install, build, and test
         run: |
-          npm ci
-          npm run build
+          npm install
+          npm run build --if-present
+          npm run test --if-present
 
-
-      # Copy frontend build to backend
-      - name: Copy React build to backend
-        run: cp -r ./client/build ./build
-
-      # Zip the backend including frontend build, excluding unnecessary files
       - name: Zip artifact for deployment
-        run: zip -r release.zip ./* -x node_modules/\* -x client/node_modules/\* -x .git/\* -x .github/\* -x tests/\* -x logs/\* -x *.md
+        run: zip release.zip ./* -r
 
-      # Upload the zipped artifact for deployment
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -77,29 +42,16 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write 
-
+    
     steps:
-      # Download the artifact from the build job
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: node-app
 
-      # Unzip the artifact for deployment
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
-      # Login to Azure using service principal
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CFB30A8F71EE4D2FAC1D3A0D16351E88 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_17B4FB278711448ABAD9EA57573DB02A }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_007E344BC335424E845D31347001C69B }}
-
-      # Deploy the app to Azure Web App using the publish profile
+      
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -107,3 +59,4 @@ jobs:
           app-name: 'quantumhr'
           slot-name: 'Production'
           package: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C43F7095BF9B45C19E0CC3613BB9439B }}
