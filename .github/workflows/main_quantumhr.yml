@@ -20,7 +20,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           now=$(date +%s)
-          cutoff=$(($now - 432000))  # 432000 seconds = 5 days
+          cutoff=$(($now - 432000))  # 32000 seconds
           
           artifacts=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts" | jq --argjson cutoff "$cutoff" -r '.artifacts[] | select(.expired == false) | select((.created_at | fromdateiso8601) < $cutoff) | .id')
           
@@ -28,7 +28,7 @@ jobs:
             echo "$artifacts" | xargs -I {} curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/{}"
             echo "Deleted old artifacts."
           else
-            echo "No artifacts older than 5 days found."
+            echo "No artifacts older than the selected amount of seconds found."
           fi
 
   build:
