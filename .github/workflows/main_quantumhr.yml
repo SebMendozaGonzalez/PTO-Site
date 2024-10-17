@@ -51,7 +51,9 @@ jobs:
       # Build the frontend
       - name: Build frontend
         working-directory: ./client
-        run: npm run build
+        run:
+          npm ci 
+          npm run build
 
       # Copy frontend build to backend
       - name: Copy React build to backend
