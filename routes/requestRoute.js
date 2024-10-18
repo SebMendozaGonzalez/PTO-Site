@@ -25,7 +25,6 @@ router.post('/', async (req, res) => {
         res.status(201).json(result.rows[0]);
     } catch (err) {
         console.error('Error submitting request:', err);
-        res.status(500).json({ message: 'Error submitting request' });
         res.status(500).json({ message: 'Error submitting request', error: err.message });
     }
 });
