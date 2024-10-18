@@ -46,6 +46,15 @@ const RequestPortal = () => {
             const startDate = new Date(formData.start_date).toISOString().split('T')[0];
             const endDate = new Date(formData.end_date).toISOString().split('T')[0];
 
+            console.log('Submitting request with data:', {
+                type: typeMapping[formData.type] || formData.type,
+                start_date: startDate,
+                end_date: endDate,
+                explanation: formData.explanation,
+                employee_id: formData.employee_id,
+                is_exception: formData.is_exception
+            });
+            
             // Make the API call to upload the request
             const response = await fetch('https://quantumhr.azurewebsites.net/request', {
                 method: 'POST',
