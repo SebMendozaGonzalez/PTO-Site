@@ -34,10 +34,9 @@ router.post('/', async (req, res) => {
         // Send the inserted row back in the response
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error('Error submitting request:', err);
+        console.error('Error submitting request:', err.message); // Log just the error message for clarity
         res.status(500).json({ message: 'Error submitting request', error: err.message });
     }
 });
-
 
 module.exports = router;
