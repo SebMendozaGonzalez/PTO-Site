@@ -7,6 +7,16 @@ router.post('/', async (req, res) => {
     const pool = await connectToDatabase();
     const { type, start_date, end_date, explanation, employee_id, is_exception } = req.body;
 
+    // Log the incoming data
+    console.log('Inserting request with the following data:', {
+        type,
+        start_date,
+        end_date,
+        explanation,
+        employee_id,
+        is_exception
+    });
+
     try {
         // Insert the new vacation request
         await pool.query(
@@ -28,5 +38,6 @@ router.post('/', async (req, res) => {
         res.status(500).json({ message: 'Error submitting request', error: err.message });
     }
 });
+
 
 module.exports = router;
