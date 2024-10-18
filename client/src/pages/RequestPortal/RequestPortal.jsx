@@ -53,7 +53,7 @@ const RequestPortal = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    type_of_to: typeMapping[formData.type] || formData.type, // Use the short form here
+                    type: typeMapping[formData.type] || formData.type, // Use the short form here
                     start_date: startDate,
                     end_date: endDate,
                     request_date: new Date().toISOString().split('T')[0],
@@ -69,7 +69,7 @@ const RequestPortal = () => {
 
             setResponseMessage('Request submitted successfully!');
             setFormData({
-                type_of_to: '',
+                type: '',
                 start_date: '',
                 end_date: '',
                 explanation: '',
