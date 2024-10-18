@@ -47,7 +47,7 @@ const RequestPortal = () => {
             const endDate = new Date(formData.end_date).toISOString().split('T')[0];
 
             // Get the short form of the type_of_to
-            const shortType = typeMapping[formData.type_of_to] || formData.type_of_to;
+            const shortType = typeMapping[formData.type] || formData.type;
 
             // Make the API call to upload the request
             const response = await fetch('https://quantumhr.azurewebsites.net/request', { // Adjust the API endpoint as necessary
@@ -108,7 +108,7 @@ const RequestPortal = () => {
                         <input
                             type="text"
                             name="type_of_to"
-                            value={formData.type_of_to}
+                            value={formData.type}
                             readOnly
                             className="blocked-input"
                             required
