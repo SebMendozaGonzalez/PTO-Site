@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './RequestPortal.css';
-import { useLocation } from 'react-router-dom'; 
-import axios from 'axios'; // Make sure to import axios for API calls
+import { useLocation, Link } from 'react-router-dom';
 
 const RequestPortal = () => {
     const location = useLocation();
@@ -17,7 +16,7 @@ const RequestPortal = () => {
 
     const [responseMessage, setResponseMessage] = useState('');
     const [error, setError] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false); // New state for tracking submission
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -29,25 +28,35 @@ const RequestPortal = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true); // Disable the submit button
-        const { start_date, end_date, explanation, employee_id, is_exception, type_of_to } = formData;
+        if (isSubmitting) return; // Prevent multiple submissions
+        setIsSubmitting(true); // Set submitting state
 
         try {
-            // Format dates to yyyy-mm-dd
-            const formattedStartDate = new Date(start_date).toISOString().split('T')[0];
-            const formattedEndDate = new Date(end_date).toISOString().split('T')[0];
+            // Format the dates to yyyy-mm-dd
+            const startDate = new Date(formData.start_date).toISOString().split('T')[0];
+            const endDate = new Date(formData.end_date).toISOString().split('T')[0];
 
-            // Make an API call to submit the request
-            await axios.post('/request', {
-                type_of_to,
-                start_date: formattedStartDate,
-                end_date: formattedEndDate,
-                explanation,
-                is_exception,
-                employee_id
+            // Make the API call to upload the request
+            const response = await fetch('/api/request', { // Adjust the API endpoint as necessary
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    type_of_to: formData.type_of_to,
+                    start_date: startDate,
+                    end_date: endDate,
+                    request_date: new Date().toISOString().split('T')[0],
+                    explanation: formData.explanation,
+                    employee_id: formData.employee_id,
+                    is_exception: formData.is_exception
+                })
             });
 
-            // Display success message
+            if (!response.ok) {
+                throw new Error('Failed to submit request: ' + response.statusText);
+            }
+
             setResponseMessage('Request submitted successfully!');
             setFormData({
                 type_of_to: '',
@@ -57,15 +66,26 @@ const RequestPortal = () => {
                 employee_id: ''
             });
         } catch (err) {
-            setError('Failed to submit request: ' + err.response?.data?.message);
+            setError('Failed to submit request: ' + err.message);
         } finally {
-            setIsSubmitting(false); // Re-enable the submit button
+            setIsSubmitting(false); // Reset submitting state
         }
     };
 
     return (
-        <div className="request-portal paddings flexColStart" style={{ marginTop: "4rem", marginBottom: "4rem", maxHeight: "40rem" }}>
-            <h2>Vacation Request Form</h2>
+        <div className="request-portal paddings flexColStart"
+            style={{ marginTop: "4rem", marginBottom: "4rem", maxHeight: "40rem" }}>
+            <div className='flexStart'>
+                <div className='paddings'>
+                    <Link to="/employee-portal">
+                        <button className='btn innerWidth'>
+                            Go back
+                        </button>
+                    </Link>
+                </div>
+                <h2>Vacation Request Form</h2>
+            </div>
+            
             {responseMessage && <p className="success-message">{responseMessage}</p>}
             {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit} className='paddings innerWidth form'>
@@ -97,11 +117,11 @@ const RequestPortal = () => {
                 <div className='flexCenter'>
                     <div className='flexColStart pack'>
                         <label>Start Date:</label>
-                        <input type="date" name="start_date" value={formData.start_date} onChange={handleChange} required />
+                        <input type="text" name="start_date" value={formData.start_date} onChange={handleChange} placeholder="mm/dd/yyyy" required />
                     </div>
                     <div className='flexColStart pack'>
                         <label>End Date:</label>
-                        <input type="date" name="end_date" value={formData.end_date} onChange={handleChange} required />
+                        <input type="text" name="end_date" value={formData.end_date} onChange={handleChange} placeholder="mm/dd/yyyy" required />
                     </div>
                 </div>
 
@@ -111,7 +131,7 @@ const RequestPortal = () => {
                 </div>
 
                 <div>
-                    <button type="submit" disabled={isSubmitting}>Submit</button> {/* Disable button while submitting */}
+                    <button type="submit" disabled={isSubmitting}>Submit</button>
                 </div>
             </form>
         </div>
