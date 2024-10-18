@@ -47,21 +47,23 @@ const RequestPortal = () => {
             const endDate = new Date(formData.end_date).toISOString().split('T')[0];
 
             // Make the API call to upload the request
-            const response = await fetch('https://quantumhr.azurewebsites.net/request', { // Adjust the API endpoint as necessary
+            const response = await fetch('https://quantumhr.azurewebsites.net/request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    type: typeMapping[formData.type] || formData.type, // Use the short form here
+                    type: typeMapping[formData.type] || formData.type,
                     start_date: startDate,
                     end_date: endDate,
-                    request_date: new Date().toISOString().split('T')[0],
                     explanation: formData.explanation,
                     employee_id: formData.employee_id,
                     is_exception: formData.is_exception
                 })
             });
+
+            const responseData = await response.json();  // Capture the response
+            console.log('Response:', responseData);  // Log the response
 
             if (!response.ok) {
                 throw new Error('Failed to submit request: ' + response.statusText);
@@ -95,7 +97,7 @@ const RequestPortal = () => {
                 </div>
                 <h2>Vacation Request Form</h2>
             </div>
-            
+
             {responseMessage && <p className="success-message">{responseMessage}</p>}
             {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit} className='paddings innerWidth form'>
