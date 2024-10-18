@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './RequestPortal.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'; 
+import axios from 'axios'; // Make sure to import axios for API calls
 
 const RequestPortal = () => {
     const location = useLocation();
@@ -16,6 +17,7 @@ const RequestPortal = () => {
 
     const [responseMessage, setResponseMessage] = useState('');
     const [error, setError] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false); // New state for tracking submission
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -27,7 +29,25 @@ const RequestPortal = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true); // Disable the submit button
+        const { start_date, end_date, explanation, employee_id, is_exception, type_of_to } = formData;
+
         try {
+            // Format dates to yyyy-mm-dd
+            const formattedStartDate = new Date(start_date).toISOString().split('T')[0];
+            const formattedEndDate = new Date(end_date).toISOString().split('T')[0];
+
+            // Make an API call to submit the request
+            await axios.post('/request', {
+                type_of_to,
+                start_date: formattedStartDate,
+                end_date: formattedEndDate,
+                explanation,
+                is_exception,
+                employee_id
+            });
+
+            // Display success message
             setResponseMessage('Request submitted successfully!');
             setFormData({
                 type_of_to: '',
@@ -38,12 +58,13 @@ const RequestPortal = () => {
             });
         } catch (err) {
             setError('Failed to submit request: ' + err.response?.data?.message);
+        } finally {
+            setIsSubmitting(false); // Re-enable the submit button
         }
     };
 
     return (
-        <div className="request-portal paddings flexColStart"
-            style={{ marginTop: "4rem", marginBottom: "4rem", maxHeight: "40rem" }}>
+        <div className="request-portal paddings flexColStart" style={{ marginTop: "4rem", marginBottom: "4rem", maxHeight: "40rem" }}>
             <h2>Vacation Request Form</h2>
             {responseMessage && <p className="success-message">{responseMessage}</p>}
             {error && <p className="error-message">{error}</p>}
@@ -90,7 +111,7 @@ const RequestPortal = () => {
                 </div>
 
                 <div>
-                    <button type="submit">Submit</button>
+                    <button type="submit" disabled={isSubmitting}>Submit</button> {/* Disable button while submitting */}
                 </div>
             </form>
         </div>

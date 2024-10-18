@@ -3,20 +3,19 @@ import './DashboardEmployee.css';
 import axios from 'axios';
 
 function DashboardEmployee({ employee_id }) {
-  const [vacationInfo, setVacationInfo] = useState(null); // State for vacation data
-  const [photoUrl, setPhotoUrl] = useState(null); // State for employee photo URL
-  const [error, setError] = useState(null); // State for error messages
+  const [vacationInfo, setVacationInfo] = useState(null); 
+  const [photoUrl, setPhotoUrl] = useState(null); 
+  const [error, setError] = useState(null); 
 
-  // Use the passed employee_id or default to '1007055144'
-  const employeeId = employee_id || '1007055144';
+
+  const employeeId = employee_id || '123';
 
   useEffect(() => {
     // Reset states when employeeId changes to allow a fresh fetch
     setVacationInfo(null);
     setPhotoUrl(null);
-    setError(null); // Clear any previous errors
+    setError(null); 
 
-    // Fetch vacation info for the selected employee or default employee
     const fetchVacationInfo = async () => {
       try {
         const response = await axios.get(`https://quantumhr.azurewebsites.net/vacations-info/${employeeId}`);
@@ -28,7 +27,6 @@ function DashboardEmployee({ employee_id }) {
     };
     fetchVacationInfo();
 
-    // Fetch the employee photo URL
     const fetchPhotoUrl = async () => {
       try {
         await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/${employeeId}.jpeg`);
@@ -46,15 +44,13 @@ function DashboardEmployee({ employee_id }) {
   }, [employeeId]); // Effect runs whenever employeeId changes
 
   // Handle errors here
-  if (error) return <div>{error}</div>; // Show error message if it exists
-  if (!vacationInfo) return <div>Loading vacation info...</div>; // Show loading while fetching
+  if (error) return <div>{error}</div>;
+  if (!vacationInfo) return <div>Loading vacation info...</div>;
 
-  const formatDecimal = (num) => Number(num).toFixed(2);
-
-  const accumulatedDays = formatDecimal(vacationInfo.accued_days || 0);
-  const usedDays = formatDecimal(vacationInfo.used_days || 0);
-  const availableDays = formatDecimal(vacationInfo.remaining_days || 0);
-  const daysInCompany = formatDecimal(vacationInfo.total_days || 0);
+  const accumulatedDays = vacationInfo.accued_days || 0;
+  const usedDays = vacationInfo.used_days || 0;
+  const availableDays = vacationInfo.remaining_days || 0;
+  const daysInCompany = vacationInfo.total_days || 0;
 
   return (
     <div className='flexColStart paddings dashboard-employee'>
@@ -63,7 +59,7 @@ function DashboardEmployee({ employee_id }) {
           {photoUrl ? (
             <img src={photoUrl} alt="Employee" />
           ) : (
-            <div>Loading photo...</div> // Optional loading state for photo
+            <div>Loading photo...</div>
           )}
         </div>
 
