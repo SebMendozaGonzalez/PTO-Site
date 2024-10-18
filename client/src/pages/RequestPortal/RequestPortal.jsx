@@ -10,7 +10,7 @@ const RequestPortal = () => {
         start_date: '',
         end_date: '',
         explanation: '',
-        is_exception: false,
+        is_exception: 0,
         employee_id: employee_id || ''
     });
 
