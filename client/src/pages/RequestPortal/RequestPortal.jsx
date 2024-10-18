@@ -18,6 +18,16 @@ const RequestPortal = () => {
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Mapping of long form to short form
+    const typeMapping = {
+        'Paid Time Off': 'PTO',
+        'Maternity License': 'ML',
+        'Paternity License': 'PL',
+        'Domestic Calamity License': 'DCL',
+        'Bereavement License': 'BL',
+        'Unpaid Time Off': 'UTO'
+    };
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
@@ -36,6 +46,9 @@ const RequestPortal = () => {
             const startDate = new Date(formData.start_date).toISOString().split('T')[0];
             const endDate = new Date(formData.end_date).toISOString().split('T')[0];
 
+            // Get the short form of the type_of_to
+            const shortType = typeMapping[formData.type_of_to] || formData.type_of_to;
+
             // Make the API call to upload the request
             const response = await fetch('/request', { // Adjust the API endpoint as necessary
                 method: 'POST',
@@ -43,7 +56,7 @@ const RequestPortal = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    type_of_to: formData.type_of_to,
+                    type_of_to: shortType, // Use the short form here
                     start_date: startDate,
                     end_date: endDate,
                     request_date: new Date().toISOString().split('T')[0],
