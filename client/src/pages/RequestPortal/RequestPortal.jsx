@@ -6,7 +6,7 @@ const RequestPortal = () => {
     const location = useLocation();
     const { type, employee_id } = location.state || {};
     const [formData, setFormData] = useState({
-        type_of_to: type || '',
+        type: type || '',
         start_date: '',
         end_date: '',
         explanation: '',
@@ -46,9 +46,6 @@ const RequestPortal = () => {
             const startDate = new Date(formData.start_date).toISOString().split('T')[0];
             const endDate = new Date(formData.end_date).toISOString().split('T')[0];
 
-            // Get the short form of the type_of_to
-            const shortType = typeMapping[formData.type] || formData.type;
-
             // Make the API call to upload the request
             const response = await fetch('https://quantumhr.azurewebsites.net/request', { // Adjust the API endpoint as necessary
                 method: 'POST',
@@ -56,7 +53,7 @@ const RequestPortal = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    type_of_to: shortType, // Use the short form here
+                    type_of_to: typeMapping[formData.type] || formData.type, // Use the short form here
                     start_date: startDate,
                     end_date: endDate,
                     request_date: new Date().toISOString().split('T')[0],
@@ -107,7 +104,7 @@ const RequestPortal = () => {
                         <label>Type of Time Off:</label>
                         <input
                             type="text"
-                            name="type_of_to"
+                            name="type"
                             value={formData.type}
                             readOnly
                             className="blocked-input"
