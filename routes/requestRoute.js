@@ -4,6 +4,7 @@ const { connectToDatabase } = require('../db/dbConfig');  // Your SQL connection
 
 // Route to handle vacation requests
 router.post('/', async (req, res) => {
+    console.log('Received a request to submit a vacation request.');
     const pool = await connectToDatabase();
     const { type, start_date, end_date, explanation, employee_id, is_exception } = req.body;
 
@@ -34,8 +35,9 @@ router.post('/', async (req, res) => {
         // Send the inserted row back in the response
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error('Error submitting request:', err.message); // Log just the error message for clarity
-        res.status(500).json({ message: 'Error submitting request', error: err.message });
+        console.error('Error submitting request:', err.message);
+        // Ensure the response is always JSON formatted
+        res.status(500).json({ message: 'Error submitting request', error: err.message || 'Internal Server Error' });
     }
 });
 
