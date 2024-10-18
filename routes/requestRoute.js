@@ -2,10 +2,18 @@ const express = require('express');
 const router = express.Router();
 const { connectToDatabase } = require('../db/dbConfig');  // Your PostgreSQL Pool
 
+// Valid short forms of time off types
+const validTypes = ['PTO', 'ML', 'PL', 'DCL', 'BL', 'UTO'];
+
 // Route to handle vacation requests
 router.post('/', async (req, res) => {
     const pool = await connectToDatabase();
     const { type_of_to, start_date, end_date, explanation, employee_id, is_exception } = req.body;
+
+    // Validate the type_of_to field
+    if (!validTypes.includes(type_of_to)) {
+        return res.status(400).json({ message: 'Invalid type of time off' });
+    }
 
     try {
         const result = await pool.query(

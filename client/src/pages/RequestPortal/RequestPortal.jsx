@@ -50,7 +50,7 @@ const RequestPortal = () => {
             const shortType = typeMapping[formData.type_of_to] || formData.type_of_to;
 
             // Make the API call to upload the request
-            const response = await fetch('/request', { // Adjust the API endpoint as necessary
+            const response = await fetch('https://quantumhr.azurewebsites.net/request', { // Adjust the API endpoint as necessary
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
