@@ -37,7 +37,7 @@ const RequestPortal = () => {
             const endDate = new Date(formData.end_date).toISOString().split('T')[0];
 
             // Make the API call to upload the request
-            const response = await fetch('/api/request', { // Adjust the API endpoint as necessary
+            const response = await fetch('/request', { // Adjust the API endpoint as necessary
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,11 +117,11 @@ const RequestPortal = () => {
                 <div className='flexCenter'>
                     <div className='flexColStart pack'>
                         <label>Start Date:</label>
-                        <input type="text" name="start_date" value={formData.start_date} onChange={handleChange} placeholder="mm/dd/yyyy" required />
+                        <input type="date" name="start_date" value={formData.start_date} onChange={handleChange} required />
                     </div>
                     <div className='flexColStart pack'>
                         <label>End Date:</label>
-                        <input type="text" name="end_date" value={formData.end_date} onChange={handleChange} placeholder="mm/dd/yyyy" required />
+                        <input type="date" name="end_date" value={formData.end_date} onChange={handleChange} required />
                     </div>
                 </div>
 
