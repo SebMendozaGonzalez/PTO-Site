@@ -8,22 +8,23 @@ router.post('/', async (req, res) => {
     const { type, start_date, end_date, explanation, employee_id, is_exception } = req.body;
 
     try {
-        // Perform the INSERT operation without RETURNING
+        // Insert the new vacation request
         await pool.query(
             `INSERT INTO request (type, start_date, end_date, request_date, explanation, employee_id, is_exception)
              VALUES ($1, $2, $3, CURRENT_DATE, $4, $5, $6)`,
             [type, start_date, end_date, explanation, employee_id, is_exception]
         );
         
-        // After insertion, retrieve the last inserted row based on some unique identifier (like request ID)
+        // Retrieve the last inserted row for that employee
         const result = await pool.query(
-            `SELECT TOP 1 * FROM request WHERE employee_id = $1 ORDER BY request_date DESC`,
+            `SELECT * FROM request WHERE employee_id = $1 ORDER BY request_date DESC LIMIT 1`,
             [employee_id]
         );
         
-        res.status(201).json(result.rows[0]); // Send back the inserted row
+        // Send the inserted row back in the response
+        res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(err);
+        console.error('Error submitting request:', err);
         res.status(500).json({ message: 'Error submitting request' });
     }
 });
