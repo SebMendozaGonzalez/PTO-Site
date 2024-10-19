@@ -18,26 +18,26 @@ router.post('/', async (req, res) => {
     });
 
     try {
+        // Start a new request
+        const request = pool.request();
+        
+        // Add parameters for the SQL query
+        request.input('type', type);
+        request.input('start_date', start_date);
+        request.input('end_date', end_date);
+        request.input('explanation', explanation);
+        request.input('employee_id', employee_id);
+        request.input('is_exception', is_exception);
+
         // Insert the new vacation request
-        await pool.query(
+        await request.query(
             `INSERT INTO request (type, start_date, end_date, request_date, explanation, employee_id, is_exception)
-             VALUES (@type, @start_date, @end_date, CURRENT_DATE, @explanation, @employee_id, @is_exception)`,
-            {
-                type: type,
-                start_date: start_date,
-                end_date: end_date,
-                explanation: explanation,
-                employee_id: employee_id,
-                is_exception: is_exception
-            }
+             VALUES (@type, @start_date, @end_date, CURRENT_TIMESTAMP, @explanation, @employee_id, @is_exception)`
         );
         
         // Retrieve the last inserted row for that employee
-        const result = await pool.query(
-            `SELECT * FROM request WHERE employee_id = @employee_id ORDER BY request_date DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY`,
-            {
-                employee_id: employee_id
-            }
+        const result = await request.query(
+            `SELECT * FROM request WHERE employee_id = @employee_id ORDER BY request_date DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY`
         );
         
         // Send the inserted row back in the response
