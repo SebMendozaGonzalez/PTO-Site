@@ -15,7 +15,7 @@ function RequestsCalendar({ employee_id }) {
       .then(response => response.json())
       .then(data => {
         const events = data.map(request => ({
-          title: `${request.name} requested a ${request.type} from ${request.start_date} to ${request.end_date}`,
+          title: `${request.name} requested a ${request.type} from ${new Date(request.start_date)} to ${new Date(request.end_date)}`,
           start: new Date(request.start_date),
           end: new Date(request.end_date),
           allDay: true,
@@ -37,7 +37,7 @@ function RequestsCalendar({ employee_id }) {
       border: '0px',
       display: 'block',
       fontWeight: '400',
-      fontSize: '2em'
+      fontSize: '0.5em'
     };
     return { style };
   };
