@@ -52,7 +52,6 @@ function RequestsCalendar({ employee_id }) {
       justifyContent: 'space-between',
       padding: '5px',
       fontWeight: '300',
-      fontSize: '0.75em',
     };
     return { style };
   };
@@ -80,7 +79,7 @@ function RequestsCalendar({ employee_id }) {
         endAccessor="end"
         style={{ height: 500, width: '80rem' }} // Set a fixed width
         eventPropGetter={eventStyleGetter}
-        views={['month']}
+        views={['month','work_week']}
         components={{
           event: Event, // Use custom event component
         }}
