@@ -10,17 +10,31 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
+    overflow: hidden; /* Hide overflow */
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Show ellipsis for overflow */
+}
+
+.event-title {
+    max-width: 60%; /* Limit width of title */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Show ellipsis for long text */
+}
+
+.event-type {
+    margin: 0 5px; /* Space between title and dots */
+    min-width: 50px; /* Ensure type has some width */
 }
 
 .dots {
     display: flex;
     gap: 5px;
-    padding-left: 3px;
 }
 
 .dot {
-    width: 11px;
-    height: 11px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     background-color: lightgray; /* Default color */
     transition: background-color 0.3s ease; /* Smooth transition */

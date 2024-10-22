@@ -27,8 +27,8 @@ function RequestsCalendar({ employee_id }) {
               end: new Date(d),
               allDay: true,
               employeeId: request.employee_id,
-              accepted: request.accepted, // Assuming accepted is 1 or 0
-              taken: request.taken, // Assuming taken is 1 or 0
+              accepted: request.accepted,
+              taken: request.taken,
             });
           }
         });
@@ -38,7 +38,6 @@ function RequestsCalendar({ employee_id }) {
       .catch(err => console.error('Error fetching requests:', err));
   }, [employee_id]);
 
-  // Function to style events based on employee_id
   const eventStyleGetter = (event) => {
     const backgroundColor = event.employeeId === employee_id ? '#155ff4' : '#050f38';
     const style = {
@@ -53,7 +52,6 @@ function RequestsCalendar({ employee_id }) {
       padding: '5px',
       fontWeight: '300',
       fontSize: '0.75em',
-      maxHeigth: '1.1em'
     };
     return { style };
   };
@@ -62,7 +60,8 @@ function RequestsCalendar({ employee_id }) {
   const Event = ({ event }) => {
     return (
       <div className="event">
-        <span>{event.title}</span>
+        <span className="event-title">{event.title}</span>
+        <span className="event-type">{event.type}</span>
         <div className="dots">
           <div className={`dot ${event.accepted ? 'filled' : ''}`}></div>
           <div className={`dot ${event.taken ? 'filled' : ''}`}></div>
@@ -78,7 +77,7 @@ function RequestsCalendar({ employee_id }) {
         events={requests}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500 }}
+        style={{ height: 500, width: '1000px' }} // Set a fixed width
         eventPropGetter={eventStyleGetter}
         views={['month']}
         components={{
