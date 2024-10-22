@@ -14,15 +14,25 @@ function RequestsCalendar({ employee_id }) {
     fetch('/requests-info')
       .then(response => response.json())
       .then(data => {
-        const events = data.map(request => ({
-          title: `${request.name} requested a ${request.type} 
-          from ${new Date(request.start_date).toLocaleDateString('en-US')} 
-          to ${new Date(request.end_date).toLocaleDateString('en-US')}`,
-          start: new Date(request.start_date),
-          end: new Date(request.end_date),
-          allDay: true,
-          employeeId: request.employee_id,
-        }));
+        const events = [];
+
+        data.forEach(request => {
+          const startDate = new Date(request.start_date);
+          const endDate = new Date(request.end_date);
+          // Create an event for each day in the range
+          for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+            events.push({
+              title: `${request.name} | ${request.type}`,
+              start: new Date(d),
+              end: new Date(d),
+              allDay: true,
+              employeeId: request.employee_id,
+              accepted: request.accepted, // Assuming accepted is 1 or 0
+              taken: request.taken, // Assuming taken is 1 or 0
+            });
+          }
+        });
+
         setRequests(events);
       })
       .catch(err => console.error('Error fetching requests:', err));
@@ -37,11 +47,27 @@ function RequestsCalendar({ employee_id }) {
       opacity: 0.8,
       color: 'white',
       border: '0px',
-      display: 'block',
-      fontWeight: '400',
-      fontSize: '0.9em'
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '5px',
+      fontWeight: '300',
+      fontSize: '0.82em',
     };
     return { style };
+  };
+
+  // Custom event component
+  const Event = ({ event }) => {
+    return (
+      <div className="event">
+        <span>{event.title}</span>
+        <div className="dots">
+          <div className={`dot ${event.accepted ? 'filled' : ''}`}></div>
+          <div className={`dot ${event.taken ? 'filled' : ''}`}></div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -54,6 +80,9 @@ function RequestsCalendar({ employee_id }) {
         style={{ height: 500 }}
         eventPropGetter={eventStyleGetter}
         views={['month']}
+        components={{
+          event: Event, // Use custom event component
+        }}
       />
     </div>
   );
