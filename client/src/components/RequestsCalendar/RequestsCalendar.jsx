@@ -15,7 +15,9 @@ function RequestsCalendar({ employee_id }) {
       .then(response => response.json())
       .then(data => {
         const events = data.map(request => ({
-          title: `${request.name} requested a ${request.type} from ${new Date(request.start_date)} to ${new Date(request.end_date)}`,
+          title: `${request.name} requested a ${request.type} 
+          from ${new Date(request.start_date).toLocaleDateString('en-US')} 
+          to ${new Date(request.end_date).toLocaleDateString('en-US')}`,
           start: new Date(request.start_date),
           end: new Date(request.end_date),
           allDay: true,
@@ -28,7 +30,7 @@ function RequestsCalendar({ employee_id }) {
 
   // Function to style events based on employee_id
   const eventStyleGetter = (event) => {
-    const backgroundColor = event.employeeId === employee_id ? '#050f38' : '#155ff4';
+    const backgroundColor = event.employeeId === employee_id ? '#155ff4' : '#050f38';
     const style = {
       backgroundColor,
       borderRadius: '5px',
@@ -37,7 +39,7 @@ function RequestsCalendar({ employee_id }) {
       border: '0px',
       display: 'block',
       fontWeight: '400',
-      fontSize: '0.5em'
+      fontSize: '0.9em'
     };
     return { style };
   };
