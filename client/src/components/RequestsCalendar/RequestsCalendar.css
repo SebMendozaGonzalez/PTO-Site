@@ -11,20 +11,19 @@
     align-items: center;
     padding: 5px 10px;
     overflow: hidden; /* Hide overflow */
-    white-space: nowrap; /* Prevent wrapping */
-    text-overflow: ellipsis; /* Show ellipsis for overflow */
 }
 
 .event-title {
     max-width: 60%; /* Limit width of title */
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap; /* Prevent wrapping */
     text-overflow: ellipsis; /* Show ellipsis for long text */
 }
 
 .event-type {
     margin: 0 5px; /* Space between title and dots */
     min-width: 50px; /* Ensure type has some width */
+    flex-shrink: 0; /* Prevent type from shrinking */
 }
 
 .dots {

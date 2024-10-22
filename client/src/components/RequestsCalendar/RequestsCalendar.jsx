@@ -22,7 +22,8 @@ function RequestsCalendar({ employee_id }) {
           // Create an event for each day in the range
           for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
             events.push({
-              title: `${request.name} | ${request.type}`,
+              name: request.name, // Store name separately
+              type: request.type, // Store type separately
               start: new Date(d),
               end: new Date(d),
               allDay: true,
@@ -60,7 +61,7 @@ function RequestsCalendar({ employee_id }) {
   const Event = ({ event }) => {
     return (
       <div className="event">
-        <span className="event-title">{event.title}</span>
+        <span className="event-title">{event.name}</span>
         <span className="event-type">{event.type}</span>
         <div className="dots">
           <div className={`dot ${event.accepted ? 'filled' : ''}`}></div>
@@ -77,7 +78,7 @@ function RequestsCalendar({ employee_id }) {
         events={requests}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500, width: '1000px' }} // Set a fixed width
+        style={{ height: 500, width: '80rem' }} // Set a fixed width
         eventPropGetter={eventStyleGetter}
         views={['month']}
         components={{
