@@ -1,46 +1,50 @@
-.request-calendar {
-    padding: 20px;
-    background-color: #f9f5f2;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+.rbc-day-slot .rbc-events-container {
+    max-height: 5rem; 
+    overflow-y: auto; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}
+
+.rbc-day-slot .rbc-events-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari) */
 }
 
 .event {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px;
-    height: 1.2rem;
-    overflow: hidden; 
+    padding: 0.2rem 0.5rem; 
+    height: 1.2rem; 
+    overflow: hidden;
     font-size: 0.7em;
 }
 
 .event-title {
-    max-width: 72%; /* Limit width of title */
+    max-width: 60%; 
     overflow: hidden;
-    white-space: nowrap; /* Prevent wrapping */
-    text-overflow: ellipsis; /* Show ellipsis for long text */
+    white-space: nowrap;
+    text-overflow: ellipsis; 
 }
 
 .event-type {
-    margin: 0 5px; /* Space between title and dots */
-    min-width: 50px; /* Ensure type has some width */
-    flex-shrink: 0; /* Prevent type from shrinking */
+    margin: 0 0.3rem; 
+    min-width: 3rem; 
+    flex-shrink: 0; 
 }
 
 .dots {
     display: flex;
-    gap: 5px;
+    gap: 0.3rem; 
 }
 
 .dot {
-    width: 9px;
-    height: 9px;
+    width: 0.6rem;
+    height: 0.6rem; 
     border-radius: 50%;
-    background-color: lightgray; /* Default color */
-    transition: background-color 0.3s ease; /* Smooth transition */
+    background-color: lightgray;
+    transition: background-color 0.3s ease;
 }
 
 .dot.filled {
-    background-color: #c74627; /* Color for filled dot */
+    background-color: #c74627;
 }
