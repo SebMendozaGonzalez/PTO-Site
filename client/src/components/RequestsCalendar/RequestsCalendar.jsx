@@ -52,7 +52,8 @@ function RequestsCalendar({ employee_id }) {
       justifyContent: 'space-between',
       padding: '5px',
       fontWeight: '300',
-      fontSize: '0.82em',
+      fontSize: '0.75em',
+      maxHeigth: '1.1em'
     };
     return { style };
   };

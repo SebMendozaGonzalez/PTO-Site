@@ -14,12 +14,13 @@
 
 .dots {
     display: flex;
-    gap: 5px; /* Space between dots */
+    gap: 5px;
+    padding-left: 3px;
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
     background-color: lightgray; /* Default color */
     transition: background-color 0.3s ease; /* Smooth transition */
