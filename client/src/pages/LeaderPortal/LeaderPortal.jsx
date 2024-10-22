@@ -9,7 +9,7 @@ import './LeaderPortal.css'
 function LeaderPortal() {
   const [filterLeaderName, setFilterLeaderName] = useState(''); // State for leader name filter
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null); // State for selected employee_id
-  const [selectedRequestId, setSelectedRequestId] = useState(null); // State for selected request_id
+  const [selectedRequest, setSelectedRequest] = useState(null); // State for selected request
 
   // Function to handle employee selection from LPTable
   const handleEmployeeSelect = (employee) => {
@@ -17,8 +17,13 @@ function LeaderPortal() {
   };
 
   // Function to handle event (request) selection from the calendar
-  const handleEventSelect = (requestId) => {
-    setSelectedRequestId(requestId);
+  const handleEventSelect = (request) => {
+    setSelectedRequest(request);
+  };
+
+  // Function to close the popup
+  const closePopup = () => {
+    setSelectedRequest(null);
   };
 
   return (
@@ -52,11 +57,12 @@ function LeaderPortal() {
           <RequestsCalendar employee_id={selectedEmployeeId} onEventSelect={handleEventSelect} />
         )}
 
-        <RequestView requestId={selectedRequestId} />
+        {selectedRequest && (
+          <RequestView request={selectedRequest} onClose={closePopup} />
+        )}
       </div>
     </div>
   );
 }
 
 export default LeaderPortal;
-
