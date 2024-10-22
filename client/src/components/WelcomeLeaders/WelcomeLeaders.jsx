@@ -9,7 +9,7 @@ function WelcomeLeaders() {
   return (
       <div className='flexColStart paddings innerWidth welcomeEmployees'>
           <h1 className='fonts-secondary' style={{ fontWeight: "700" }}>
-              Welcome, {accounts.length > 0 ? accounts[0].name : 'Leader'}!
+              Welcome, {accounts.length > 0 ? accounts[0].name : 'Manager'}!
           </h1>
           <div className="flexStart paragraph">
               <p className="fonts-regular" style={{ fontSize: "1.4rem" }}>

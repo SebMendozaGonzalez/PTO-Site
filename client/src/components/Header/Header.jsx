@@ -50,7 +50,7 @@ const Header = () => {
           <span>Employee Portal</span>
         </Link>
         <Link to="/leader-portal" className="nav-link">
-          <span>Leader Portal</span>
+          <span>Manager Portal</span>
         </Link>
 
         {accounts.length > 0 ? (
