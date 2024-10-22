@@ -4,26 +4,23 @@ import WelcomeLeaders from '../../components/WelcomeLeaders/WelcomeLeaders';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
-import './LeaderPortal.css'
+import './LeaderPortal.css';
 
 function LeaderPortal() {
-  const [filterLeaderName, setFilterLeaderName] = useState(''); // State for leader name filter
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null); // State for selected employee_id
-  const [selectedRequest, setSelectedRequest] = useState(null); // State for selected request
+  const [filterLeaderName, setFilterLeaderName] = useState('');
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+  const [requestDetails, setRequestDetails] = useState(null); // State for the selected request
 
-  // Function to handle employee selection from LPTable
   const handleEmployeeSelect = (employee) => {
     setSelectedEmployeeId(employee.employee_id);
   };
 
-  // Function to handle event (request) selection from the calendar
-  const handleEventSelect = (request) => {
-    setSelectedRequest(request);
+  const handleEventSelect = (details) => {
+    setRequestDetails(details); // Set the selected request details
   };
 
-  // Function to close the popup
   const closePopup = () => {
-    setSelectedRequest(null);
+    setRequestDetails(null); // Close the popup
   };
 
   return (
@@ -57,9 +54,7 @@ function LeaderPortal() {
           <RequestsCalendar employee_id={selectedEmployeeId} onEventSelect={handleEventSelect} />
         )}
 
-        {selectedRequest && (
-          <RequestView request={selectedRequest} onClose={closePopup} />
-        )}
+        <RequestView requestDetails={requestDetails} onClose={closePopup} />
       </div>
     </div>
   );

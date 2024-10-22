@@ -28,8 +28,8 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
               employeeId: request.employee_id,
               accepted: request.accepted,
               taken: request.taken,
-              requestId: request.request_id,
-              request, 
+              requestId: request.request_id, // Add request_id
+              details: request, // Store the entire request for the popup
             });
           }
         });
@@ -57,16 +57,19 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
     };
   };
 
-  const Event = ({ event }) => (
-    <div className="event">
-      <span className="event-title">{event.name}</span>
-      <span className="event-type">{event.type}</span>
-      <div className="dots">
-        <div className={`dot ${event.accepted ? 'filled' : ''}`}></div>
-        <div className={`dot ${event.taken ? 'filled' : ''}`}></div>
+  // Custom event component
+  const Event = ({ event }) => {
+    return (
+      <div className="event">
+        <span className="event-title">{event.name}</span>
+        <span className="event-type">{event.type}</span>
+        <div className="dots">
+          <div className={`dot ${event.accepted ? 'filled' : ''}`}></div>
+          <div className={`dot ${event.taken ? 'filled' : ''}`}></div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className='paddings request-calendar'>
@@ -79,7 +82,7 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
         eventPropGetter={eventStyleGetter}
         views={['month', 'work_week']}
         components={{ event: Event }}
-        onSelectEvent={(event) => onEventSelect(event.request)} // Pass the entire request object
+        onSelectEvent={(event) => onEventSelect(event.details)} // Pass the entire request to the handler
       />
     </div>
   );
