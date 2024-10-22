@@ -15,7 +15,7 @@ function RequestsCalendar({ employee_id }) {
       .then(response => response.json())
       .then(data => {
         const events = data.map(request => ({
-          title: request.employee_id === employee_id ? 'Relevant Request' : `Request ${request.employee_id}`,
+          title: `${request.name} requested a ${request.type} from ${request.start_date} to ${request.end_date}`,
           start: new Date(request.start_date),
           end: new Date(request.end_date),
           allDay: true,
@@ -28,7 +28,7 @@ function RequestsCalendar({ employee_id }) {
 
   // Function to style events based on employee_id
   const eventStyleGetter = (event) => {
-    const backgroundColor = event.employeeId === employee_id ? 'orange' : '#050f38';
+    const backgroundColor = event.employeeId === employee_id ? '#050f38' : '#a4c3ff';
     const style = {
       backgroundColor,
       borderRadius: '5px',
@@ -36,6 +36,7 @@ function RequestsCalendar({ employee_id }) {
       color: 'white',
       border: '0px',
       display: 'block',
+      fontWeight: '200'
     };
     return { style };
   };

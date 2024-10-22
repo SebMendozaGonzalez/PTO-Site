@@ -111,11 +111,6 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  .btn::before {
-    content: '🡠';
-    margin-right: 1em;
-  }
-
   .btn:hover {
     background-color: white;
     color: #0e40a4;
