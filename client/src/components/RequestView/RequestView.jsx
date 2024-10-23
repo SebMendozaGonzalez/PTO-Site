@@ -41,7 +41,7 @@ function RequestView({ requestDetails, onClose }) {
                             <span className='f3-italic'>This time off was already taken</span>
                         )}
                     </div>
-                    <div className='third paddings flexCenter innerWidth'>
+                    <div className='third padding flexCenter innerWidth'>
                         <div className='flexColStart left'>
                             <span className='f1'>Justification</span>
                             <p className='f3'>{requestDetails.explanation}</p>
