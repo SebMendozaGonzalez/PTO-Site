@@ -16,8 +16,8 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
         const events = [];
 
         data.forEach(request => {
-          const startDate = new Date(request.start_date);
-          const endDate = new Date(request.end_date);
+          const startDate = new Date(request.start_date).toLocaleDateString('en-US');
+          const endDate = new Date(request.end_date).toLocaleDateString('en-US');
           for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
             events.push({
               name: request.name,

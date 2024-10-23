@@ -7,8 +7,8 @@ function RequestView({ requestDetails, onClose }) {
   return (
     <div className='request-popup'>
       <div className='popup-content'>
+        <button className='close-btn' onClick={onClose}>✕</button>
         <h2>Request Details</h2>
-        <button className='close-btn' onClick={onClose}>Close</button>
         <p><strong>Name:</strong> {requestDetails.name}</p>
         <p><strong>Employee ID:</strong> {requestDetails.employee_id}</p>
         <p><strong>Start Date:</strong> {requestDetails.start_date}</p>
@@ -17,7 +17,6 @@ function RequestView({ requestDetails, onClose }) {
         <p><strong>Accepted:</strong> {requestDetails.accepted ? 'Yes' : 'No'}</p>
         <p><strong>Taken:</strong> {requestDetails.taken ? 'Yes' : 'No'}</p>
         <p><strong>Explanation:</strong> {requestDetails.explanation}</p>
-        {/* Add other fields as necessary */}
       </div>
     </div>
   );
