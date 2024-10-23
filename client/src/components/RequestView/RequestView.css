@@ -107,7 +107,7 @@
 }
 
 
-.botón {
+.decision-button {
     background-color: #0e40a4;
     color: white;
     padding: 0.8em 1.2em;
@@ -122,7 +122,7 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
-  .botón:hover {
+  .decision-button:hover {
     background-color: white;
     color: #0e40a4;
     border: 0.1em solid #0e40a4;

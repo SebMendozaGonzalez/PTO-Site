@@ -63,10 +63,10 @@ function RequestView({ requestDetails, onClose }) {
                     </div>
                     <div className='fourth padding flexCenter innerWidth'>
                         <div className='left'>
-                            <button className='botón'>Accept</button>
+                            <button className='decision-button'>Accept</button>
                         </div>
                         <div className='right'>
-                            <button className='botón'>Reject</button>
+                            <button className='decision-button'>Reject</button>
                         </div>
                     </div>
                 </div>
