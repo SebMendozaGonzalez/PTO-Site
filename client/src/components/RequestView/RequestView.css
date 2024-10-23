@@ -22,22 +22,12 @@
     position: relative;
 }
 
+/* Flex layout for left-right sections in the first, second, third blocks */
 .first, .second, .third {
     display: flex;
     justify-content: space-between; /* Ensures maximum distance between left and right */
-    width: 100%; /* Make sure it takes the full width of the popup */
-}
-
-/* Close button */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.5rem; /* Adjust size for a subtle 'X' */
-    color: #ffffff; /* White color for contrast */
-    cursor: pointer;
+    align-items: flex-start;
+    width: 100%; /* Ensure full-width container */
 }
 
 /* General paddings */
@@ -50,49 +40,49 @@
     padding: 5px 0; /* Adds padding only to top and bottom */
 }
 
-/* Flex layout for aligning elements to the left */
+/* Left section styles - aligns to the left side of the container */
 .left {
+    display: flex;
     justify-content: flex-start;
-    flex: 1; /* Allows it to take available space */
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
+    width: 50%; /* Occupies half of the width */
 }
 
-/* Flex layout for aligning elements to the right */
+/* Right section styles - aligns to the right side of the container */
 .right {
+    display: flex;
     justify-content: flex-end;
-    flex: 1; /* Allows it to take available space */
-    text-align: center;
+    align-items: flex-start;
+    text-align: right;
+    width: 50%; /* Occupies half of the width */
 }
 
-/* f0: Smaller font for extra information (e.g., Docs) */
+/* Font classes */
 .f0 {
     font-size: 1.5rem;
     color: #ffffff;
     font-weight: 700;
 }
 
-/* f1: Primary text, typically headers or titles */
 .f1 {
     font-size: 1rem;
     font-weight: 500;
     color: #ffffff;
 }
 
-/* f2: Secondary text, smaller and less emphasized */
 .f2 {
     font-size: 1rem;
     color: #a4c3ff;
     font-weight: 300;
 }
 
-/* f3: Tertiary text, such as timestamps or supporting information */
 .f3 {
     font-size: 0.95rem;
     color: #a4c3ff;
     font-weight: 200;
 }
 
-/* f3-italic: Same as f3 but italicized */
 .f3-italic {
     font-size: 0.95rem;
     color: #ffffff;
@@ -100,9 +90,18 @@
     font-style: italic;
 }
 
+/* Close button styles */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #ffffff;
+    cursor: pointer;
+}
 
-/* Optional hover effect for the close button */
 .close-btn:hover {
     color: #1560f6;
 }
-
