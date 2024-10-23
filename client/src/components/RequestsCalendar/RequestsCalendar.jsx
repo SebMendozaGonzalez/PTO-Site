@@ -28,6 +28,7 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
               employeeId: request.employee_id,
               accepted: request.accepted,
               decided: request.decided,
+              cancelled: request.cancelled,
               taken: request.taken,
               requestId: request.request_id, // Add request_id
               details: request, // Store the entire request for the popup
@@ -67,7 +68,7 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
         <div className="dots">
           <div className={`dot ${event.decided ? 'yellow' : 'grey'}`}></div>
           <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
-          <div className={`dot ${event.taken ? 'green' : 'grey'}`}></div>
+          <div className={`dot ${event.taken ? 'green' : (event.cancelled ? 'red' : 'grey')}`}></div>
         </div>
       </div>
     );
