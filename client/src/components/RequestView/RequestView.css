@@ -53,11 +53,15 @@
 /* Flex layout for aligning elements to the left */
 .left {
     justify-content: flex-start;
+    flex: 1; /* Allows it to take available space */
+    text-align: center;
 }
 
 /* Flex layout for aligning elements to the right */
 .right {
     justify-content: flex-end;
+    flex: 1; /* Allows it to take available space */
+    text-align: center;
 }
 
 /* f0: Smaller font for extra information (e.g., Docs) */
@@ -99,6 +103,6 @@
 
 /* Optional hover effect for the close button */
 .close-btn:hover {
-    color: #050f38;
+    color: #1560f6;
 }
 
