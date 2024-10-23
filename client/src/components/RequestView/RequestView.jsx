@@ -10,7 +10,7 @@ function RequestView({ requestDetails, onClose }) {
                 <button className='close-btn' onClick={onClose}>✕</button>
                 <div className='paddings flexColCenter innerWidth'>
                     <div className='first padding flexCenter innerWidth'>
-                        <div className='paddings flexStart left  requester-info'>
+                        <div className='paddings flexStart left requester-info'>
                             <div className='flexColCenter'>
                                 <span className='f1'>{requestDetails.name}</span>
                                 <span className='f2'>{requestDetails.employee_id}</span>
@@ -30,11 +30,11 @@ function RequestView({ requestDetails, onClose }) {
                     </div>
                     <div className='second padding flexColStart innerWidth'>
                         <span className='f3'>
-                            <strong>Requested on </strong>{new Date(requestDetails.request_date).toLocaleDateString('en-US')}
+                            <strong>Requested on :</strong>{new Date(requestDetails.request_date).toLocaleDateString('en-US')}
                         </span>
                         {requestDetails.accepted && (
                             <span className='f3'>
-                                <strong>Accepted on </strong>{new Date(requestDetails.decision_date).toLocaleDateString('en-US')}
+                                <strong>Accepted on :</strong>{new Date(requestDetails.decision_date).toLocaleDateString('en-US')}
                             </span>
                         )}
                         {requestDetails.taken && (

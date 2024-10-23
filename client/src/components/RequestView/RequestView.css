@@ -14,12 +14,18 @@
 /* Popup content with background */
 .popup-content {
     background: #050f38;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 70rem;
+    max-width: 40rem;
     width: 100%;
     position: relative;
+}
+
+.first, .second, .third {
+    display: flex;
+    justify-content: space-between; /* Ensures maximum distance between left and right */
+    width: 100%; /* Make sure it takes the full width of the popup */
 }
 
 /* Close button */
