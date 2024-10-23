@@ -9,6 +9,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1000; /* Ensure it's on top */
+    max-height: 50rem;
 }
 
 /* Popup content with background */
@@ -36,32 +37,29 @@
 
 /* General paddings */
 .paddings {
-    padding: 10px; /* Uniform padding around elements */
+    padding: 7px; /* Uniform padding around elements */
 }
 
 /* Specific padding for first, second, third sections */
 .padding {
-    padding: 15px 0; /* Adds padding only to top and bottom */
+    padding: 5px 0; /* Adds padding only to top and bottom */
 }
 
 /* Flex layout for aligning elements to the left */
 .left {
     justify-content: flex-start;
-    text-align: left;
 }
 
 /* Flex layout for aligning elements to the right */
 .right {
     justify-content: flex-end;
-    text-align: right;
 }
 
-/* Font classes definition */
 /* f0: Smaller font for extra information (e.g., Docs) */
 .f0 {
-    font-size: 0.85rem;
+    font-size: 1.5rem;
     color: #ffffff;
-    font-weight: 400;
+    font-weight: 700;
 }
 
 /* f1: Primary text, typically headers or titles */
@@ -74,7 +72,7 @@
 /* f2: Secondary text, smaller and less emphasized */
 .f2 {
     font-size: 1rem;
-    color: #ffffff;
+    color: #a4c3ff;
     font-weight: 400;
 }
 
@@ -96,6 +94,6 @@
 
 /* Optional hover effect for the close button */
 .close-btn:hover {
-    color: #f79e00;
+    color: #050f38;
 }
 
