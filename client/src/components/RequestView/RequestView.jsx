@@ -10,13 +10,13 @@ function RequestView({ requestDetails, onClose }) {
                 <button className='close-btn' onClick={onClose}>✕</button>
                 <div className='paddings flexColCenter innerWidth'>
                     <div className='first padding flexCenter innerWidth'>
-                        <div className='paddings flexStart left requester-info'>
+                        <div className='left requester-info'>
                             <div className='flexColCenter'>
                                 <span className='f1'>{requestDetails.name}</span>
                                 <span className='f2'>{requestDetails.employee_id}</span>
                             </div>
                         </div>
-                        <div className='paddings flexStart right dates-and-type'>
+                        <div className='right dates-and-type'>
                             <div className='flexColCenter'>
                                 <span className='f1'>{requestDetails.type}</span>
                                 <span className='f2'>
@@ -30,11 +30,11 @@ function RequestView({ requestDetails, onClose }) {
                     </div>
                     <div className='second padding flexColStart innerWidth'>
                         <span className='f3'>
-                            <strong>Requested on :</strong>{new Date(requestDetails.request_date).toLocaleDateString('en-US')}
+                            <strong>Requested on:  </strong>{new Date(requestDetails.request_date).toLocaleDateString('en-US')}
                         </span>
                         {requestDetails.accepted && (
                             <span className='f3'>
-                                <strong>Accepted on :</strong>{new Date(requestDetails.decision_date).toLocaleDateString('en-US')}
+                                <strong>Accepted on:  </strong>{new Date(requestDetails.decision_date).toLocaleDateString('en-US')}
                             </span>
                         )}
                         {requestDetails.taken && (
@@ -46,7 +46,7 @@ function RequestView({ requestDetails, onClose }) {
                             <span className='f1'>Justification</span>
                             <p className='f3'>{requestDetails.explanation}</p>
                         </div>
-                        <div className='flexColStart right'>
+                        <div className='flexColEnd right'>
                             <span className='f0'>Docs</span>
                         </div>
                     </div>

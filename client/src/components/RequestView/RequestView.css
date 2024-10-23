@@ -17,7 +17,7 @@
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 40rem;
+    max-width: 30rem;
     width: 100%;
     position: relative;
 }
@@ -32,7 +32,7 @@
 
 /* General paddings */
 .paddings {
-    padding: 7px; /* Uniform padding around elements */
+    padding: 5px; /* Uniform padding around elements */
 }
 
 /* Specific padding for first, second, third sections */
@@ -72,13 +72,13 @@
 }
 
 .f2 {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #a4c3ff;
     font-weight: 300;
 }
 
 .f3 {
-    font-size: 0.95rem;
+    font-size: 0.75rem;
     color: #a4c3ff;
     font-weight: 200;
 }
