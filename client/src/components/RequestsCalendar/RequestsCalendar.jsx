@@ -27,6 +27,7 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
               allDay: true,
               employeeId: request.employee_id,
               accepted: request.accepted,
+              decided: request.decided,
               taken: request.taken,
               requestId: request.request_id, // Add request_id
               details: request, // Store the entire request for the popup
