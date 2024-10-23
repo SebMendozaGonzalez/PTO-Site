@@ -5,17 +5,20 @@
     left: 0;
     right: 0;
     bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1000;
 }
 
 /* Popup content with background */
 .popup-content {
-    background: linear-gradient(90.05deg, #000042 20%, #436bb9 85%);
+    background: #050f38;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 500px;
-    width: 90%;
+    max-width: 70rem;
+    width: 100%;
     position: relative;
 }
 
@@ -60,8 +63,8 @@
 
 /* f1: Primary text, typically headers or titles */
 .f1 {
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 500;
     color: #ffffff;
 }
 
@@ -69,14 +72,14 @@
 .f2 {
     font-size: 1rem;
     color: #a4c3ff;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 /* f3: Tertiary text, such as timestamps or supporting information */
 .f3 {
     font-size: 0.95rem;
-    color: #ffffff;
-    font-weight: 400;
+    color: #a4c3ff;
+    font-weight: 200;
 }
 
 /* f3-italic: Same as f3 but italicized */
