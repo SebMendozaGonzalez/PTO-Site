@@ -61,14 +61,17 @@ function RequestView({ requestDetails, onClose }) {
                             <span className='f0'>Docs</span>
                         </div>
                     </div>
-                    <div className='fourth padding flexCenter innerWidth'>
-                        <div className='left'>
-                            <button className='decision-button'>Accept</button>
+                    {!requestDetails.decided && (
+                        <div className='fourth padding flexCenter innerWidth'>
+                            <div className='left'>
+                                <button className='decision-button'>Accept</button>
+                            </div>
+                            <div className='right'>
+                                <button className='decision-button'>Reject</button>
+                            </div>
                         </div>
-                        <div className='right'>
-                            <button className='decision-button'>Reject</button>
-                        </div>
-                    </div>
+                    )}
+
                 </div>
             </div>
 
