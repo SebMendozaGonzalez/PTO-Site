@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1000; /* Ensure it's on top */
-    max-height: 50rem;
+    max-height: 30rem;
 }
 
 /* Popup content with background */
