@@ -20,7 +20,7 @@
 }
 
 .event-title {
-    max-width: 40%; 
+    max-width: 100%; 
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis; 
@@ -28,7 +28,7 @@
 
 .event-type {
     margin: 0 0.17rem; 
-    min-width: 3rem; 
+    min-width: 2rem; 
     flex-shrink: 0; 
 }
 
