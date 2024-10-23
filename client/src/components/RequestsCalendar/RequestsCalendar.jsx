@@ -64,12 +64,14 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
         <span className="event-title">{event.name}</span>
         <span className="event-type">{event.type}</span>
         <div className="dots">
-          <div className={`dot ${event.accepted ? 'filled' : ''}`}></div>
-          <div className={`dot ${event.taken ? 'filled' : ''}`}></div>
+          <div className={`dot ${event.decided ? 'yellow' : 'grey'}`}></div>
+          <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
+          <div className={`dot ${event.taken ? 'green' : 'grey'}`}></div>
         </div>
       </div>
     );
   };
+
 
   return (
     <div className='paddings request-calendar'>

@@ -45,6 +45,18 @@
     transition: background-color 0.3s ease;
 }
 
-.dot.filled {
-    background-color: #39850e;
+.dot.grey {
+    background-color: #cccccc; /* Default grey */
+}
+
+.dot.yellow {
+    background-color: #f79e00; /* Yellow when decided */
+}
+
+.dot.green {
+    background-color: #39850e; /* Green when accepted or taken */
+}
+
+.dot.red {
+    background-color: #ff0000; /* Red when decided but not accepted */
 }
