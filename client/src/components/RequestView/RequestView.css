@@ -5,11 +5,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ensure it's on top */
-    max-height: 30rem;
+    z-index: 1000;
 }
 
 /* Popup content with background */
