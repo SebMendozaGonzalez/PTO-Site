@@ -13,7 +13,7 @@
 
 /* Popup content with background */
 .popup-content {
-    background: #050f38;
+    background: linear-gradient(97.05deg, #436bb9 2%, #000042 130%);
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
