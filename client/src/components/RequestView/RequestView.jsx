@@ -46,7 +46,7 @@ function RequestView({ requestDetails, onClose }) {
                             <span className='f1'>Justification</span>
                             <p className='f3'>{requestDetails.explanation}</p>
                         </div>
-                        <div className='flexColEnd right'>
+                        <div className='flexColCenter right'>
                             <span className='f0'>Docs</span>
                         </div>
                     </div>
