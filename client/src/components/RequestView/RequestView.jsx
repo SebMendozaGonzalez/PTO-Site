@@ -51,7 +51,7 @@ function RequestView({ requestDetails, onClose }) {
                             <span className='f1 padding'>Justification</span>
                             <p className='f3'>{requestDetails.explanation}</p>
                             {requestDetails.decided && !requestDetails.accepted && (
-                                <div>
+                                <div className='padding'>
                                     <span className='f1 padding'>Rejection Reason</span>
                                     <p className='f3'>{requestDetails.rejection_reason}</p>
                                 </div>
@@ -63,10 +63,10 @@ function RequestView({ requestDetails, onClose }) {
                     </div>
                     <div className='fourth padding flexCenter innerWidth'>
                         <div className='left'>
-                            <button className='button btn'>Accept</button>
+                            <button className='botón'>Accept</button>
                         </div>
                         <div className='right'>
-                            <button className='button btn'>Reject</button>
+                            <button className='botón'>Reject</button>
                         </div>
                     </div>
                 </div>

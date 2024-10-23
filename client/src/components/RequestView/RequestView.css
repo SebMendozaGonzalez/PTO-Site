@@ -13,7 +13,7 @@
 
 /* Popup content with background */
 .popup-content {
-    background: linear-gradient(135deg, #5a7ebd 10%, #0a0a77 40%);
+    background: linear-gradient(135deg, #5a7ebd 10%, #050f38 40%);
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -105,3 +105,27 @@
 .close-btn:hover {
     color: #1560f6;
 }
+
+
+.botón {
+    background-color: #0e40a4;
+    color: white;
+    padding: 0.8em 1.2em;
+    font-weight: 600;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .botón:hover {
+    background-color: white;
+    color: #0e40a4;
+    border: 0.1em solid #0e40a4;
+    cursor: pointer;
+    transform: scale(1.05);
+  }
