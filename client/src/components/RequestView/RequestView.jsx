@@ -31,7 +31,7 @@ function RequestView({ requestDetails, onClose }) {
                     </div>
                     
                     {/* Separator */}
-                    <div className="separator"></div>
+                    <div className="separator padding"></div>
 
                     {/* Second Section */}
                     <div className='second padding flexColStart innerWidth'>
@@ -59,7 +59,7 @@ function RequestView({ requestDetails, onClose }) {
                     </div>
                     
                     {/* Separator */}
-                    <div className="separator"></div>
+                    <div className="separator padding"></div>
 
                     {/* Third Section */}
                     <div className='third padding flexCenter innerWidth'>
@@ -78,6 +78,10 @@ function RequestView({ requestDetails, onClose }) {
                         </div>
                     </div>
 
+                    {/* Separator */}
+                    <div className="separator padding"></div>
+
+                    {/* Fourth Section */}
                     {!requestDetails.decided && (
                         <div className='fourth padding flexCenter innerWidth'>
                             <div className='left'>

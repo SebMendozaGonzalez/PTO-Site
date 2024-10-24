@@ -73,13 +73,13 @@
 
 .f2 {
     font-size: 0.9rem;
-    color: #bbbbbb;
+    color: #b6b6b6;
     font-weight: 400;
 }
 
 .f3 {
     font-size: 0.85rem;
-    color: #c7c7c7;
+    color: #f0f0f0;
     font-weight: 400;
 }
 
@@ -131,7 +131,7 @@
   }
 
   .separator {
-    width: 70%; /* 70% of the parent width */
+    width: 90%; /* 70% of the parent width */
     height: 1px; /* Thin horizontal line */
     background-color: grey; /* Subtle grey color */
     opacity: 0.5; /* Make the line subtle */
