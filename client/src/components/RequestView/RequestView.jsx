@@ -144,7 +144,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
 
                     {/* Display Success Message */}
                     {successMessage && (
-                        <div className='success-message paddings' style={{ color: 'grey', fontWeight: '600' }}>
+                        <div className='success-message paddings' style={{ color: 'green', fontWeight: '600' }}>
                             {successMessage}
                         </div>
                     )}
