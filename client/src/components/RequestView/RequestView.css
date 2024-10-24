@@ -141,21 +141,15 @@
 
 .separator {
     width: 95%;
-    /* 70% of the parent width */
     height: 1px;
-    /* Thin horizontal line */
     background-color: grey;
-    /* Subtle grey color */
     opacity: 0.5;
-    /* Make the line subtle */
     margin: 10px auto;
-    /* Center the line horizontally and add vertical spacing */
 }
 
 .rejection-reason{
     background-color: #2b2a2a;
-    border: none;
-
+    border: 0.1em solid grey;
 }
 
 .confirm-button{

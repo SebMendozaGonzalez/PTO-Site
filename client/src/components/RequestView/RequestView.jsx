@@ -131,13 +131,13 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                     {/* Confirmation Modal */}
                     {showConfirm && (
                         <div className='confirm-modal padding'>
-                            <span className='f3 paddings'>
+                            <span className='f3 paddings flexColStart'>
                                 Are you sure you want to {decision === 'accept' ? 'accept' : 'reject'} this request?
                             </span>
                             {decision === 'reject' && (
                                 <div>
-                                    <label className='padding '>
-                                        <span className='f1'>Rejection reason:</span> 
+                                    <label className='paddings '>
+                                        <span className='f1 paddings'>Rejection reason: </span> 
                                         <input
                                             className='rejection-reason f3'
                                             type='text'
@@ -150,11 +150,9 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                             )}
                             
                             <button className='confirm-button paddings'
-                                style={{ transform: 'scale(0.8)' }}
                                 onClick={handleConfirm}>Confirm</button>
 
                             <button className='cancel-button paddings'
-                                style={{ transform: 'scale(0.8)' }}
                                 onClick={() => setShowConfirm(false)}>Cancel</button>
                         </div>
                     )}
