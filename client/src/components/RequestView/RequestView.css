@@ -23,21 +23,28 @@
 }
 
 /* Flex layout for left-right sections in the first, second, third blocks */
-.first, .second, .third, .fourth {
+.first,
+.second,
+.third,
+.fourth {
     display: flex;
-    justify-content: space-between; /* Ensures maximum distance between left and right */
+    justify-content: space-between;
+    /* Ensures maximum distance between left and right */
     align-items: flex-start;
-    width: 100%; /* Ensure full-width container */
+    width: 100%;
+    /* Ensure full-width container */
 }
 
 /* General paddings */
 .paddings {
-    padding: 5px; /* Uniform padding around elements */
+    padding: 5px;
+    /* Uniform padding around elements */
 }
 
 /* Specific padding for first, second, third sections */
 .padding {
-    padding: 5px 0; /* Adds padding only to top and bottom */
+    padding: 5px 0;
+    /* Adds padding only to top and bottom */
 }
 
 /* Left section styles - aligns to the left side of the container */
@@ -46,7 +53,8 @@
     justify-content: flex-start;
     align-items: flex-start;
     text-align: left;
-    width: 50%; /* Occupies half of the width */
+    width: 50%;
+    /* Occupies half of the width */
 }
 
 /* Right section styles - aligns to the right side of the container */
@@ -55,7 +63,8 @@
     justify-content: flex-end;
     align-items: flex-start;
     text-align: right;
-    width: 50%; /* Occupies half of the width */
+    width: 50%;
+    /* Occupies half of the width */
 }
 
 /* Font classes */
@@ -120,21 +129,70 @@
     display: inline-flex;
     align-items: center;
     transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .decision-button:hover {
+}
+
+.decision-button:hover {
     background-color: white;
     color: #0e40a4;
     border: 0.1em solid #0e40a4;
     cursor: pointer;
     transform: scale(1.05);
-  }
+}
 
-  .separator {
-    width: 95%; /* 70% of the parent width */
-    height: 1px; /* Thin horizontal line */
-    background-color: grey; /* Subtle grey color */
-    opacity: 0.5; /* Make the line subtle */
-    margin: 10px auto; /* Center the line horizontally and add vertical spacing */
-  }
-  
+.separator {
+    width: 95%;
+    /* 70% of the parent width */
+    height: 1px;
+    /* Thin horizontal line */
+    background-color: grey;
+    /* Subtle grey color */
+    opacity: 0.5;
+    /* Make the line subtle */
+    margin: 10px auto;
+    /* Center the line horizontally and add vertical spacing */
+}
+
+.confirm-button{
+    background-color: #2b2a2a;
+    color: white;
+    padding: 0.8em 1.2em;
+    font-weight: 600;
+    font-size: 0.9em;
+    border-radius: 0.2em;
+    border: 0.1em solid grey;
+    cursor: pointer;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.confirm-button:hover {
+    background-color: white;
+    color: #2b2a2a;
+    border: 0.1em solid grey;
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.cancel-button{
+    background-color: grey;
+    color: #2b2a2a;
+    padding: 0.8em 1.2em;
+    font-weight: 600;
+    font-size: 0.9em;
+    border-radius: 0.2em;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: white;
+    color: #2b2a2a;
+    border: 0.1em solid #2b2a2a;
+    cursor: pointer;
+    transform: scale(1.05);
+}

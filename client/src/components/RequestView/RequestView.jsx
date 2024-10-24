@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './RequestView.css';
 
 function RequestView({ requestDetails, onClose, onSubmitDecision }) {
@@ -6,6 +6,14 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
     const [decision, setDecision] = useState(null);
     const [rejectionReason, setRejectionReason] = useState('');
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        // Reset state when requestDetails changes (new popup is opened)
+        setShowConfirm(false);
+        setDecision(null);
+        setRejectionReason('');
+        setError('');
+    }, [requestDetails]);
 
     if (!requestDetails) return null;
 
@@ -29,6 +37,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
             <div className='popup-content'>
                 <button className='close-btn' onClick={onClose}>✕</button>
                 <div className='paddings flexColCenter innerWidth'>
+
                     {/* First Section */}
                     <div className='first padding flexCenter innerWidth'>
                         <div className='left requester-info'>
@@ -122,12 +131,15 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                     {/* Confirmation Modal */}
                     {showConfirm && (
                         <div className='confirm-modal'>
-                            <h3>Are you sure you want to {decision === 'accept' ? 'accept' : 'reject'} this request?</h3>
+                            <span className='f3'>
+                                Are you sure you want to {decision === 'accept' ? 'accept' : 'reject'} this request?
+                            </span>
                             {decision === 'reject' && (
                                 <div>
                                     <label>
                                         Rejection Reason:
                                         <input
+                                            className='rejection-reason f3'
                                             type='text'
                                             value={rejectionReason}
                                             onChange={(e) => setRejectionReason(e.target.value)}
@@ -136,8 +148,14 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                                     {error && <span className='error'>{error}</span>}
                                 </div>
                             )}
-                            <button onClick={handleConfirm}>Confirm</button>
-                            <button onClick={() => setShowConfirm(false)}>Cancel</button>
+                            
+                            <button className='confirm-button paddings'
+                                style={{ transform: 'scale(0.8)' }}
+                                onClick={handleConfirm}>Confirm</button>
+
+                            <button className='cancel-button paddings'
+                                style={{ transform: 'scale(0.8)' }}
+                                onClick={() => setShowConfirm(false)}>Cancel</button>
                         </div>
                     )}
                 </div>
