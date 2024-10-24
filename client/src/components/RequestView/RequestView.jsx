@@ -33,18 +33,20 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
         }
 
         setShowConfirm(false);
-        
+
         try {
-            await onSubmitDecision(requestDetails.request_id, (decision === 'accept' ? 1 : 0), rejectionReason);
-            // Set success message on successful submission
+            // Convert decision to 1 or 0 for the "accepted" column
+            const acceptedValue = decision === 'accept' ? 1 : 0;
+
+            await onSubmitDecision(requestDetails.request_id, acceptedValue, rejectionReason);
             setSuccessMessage(`${requestDetails.type} request ${decision === 'accept' ? 'accepted' : 'rejected'} successfully!`);
             setFailureMessage(''); // Clear any previous failure message
         } catch (err) {
-            // Set failure message on error
             setFailureMessage(`Failed to ${decision === 'accept' ? 'accept' : 'reject'} the request. Please try again.`);
             setSuccessMessage(''); // Clear any previous success message
         }
     };
+
 
     return (
         <div className='request-popup'>
