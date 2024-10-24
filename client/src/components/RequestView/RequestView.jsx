@@ -36,7 +36,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
 
         try {
             // Convert decision to 1 or 0 for the "accepted" column
-            const acceptedValue = (decision === 'accept');
+            const acceptedValue = String(decision === 'accept');
 
             await onSubmitDecision(requestDetails.request_id, acceptedValue, rejectionReason);
             setSuccessMessage(`${requestDetails.type} request ${decision === 'accept' ? 'accepted' : 'rejected'} successfully!`);
