@@ -16,10 +16,6 @@ router.post('/', async (req, res) => {
         rejection_reason
     });
 
-    // Validate input
-    if (!request_id || (accepted !== 1 && accepted !== 0)) {
-        return res.status(400).json({ message: 'Invalid request data' });
-    }
 
     try {
         const request = pool.request();
