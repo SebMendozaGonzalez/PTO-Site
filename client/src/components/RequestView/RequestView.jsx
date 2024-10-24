@@ -9,6 +9,7 @@ function RequestView({ requestDetails, onClose }) {
             <div className='popup-content'>
                 <button className='close-btn' onClick={onClose}>✕</button>
                 <div className='paddings flexColCenter innerWidth'>
+                    {/* First Section */}
                     <div className='first padding flexCenter innerWidth'>
                         <div className='left requester-info'>
                             <div className='flexColCenter'>
@@ -28,6 +29,11 @@ function RequestView({ requestDetails, onClose }) {
                             </div>
                         </div>
                     </div>
+                    
+                    {/* Separator */}
+                    <div className="separator"></div>
+
+                    {/* Second Section */}
                     <div className='second padding flexColStart innerWidth'>
                         <span className='f3'>
                             <strong>Requested on:  </strong>{new Date(requestDetails.request_date).toLocaleDateString('en-US')}
@@ -44,13 +50,18 @@ function RequestView({ requestDetails, onClose }) {
                         )}
                         {requestDetails.accepted && requestDetails.cancelled && (
                             <span className='f3'>
-                            <strong>Cancelled on:  </strong>{new Date(requestDetails.cancel_date).toLocaleDateString('en-US')}
-                        </span>
+                                <strong>Cancelled on:  </strong>{new Date(requestDetails.cancel_date).toLocaleDateString('en-US')}
+                            </span>
                         )}
                         {requestDetails.taken && (
                             <span className='f3-italic'>This time off was already taken</span>
                         )}
                     </div>
+                    
+                    {/* Separator */}
+                    <div className="separator"></div>
+
+                    {/* Third Section */}
                     <div className='third padding flexCenter innerWidth'>
                         <div className='flexColStart left'>
                             <span className='f1 padding'>Justification</span>
@@ -66,6 +77,7 @@ function RequestView({ requestDetails, onClose }) {
                             <span className='f0'>Docs</span>
                         </div>
                     </div>
+
                     {!requestDetails.decided && (
                         <div className='fourth padding flexCenter innerWidth'>
                             <div className='left'>
@@ -76,10 +88,8 @@ function RequestView({ requestDetails, onClose }) {
                             </div>
                         </div>
                     )}
-
                 </div>
             </div>
-
         </div>
     );
 }
