@@ -42,6 +42,11 @@ function RequestView({ requestDetails, onClose }) {
                                 <strong>Rejected on:  </strong>{new Date(requestDetails.decision_date).toLocaleDateString('en-US')}
                             </span>
                         )}
+                        {requestDetails.accepted && requestDetails.cancelled && (
+                            <span className='f3'>
+                            <strong>Cancelled on:  </strong>{new Date(requestDetails.cancel_date).toLocaleDateString('en-US')}
+                        </span>
+                        )}
                         {requestDetails.taken && (
                             <span className='f3-italic'>This time off was already taken</span>
                         )}

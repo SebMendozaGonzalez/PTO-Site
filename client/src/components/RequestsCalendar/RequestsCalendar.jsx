@@ -42,7 +42,7 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
   }, [employee_id]);
 
   const eventStyleGetter = (event) => {
-    const backgroundColor = event.employeeId === employee_id ? '#155ff4' : '#050f38';
+    const backgroundColor = event.employeeId === employee_id ? '#0b49c5' : '#050f38';
     return {
       style: {
         backgroundColor,
@@ -66,7 +66,6 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
         <span className="event-title">{event.name}</span>
         <span className="event-type">{event.type}</span>
         <div className="dots">
-          <div className={`dot ${event.decided ? 'yellow' : 'grey'}`}></div>
           <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
           <div className={`dot ${event.taken ? 'green' : (event.cancelled ? 'red' : 'grey')}`}></div>
         </div>

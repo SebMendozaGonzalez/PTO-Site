@@ -6,7 +6,7 @@
 }
 
 .rbc-day-slot .rbc-events-container::-webkit-scrollbar {
-    display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari) */
+    display: none;
 }
 
 .event {
@@ -58,5 +58,5 @@
 }
 
 .dot.red {
-    background-color: #7a1800; /* Red when decided but not accepted */
+    background-color: #a10b00; /* Red when decided but not accepted */
 }
