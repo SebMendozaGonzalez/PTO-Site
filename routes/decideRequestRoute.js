@@ -8,7 +8,6 @@ router.post('/', async (req, res) => {
     const pool = await connectToDatabase();
     const { request_id, accepted, rejection_reason } = req.body;
 
-    // Log the incoming data
     console.log('Incoming request body:', req.body);
     console.log('Deciding: ', {
         accepted,
@@ -16,22 +15,24 @@ router.post('/', async (req, res) => {
         rejection_reason
     });
 
+    const transaction = new sql.Transaction(pool); // Create a transaction object
 
     try {
-        const request = pool.request();
-        request.input('request_id', request_id); // Correctly parameterized
-        request.input('accepted', accepted);
-        if (!accepted) {
+        // Begin the transaction
+        await transaction.begin();
+
+        const request = new sql.Request(transaction); // Use the transaction for this request
+        request.input('request_id', request_id);
+        request.input('accepted', Boolean(accepted)); // Cast to boolean
+        
+        if (!Boolean(accepted)) {
             request.input('rejection_reason', rejection_reason);
         }
 
-        // Begin SQL transaction
-        await pool.query('BEGIN TRANSACTION');
-
-        // Update the vacation request
-        if (accepted) {
+        // Update the vacation request based on acceptance or rejection
+        if (Boolean(accepted)) {
             await request.query(
-                'UPDATE request SET accepted = @accepted WHERE request_id = @request_id;'
+                'UPDATE request SET accepted = @accepted, rejection_reason = NULL WHERE request_id = @request_id;'
             );
         } else {
             await request.query(
@@ -39,20 +40,20 @@ router.post('/', async (req, res) => {
             );
         }
 
-        // Commit the transaction
-        await pool.query('COMMIT');
+        // Commit the transaction if everything goes well
+        await transaction.commit();
 
         // Retrieve the updated request
         const result = await request.query(
             'SELECT * FROM request WHERE request_id = @request_id ORDER BY decision_date DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY'
         );
 
-        // Send the updated row back in the response
         res.status(200).json(result.recordset[0]);
     } catch (err) {
-        await pool.query('ROLLBACK'); // Ensure rollback
-        console.error('Error updating request:', err); // Log detailed error
-        res.status(500).json({ message: 'Error updating request', error: err.message, stack: err.stack });
+        // Rollback the transaction if any error occurs
+        await transaction.rollback();
+        console.error('Error updating request:', err);
+        res.status(500).json({ message: 'Error updating request', error: err.message });
     }
 });
 
