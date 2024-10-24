@@ -5,6 +5,13 @@
     scrollbar-width: none;
 }
 
+.rbc-header {
+    background-color: #363e5f; /* Set the background color for the header */
+    color: rgb(209, 205, 199); /* Optional: change the text color for better contrast */
+    text-align: center;
+    padding: 10px;
+}
+
 .rbc-day-slot .rbc-events-container::-webkit-scrollbar {
     display: none;
 }
