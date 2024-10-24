@@ -21,7 +21,6 @@ router.post('/', async (req, res) => {
         const request = pool.request();
         request.input('request_id', request_id); // Correctly parameterized
         request.input('accepted', accepted);
-
         if (!accepted) {
             request.input('rejection_reason', rejection_reason);
         }
@@ -32,11 +31,11 @@ router.post('/', async (req, res) => {
         // Update the vacation request
         if (accepted) {
             await request.query(
-                'UPDATE request SET accepted = @accepted, rejection_reason = NULL WHERE request_id = @request_id;'
+                'UPDATE request SET accepted = @accepted WHERE request_id = "@request_id";'
             );
         } else {
             await request.query(
-                'UPDATE request SET accepted = @accepted, rejection_reason = @rejection_reason WHERE request_id = @request_id;'
+                'UPDATE request SET accepted = @accepted, rejection_reason = @rejection_reason WHERE request_id = "@request_id";'
             );
         }
 
@@ -45,7 +44,7 @@ router.post('/', async (req, res) => {
 
         // Retrieve the updated request
         const result = await request.query(
-            'SELECT * FROM request WHERE request_id = @request_id ORDER BY decision_date DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY'
+            'SELECT * FROM request WHERE request_id = "@request_id" ORDER BY decision_date DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY'
         );
 
         // Send the updated row back in the response
