@@ -52,6 +52,12 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
         <div className='request-popup'>
             <div className='popup-content'>
                 <button className='close-btn' onClick={onClose}>✕</button>
+
+                <div className="dots-container">
+                    <div className={`dot ${requestDetails.decided ? (requestDetails.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                    <div className={`dot ${requestDetails.taken ? 'green' : (requestDetails.cancelled ? 'red' : 'grey')}`}></div>
+                </div>
+
                 <div className='paddings flexColCenter innerWidth'>
 
                     {/* First Section */}
