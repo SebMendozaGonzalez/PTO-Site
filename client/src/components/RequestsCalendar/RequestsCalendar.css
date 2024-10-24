@@ -19,30 +19,26 @@
 
 .event {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    justify-content: flex-start; /* Align everything to the left */
     align-items: center;
     padding: 0.2rem 0.5rem; 
     height: 1.1rem; 
     overflow: hidden;
     font-size: 0.68em;
+    gap: 0.2rem; /* Add space between elements */
+}
+
+.event-type, .dots {
+    flex-shrink: 0; /* Prevent shrinking */
+    margin-right: 0.2rem; /* Add spacing to the right of the event type and dots */
 }
 
 .event-title {
-    max-width: 100%;
     overflow: hidden;
     white-space: nowrap;
-    align-items: flex-start;
-    text-align: left;
-}
-
-.event-type {
-    margin: 0 0.17rem; 
-    min-width: 2rem; 
-    flex-shrink: 0; 
-    align-items: flex-start;
-    text-align: right;
-    width: 20%
+    text-overflow: ellipsis; /* Hide overflowing text with ellipsis */
+    flex-grow: 1; /* Make the title take up available space */
+    min-width: 0; /* Ensure the title can shrink down if needed */
 }
 
 .dots {
