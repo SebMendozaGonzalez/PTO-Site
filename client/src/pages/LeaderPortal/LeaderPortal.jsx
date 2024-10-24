@@ -23,6 +23,32 @@ function LeaderPortal() {
     setRequestDetails(null); // Close the popup
   };
 
+  // Function to handle the decision made in RequestView
+  const handleSubmitDecision = async (request_id, accepted, rejection_reason) => {
+    try {
+      const response = await fetch('/your-endpoint', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ request_id, accepted, rejection_reason }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update the request.');
+      }
+
+      const updatedRequest = await response.json();
+      // You might want to update the state or notify the user about the successful operation
+      console.log('Updated request:', updatedRequest);
+      closePopup(); // Close the popup after successful update
+
+    } catch (error) {
+      console.error('Error submitting decision:', error);
+      // You might want to show an error message to the user here
+    }
+  };
+
   return (
     <div className='flexColCenter leader-portal'>
       <div className='paddings'>
@@ -54,7 +80,7 @@ function LeaderPortal() {
           <RequestsCalendar employee_id={selectedEmployeeId} onEventSelect={handleEventSelect} />
         )}
 
-        <RequestView requestDetails={requestDetails} onClose={closePopup} />
+        <RequestView requestDetails={requestDetails} onClose={closePopup} onSubmitDecision={handleSubmitDecision} />
       </div>
     </div>
   );
