@@ -35,7 +35,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
         setShowConfirm(false);
         
         try {
-            await onSubmitDecision(requestDetails.request_id, decision === 'accept', rejectionReason);
+            await onSubmitDecision(requestDetails.request_id, (decision === 'accept' ? 1 : 0), rejectionReason);
             // Set success message on successful submission
             setSuccessMessage(`${requestDetails.type} request ${decision === 'accept' ? 'accepted' : 'rejected'} successfully!`);
             setFailureMessage(''); // Clear any previous failure message
