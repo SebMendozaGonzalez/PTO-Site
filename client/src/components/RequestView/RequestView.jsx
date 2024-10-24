@@ -137,7 +137,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                             {decision === 'reject' && (
                                 <div>
                                     <label className='paddings '>
-                                        <span className='f1 paddings'>Rejection reason: </span> 
+                                        <span className='f1'>Rejection reason: </span> 
                                         <input
                                             className='rejection-reason f3'
                                             type='text'
@@ -150,9 +150,11 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                             )}
                             
                             <button className='confirm-button paddings'
+                                style={{ transform: 'scale(0.5)' }}
                                 onClick={handleConfirm}>Confirm</button>
 
                             <button className='cancel-button paddings'
+                                style={{ transform: 'scale(0.5)' }}
                                 onClick={() => setShowConfirm(false)}>Cancel</button>
                         </div>
                     )}
