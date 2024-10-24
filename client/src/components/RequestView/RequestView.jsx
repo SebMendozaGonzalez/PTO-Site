@@ -6,6 +6,8 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
     const [decision, setDecision] = useState(null);
     const [rejectionReason, setRejectionReason] = useState('');
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
 
     useEffect(() => {
         // Reset state when requestDetails changes (new popup is opened)
@@ -30,7 +32,11 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
 
         setShowConfirm(false);
         onSubmitDecision(requestDetails.request_id, decision === 'accept', rejectionReason);
+
+        // Set success message
+        setSuccessMessage(`${requestDetails.type} request ${decision === 'accept' ? 'accepted' : 'rejected'} successfully!`);
     };
+
 
     return (
         <div className='request-popup'>
@@ -128,6 +134,13 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                         </div>
                     )}
 
+                    {/* Display Success Message */}
+                    {successMessage && (
+                        <div className='success-message paddings' style={{ color: 'grey', fontWeight:'600' }}>
+                            {successMessage}
+                        </div>
+                    )}
+
                     {/* Confirmation Modal */}
                     {showConfirm && (
                         <div className='confirm-modal padding'>
@@ -137,7 +150,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                             {decision === 'reject' && (
                                 <div>
                                     <label className='paddings '>
-                                        <span className='f1'>Rejection reason: </span> 
+                                        <span className='f1'>Rejection reason: </span>
                                         <input
                                             className='rejection-reason f3'
                                             type='text'
@@ -148,7 +161,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                                     {error && <span className='error'>{error}</span>}
                                 </div>
                             )}
-                            
+
                             <button className='confirm-button paddings'
                                 style={{ transform: 'scale(0.5)' }}
                                 onClick={handleConfirm}>Confirm</button>
