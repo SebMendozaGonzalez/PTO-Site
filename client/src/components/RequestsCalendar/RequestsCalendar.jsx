@@ -63,8 +63,8 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
   const Event = ({ event }) => {
     return (
       <div className="event">
-        <span className="event-title">{event.name}</span>
-        <span className="event-type">{event.type}</span>
+        <span className="event-title flexStart">{event.name}</span>
+        <span className="event-type flexEnd">{event.type}</span>
         <div className="dots">
           <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
           <div className={`dot ${event.taken ? 'green' : (event.cancelled ? 'red' : 'grey')}`}></div>

@@ -12,6 +12,7 @@
 .event {
     display: flex;
     justify-content: space-between;
+    width: 100%;
     align-items: center;
     padding: 0.2rem 0.5rem; 
     height: 1.1rem; 
@@ -20,16 +21,20 @@
 }
 
 .event-title {
-    max-width: 100%; 
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis; 
+    align-items: flex-start;
+    text-align: left;
 }
 
 .event-type {
     margin: 0 0.17rem; 
     min-width: 2rem; 
     flex-shrink: 0; 
+    align-items: flex-start;
+    text-align: right;
+    width: 30%
 }
 
 .dots {
