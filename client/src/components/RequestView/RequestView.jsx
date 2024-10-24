@@ -165,7 +165,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                             {decision === 'reject' && (
                                 <div>
                                     <label className='paddings '>
-                                        <span className='f1' style={{ paddingLeft: '1em' }}>
+                                        <span className='f1' style={{ paddingRight: '1em' }}>
                                             Rejection reason:
                                         </span>
                                         <input
