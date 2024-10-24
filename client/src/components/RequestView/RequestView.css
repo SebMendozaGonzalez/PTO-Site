@@ -152,29 +152,13 @@
     /* Center the line horizontally and add vertical spacing */
 }
 
-.confirm-button{
+.rejection-reason{
     background-color: #2b2a2a;
-    color: white;
-    padding: 0.8em 1.2em;
-    font-weight: 600;
-    font-size: 0.9em;
-    border-radius: 0.2em;
-    border: 0.1em solid grey;
-    cursor: pointer;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-.confirm-button:hover {
-    background-color: white;
-    color: #2b2a2a;
-    border: 0.1em solid grey;
-    cursor: pointer;
-    transform: scale(1.05);
+    border: none;
+
 }
 
-.cancel-button{
+.confirm-button{
     background-color: grey;
     color: #2b2a2a;
     padding: 0.8em 1.2em;
@@ -188,11 +172,35 @@
     align-items: center;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+.confirm-button:hover {
+    background-color: white;
+    color: #2b2a2a;
+    border: 0.1em solid #2b2a2a;
+    cursor: pointer;
+    transform: scale(1.05);
+
+    
+}
+
+.cancel-button{
+    background-color: #2b2a2a;
+    color: white;
+    padding: 0.8em 1.2em;
+    font-weight: 600;
+    font-size: 0.9em;
+    border-radius: 0.2em;
+    border: 0.1em solid grey;
+    cursor: pointer;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
 .cancel-button:hover {
     background-color: white;
     color: #2b2a2a;
-    border: 0.1em solid #2b2a2a;
+    border: 0.1em solid grey;
     cursor: pointer;
     transform: scale(1.05);
 }

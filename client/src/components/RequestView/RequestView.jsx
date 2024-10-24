@@ -130,14 +130,14 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
 
                     {/* Confirmation Modal */}
                     {showConfirm && (
-                        <div className='confirm-modal'>
-                            <span className='f3'>
+                        <div className='confirm-modal padding'>
+                            <span className='f3 paddings'>
                                 Are you sure you want to {decision === 'accept' ? 'accept' : 'reject'} this request?
                             </span>
                             {decision === 'reject' && (
                                 <div>
-                                    <label>
-                                        Rejection Reason:
+                                    <label className='padding '>
+                                        <span className='f1'>Rejection reason:</span> 
                                         <input
                                             className='rejection-reason f3'
                                             type='text'
