@@ -37,7 +37,7 @@
 .right-side {
     display: flex;
     align-items: center;
-    min-width: 4rem; /* Ensures the right side takes up a fixed width */
+    min-width: 5rem; /* Ensures the right side takes up a fixed width */
     justify-content: flex-end; /* Aligns the type and dots to the right */
     flex-shrink: 0; /* Prevent shrinking when title is long */
 }

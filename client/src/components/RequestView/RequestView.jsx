@@ -29,9 +29,11 @@ function RequestView({ requestDetails, onClose }) {
                             </div>
                         </div>
                     </div>
-                    
+
                     {/* Separator */}
-                    <div className="separator padding"></div>
+                    <div className='innerWidth padding'>
+                        <div className="separator"></div>
+                    </div>
 
                     {/* Second Section */}
                     <div className='second padding flexColStart innerWidth'>
@@ -57,9 +59,11 @@ function RequestView({ requestDetails, onClose }) {
                             <span className='f3-italic'>This time off was already taken</span>
                         )}
                     </div>
-                    
+
                     {/* Separator */}
-                    <div className="separator padding"></div>
+                    <div className='innerWidth padding'>
+                        <div className="separator"></div>
+                    </div>
 
                     {/* Third Section */}
                     <div className='third padding flexCenter innerWidth'>
@@ -79,7 +83,9 @@ function RequestView({ requestDetails, onClose }) {
                     </div>
 
                     {/* Separator */}
-                    <div className="separator padding"></div>
+                    <div className='innerWidth padding'>
+                        <div className="separator"></div>
+                    </div>
 
                     {/* Fourth Section */}
                     {!requestDetails.decided && (

@@ -131,7 +131,7 @@
   }
 
   .separator {
-    width: 90%; /* 70% of the parent width */
+    width: 95%; /* 70% of the parent width */
     height: 1px; /* Thin horizontal line */
     background-color: grey; /* Subtle grey color */
     opacity: 0.5; /* Make the line subtle */
