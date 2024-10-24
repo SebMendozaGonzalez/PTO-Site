@@ -38,21 +38,23 @@ function LeaderPortal() {
         },
         body: JSON.stringify({ request_id, accepted, rejection_reason }),
       });
-
+  
       if (!response.ok) {
-        throw new Error('Failed to update the request.');
+        // Log the response body for more insight
+        const errorDetails = await response.json();
+        console.error('Response error details:', errorDetails);
+        throw new Error('Failed to update the request.'); // You can include the error message in this throw if needed
       }
-
+  
       const updatedRequest = await response.json();
-      // You might want to update the state or notify the user about the successful operation
       console.log('Updated request:', updatedRequest);
       closePopup(); // Close the popup after successful update
-
+  
     } catch (error) {
       console.error('Error submitting decision:', error);
-      // You might want to show an error message to the user here
     }
   };
+  
 
   return (
     <div className='flexColCenter leader-portal'>
