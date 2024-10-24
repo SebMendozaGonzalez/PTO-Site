@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
     });
 
     // Validate input
-    if (!request_id || typeof accepted !== 'boolean') {
+    if (!request_id || (accepted !== 1 && accepted !== 0)) {
         return res.status(400).json({ message: 'Invalid request data' });
     }
 
