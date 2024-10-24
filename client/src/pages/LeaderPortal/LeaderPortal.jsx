@@ -31,7 +31,7 @@ function LeaderPortal() {
         request_id,
         rejection_reason
       });
-      const response = await fetch('/decide-request', {
+      const response = await fetch('https://quantumhr.azurewebsites.net/decide-request', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
