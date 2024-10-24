@@ -26,6 +26,11 @@ function LeaderPortal() {
   // Function to handle the decision made in RequestView
   const handleSubmitDecision = async (request_id, accepted, rejection_reason) => {
     try {
+      console.log('Trying to update: ', {
+        accepted,
+        request_id,
+        rejection_reason
+      });
       const response = await fetch('/decide-request', {
         method: 'POST',
         headers: {
