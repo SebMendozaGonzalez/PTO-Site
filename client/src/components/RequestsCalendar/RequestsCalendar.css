@@ -6,7 +6,7 @@
 }
 
 .rbc-header {
-    background-color: #050f38; /* Set the background color for the header */
+    background-color: #050f38;
     color: #ffffff;
     text-align: center;
     font-weight: 400;
@@ -30,15 +30,14 @@
 .event-title {
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
-    flex-grow: 1; /* Takes up the remaining space */
+    flex-grow: 1;
     text-align: left;
 }
 
 .right-side {
     display: flex;
     align-items: center;
-    min-width: 5rem; /* Ensures the right side takes up a fixed width */
+    min-width: 4rem; /* Ensures the right side takes up a fixed width */
     justify-content: flex-end; /* Aligns the type and dots to the right */
     flex-shrink: 0; /* Prevent shrinking when title is long */
 }
@@ -61,17 +60,17 @@
 }
 
 .dot.grey {
-    background-color: #cccccc; /* Default grey */
+    background-color: #cccccc;
 }
 
 .dot.yellow {
-    background-color: #f79e00; /* Yellow when decided */
+    background-color: #f79e00;
 }
 
 .dot.green {
-    background-color: #39850e; /* Green when accepted or taken */
+    background-color: #39850e;
 }
 
 .dot.red {
-    background-color: #a10b00; /* Red when decided but not accepted */
+    background-color: #a10b00;
 }
