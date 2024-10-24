@@ -6,7 +6,7 @@ const vacationsInfoRoute = require('./routes/vacationsInfo');
 const vacationsXemployeeInfoRoute = require('./routes/vacationsXemployeeInfo');
 const requestsInfoRoute = require('./routes/requestsInfo');
 const vacationRequestRoute = require('./routes/requestRoute');
-const decideRequestRoute = require('./routes/decideRequestRoute')
+const decideRequestRoute = require('./routes/decideRequestRoute');
 const photoRoute = require('./routes/photoRoute');
 
 require('dotenv').config();
@@ -16,37 +16,32 @@ const port = process.env.PORT || 8080;
 
 // Middleware to handle CORS
 app.use(cors({
-  origin: 'https://quantumhr.azurewebsites.net',
-  credentials: true
+    origin: 'https://quantumhr.azurewebsites.net',
+    credentials: true
 }));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-
 // API routes for data
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
 app.use('/vacationsXemployee-info', vacationsXemployeeInfoRoute);
-app.use('/requests-info', requestsInfoRoute)
+app.use('/requests-info', requestsInfoRoute);
 app.use('/request', vacationRequestRoute);
 app.use('/employee-photos', photoRoute);
 app.use('/decide-request', decideRequestRoute);
 
-
-
 // Protect the leader portal route
 app.get('/leader-portal', (req, res) => {
-  res.send('Welcome to the Leader Portal');
+    res.send('Welcome to the Leader Portal');
 });
 
+// Logout functionality
 app.get('/logout', (req, res) => {
-  // Clear session or token data
-  req.session = null; // Or whatever method you use to manage sessions
-  
-  // Redirect to the Azure AD logout URL
-  const logoutUrl = `https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://quantumhr.azurewebsites.net`;
-  res.redirect(logoutUrl); // Redirect to Azure AD to sign out
+    req.session = null; // Clear session data
+    const logoutUrl = `https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://quantumhr.azurewebsites.net`;
+    res.redirect(logoutUrl); // Redirect to Azure AD logout
 });
 
 // Serve static files from the React app
@@ -54,20 +49,21 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Catch-all for serving the React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
+// Health check route
 app.get('/health', (req, res) => {
-  res.status(200).send('OK');
+    res.status(200).send('OK');
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
 });
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });

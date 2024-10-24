@@ -8,6 +8,7 @@ router.post('/', async (req, res) => {
     const { request_id, accepted, rejection_reason } = req.body;
 
     // Log the incoming data
+    console.log('Incoming request body:', req.body);
     console.log('Deciding: ', {
         accepted,
         request_id,
@@ -21,8 +22,6 @@ router.post('/', async (req, res) => {
 
     try {
         const request = pool.request();
-
-        // Add parameters for the SQL query
         request.input('request_id', request_id);
         request.input('accepted', accepted);
 
@@ -55,11 +54,9 @@ router.post('/', async (req, res) => {
         // Send the updated row back in the response
         res.status(200).json(result.recordset[0]);
     } catch (err) {
-        // Rollback the transaction in case of error
-        await pool.query('ROLLBACK');
-        
-        console.error('Error updating request:', err);
-        res.status(500).json({ message: 'Error updating request', error: err.message });
+        await pool.query('ROLLBACK'); // Ensure rollback
+        console.error('Error updating request:', err); // Log detailed error
+        res.status(500).json({ message: 'Error updating request', error: err.message, stack: err.stack });
     }
 });
 
