@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './RequestView.css';
 
-function RequestView({ requestDetails, onClose }) {
+function RequestView({ requestDetails, onClose, onSubmitDecision }) {
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [decision, setDecision] = useState(null);
+    const [rejectionReason, setRejectionReason] = useState('');
+    const [error, setError] = useState('');
+
     if (!requestDetails) return null;
+
+    const handleDecision = (decisionType) => {
+        setDecision(decisionType);
+        setShowConfirm(true);
+    };
+
+    const handleConfirm = () => {
+        if (decision === 'reject' && !rejectionReason) {
+            setError('Rejection reason is required.');
+            return;
+        }
+
+        setShowConfirm(false);
+        onSubmitDecision(requestDetails.request_id, decision === 'accept', rejectionReason);
+    };
 
     return (
         <div className='request-popup'>
@@ -91,11 +111,33 @@ function RequestView({ requestDetails, onClose }) {
                     {!requestDetails.decided && (
                         <div className='fourth padding flexCenter innerWidth'>
                             <div className='left'>
-                                <button className='decision-button'>Accept</button>
+                                <button className='decision-button' onClick={() => handleDecision('accept')}>Accept</button>
                             </div>
                             <div className='right'>
-                                <button className='decision-button'>Reject</button>
+                                <button className='decision-button' onClick={() => handleDecision('reject')}>Reject</button>
                             </div>
+                        </div>
+                    )}
+
+                    {/* Confirmation Modal */}
+                    {showConfirm && (
+                        <div className='confirm-modal'>
+                            <h3>Are you sure you want to {decision === 'accept' ? 'accept' : 'reject'} this request?</h3>
+                            {decision === 'reject' && (
+                                <div>
+                                    <label>
+                                        Rejection Reason:
+                                        <input
+                                            type='text'
+                                            value={rejectionReason}
+                                            onChange={(e) => setRejectionReason(e.target.value)}
+                                        />
+                                    </label>
+                                    {error && <span className='error'>{error}</span>}
+                                </div>
+                            )}
+                            <button onClick={handleConfirm}>Confirm</button>
+                            <button onClick={() => setShowConfirm(false)}>Cancel</button>
                         </div>
                     )}
                 </div>

@@ -53,3 +53,14 @@ router.post('/', async (req, res) => {
         );
 
         // Send the updated row back in the response
+        res.status(200).json(result.recordset[0]);
+    } catch (err) {
+        // Rollback the transaction in case of error
+        await pool.query('ROLLBACK');
+        
+        console.error('Error updating request:', err);
+        res.status(500).json({ message: 'Error updating request', error: err.message });
+    }
+});
+
+module.exports = router;
