@@ -1,55 +1,51 @@
 const express = require('express');
 const router = express.Router();
-const { connectToDatabase } = require('../db/dbConfig');
+const { connectToDatabase } = require('../db/dbConfig');  // Your SQL connection pool
 
 // Route to handle vacation requests
 router.post('/', async (req, res) => {
     const pool = await connectToDatabase();
-    const { request_id, accepted, rejection_reason } = req.body;
+    const { type, start_date, end_date, explanation, employee_id, is_exception } = req.body;
 
     // Log the incoming data
-    console.log('Deciding: ', {
-        accepted,
-        request_id,
-        rejection_reason
+    console.log('Inserting request with the following data:', {
+        type,
+        start_date,
+        end_date,
+        explanation,
+        employee_id,
+        is_exception
     });
 
-    // Validate input
-    if (!request_id || typeof accepted !== 'boolean') {
-        return res.status(400).json({ message: 'Invalid request data' });
-    }
-
     try {
+        // Start a new request
         const request = pool.request();
-
+        
         // Add parameters for the SQL query
-        request.input('request_id', request_id);
-        request.input('accepted', accepted);
+        request.input('type', type);
+        request.input('start_date', start_date);
+        request.input('end_date', end_date);
+        request.input('explanation', explanation);
+        request.input('employee_id', employee_id);
+        request.input('is_exception', is_exception);
 
-        if (!accepted) {
-            request.input('rejection_reason', rejection_reason);
-        }
-
-        // Begin SQL transaction
-        await pool.query('BEGIN TRANSACTION');
-
-        // Update the vacation request
-        if (accepted) {
-            await request.query(
-                'UPDATE request SET accepted = @accepted, rejection_reason = NULL WHERE request_id = @request_id;'
-            );
-        } else {
-            await request.query(
-                'UPDATE request SET accepted = @accepted, rejection_reason = @rejection_reason WHERE request_id = @request_id;'
-            );
-        }
-
-        // Commit the transaction
-        await pool.query('COMMIT');
-
-        // Retrieve the updated request
-        const result = await request.query(
-            `SELECT * FROM request WHERE request_id = @request_id ORDER BY decision_date DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY`
+        // Insert the new vacation request
+        await request.query(
+            `INSERT INTO request (type, start_date, end_date, request_date, explanation, employee_id, is_exception)
+             VALUES (@type, @start_date, @end_date, CURRENT_TIMESTAMP, @explanation, @employee_id, @is_exception)`
         );
+        
+        // Retrieve the last inserted row for that employee
+        const result = await request.query(
+            `SELECT * FROM request WHERE employee_id = @employee_id ORDER BY request_date DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY`
+        );
+        
+        // Send the inserted row back in the response
+        res.status(201).json(result.recordset[0]); // Adjusted for SQL Server
+    } catch (err) {
+        console.error('Error submitting request:', err);
+        res.status(500).json({ message: 'Error submitting request', error: err.message });
+    }
+});
 
-        // Send the updated row back in the response
+module.exports = router;
