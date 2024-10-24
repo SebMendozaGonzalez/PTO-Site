@@ -136,7 +136,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
 
                     {/* Display Success Message */}
                     {successMessage && (
-                        <div className='success-message paddings' style={{ color: 'grey', fontWeight:'600' }}>
+                        <div className='success-message paddings' style={{ color: 'grey', fontWeight: '600' }}>
                             {successMessage}
                         </div>
                     )}
@@ -150,7 +150,9 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                             {decision === 'reject' && (
                                 <div>
                                     <label className='paddings '>
-                                        <span className='f1'>Rejection reason: </span>
+                                        <span className='f1' style={{ paddingLeft: '1em' }}>
+                                            Rejection reason:
+                                        </span>
                                         <input
                                             className='rejection-reason f3'
                                             type='text'
@@ -163,11 +165,11 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                             )}
 
                             <button className='confirm-button paddings'
-                                style={{ transform: 'scale(0.5)' }}
+                                style={{ transform: 'scale(0.7)' }}
                                 onClick={handleConfirm}>Confirm</button>
 
                             <button className='cancel-button paddings'
-                                style={{ transform: 'scale(0.5)' }}
+                                style={{ transform: 'scale(0.7)' }}
                                 onClick={() => setShowConfirm(false)}>Cancel</button>
                         </div>
                     )}
