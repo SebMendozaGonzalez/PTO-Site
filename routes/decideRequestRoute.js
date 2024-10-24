@@ -4,6 +4,7 @@ const { connectToDatabase } = require('../db/dbConfig');
 
 // Route to handle vacation requests
 router.post('/', async (req, res) => {
+    console.log('Decide request route hit');
     const pool = await connectToDatabase();
     const { request_id, accepted, rejection_reason } = req.body;
 

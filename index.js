@@ -23,6 +23,13 @@ app.use(cors({
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Global Error Handler:', err);
+  res.status(500).send('Something went wrong!');
+});
+
+
 // API routes for data
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
