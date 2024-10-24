@@ -7,7 +7,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
     const [rejectionReason, setRejectionReason] = useState('');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-
+    const [failureMessage, setFailureMessage] = useState(''); // Added state for failure message
 
     useEffect(() => {
         // Reset state when requestDetails changes (new popup is opened)
@@ -15,6 +15,8 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
         setDecision(null);
         setRejectionReason('');
         setError('');
+        setSuccessMessage(''); // Reset success message
+        setFailureMessage(''); // Reset failure message
     }, [requestDetails]);
 
     if (!requestDetails) return null;
@@ -24,19 +26,25 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
         setShowConfirm(true);
     };
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         if (decision === 'reject' && !rejectionReason) {
             setError('Rejection reason is required.');
             return;
         }
 
         setShowConfirm(false);
-        onSubmitDecision(requestDetails.request_id, decision === 'accept', rejectionReason);
-
-        // Set success message
-        setSuccessMessage(`${requestDetails.type} request ${decision === 'accept' ? 'accepted' : 'rejected'} successfully!`);
+        
+        try {
+            await onSubmitDecision(requestDetails.request_id, decision === 'accept', rejectionReason);
+            // Set success message on successful submission
+            setSuccessMessage(`${requestDetails.type} request ${decision === 'accept' ? 'accepted' : 'rejected'} successfully!`);
+            setFailureMessage(''); // Clear any previous failure message
+        } catch (err) {
+            // Set failure message on error
+            setFailureMessage(`Failed to ${decision === 'accept' ? 'accept' : 'reject'} the request. Please try again.`);
+            setSuccessMessage(''); // Clear any previous success message
+        }
     };
-
 
     return (
         <div className='request-popup'>
@@ -141,6 +149,13 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                         </div>
                     )}
 
+                    {/* Display Failure Message */}
+                    {failureMessage && (
+                        <div className='failure-message paddings' style={{ color: 'red', fontWeight: '600' }}>
+                            {failureMessage}
+                        </div>
+                    )}
+
                     {/* Confirmation Modal */}
                     {showConfirm && (
                         <div className='confirm-modal padding'>
@@ -165,11 +180,11 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                             )}
 
                             <button className='confirm-button paddings'
-                                style={{ transform: 'scale(0.7)' }}
+                                style={{ transform: 'scale(0.8)' }}
                                 onClick={handleConfirm}>Confirm</button>
 
                             <button className='cancel-button paddings'
-                                style={{ transform: 'scale(0.7)' }}
+                                style={{ transform: 'scale(0.8)' }}
                                 onClick={() => setShowConfirm(false)}>Cancel</button>
                         </div>
                     )}
