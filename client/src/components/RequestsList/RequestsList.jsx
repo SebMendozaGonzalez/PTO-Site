@@ -73,5 +73,3 @@ function RequestsList({ employee_id }) {
 }
 
 export default RequestsList;
-
-

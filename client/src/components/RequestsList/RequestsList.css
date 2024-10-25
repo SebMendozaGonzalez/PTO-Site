@@ -1,5 +1,5 @@
-
-.item-container{
+.item-container {
+    position: relative; /* Make the parent relative for absolute positioning */
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -20,16 +20,18 @@
     margin: 10px 0;
 }
 
+/* Fix the dots container to the right */
 .requests-list > .dots-container {
-    left: 3em;
+    position: absolute; /* Make this absolute */
+    right: 1rem; /* Adjust the right position as needed */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
     gap: 0.2rem;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    text-align: right;
-    width: 50%;
+    align-items: center;
 }
 
+/* Dot styles */
 .requests-list > .dot {
     width: 0.6rem;
     height: 0.6rem; 
