@@ -1,3 +1,8 @@
+.requests-list .MuiListItem-root:hover {
+    background-color: #83abfc; /* Change this color to your desired hover color */
+    cursor: pointer; /* Change the cursor to indicate it's clickable */
+}
+
 .item-container {
     position: relative; /* Ensure this is still set for the absolute positioning of the dots */
     display: flex;
