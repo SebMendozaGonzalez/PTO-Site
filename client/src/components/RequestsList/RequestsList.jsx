@@ -5,7 +5,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import ListItemAvatar from '@mui/material';
+import Avatar from '@mui/material';
 import './RequestsList.css';
+import { ListItemAvatar, ListItemIcon } from '@mui/material';
 
 function RequestsList({ employee_id }) {
     const [requests, setRequests] = useState([]);
@@ -53,10 +56,16 @@ function RequestsList({ employee_id }) {
                                             </div>
                                         }
                                     />
-                                    <div className="dots-container" style={{ display: 'flex', marginLeft: 'auto' }}>
-                                        <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                                        <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
-                                    </div>
+
+                                    <ListItemAvatar>
+                                        <Avatar>
+                                            <div className="dots-container" style={{ display: 'flex', marginLeft: 'auto' }}>
+                                                <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                                                <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                            </div>
+                                        </Avatar>
+                                    </ListItemAvatar>
+
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />
                             </div>
