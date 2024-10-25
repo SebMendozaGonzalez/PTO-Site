@@ -5,13 +5,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import ListItemAvatar from '@mui/material';
-import Avatar from '@mui/material';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import RequestView from '../RequestView/RequestView'; // Make sure the path is correct
 import './RequestsList.css';
 
 function RequestsList({ employee_id }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
+    const [requestDetails, setRequestDetails] = useState(null); // State for the request details
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -35,6 +37,14 @@ function RequestsList({ employee_id }) {
         }
     }, [employee_id]);
 
+    const handleRequestClick = (request) => {
+        setRequestDetails(request); // Set the clicked request details
+    };
+
+    const closePopup = () => {
+        setRequestDetails(null); // Close the popup
+    };
+
     return (
         <div className='paddings innerWidth requests-list'>
             <Box sx={{ width: '100%', bgcolor: '#2b2a2a', padding: 2, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
@@ -44,7 +54,7 @@ function RequestsList({ employee_id }) {
                     {requests.length > 0 ? (
                         requests.map(request => (
                             <div key={request.request_id}>
-                                <ListItem>
+                                <ListItem button onClick={() => handleRequestClick(request)}> {/* Add onClick handler */}
                                     <ListItemText
                                         primary={<span style={{ color: '#ffffff' }}>Type: {request.type}</span>}
                                         secondary={
@@ -55,7 +65,6 @@ function RequestsList({ employee_id }) {
                                             </div>
                                         }
                                     />
-
                                     <ListItemAvatar>
                                         <Avatar>
                                             <div className="dots-container" style={{ display: 'flex', marginLeft: 'auto' }}>
@@ -64,7 +73,6 @@ function RequestsList({ employee_id }) {
                                             </div>
                                         </Avatar>
                                     </ListItemAvatar>
-
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />
                             </div>
@@ -73,6 +81,9 @@ function RequestsList({ employee_id }) {
                         !error && <p style={{ color: '#b6b6b6' }}>Searching for requests...</p>
                     )}
                 </List>
+                {requestDetails && ( // Render RequestView if requestDetails is set
+                    <RequestView requestDetails={requestDetails} onClose={closePopup} onSubmitDecision={handleSubmitDecision} />
+                )}
             </Box>
         </div>
     );

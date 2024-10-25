@@ -1,4 +1,3 @@
-// src/pages/EmployeePortal/EmployeePortal.js
 import React, { useState } from 'react';
 import './EmployeePortal.css';
 import WelcomeEmployees from '../../components/WelcomeEmployees/WelcomeEmployees';
@@ -8,6 +7,11 @@ import RequestsList from '../../components/RequestsList/RequestsList';
 
 function EmployeePortal() {
   const [filterEmployeeId, setFilterEmployeeId] = useState('');
+
+  // Define the function to handle the decision made in RequestView
+  const handleSubmitDecision = async (request_id, accepted, rejection_reason) => {
+    // Your implementation goes here
+  };
 
   return (
     <div className="employee-portal">
@@ -25,10 +29,11 @@ function EmployeePortal() {
 
       <WelcomeEmployees />
       <DashboardEmployee employee_id={filterEmployeeId} />
-      <RequestsList employee_id={filterEmployeeId} />
+      <RequestsList employee_id={filterEmployeeId} onSubmitDecision={handleSubmitDecision} />
       <RequestsEmployee employee_id={filterEmployeeId} />
     </div>
   );
 }
 
 export default EmployeePortal;
+
