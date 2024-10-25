@@ -5,7 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import { Avatar, ListItemAvatar } from '@mui/material';
+import { ListItemAvatar } from '@mui/material';
 import './RequestsList.css';
 
 function RequestsList({ employee_id, onClickRequest }) { // Add the onClickRequest prop
@@ -47,19 +47,16 @@ function RequestsList({ employee_id, onClickRequest }) { // Add the onClickReque
                                         primary={<p className='fonts-primary'>{request.type}</p>}
                                         secondary={
                                             <div className='flexColStart'>
-                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>Status:</strong> {request.accepted ? 'Accepted' : 'Pending'} </span> 
-                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>Start Date:</strong> {new Date(request.start_date).toLocaleDateString()} </span> 
-                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>End Date:</strong> {new Date(request.end_date).toLocaleDateString()} </span> 
+                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>Start Date:</strong> {new Date(request.start_date).toLocaleDateString()} </span>
+                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>End Date:</strong> {new Date(request.end_date).toLocaleDateString()} </span>
                                             </div>
                                         }
                                     />
                                     <ListItemAvatar edge="end">
-                                        <Avatar>
-                                            <div className="dots-container" style={{ display: 'flex', marginLeft: 'auto' }}>
-                                                <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                                                <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
-                                            </div>
-                                        </Avatar>
+                                        <div className="dots-container" style={{ display: 'flex', marginLeft: 'auto' }}>
+                                            <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                                            <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                        </div>
                                     </ListItemAvatar>
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />

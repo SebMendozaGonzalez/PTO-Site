@@ -17,6 +17,7 @@
     font-weight: 500;
     font-size: 0.8rem;
     padding-bottom: 1rem;
+    color: #29304d;
 }
 
 
@@ -32,9 +33,12 @@
     margin: 10px 0;
 }
 
-/* Fix the dots container to the right */
-.dots-container {
+
+.requests-list > .dots-container {
     display: flex;
     align-items: center;
-    margin-left: auto; /* Push the dots container to the right */
+    margin-left: auto; 
+    border-radius: 3px;
+    border: 0.1em solid grey;
+    background-color: #1560f6;
 }
