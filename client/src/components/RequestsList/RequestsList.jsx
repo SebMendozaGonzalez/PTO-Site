@@ -4,9 +4,6 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import VacationIcon from '@mui/icons-material/BeachAccess'; // A better icon for vacation requests
 import Divider from '@mui/material/Divider';
 import './RequestsList.css';
 import { ListItemIcon } from '@mui/material';
