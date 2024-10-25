@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import VacationIcon from '@mui/icons-material/BeachAccess'; // A better icon for vacation requests
 import Divider from '@mui/material/Divider';
 import './RequestsList.css';
+import { ListItemIcon } from '@mui/material';
 
 function RequestsList({ employee_id }) {
     const [requests, setRequests] = useState([]);
@@ -46,11 +47,6 @@ function RequestsList({ employee_id }) {
                         requests.map(request => (
                             <div key={request.request_id}>
                                 <ListItem>
-                                    <ListItemAvatar>
-                                        <Avatar>
-                                            <VacationIcon />
-                                        </Avatar>
-                                    </ListItemAvatar>
                                     <ListItemText
                                         primary={<span style={{ color: '#ffffff' }}>Type: {request.type}</span>}
                                         secondary={
@@ -61,10 +57,12 @@ function RequestsList({ employee_id }) {
                                             </div>
                                         }
                                     />
-                                    <div className="dots-container">
-                                        <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                                        <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
-                                    </div>
+                                    <ListItemIcon edge="end">
+                                        <div className="dots-container">
+                                            <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                                            <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                        </div>
+                                    </ListItemIcon>
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />
                             </div>
