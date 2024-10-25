@@ -6,7 +6,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import './RequestsList.css';
-import { IconButton } from '@mui/material';
 
 function RequestsList({ employee_id }) {
     const [requests, setRequests] = useState([]);
