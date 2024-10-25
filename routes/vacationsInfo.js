@@ -8,6 +8,7 @@ router.get('/:employee_id', async (req, res) => {
     try {
         const pool = await connectToDatabase();
         const result = await pool.request()
+        
             .input('employee_id', employee_id)
             .query(`
                 SELECT * 

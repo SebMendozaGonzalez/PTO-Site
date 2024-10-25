@@ -20,15 +20,25 @@ router.get('/:employee_id', async (req, res) => {
 
     try {
         const pool = await connectToDatabase();
-        const request = pool.request();
-        
-        request.input('employee_id', sql.NVarChar, employee_id);
-        const result = await request.query('SELECT * FROM request WHERE employee_id = @employee_id ORDER BY employee_id DESC');
-        
-        res.json(result.recordset);
+        const result = await pool.request()
+            .input('employee_id', employee_id)
+            .query(`
+                SELECT * 
+                FROM request 
+                WHERE employee_id = @employee_id
+            `);
+
+        if (result.recordset.length === 0) {
+            // Log if no records are found
+            console.log(`No request data found for employee ID: ${employee_id}`);
+            return res.status(404).json({ message: 'No request data found for this employee' });
+        }
+
+        res.json(result.recordset); // Return all matching records
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Server error');
+        // Log detailed error for debugging
+        console.error(`Error fetching request data for employee ID ${employee_id}:`, err);
+        res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
 

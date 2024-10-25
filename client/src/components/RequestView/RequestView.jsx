@@ -138,8 +138,7 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
 
                     {/* Fourth Section */}
                     {!requestDetails.decided && (
-                        <div>
-
+                        <div className='innerWidth'>
                             {/* Separator */}
                             <div className='innerWidth padding'>
                                 <div className="separator"></div>
