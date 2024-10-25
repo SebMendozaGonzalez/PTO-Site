@@ -1,24 +1,14 @@
-/* General styles for RequestsList */
-.paddings {
-    padding: 15px; /* Adjust as needed */
-}
-
-/* Optional: Add more specific styles for colors and layouts */
-.innerWidth {
-    max-width: 800px; /* Adjust the width of your content */
-    margin: auto; /* Center the box */
-}
 
 /* Text styles */
-h2 {
+.requests-list > h2 {
     margin-bottom: 10px;
 }
 
-p {
+.requests-list > p {
     margin: 5px 0;
 }
 
 /* Divider customization */
-.MuiDivider-root {
+.requests-list > .MuiDivider-root {
     margin: 10px 0;
 }
