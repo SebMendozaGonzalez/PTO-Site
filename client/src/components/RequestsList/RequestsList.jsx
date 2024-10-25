@@ -8,7 +8,6 @@ import Divider from '@mui/material/Divider';
 import ListItemAvatar from '@mui/material';
 import Avatar from '@mui/material';
 import './RequestsList.css';
-import { ListItemAvatar, ListItemIcon } from '@mui/material';
 
 function RequestsList({ employee_id }) {
     const [requests, setRequests] = useState([]);
