@@ -17,8 +17,8 @@ router.post('/', async (req, res) => {
 
         let updateQuery = `
             UPDATE request 
-            SET decided = 1
-            SET accepted = @accepted
+            SET decided = 1,
+            SET accepted = @accepted,
             SET decision_date = CURRENT_TIMESTAMP
         `;
 
