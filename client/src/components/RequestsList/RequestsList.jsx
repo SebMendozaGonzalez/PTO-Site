@@ -12,7 +12,7 @@ function RequestsList({ employee_id }) {
             setError('');
 
             try {
-                const response = await axios.get(`/requests-info/${employee_id}`);
+                const response = await axios.get(`https://quantumhr.azurewebsites.net/requests-info/${employee_id}`);
                 if (response.data.length > 0) {
                     setRequests(response.data);
                 } else {
