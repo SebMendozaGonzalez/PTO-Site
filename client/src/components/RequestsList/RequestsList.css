@@ -1,7 +1,7 @@
 
-/* Text styles */
-.requests-list > h2 {
+.requests-list > h3 {
     margin-bottom: 10px;
+    color: #a4c3ff;
 }
 
 .requests-list > p {
@@ -11,4 +11,35 @@
 /* Divider customization */
 .requests-list > .MuiDivider-root {
     margin: 10px 0;
+}
+
+.requests-list > .dots-container {
+    position: absolute;
+    right: 10px; /* Adjust as needed for spacing */
+    display: flex;
+    gap: 0.2rem;
+}
+
+.requests-list > .dot {
+    width: 0.6rem;
+    height: 0.6rem; 
+    border-radius: 50%;
+    background-color: lightgray;
+    transition: background-color 0.3s ease;
+}
+
+.requests-list > .dot.grey {
+    background-color: #cccccc;
+}
+
+.requests-list > .dot.yellow {
+    background-color: #f79e00;
+}
+
+.requests-list > .dot.green {
+    background-color: #39850e;
+}
+
+.requests-list > .dot.red {
+    background-color: #a10b00;
 }

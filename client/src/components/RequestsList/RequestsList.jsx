@@ -5,8 +5,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import './RequestsList.css';
 
 function RequestsList({ employee_id }) {
@@ -55,7 +53,10 @@ function RequestsList({ employee_id }) {
                                             </div>
                                         }
                                     />
-                                    {request.accepted ? <InboxIcon color="success" /> : <WarningAmberIcon color="warning" />}
+                                    <div className="dots-container">
+                                        <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                                        <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                    </div>
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />
                             </div>
@@ -70,4 +71,5 @@ function RequestsList({ employee_id }) {
 }
 
 export default RequestsList;
+
 

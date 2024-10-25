@@ -199,8 +199,8 @@
 
 .dots-container {
     position: absolute;
-    top: 1rem; /* adjust as needed */
-    left: 1rem; /* adjust as needed */
+    top: 1rem;
+    left: 1rem;
     display: flex;
     gap: 0.2rem;
 }
