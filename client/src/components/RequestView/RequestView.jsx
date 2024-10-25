@@ -133,19 +133,25 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                         </div>
                     </div>
 
-                    {/* Separator */}
-                    <div className='innerWidth padding'>
-                        <div className="separator"></div>
-                    </div>
+                    
+
 
                     {/* Fourth Section */}
                     {!requestDetails.decided && (
-                        <div className='fourth padding flexCenter innerWidth'>
-                            <div className='left'>
-                                <button className='decision-button' onClick={() => handleDecision('accept')}>Accept</button>
+                        <div>
+
+                            {/* Separator */}
+                            <div className='innerWidth padding'>
+                                <div className="separator"></div>
                             </div>
-                            <div className='right'>
-                                <button className='decision-button' onClick={() => handleDecision('reject')}>Reject</button>
+
+                            <div className='fourth padding flexCenter innerWidth'>
+                                <div className='left'>
+                                    <button className='decision-button' onClick={() => handleDecision('accept')}>Accept</button>
+                                </div>
+                                <div className='right'>
+                                    <button className='decision-button' onClick={() => handleDecision('reject')}>Reject</button>
+                                </div>
                             </div>
                         </div>
                     )}

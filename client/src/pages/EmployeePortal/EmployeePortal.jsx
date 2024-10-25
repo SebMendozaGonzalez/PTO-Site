@@ -4,6 +4,7 @@ import './EmployeePortal.css';
 import WelcomeEmployees from '../../components/WelcomeEmployees/WelcomeEmployees';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsEmployee from '../../components/RequestsEmployee/RequestsEmployee';
+import RequestsList from '../../components/RequestsList/RequestsList';
 
 function EmployeePortal() {
   const [filterEmployeeId, setFilterEmployeeId] = useState('');
@@ -24,6 +25,7 @@ function EmployeePortal() {
 
       <WelcomeEmployees />
       <DashboardEmployee employee_id={filterEmployeeId} />
+      <RequestsList employee_id={filterEmployeeId} />
       <RequestsEmployee employee_id={filterEmployeeId} />
     </div>
   );
