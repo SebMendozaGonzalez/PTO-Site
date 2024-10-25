@@ -7,9 +7,17 @@ function RequestsList({ employee_id }) {
 
     useEffect(() => {
         const fetchRequests = async () => {
+            // Clear previous requests and error before fetching new data
+            setRequests([]);
+            setError('');
+
             try {
                 const response = await axios.get(`/requests-info/${employee_id}`);
-                setRequests(response.data);
+                if (response.data.length > 0) {
+                    setRequests(response.data);
+                } else {
+                    setError('No requests found for this employee.');
+                }
             } catch (err) {
                 setError('Failed to fetch requests');
                 console.error(err);
@@ -37,7 +45,7 @@ function RequestsList({ employee_id }) {
                     ))}
                 </ul>
             ) : (
-                <p>No requests found.</p>
+                !error && <p>Searching for requests...</p>
             )}
         </div>
     );
