@@ -14,35 +14,6 @@ function EmployeePortal() {
     setRequestDetails(null); // Close the popup
   };
 
-  const handleSubmitDecision = async (request_id, accepted, rejection_reason) => {
-    try {
-      console.log('Trying to update: ', {
-        accepted,
-        request_id,
-        rejection_reason
-      });
-      const response = await fetch('/decide-request', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ request_id, accepted, rejection_reason }),
-      });
-  
-      if (!response.ok) {
-        const errorDetails = await response.json();
-        console.error('Response error details:', errorDetails);
-        throw new Error('Failed to update the request.');
-      }
-  
-      const updatedRequest = await response.json();
-      console.log('Updated request:', updatedRequest);
-      closePopup(); // Close the popup after successful update
-  
-    } catch (error) {
-      console.error('Error submitting decision:', error);
-    }
-  };
 
   const handleClickRequest = (request) => {
     setRequestDetails(request); // Set the selected request details to display in the popup
@@ -66,7 +37,7 @@ function EmployeePortal() {
       <DashboardEmployee employee_id={filterEmployeeId} />
       <RequestsList employee_id={filterEmployeeId} onClickRequest={handleClickRequest} /> {/* Pass the click handler */}
       <RequestsEmployee employee_id={filterEmployeeId} />
-      <RequestView requestDetails={requestDetails} onClose={closePopup} onSubmitDecision={handleSubmitDecision} />
+      <RequestView requestDetails={requestDetails} onClose={closePopup} />
     </div>
   );
 }

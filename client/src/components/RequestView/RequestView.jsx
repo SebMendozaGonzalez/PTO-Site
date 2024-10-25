@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './RequestView.css';
 
-function RequestView({ requestDetails, onClose, onSubmitDecision }) {
+function RequestView({ requestDetails, onClose }) {
     const [showConfirm, setShowConfirm] = useState(false);
     const [decision, setDecision] = useState(null);
     const [rejectionReason, setRejectionReason] = useState('');
     const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [failureMessage, setFailureMessage] = useState(''); // Added state for failure message
+    const [statusMessage, setStatusMessage] = useState({ message: '', type: '' });
 
     useEffect(() => {
-        // Reset state when requestDetails changes (new popup is opened)
         setShowConfirm(false);
         setDecision(null);
         setRejectionReason('');
         setError('');
-        setSuccessMessage(''); // Reset success message
-        setFailureMessage(''); // Reset failure message
+        setStatusMessage({ message: '', type: '' });
     }, [requestDetails]);
 
     if (!requestDetails) return null;
@@ -26,7 +23,15 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
         setShowConfirm(true);
     };
 
-    const handleConfirm = async () => {
+    const handleRequestResponse = async (response) => {
+        if (!response.ok) {
+            const errorDetails = await response.json();
+            throw new Error(errorDetails.message || 'Failed to update the request.');
+        }
+        return response.json();
+    };
+
+    const submitDecision = async () => {
         if (decision === 'reject' && !rejectionReason) {
             setError('Rejection reason is required.');
             return;
@@ -35,18 +40,84 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
         setShowConfirm(false);
 
         try {
-            // Convert decision to 1 or 0 for the "accepted" column
             const acceptedValue = String(decision === 'accept');
+            const response = await fetch('/decide-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    request_id: requestDetails.request_id,
+                    accepted: acceptedValue,
+                    rejection_reason: rejectionReason,
+                }),
+            });
 
-            await onSubmitDecision(requestDetails.request_id, acceptedValue, rejectionReason);
-            setSuccessMessage(`${requestDetails.type} request ${decision === 'accept' ? 'accepted' : 'rejected'} successfully!`);
-            setFailureMessage(''); // Clear any previous failure message
+            const updatedRequest = await handleRequestResponse(response);
+            console.log('Updated request:', updatedRequest);
+
+            setStatusMessage({
+                message: `${requestDetails.type} request ${decision === 'accept' ? 'accepted' : 'rejected'} successfully!`,
+                type: 'success',
+            });
+            onClose();
         } catch (err) {
-            setFailureMessage(`Failed to ${decision === 'accept' ? 'accept' : 'reject'} the request. Please try again.`);
-            setSuccessMessage(''); // Clear any previous success message
+            console.error('Error submitting decision:', err);
+            setStatusMessage({
+                message: `Failed to ${decision === 'accept' ? 'accept' : 'reject'} the request. Please try again.`,
+                type: 'failure',
+            });
         }
     };
 
+    const handleConfirm = () => {
+        submitDecision();
+    };
+
+    // Conditional Elements for Cleaner Rendering
+    const decisionButtons = !requestDetails.decided && (
+        <div className='fourth padding flexCenter innerWidth'>
+            <div className='left'>
+                <button className='decision-button' onClick={() => handleDecision('accept')}>Accept</button>
+            </div>
+            <div className='right'>
+                <button className='decision-button' onClick={() => handleDecision('reject')}>Reject</button>
+            </div>
+        </div>
+    );
+
+    const confirmationModal = showConfirm && (
+        <div className='confirm-modal padding'>
+            <span className='f3 paddings flexColStart'>
+                Are you sure you want to {decision === 'accept' ? 'accept' : 'reject'} this request?
+            </span>
+            {decision === 'reject' && (
+                <div>
+                    <label className='paddings'>
+                        <span className='f1' style={{ paddingRight: '1em' }}>
+                            Rejection reason:
+                        </span>
+                        <input
+                            className='rejection-reason f3'
+                            type='text'
+                            value={rejectionReason}
+                            onChange={(e) => setRejectionReason(e.target.value)}
+                        />
+                    </label>
+                    {error && <span className='error'>{error}</span>}
+                </div>
+            )}
+            <button className='confirm-button paddings' style={{ transform: 'scale(0.8)' }} onClick={handleConfirm}>Confirm</button>
+            <button className='cancel-button paddings' style={{ transform: 'scale(0.8)' }} onClick={() => setShowConfirm(false)}>Cancel</button>
+        </div>
+    );
+
+    const statusMessageDisplay = statusMessage.message && (
+        <div
+            className={`status-message paddings ${statusMessage.type === 'success' ? 'success-message' : 'failure-message'}`}
+            style={{ color: statusMessage.type === 'success' ? 'green' : 'red', fontWeight: '600' }}
+        >
+            {statusMessage.message}
+        </div>
+    );
 
     return (
         <div className='request-popup'>
@@ -59,7 +130,6 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                 </div>
 
                 <div className='paddings flexColCenter innerWidth'>
-
                     {/* First Section */}
                     <div className='first padding flexCenter innerWidth'>
                         <div className='left requester-info'>
@@ -133,74 +203,12 @@ function RequestView({ requestDetails, onClose, onSubmitDecision }) {
                         </div>
                     </div>
 
-                    
+                    {decisionButtons}
 
+                    {confirmationModal}
 
-                    {/* Fourth Section */}
-                    {!requestDetails.decided && (
-                        <div className='innerWidth'>
-                            {/* Separator */}
-                            <div className='innerWidth padding'>
-                                <div className="separator"></div>
-                            </div>
+                    {statusMessageDisplay}
 
-                            <div className='fourth padding flexCenter innerWidth'>
-                                <div className='left'>
-                                    <button className='decision-button' onClick={() => handleDecision('accept')}>Accept</button>
-                                </div>
-                                <div className='right'>
-                                    <button className='decision-button' onClick={() => handleDecision('reject')}>Reject</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Display Success Message */}
-                    {successMessage && (
-                        <div className='success-message paddings' style={{ color: 'green', fontWeight: '600' }}>
-                            {successMessage}
-                        </div>
-                    )}
-
-                    {/* Display Failure Message */}
-                    {failureMessage && (
-                        <div className='failure-message paddings' style={{ color: 'red', fontWeight: '600' }}>
-                            {failureMessage}
-                        </div>
-                    )}
-
-                    {/* Confirmation Modal */}
-                    {showConfirm && (
-                        <div className='confirm-modal padding'>
-                            <span className='f3 paddings flexColStart'>
-                                Are you sure you want to {decision === 'accept' ? 'accept' : 'reject'} this request?
-                            </span>
-                            {decision === 'reject' && (
-                                <div>
-                                    <label className='paddings '>
-                                        <span className='f1' style={{ paddingRight: '1em' }}>
-                                            Rejection reason:
-                                        </span>
-                                        <input
-                                            className='rejection-reason f3'
-                                            type='text'
-                                            value={rejectionReason}
-                                            onChange={(e) => setRejectionReason(e.target.value)}
-                                        />
-                                    </label>
-                                    {error && <span className='error'>{error}</span>}
-                                </div>
-                            )}
-
-                            <button className='confirm-button paddings'
-                                style={{ transform: 'scale(0.8)' }}
-                                onClick={handleConfirm}>Confirm</button>
-
-                            <button className='cancel-button paddings'
-                                style={{ transform: 'scale(0.8)' }}
-                                onClick={() => setShowConfirm(false)}>Cancel</button>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>

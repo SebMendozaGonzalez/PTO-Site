@@ -2,55 +2,57 @@ const express = require('express');
 const router = express.Router();
 const { connectToDatabase } = require('../db/dbConfig');
 
-// Route to handle vacation requests
+// Route to handle decision on vacation requests
 router.post('/', async (req, res) => {
     console.log('Decide request route hit');
-    const pool = await connectToDatabase();
     const { request_id, accepted, rejection_reason } = req.body;
 
-    // Log the incoming data
-    console.log('Incoming request body:', req.body);
-    console.log('Deciding: ', {
-        accepted,
-        request_id,
-        rejection_reason
-    });
-
     try {
+        const pool = await connectToDatabase();
         const request = pool.request();
-        request.input('request_id', request_id); // Correctly parameterized
-        request.input('accepted', accepted); // accepted is still a string, but will use it directly in the query
 
-        await pool.query('BEGIN TRANSACTION');
+        // Parameterize inputs to prevent SQL injection
+        request.input('request_id', request_id);
+        request.input('accepted', accepted === 'true'); // Convert to boolean as per your setup
 
-        if (accepted === 'true') {
-            // Accept the request
-            await request.query(
-                'UPDATE request SET accepted = @accepted WHERE request_id = @request_id;'
-            );
-        } else {
-            // Reject the request
-            request.input('rejection_reason', rejection_reason); // only set rejection_reason when not accepting
-            await request.query(
-                'UPDATE request SET accepted = @accepted, rejection_reason = @rejection_reason WHERE request_id = @request_id;'
-            );
+        let updateQuery = `
+            UPDATE request 
+            SET accepted = @accepted
+        `;
+
+        // Append rejection_reason if the request is being rejected
+        if (accepted === 'false') {
+            request.input('rejection_reason', rejection_reason);
+            updateQuery += `, rejection_reason = @rejection_reason`;
         }
 
-        // Commit the transaction
-        await pool.query('COMMIT');
+        // Complete the query with the WHERE clause
+        updateQuery += ` WHERE request_id = @request_id;`;
 
-        // Retrieve the updated request
-        const result = await request.query(
-            'SELECT * FROM request WHERE request_id = @request_id ORDER BY decision_date DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY'
-        );
+        // Execute the update query
+        await request.query(updateQuery);
 
-        // Send the updated row back in the response
+        // Retrieve and return the updated record
+        const result = await request.query(`
+            SELECT * 
+            FROM request 
+            WHERE request_id = @request_id 
+            ORDER BY decision_date DESC 
+            OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY;
+        `);
+
+        if (result.recordset.length === 0) {
+            console.log(`No record found after update for request ID: ${request_id}`);
+            return res.status(404).json({ message: 'No updated request found' });
+        }
+
         res.status(200).json(result.recordset[0]);
+        
     } catch (err) {
-        await pool.query('ROLLBACK'); // Ensure rollback
-        console.error('Error updating request:', err); // Log detailed error
-        res.status(500).json({ message: 'Error updating request', error: err.message, stack: err.stack });
+        console.error('Error updating request:', err);
+        res.status(500).json({ message: 'Error updating request', error: err.message });
     }
 });
 
 module.exports = router;
+
