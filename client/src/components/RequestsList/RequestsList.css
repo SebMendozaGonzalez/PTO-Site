@@ -1,8 +1,8 @@
 .item-container {
-    position: relative; /* Make the parent relative for absolute positioning */
+    position: relative; /* Ensure this is still set for the absolute positioning of the dots */
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center; /* Align items vertically centered */
     width: 100%;
 }
 
@@ -21,32 +21,8 @@
 }
 
 /* Fix the dots container to the right */
-.requests-list > .dots-container {
+.dots-container {
     display: flex;
     align-items: center;
-}
-
-/* Dot styles */
-.requests-list > .dot {
-    width: 0.6rem;
-    height: 0.6rem; 
-    border-radius: 50%;
-    background-color: lightgray;
-    transition: background-color 0.3s ease;
-}
-
-.requests-list > .dot.grey {
-    background-color: #cccccc;
-}
-
-.requests-list > .dot.yellow {
-    background-color: #f79e00;
-}
-
-.requests-list > .dot.green {
-    background-color: #39850e;
-}
-
-.requests-list > .dot.red {
-    background-color: #a10b00;
+    margin-left: auto; /* Push the dots container to the right */
 }
