@@ -22,11 +22,6 @@
 
 /* Fix the dots container to the right */
 .requests-list > .dots-container {
-    position: absolute; /* Make this absolute */
-    right: 1rem; /* Adjust the right position as needed */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    gap: 0.2rem;
     display: flex;
     align-items: center;
 }
