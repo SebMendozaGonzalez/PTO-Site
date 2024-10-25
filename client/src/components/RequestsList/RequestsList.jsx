@@ -36,7 +36,7 @@ function RequestsList({ employee_id }) {
     return (
         <div className='paddings innerWidth requests-list'>
             <Box sx={{ width: '100%', bgcolor: '#2b2a2a', padding: 2, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
-                <h2 style={{ color: '#ffffff' }}>Requests for Employee ID: {employee_id}</h2>
+                <h3 style={{ color: '#ffffff' }}>My requests</h3>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <List>
                     {requests.length > 0 ? (
