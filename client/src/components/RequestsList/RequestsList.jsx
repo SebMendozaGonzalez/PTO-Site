@@ -43,19 +43,21 @@ function RequestsList({ employee_id }) {
                         requests.map(request => (
                             <div key={request.request_id}>
                                 <ListItem>
-                                    <ListItemText
-                                        primary={<span style={{ color: '#ffffff' }}>Type: {request.type}</span>}
-                                        secondary={
-                                            <div style={{ color: '#b6b6b6' }}>
-                                                <strong>Status:</strong> {request.accepted ? 'Accepted' : 'Pending'}<br />
-                                                <strong>Start Date:</strong> {new Date(request.start_date).toLocaleDateString()}<br />
-                                                <strong>End Date:</strong> {new Date(request.end_date).toLocaleDateString()}
-                                            </div>
-                                        }
-                                    />
-                                    <div className="dots-container">
-                                        <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                                        <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                    <div className='item-container'>
+                                        <ListItemText
+                                            primary={<span style={{ color: '#ffffff' }}>Type: {request.type}</span>}
+                                            secondary={
+                                                <div style={{ color: '#b6b6b6' }}>
+                                                    <strong>Status:</strong> {request.accepted ? 'Accepted' : 'Pending'}<br />
+                                                    <strong>Start Date:</strong> {new Date(request.start_date).toLocaleDateString()}<br />
+                                                    <strong>End Date:</strong> {new Date(request.end_date).toLocaleDateString()}
+                                                </div>
+                                            }
+                                        />
+                                        <div className="dots-container">
+                                            <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                                            <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                        </div>
                                     </div>
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />
