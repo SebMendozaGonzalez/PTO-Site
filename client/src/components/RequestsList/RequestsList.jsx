@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import './RequestsList.css';
 
-function RequestsList({ employee_id }) {
+function RequestsList({ employee_id, onClickRequest }) { // Add the onClickRequest prop
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
 
@@ -42,7 +42,7 @@ function RequestsList({ employee_id }) {
                     {requests.length > 0 ? (
                         requests.map(request => (
                             <div key={request.request_id}>
-                                <ListItem>
+                                <ListItem button onClick={() => onClickRequest(request)}> {/* Add onClick handler here */}
                                     <ListItemText
                                         primary={<span style={{ color: '#ffffff' }}>Type: {request.type}</span>}
                                         secondary={

@@ -4,11 +4,16 @@ import WelcomeEmployees from '../../components/WelcomeEmployees/WelcomeEmployees
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsEmployee from '../../components/RequestsEmployee/RequestsEmployee';
 import RequestsList from '../../components/RequestsList/RequestsList';
+import RequestView from '../../components/RequestView/RequestView';
 
 function EmployeePortal() {
   const [filterEmployeeId, setFilterEmployeeId] = useState('');
+  const [requestDetails, setRequestDetails] = useState(null);
 
-  // Define the function to handle the decision made in RequestView
+  const closePopup = () => {
+    setRequestDetails(null); // Close the popup
+  };
+
   const handleSubmitDecision = async (request_id, accepted, rejection_reason) => {
     try {
       console.log('Trying to update: ', {
@@ -25,10 +30,9 @@ function EmployeePortal() {
       });
   
       if (!response.ok) {
-        // Log the response body for more insight
         const errorDetails = await response.json();
         console.error('Response error details:', errorDetails);
-        throw new Error('Failed to update the request.'); // You can include the error message in this throw if needed
+        throw new Error('Failed to update the request.');
       }
   
       const updatedRequest = await response.json();
@@ -38,6 +42,10 @@ function EmployeePortal() {
     } catch (error) {
       console.error('Error submitting decision:', error);
     }
+  };
+
+  const handleClickRequest = (request) => {
+    setRequestDetails(request); // Set the selected request details to display in the popup
   };
 
   return (
@@ -56,11 +64,11 @@ function EmployeePortal() {
 
       <WelcomeEmployees />
       <DashboardEmployee employee_id={filterEmployeeId} />
-      <RequestsList employee_id={filterEmployeeId} onSubmitDecision={handleSubmitDecision} />
+      <RequestsList employee_id={filterEmployeeId} onClickRequest={handleClickRequest} /> {/* Pass the click handler */}
       <RequestsEmployee employee_id={filterEmployeeId} />
+      <RequestView requestDetails={requestDetails} onClose={closePopup} onSubmitDecision={handleSubmitDecision} />
     </div>
   );
 }
 
 export default EmployeePortal;
-
