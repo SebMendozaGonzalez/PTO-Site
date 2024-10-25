@@ -17,9 +17,9 @@ router.post('/', async (req, res) => {
 
         let updateQuery = `
             UPDATE request 
-            SET decided = 1,
-            SET accepted = @accepted,
-            SET decision_date = CURRENT_TIMESTAMP
+            SET decided = 1, 
+            accepted = @accepted, 
+            decision_date = CURRENT_TIMESTAMP
         `;
 
         // Append rejection_reason if the request is being rejected
