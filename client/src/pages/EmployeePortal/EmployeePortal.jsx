@@ -37,7 +37,10 @@ function EmployeePortal() {
       <DashboardEmployee employee_id={filterEmployeeId} />
       <RequestsList employee_id={filterEmployeeId} onClickRequest={handleClickRequest} /> {/* Pass the click handler */}
       <RequestsEmployee employee_id={filterEmployeeId} />
-      <RequestView requestDetails={requestDetails} onClose={closePopup} managerPermissions={false} />
+      <RequestView requestDetails={requestDetails}
+        onClose={closePopup}
+        managerPermissions={false}
+        employeePermissions={true} />
     </div>
   );
 }
