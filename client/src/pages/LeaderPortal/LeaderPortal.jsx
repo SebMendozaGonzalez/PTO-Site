@@ -23,7 +23,6 @@ function LeaderPortal() {
     setRequestDetails(null); // Close the popup
   };
 
-
   return (
     <div className='flexColCenter leader-portal'>
       <div className='paddings'>
