@@ -5,6 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import { ListItemAvatar} from '@mui/material';
 import './RequestsList.css';
 
 function RequestsList({ employee_id, onClickRequest }) {
@@ -41,15 +42,13 @@ function RequestsList({ employee_id, onClickRequest }) {
                     {requests.length > 0 ? (
                         requests.map(request => (
                             <div key={request.request_id}>
-                                <ListItem
-                                    onClick={() => onClickRequest(request)}
-                                    slots={{
-                                        root: 'div', // or any custom component you want
-                                    }}
-                                    slotProps={{
-                                        root: { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
-                                    }}
-                                >
+                                <ListItem button onClick={() => onClickRequest(request)} >
+                                    <ListItemAvatar>
+                                        <div className="dots-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                            <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                                            <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                        </div>
+                                    </ListItemAvatar>
                                     <ListItemText
                                         primary={<p className='fonts-primary'>{request.type}</p>}
                                         secondary={
@@ -59,10 +58,6 @@ function RequestsList({ employee_id, onClickRequest }) {
                                             </div>
                                         }
                                     />
-                                    <div className="dots-container" style={{ display: 'flex' }}>
-                                        <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                                        <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
-                                    </div>
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />
                             </div>
@@ -77,3 +72,4 @@ function RequestsList({ employee_id, onClickRequest }) {
 }
 
 export default RequestsList;
+
