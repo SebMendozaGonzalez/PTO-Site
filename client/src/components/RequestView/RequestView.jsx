@@ -31,6 +31,30 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         return response.json();
     };
 
+
+    const cancelRequest = async () => {
+        try {
+            const response = await fetch('/cancel-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ request_id: requestDetails.request_id }),
+            });
+    
+            const result = await response.json();
+            if (response.ok) {
+                setStatusMessage({ message: 'Request canceled successfully!', type: 'success' });
+                onClose();
+            } else {
+                setStatusMessage({ message: 'Failed to cancel the request. Please try again.', type: 'failure' });
+                console.error('Error in response:', result);
+            }
+        } catch (err) {
+            console.error('Error canceling request:', err);
+            setStatusMessage({ message: 'An error occurred. Please try again.', type: 'failure' });
+        }
+    };
+    
+
     const submitDecision = async () => {
         if (decision === 'reject' && !rejectionReason) {
             setError('Rejection reason is required.');
@@ -86,8 +110,8 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
 
     const cancellationButton = employeePermissions && requestDetails.decided && requestDetails.accepted && !requestDetails.taken && (
         <div className='fourth padding flexCenter innerWidth'>
-            <div className='right'>
-                <button className='decision-button' >Cancel Request</button>
+            <div className='left'>
+                <button className='decision-button' onClick={cancelRequest}>Cancel Request</button>
             </div>
         </div>
     );

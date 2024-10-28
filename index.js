@@ -7,6 +7,7 @@ const vacationsXemployeeInfoRoute = require('./routes/vacationsXemployeeInfo');
 const requestsInfoRoute = require('./routes/requestsInfo');
 const vacationRequestRoute = require('./routes/requestRoute');
 const decideRequestRoute = require('./routes/decideRequestRoute');
+const cancelRequestRoute = require('./routes/cancelRequestRoute');
 const photoRoute = require('./routes/photoRoute');
 
 require('dotenv').config();
@@ -38,6 +39,7 @@ app.use('/requests-info', requestsInfoRoute);
 app.use('/request', vacationRequestRoute);
 app.use('/employee-photos', photoRoute);
 app.use('/decide-request', decideRequestRoute);
+app.use('/cancel-request', cancelRequestRoute);
 
 // Protect the leader portal route
 app.get('/leader-portal', (req, res) => {
