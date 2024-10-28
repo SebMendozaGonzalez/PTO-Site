@@ -5,7 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import { ListItemAvatar, Avatar } from '@mui/material';
 import './RequestsList.css';
 
 function RequestsList({ employee_id, onClickRequest }) {
@@ -42,7 +42,15 @@ function RequestsList({ employee_id, onClickRequest }) {
                     {requests.length > 0 ? (
                         requests.map(request => (
                             <div key={request.request_id}>
-                                <ListItem button onClick={() => onClickRequest(request)}>
+                                <ListItem
+                                    onClick={() => onClickRequest(request)}
+                                    slots={{
+                                        root: 'div', // or any custom component you want
+                                    }}
+                                    slotProps={{
+                                        root: { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
+                                    }}
+                                >
                                     <ListItemText
                                         primary={<p className='fonts-primary'>{request.type}</p>}
                                         secondary={
@@ -52,12 +60,10 @@ function RequestsList({ employee_id, onClickRequest }) {
                                             </div>
                                         }
                                     />
-                                    <ListItemSecondaryAction>
-                                        <div className="dots-container" style={{ display: 'flex' }}>
-                                            <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                                            <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
-                                        </div>
-                                    </ListItemSecondaryAction>
+                                    <div className="dots-container" style={{ display: 'flex' }}>
+                                        <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                                        <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                    </div>
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />
                             </div>
