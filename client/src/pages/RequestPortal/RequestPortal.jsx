@@ -57,7 +57,7 @@ const RequestPortal = () => {
             });
             
             // Make the API call to upload the request
-            const response = await fetch('https://quantumhr.azurewebsites.net/request', {
+            const response = await fetch('/request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

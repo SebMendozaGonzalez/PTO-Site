@@ -18,7 +18,7 @@ function DashboardEmployee({ employee_id }) {
 
     const fetchVacationInfo = async () => {
       try {
-        const response = await axios.get(`https://quantumhr.azurewebsites.net/vacations-info/${employeeId}`);
+        const response = await axios.get(`/vacations-info/${employeeId}`);
         setVacationInfo(response.data);
       } catch (err) {
         console.error('Error fetching vacation info:', err);
@@ -29,7 +29,7 @@ function DashboardEmployee({ employee_id }) {
 
     const fetchPhotoUrl = async () => {
       try {
-        await axios.get(`https://quantumhr.azurewebsites.net/employee-photos/${employeeId}.jpeg`);
+        await axios.get(`/employee-photos/${employeeId}.jpeg`);
         setPhotoUrl(`/employee-photos/${employeeId}.jpeg`);
       } catch (err) {
         if (err.response && err.response.status === 404) {

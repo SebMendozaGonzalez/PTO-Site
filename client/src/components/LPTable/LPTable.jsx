@@ -13,7 +13,7 @@ const LPTable = ({ filterLeaderName, onEmployeeSelect }) => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('https://quantumhr.azurewebsites.net/employees-info');
+        const response = await axios.get('/employees-info');
         if (Array.isArray(response.data)) {
           const formattedEmployees = response.data.map(employee => ({
             ...employee,
