@@ -108,7 +108,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         </div>
     );
 
-    const cancellationButton = employeePermissions && requestDetails.decided && requestDetails.accepted && !requestDetails.taken && (
+    const cancellationButton = employeePermissions && requestDetails.decided && requestDetails.accepted && !requestDetails.taken && !requestDetails.cancelled && (
         <div className='fourth padding flexCenter innerWidth'>
             <div className='left'>
                 <button className='decision-button' onClick={cancelRequest}>Cancel Request</button>

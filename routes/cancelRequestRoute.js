@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
         // Update the cancelled column
         const updateQuery = `
             UPDATE request
-            SET cancelled = 1
+            SET cancelled = 1, cancel_date= CURRENT_TIMESTAMP
             WHERE request_id = @request_id;
         `;
 
