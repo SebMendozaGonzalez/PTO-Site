@@ -5,10 +5,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import { ListItemAvatar, Avatar } from '@mui/material';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import './RequestsList.css';
 
-function RequestsList({ employee_id, onClickRequest }) { // Add the onClickRequest prop
+function RequestsList({ employee_id, onClickRequest }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
 
@@ -52,15 +52,12 @@ function RequestsList({ employee_id, onClickRequest }) { // Add the onClickReque
                                             </div>
                                         }
                                     />
-                                    <ListItemAvatar edge="end">
-                                        <Avatar >
-                                            <div className="dots-container" style={{ display: 'flex', marginLeft: 'auto' }}>
-                                                <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                                                <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
-                                            </div>
-                                        </Avatar>
-
-                                    </ListItemAvatar>
+                                    <ListItemSecondaryAction>
+                                        <div className="dots-container" style={{ display: 'flex' }}>
+                                            <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                                            <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                        </div>
+                                    </ListItemSecondaryAction>
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />
                             </div>
