@@ -55,7 +55,7 @@ function LeaderPortal() {
           <RequestsCalendar employee_id={selectedEmployeeId} onEventSelect={handleEventSelect} />
         )}
 
-        <RequestView requestDetails={requestDetails} onClose={closePopup} />
+        <RequestView requestDetails={requestDetails} onClose={closePopup} managerPermissions={true}/>
       </div>
     </div>
   );

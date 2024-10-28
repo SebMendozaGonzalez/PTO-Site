@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './RequestView.css';
 
-function RequestView({ requestDetails, onClose }) {
+function RequestView({ requestDetails, onClose, managerPermissions, employeePermissions }) {
     const [showConfirm, setShowConfirm] = useState(false);
     const [decision, setDecision] = useState(null);
     const [rejectionReason, setRejectionReason] = useState('');
@@ -73,7 +73,7 @@ function RequestView({ requestDetails, onClose }) {
     };
 
     // Conditional Elements for Cleaner Rendering
-    const decisionButtons = !requestDetails.decided && (
+    const decisionButtons = managerPermissions && !requestDetails.decided && (
         <div className='fourth padding flexCenter innerWidth'>
             <div className='left'>
                 <button className='decision-button' onClick={() => handleDecision('accept')}>Accept</button>
@@ -84,7 +84,15 @@ function RequestView({ requestDetails, onClose }) {
         </div>
     );
 
-    const confirmationModal = showConfirm && (
+    const cancellationButton = employeePermissions && requestDetails.decided && requestDetails.accepted && !requestDetails.taken(
+        <div className='fourth padding flexCenter innerWidth'>
+            <div className='right'>
+                <button className='decision-button' >Cancel Request</button>
+            </div>
+        </div>
+    );
+
+    const confirmationModal = managerPermissions && showConfirm && (
         <div className='confirm-modal padding'>
             <span className='f3 paddings flexColStart'>
                 Are you sure you want to {decision === 'accept' ? 'accept' : 'reject'} this request?
@@ -110,7 +118,7 @@ function RequestView({ requestDetails, onClose }) {
         </div>
     );
 
-    const statusMessageDisplay = statusMessage.message && (
+    const statusMessageDisplay = managerPermissions && statusMessage.message && (
         <div
             className={`status-message paddings ${statusMessage.type === 'success' ? 'success-message' : 'failure-message'}`}
             style={{ color: statusMessage.type === 'success' ? 'green' : 'red', fontWeight: '600' }}
@@ -118,6 +126,7 @@ function RequestView({ requestDetails, onClose }) {
             {statusMessage.message}
         </div>
     );
+
 
     return (
         <div className='request-popup'>
@@ -208,6 +217,8 @@ function RequestView({ requestDetails, onClose }) {
                     {confirmationModal}
 
                     {statusMessageDisplay}
+
+                    {cancellationButton}
 
                 </div>
             </div>
