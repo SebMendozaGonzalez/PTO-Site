@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './RequestPortal.css';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 
 const RequestPortal = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const { type, employee_id } = location.state || {};
     const [formData, setFormData] = useState({
         type: type || '',
@@ -38,8 +39,8 @@ const RequestPortal = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isSubmitting) return; // Prevent multiple submissions
-        setIsSubmitting(true); // Set submitting state
+        if (isSubmitting) return; 
+        setIsSubmitting(true);
 
         try {
             // Format the dates to yyyy-mm-dd
@@ -86,6 +87,9 @@ const RequestPortal = () => {
                 explanation: '',
                 employee_id: ''
             });
+
+            // Redirect to employee portal after successful submission
+            navigate('/employee-portal');
         } catch (err) {
             setError('Failed to submit request: ' + err.message);
         } finally {

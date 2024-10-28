@@ -8,6 +8,14 @@ import Divider from '@mui/material/Divider';
 import { ListItemIcon } from '@mui/material';
 import './RequestsList.css';
 
+const typeMapping = {
+    'PTO': 'Paid Time Off',
+    'ML': 'Maternity License',
+    'PL': 'Paternity License',
+    'DCL': 'Domestic Calamity License',
+    'BL': 'Bereavement License',
+    'UTO': 'Unpaid Time Off'
+};
 
 function RequestsList({ employee_id, onClickRequest }) {
     const [requests, setRequests] = useState([]);
@@ -53,7 +61,11 @@ function RequestsList({ employee_id, onClickRequest }) {
                                         </ListItemIcon>
                                     }>
                                     <ListItemText
-                                        primary={<p className='fonts-primary'>{request.type}</p>}
+                                        primary={
+                                            <p className='fonts-primary'>
+                                                {typeMapping[request.type] || request.type} {/* Map request.type here */}
+                                            </p>
+                                        }
                                         secondary={
                                             <div className='flexColStart'>
                                                 <span className='textico-normal'> <strong className='fonts-secondary sub'>Start Date:</strong> {new Date(request.start_date).toLocaleDateString()} </span>
@@ -75,4 +87,3 @@ function RequestsList({ employee_id, onClickRequest }) {
 }
 
 export default RequestsList;
-
