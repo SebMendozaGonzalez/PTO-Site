@@ -5,7 +5,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import { ListItemAvatar, Avatar } from '@mui/material';
 import './RequestsList.css';
 
 function RequestsList({ employee_id, onClickRequest }) {
