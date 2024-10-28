@@ -151,6 +151,10 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         </div>
     );
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
+    };
 
     return (
         <div className='request-popup'>
@@ -161,6 +165,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                     <div className={`dot ${requestDetails.decided ? (requestDetails.accepted ? 'green' : 'red') : 'grey'}`}></div>
                     <div className={`dot ${requestDetails.taken ? 'green' : (requestDetails.cancelled ? 'red' : 'grey')}`}></div>
                 </div>
+                
 
                 <div className='paddings flexColCenter innerWidth'>
                     {/* First Section */}
@@ -175,10 +180,10 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                             <div className='flexColCenter'>
                                 <span className='f1'>{requestDetails.type}</span>
                                 <span className='f2'>
-                                    <strong>from: </strong>{new Date(requestDetails.start_date).toLocaleDateString('en-US')}
+                                    <strong>from: </strong>{formatDate(requestDetails.start_date)}
                                 </span>
                                 <span className='f2'>
-                                    <strong>to: </strong>{new Date(requestDetails.end_date).toLocaleDateString('en-US')}
+                                    <strong>to: </strong>{formatDate(requestDetails.end_date)}
                                 </span>
                             </div>
                         </div>
@@ -192,21 +197,21 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                     {/* Second Section */}
                     <div className='second padding flexColStart innerWidth'>
                         <span className='f3'>
-                            <strong>Requested on:  </strong>{new Date(requestDetails.request_date).toLocaleDateString('en-US')}
+                            <strong>Requested on:  </strong>{formatDate(requestDetails.request_date)}
                         </span>
                         {requestDetails.accepted && (
                             <span className='f3'>
-                                <strong>Accepted on:  </strong>{new Date(requestDetails.decision_date).toLocaleDateString('en-US')}
+                                <strong>Accepted on:  </strong>{formatDate(requestDetails.decision_date)}
                             </span>
                         )}
                         {requestDetails.decided && !requestDetails.accepted && (
                             <span className='f3'>
-                                <strong>Rejected on:  </strong>{new Date(requestDetails.decision_date).toLocaleDateString('en-US')}
+                                <strong>Rejected on:  </strong>{formatDate(requestDetails.decision_date)}
                             </span>
                         )}
                         {requestDetails.accepted && requestDetails.cancelled && (
                             <span className='f3'>
-                                <strong>Cancelled on:  </strong>{new Date(requestDetails.cancel_date).toLocaleDateString('en-US', { timeZone: 'UTC' })}
+                                <strong>Cancelled on:  </strong>{formatDate(requestDetails.cancel_date)}
                             </span>
                         )}
                         {requestDetails.taken && (
