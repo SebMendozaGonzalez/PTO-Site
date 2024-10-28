@@ -206,7 +206,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                         )}
                         {requestDetails.accepted && requestDetails.cancelled && (
                             <span className='f3'>
-                                <strong>Cancelled on:  </strong>{new Date(requestDetails.cancel_date).toLocaleDateString('en-US')}
+                                <strong>Cancelled on:  </strong>{new Date(requestDetails.cancel_date).toLocaleDateString('en-US', { timeZone: 'UTC' })}
                             </span>
                         )}
                         {requestDetails.taken && (
