@@ -17,7 +17,7 @@ const port = process.env.PORT || 8080;
 
 // Middleware to handle CORS
 app.use(cors({
-    origin: 'https://quantumhr.azurewebsites.net',
+    origin: ['https://quantumhr.azurewebsites.net', 'http://localhost:3000'],
     credentials: true
 }));
 
@@ -26,10 +26,9 @@ app.use(express.json());
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error('Global Error Handler:', err);
-  res.status(500).send('Something went wrong!');
+    console.error('Global Error Handler:', err);
+    res.status(500).send('Something went wrong!');
 });
-
 
 // API routes for data
 app.use('/employees-info', employeesInfoRoute);
@@ -40,11 +39,6 @@ app.use('/request', vacationRequestRoute);
 app.use('/employee-photos', photoRoute);
 app.use('/decide-request', decideRequestRoute);
 app.use('/cancel-request', cancelRequestRoute);
-
-// Protect the leader portal route
-app.get('/leader-portal', (req, res) => {
-    res.send('Welcome to the Leader Portal');
-});
 
 // Logout functionality
 app.get('/logout', (req, res) => {
