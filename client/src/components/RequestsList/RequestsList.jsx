@@ -37,7 +37,7 @@ function RequestsList({ employee_id, onClickRequest }) {
 
     return (
         <div className='paddings innerWidth requests-list'>
-            <Box sx={{ width: '100%', bgcolor: '#faf6f3', padding: 2, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
+            <Box sx={{ width: '100%', bgcolor: '#f8f9fe', padding: 2, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <List dense>
                     {requests.length > 0 ? (
