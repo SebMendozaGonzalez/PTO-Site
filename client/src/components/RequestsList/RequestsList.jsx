@@ -5,8 +5,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import { ListItemAvatar} from '@mui/material';
+import { ListItemIcon } from '@mui/material';
 import './RequestsList.css';
+
 
 function RequestsList({ employee_id, onClickRequest }) {
     const [requests, setRequests] = useState([]);
@@ -42,13 +43,15 @@ function RequestsList({ employee_id, onClickRequest }) {
                     {requests.length > 0 ? (
                         requests.map(request => (
                             <div key={request.request_id}>
-                                <ListItem button onClick={() => onClickRequest(request)} >
-                                    <ListItemAvatar>
-                                        <div className="dots-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                                            <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                                            <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
-                                        </div>
-                                    </ListItemAvatar>
+                                <ListItem button onClick={() => onClickRequest(request)}
+                                    secondaryAction={
+                                        <ListItemIcon edge="end">
+                                            <div className="dots-container" style={{ display: 'flex' }}>
+                                                <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
+                                                <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                            </div>
+                                        </ListItemIcon>
+                                    }>
                                     <ListItemText
                                         primary={<p className='fonts-primary'>{request.type}</p>}
                                         secondary={
