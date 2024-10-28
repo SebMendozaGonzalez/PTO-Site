@@ -41,10 +41,9 @@
 
 .requests-list > .dots-container {
     width: 100%;
-    display: flex;
     align-items: center;
     margin-left: auto; 
     border-radius: 3px;
     border: 0.1em solid grey;
-    background-color: #1560f6;
+
 }
