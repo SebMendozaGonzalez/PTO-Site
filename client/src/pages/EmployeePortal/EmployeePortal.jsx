@@ -1,48 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './EmployeePortal.css';
 import WelcomeEmployees from '../../components/WelcomeEmployees/WelcomeEmployees';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsEmployee from '../../components/RequestsEmployee/RequestsEmployee';
 import RequestsList from '../../components/RequestsList/RequestsList';
 import RequestView from '../../components/RequestView/RequestView';
+import axios from 'axios';
 
 function EmployeePortal() {
-  const [filterEmployeeId, setFilterEmployeeId] = useState('');
+  const [email, setEmail] = useState('');
+  const [employeeId, setEmployeeId] = useState('');
   const [requestDetails, setRequestDetails] = useState(null);
 
   const closePopup = () => {
-    setRequestDetails(null); // Close the popup
+    setRequestDetails(null);
   };
-
 
   const handleClickRequest = (request) => {
-    setRequestDetails(request); // Set the selected request details to display in the popup
+    setRequestDetails(request);
   };
+
+  useEffect(() => {
+    const fetchEmployeeId = async () => {
+      if (email) {
+        try {
+          const response = await axios.get(`/email_id/${email}`);
+          setEmployeeId(response.data.employee_id);
+        } catch (error) {
+          console.error('Error fetching employee ID:', error);
+        }
+      } else {
+        setEmployeeId('');
+      }
+    };
+
+    fetchEmployeeId();
+  }, [email]);
 
   return (
     <div className="employee-portal">
       <div className='paddings'>
-        <label htmlFor="EmployeeId" className='filter-label fonts-primary'>Employee Id: </label>
+        <label htmlFor="EmployeeEmail" className='filter-label fonts-primary'>Employee Email: </label>
         <input
-          id="EmployeeId"
-          type="text"
-          value={filterEmployeeId}
-          onChange={(e) => setFilterEmployeeId(e.target.value)}
-          placeholder="Enter Employee Id"
+          id="EmployeeEmail"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter Employee Email"
           className='filter-input'
         />
       </div>
 
       <WelcomeEmployees />
-      <DashboardEmployee employee_id={filterEmployeeId} />
-      <RequestsList employee_id={filterEmployeeId} onClickRequest={handleClickRequest} /> {/* Pass the click handler */}
-      <RequestsEmployee employee_id={filterEmployeeId} />
-      <RequestView requestDetails={requestDetails}
+      {employeeId && <DashboardEmployee employee_id={employeeId} />}
+      <RequestsList employee_id={employeeId} onClickRequest={handleClickRequest} />
+      <RequestsEmployee employee_id={employeeId} />
+      <RequestView
+        requestDetails={requestDetails}
         onClose={closePopup}
         managerPermissions={false}
-        employeePermissions={true} />
+        employeePermissions={true}
+      />
     </div>
   );
 }
 
 export default EmployeePortal;
+

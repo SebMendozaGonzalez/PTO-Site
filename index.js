@@ -3,7 +3,7 @@ const path = require('path');
 const cors = require('cors');
 const employeesInfoRoute = require('./routes/employeesInfo');
 const vacationsInfoRoute = require('./routes/vacationsInfo');
-const vacationsXemployeeInfoRoute = require('./routes/vacationsXemployeeInfo');
+const email_id = require('./routes/email_id');
 const requestsInfoRoute = require('./routes/requestsInfo');
 const vacationRequestRoute = require('./routes/requestRoute');
 const decideRequestRoute = require('./routes/decideRequestRoute');
@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
 // API routes for data
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
-app.use('/vacationsXemployee-info', vacationsXemployeeInfoRoute);
+app.use('/email_id', email_id);
 app.use('/requests-info', requestsInfoRoute);
 app.use('/request', vacationRequestRoute);
 app.use('/employee-photos', photoRoute);
