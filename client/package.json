@@ -9,6 +9,7 @@
     "@azure/storage-blob": "^12.25.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
     "@mui/icons-material": "^6.1.5",
     "@mui/material": "^6.1.5",
     "@mui/x-data-grid": "^7.18.0",

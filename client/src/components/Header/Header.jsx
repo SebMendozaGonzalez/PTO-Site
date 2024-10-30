@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react';
 import './Header.css';
 import logo from '../../images/quantum-long-logo.png';
+import { loginRequest } from '../../auth/authConfig';  // Import loginRequest for scopes
 
 const Header = () => {
   const { instance, accounts } = useMsal();
@@ -16,7 +17,7 @@ const Header = () => {
   }, [accounts]);
 
   const handleLogin = () => {
-    instance.loginRedirect({ scopes: ["openid", "profile", "User.Read"] })
+    instance.loginRedirect(loginRequest)
       .then(response => {
         console.log('Login response:', response);
       })
@@ -24,18 +25,8 @@ const Header = () => {
         console.log('Login error:', error);
       });
   };
-  
 
-  const handleLogout = () => {
-    instance.logoutRedirect()
-      .then(response => {
-        console.log('Logout response:', response);
-      })
-      .catch(error => {
-        console.log('Logout error:', error);
-      });
-  };
-  
+  // const handleLogout = () => {};
 
   return (
     <header className="header">
@@ -56,7 +47,7 @@ const Header = () => {
         {accounts.length > 0 ? (
           <>
             <span>Welcome, {userName}</span>
-            <button className="button btn" onClick={handleLogout}>Logout</button>
+            <button className="button btn">Logout</button>
           </>
         ) : (
           <button className="button btn" onClick={handleLogin}>Login</button>
