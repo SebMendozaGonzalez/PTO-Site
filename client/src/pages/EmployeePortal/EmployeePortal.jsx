@@ -8,9 +8,24 @@ import RequestView from '../../components/RequestView/RequestView';
 import axios from 'axios';
 
 function EmployeePortal() {
-  const [email, setEmail] = useState('');
+  const [filterEmail, setFilterEmail] = useState('');
   const [employeeId, setEmployeeId] = useState('');
   const [requestDetails, setRequestDetails] = useState(null);
+
+  useEffect(() => {
+    if (filterEmail) {
+      const fetchEmployeeId = async () => {
+        try {
+          const response = await axios.get(`/email_id/${filterEmail}`);
+          setEmployeeId(response.data.employee_id);
+        } catch (error) {
+          console.error("Error fetching employee ID:", error);
+          setEmployeeId(''); // Clear employee ID if not found or error occurs
+        }
+      };
+      fetchEmployeeId();
+    }
+  }, [filterEmail]);
 
   const closePopup = () => {
     setRequestDetails(null);
@@ -20,50 +35,30 @@ function EmployeePortal() {
     setRequestDetails(request);
   };
 
-  useEffect(() => {
-    const fetchEmployeeId = async () => {
-      if (email) {
-        try {
-          const response = await axios.get(`/email_id/${email}`);
-          setEmployeeId(response.data.employee_id);
-        } catch (error) {
-          console.error('Error fetching employee ID:', error);
-        }
-      } else {
-        setEmployeeId('');
-      }
-    };
-
-    fetchEmployeeId();
-  }, [email]);
-
   return (
     <div className="employee-portal">
       <div className='paddings'>
         <label htmlFor="EmployeeEmail" className='filter-label fonts-primary'>Employee Email: </label>
         <input
           id="EmployeeEmail"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          value={filterEmail}
+          onChange={(e) => setFilterEmail(e.target.value)}
           placeholder="Enter Employee Email"
           className='filter-input'
         />
       </div>
 
       <WelcomeEmployees />
-      {employeeId && <DashboardEmployee employee_id={employeeId} />}
+      <DashboardEmployee employee_id={employeeId} />
       <RequestsList employee_id={employeeId} onClickRequest={handleClickRequest} />
       <RequestsEmployee employee_id={employeeId} />
-      <RequestView
-        requestDetails={requestDetails}
+      <RequestView requestDetails={requestDetails}
         onClose={closePopup}
         managerPermissions={false}
-        employeePermissions={true}
-      />
+        employeePermissions={true} />
     </div>
   );
 }
 
 export default EmployeePortal;
-
