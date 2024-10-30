@@ -5,12 +5,15 @@ import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmplo
 import RequestsEmployee from '../../components/RequestsEmployee/RequestsEmployee';
 import RequestsList from '../../components/RequestsList/RequestsList';
 import RequestView from '../../components/RequestView/RequestView';
+import { useMsal } from '@azure/msal-react';
 import axios from 'axios';
 
 function EmployeePortal() {
-  const [filterEmail, setFilterEmail] = useState('');
+  const { accounts } = useMsal();
+  const [filterEmail, setFilterEmail] = useState(accounts[0]?.email || '') ;
   const [employeeId, setEmployeeId] = useState('');
   const [requestDetails, setRequestDetails] = useState(null);
+  
 
   useEffect(() => {
     if (filterEmail) {
