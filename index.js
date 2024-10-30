@@ -43,7 +43,7 @@ app.use('/cancel-request', cancelRequestRoute);
 // Logout functionality
 app.get('/logout', (req, res) => {
     req.session = null; // Clear session data
-    const logoutUrl = `https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://quantumhr.azurewebsites.net`;
+    const logoutUrl = `?`;
     res.redirect(logoutUrl); // Redirect to Azure AD logout
 });
 

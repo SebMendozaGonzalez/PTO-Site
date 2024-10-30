@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react';
 import './Header.css';
 import logo from '../../images/quantum-long-logo.png';
-import { loginRequest } from '../../auth/authConfig';  // Import loginRequest for scopes
+import { loginRequest } from '../../auth/authConfig';
 
 const Header = () => {
   const { instance, accounts } = useMsal();
-  const [userName, setUserName] = useState('');
 
-  // This useEffect will run when the component mounts, checking if user is logged in
-  useEffect(() => {
-    if (accounts && accounts.length > 0) {
-      setUserName(accounts[0].name);  // Set the user's name
-    }
-  }, [accounts]);
-
+  // Login function
   const handleLogin = () => {
     instance.loginRedirect(loginRequest)
       .then(response => {
@@ -26,7 +19,10 @@ const Header = () => {
       });
   };
 
-  // const handleLogout = () => {};
+  // Logout function
+  const handleLogout = () => {
+    instance.logoutRedirect();
+  };
 
   return (
     <header className="header">
@@ -46,8 +42,8 @@ const Header = () => {
 
         {accounts.length > 0 ? (
           <>
-            <span>Welcome, {userName}</span>
-            <button className="button btn">Logout</button>
+            <span>Welcome, {accounts[0]?.name}</span>
+            <button className="button btn" onClick={handleLogout}>Logout</button>
           </>
         ) : (
           <button className="button btn" onClick={handleLogin}>Login</button>
