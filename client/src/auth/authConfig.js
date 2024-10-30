@@ -1,3 +1,4 @@
+import { PublicClientApplication } from '@azure/msal-browser';
 import { LogLevel } from '@azure/msal-browser';
 
 export const msalConfig = {
@@ -40,3 +41,6 @@ export const msalConfig = {
 export const loginRequest = {
   scopes: ["User.Read"]
 };
+
+// Initialize the msalInstance and export it
+export const msalInstance = new PublicClientApplication(msalConfig);
