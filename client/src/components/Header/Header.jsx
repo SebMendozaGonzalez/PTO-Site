@@ -26,7 +26,6 @@ const Header = () => {
 
   console.log('Completo: ',accounts[0])
   console.log('Email: ', accounts[0]?.username)
-  console.log('Email without ?: ', accounts[0].username)
 
   return (
     <header className="header">
