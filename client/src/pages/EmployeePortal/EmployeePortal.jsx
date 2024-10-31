@@ -11,7 +11,6 @@ import axios from 'axios';
 function EmployeePortal() {
   const { accounts } = useMsal();
   const [filterEmail, setFilterEmail] = useState(() => accounts[0]?.username || '');  
-  console.log('Email: ',accounts[0])
   const [employeeId, setEmployeeId] = useState('');
   const [requestDetails, setRequestDetails] = useState(null);
   

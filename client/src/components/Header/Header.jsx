@@ -24,6 +24,10 @@ const Header = () => {
     instance.logoutRedirect();
   };
 
+  console.log('Completo: ',accounts[0])
+  console.log('Email: ', accounts[0]?.username)
+  console.log('Email without ?: ', accounts[0].username)
+
   return (
     <header className="header">
       <div className="logo-container">
@@ -42,7 +46,6 @@ const Header = () => {
 
         {accounts.length > 0 ? (
           <>
-            <span>Welcome, {accounts[0]?.name}</span>
             <button className="button btn" onClick={handleLogout}>Logout</button>
           </>
         ) : (
