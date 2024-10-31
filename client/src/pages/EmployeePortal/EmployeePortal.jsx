@@ -38,6 +38,7 @@ function EmployeePortal() {
     setRequestDetails(request);
   };
 
+  console.log('id Enviado: ', employeeId)
   return (
     <div className="employee-portal">
       <div className='paddings'>

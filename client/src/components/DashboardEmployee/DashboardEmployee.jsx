@@ -10,6 +10,7 @@ function DashboardEmployee({ employee_id }) {
 
   const employeeId = employee_id || '123';
 
+  console.log('id recibido: ', employeeId)
   useEffect(() => {
     // Reset states when employeeId changes to allow a fresh fetch
     setVacationInfo(null);
