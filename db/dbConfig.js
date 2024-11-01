@@ -1,10 +1,10 @@
 const sql = require('mssql');
 
 // Extracting the necessary environment variables
-const server = process.env.AZURE_SQL_SERVER;
-const database = process.env.AZURE_SQL_DATABASE;
-const port = parseInt(process.env.AZURE_SQL_PORT);
-const authenticationType = process.env.AZURE_SQL_AUTHENTICATIONTYPE; // You can use this if needed
+const server = process.env.AZURE_SQL_QUANTUM_HR_CONNECTION_SERVER;
+const database = process.env.AZURE_SQL_QUANTUM_HR_CONNECTION_DATABASE;
+const port = parseInt(process.env.AZURE_SQL_QUANTUM_HR_CONNECTION_PORT);
+const authenticationType = process.env.AZURE_SQL_QUANTUM_HR_CONNECTION_AUTHENTICATIONTYPE; // You can use this if needed
 
 // Database configuration using Azure App Service environment variables
 const dbConfig = {
