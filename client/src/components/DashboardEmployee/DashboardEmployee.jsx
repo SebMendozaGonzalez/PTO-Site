@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useMsal } from '@azure/msal-react';
 import './DashboardEmployee.css';
 import axios from 'axios';
 
 function DashboardEmployee({ employee_id }) {
-  const [vacationInfo, setVacationInfo] = useState(null); 
+  const { accounts } = useMsal();
+  const [vacationInfo, setVacationInfo] = useState(() => accounts[0]?.username || ''); 
   const [photoUrl, setPhotoUrl] = useState(null); 
   const [error, setError] = useState(null); 
 
