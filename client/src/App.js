@@ -7,6 +7,7 @@ import LeaderPortal from './pages/LeaderPortal/LeaderPortal';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import RequestPortal from './pages/RequestPortal/RequestPortal';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import './App.css';
 
@@ -18,8 +19,15 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/employee-portal" element={<EmployeePortal />} />
-          <Route path="/leader-portal" element={<LeaderPortal />} />
           <Route path="/request-portal" element={<RequestPortal />} />
+          <Route
+            path="/leader-portal"
+            element={
+              <ProtectedRoute requiredRole="Leader">
+                <LeaderPortal />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />

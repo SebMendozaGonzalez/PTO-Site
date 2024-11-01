@@ -39,7 +39,7 @@ export const msalConfig = {
 };
 
 export const loginRequest = {
-  scopes: ["User.Read"]
+  scopes: ["openid", "profile", "User.Read"]
 };
 
 // Initialize the msalInstance and export it
