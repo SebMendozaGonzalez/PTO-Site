@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import LPTable from '../../components/LPTable/LPTable';
 import WelcomeLeaders from '../../components/WelcomeLeaders/WelcomeLeaders';
@@ -8,39 +7,39 @@ import RequestView from '../../components/RequestView/RequestView';
 import './LeaderPortal.css';
 
 function LeaderPortal() {
-  const [filterLeaderName, setFilterLeaderName] = useState('');
+  const [filterLeaderEmail, setFilterLeaderEmail] = useState('');
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
-  const [requestDetails, setRequestDetails] = useState(null); // State for the selected request
+  const [requestDetails, setRequestDetails] = useState(null);
 
   const handleEmployeeSelect = (employee) => {
     setSelectedEmployeeId(employee.employee_id);
   };
 
   const handleEventSelect = (details) => {
-    setRequestDetails(details); // Set the selected request details
+    setRequestDetails(details);
   };
 
   const closePopup = () => {
-    setRequestDetails(null); // Close the popup
+    setRequestDetails(null);
   };
 
   return (
     <div className='flexColCenter leader-portal'>
       <div className='paddings'>
-        <label htmlFor="leaderName" className='filter-label fonts-primary'>Manager Name: </label>
+        <label htmlFor="leaderEmail" className='filter-label fonts-primary'>Manager Email: </label>
         <input
-          id="leaderName"
+          id="leaderEmail"
           type="text"
-          value={filterLeaderName}
-          onChange={(e) => setFilterLeaderName(e.target.value)}
-          placeholder="Enter Leader Name"
+          value={filterLeaderEmail}
+          onChange={(e) => setFilterLeaderEmail(e.target.value)}
+          placeholder="Enter Leader Email"
           className='filter-input'
         />
       </div>
 
       <div className='paddings'>
         <WelcomeLeaders />
-        <LPTable filterLeaderName={filterLeaderName} onEmployeeSelect={handleEmployeeSelect} />
+        <LPTable filterLeaderEmail={filterLeaderEmail} onEmployeeSelect={handleEmployeeSelect} />
 
         <div style={{
           transform: 'scale(0.91)',

@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import './LPTable.css';
 
-const LPTable = ({ filterLeaderName, onEmployeeSelect }) => {
+const LPTable = ({ filterLeaderEmail, onEmployeeSelect }) => {
   const [employees, setEmployees] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -38,11 +38,11 @@ const LPTable = ({ filterLeaderName, onEmployeeSelect }) => {
   if (error) return <div>Error: {error}</div>;
 
   const filteredEmployees = employees.filter(employee => {
-    const matchesLeaderName = filterLeaderName
-      ? employee.leader && employee.leader.toLowerCase().includes(filterLeaderName.toLowerCase())
+    const matchesLeaderEmail = filterLeaderEmail
+      ? employee.leader_email && employee.leader_email.toLowerCase().includes(filterLeaderEmail.toLowerCase())
       : true;
 
-    return matchesLeaderName;
+    return matchesLeaderEmail;
   });
 
   const columnDefs = [
@@ -72,11 +72,11 @@ const LPTable = ({ filterLeaderName, onEmployeeSelect }) => {
             columnDefs={columnDefs}
             pagination={true}
             paginationPageSize={5}
-            domLayout="normal" // Ensure the normal layout is used to keep header and footer fixed
+            domLayout="normal"
             enableCellTextSelection={true}
             suppressHorizontalScroll={false}
-            alwaysShowHorizontalScroll={true} // Always show horizontal scrollbar
-            onRowClicked={onRowClicked} // to capture row click events
+            alwaysShowHorizontalScroll={true}
+            onRowClicked={onRowClicked}
           />
         </div>
       </div>
