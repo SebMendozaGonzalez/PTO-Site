@@ -7,7 +7,7 @@ import LeaderPortal from './pages/LeaderPortal/LeaderPortal';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import RequestPortal from './pages/RequestPortal/RequestPortal';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 import './App.css';
 
