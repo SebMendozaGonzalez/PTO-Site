@@ -4,10 +4,12 @@ import WelcomeLeaders from '../../components/WelcomeLeaders/WelcomeLeaders';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
+import { useMsal } from '@azure/msal-react';
 import './LeaderPortal.css';
 
 function LeaderPortal() {
-  const [filterLeaderEmail, setFilterLeaderEmail] = useState('');
+  const { accounts } = useMsal();
+  const [filterLeaderEmail, setFilterLeaderEmail] = useState(() => accounts[0]?.username || '');
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
   const [requestDetails, setRequestDetails] = useState(null);
 
