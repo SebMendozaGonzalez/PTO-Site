@@ -7,7 +7,7 @@ function WelcomeHRManagers() {
     const { accounts } = useMsal();
 
     return (
-        <div className='flexColStart paddings innerWidth welcomeEmployees'>
+        <div className='flexColCenter paddings innerWidth welcomeEmployees'>
             <div className='flexColStart'>
                 <h1 className='fonts-secondary' style={{ fontWeight: "700" }}>
                     Welcome, {accounts.length > 0 ? accounts[0].name : 'HR Manager'}!
