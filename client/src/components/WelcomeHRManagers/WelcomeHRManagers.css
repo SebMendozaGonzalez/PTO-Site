@@ -1,0 +1,9 @@
+.paragraph>p{
+    text-align: left;
+    font-weight: 500;
+    padding-bottom: 1rem;
+}
+
+.welcomeEmployees {
+    max-width: 60vw;
+}

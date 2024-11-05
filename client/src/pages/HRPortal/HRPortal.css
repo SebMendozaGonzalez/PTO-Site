@@ -1,0 +1,32 @@
+.leader-portal {
+    margin-top: 10rem;
+    overflow-x: hidden;
+    margin: 0 auto;
+  }
+  
+  .employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .employee-table th, .employee-table td {
+    border: 1px solid #1949a8;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .employee-table th {
+    background-color: #f9f4f4;
+    color: #1949a8;
+  }
+  
+  .employee-table tr:nth-child(even) {
+    background-color: #f9f4f4;
+  }
+  
+  .employee-table tr:hover {
+    background-color: #0e40a4;
+    color: white;
+  }
+  

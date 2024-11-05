@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import EmployeePortal from './pages/EmployeePortal/EmployeePortal';
 import LeaderPortal from './pages/LeaderPortal/LeaderPortal';
+import HRPortal from './pages/HRPortal/HRPortal';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import RequestPortal from './pages/RequestPortal/RequestPortal';
@@ -28,6 +29,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/hr-portal" component={<HRPortal/>}></Route>
         </Routes>
       </main>
       <Footer />
