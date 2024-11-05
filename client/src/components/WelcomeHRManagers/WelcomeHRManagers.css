@@ -51,8 +51,3 @@
     width: 100%;
     gap: 1rem;
 }
-
-.button::after {
-    content: '🡢';
-    margin-left: 1em;
-}
