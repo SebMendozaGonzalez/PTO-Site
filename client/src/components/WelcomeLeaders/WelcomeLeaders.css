@@ -15,7 +15,6 @@
     width: 100%;
 }
 
-
 .left {
     display: flex;
     justify-content: flex-start;
@@ -25,7 +24,6 @@
     /* Occupies half of the width */
 }
 
-/* Right section styles - aligns to the right side of the container */
 .right {
     display: flex;
     justify-content: flex-end;
