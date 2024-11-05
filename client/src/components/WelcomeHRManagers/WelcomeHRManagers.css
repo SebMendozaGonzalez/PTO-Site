@@ -8,16 +8,6 @@
     max-width: 60vw;
 }
 
-.contain {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    gap: 2rem;
-    /* Adds space between the .left and .right columns */
-}
-
-
 .left {
     display: flex;
     justify-content: flex-start;
@@ -36,13 +26,22 @@
     /* Occupies half of the width */
 }
 
+.contain {
+    display: flex;
+    justify-content: space-between; /* Space between will push items to edges */
+    align-items: flex-start;
+    width: 100vw; /* Full viewport width to ensure it spans the screen */
+    padding: 0 2rem; /* Add some padding if you want a gap from the screen edges */
+}
+
 .column {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
+    width: 48%; /* Ensures each column takes up about half the space */
     gap: 1rem;
 }
+
 
 .row {
     display: flex;
