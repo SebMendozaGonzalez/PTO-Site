@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useMsal } from '@azure/msal-react';
 import './Header.css';
 import logo from '../../images/quantum-long-logo.png';
@@ -24,8 +24,8 @@ const Header = () => {
     instance.logoutRedirect();
   };
 
-  console.log('Completo: ', accounts[0])
-  console.log('Email: ', accounts[0]?.username)
+  console.log('Completo: ', accounts[0]);
+  console.log('Email: ', accounts[0]?.username);
 
   return (
     <header className="header">
@@ -33,23 +33,21 @@ const Header = () => {
         <img src={logo} alt="Company Logo" className="company-logo" />
       </div>
       <nav className="nav-options">
-        <Link to="/" className="nav-link">
+        <NavLink to="/" className="nav-link" activeClassName="active-link" exact>
           <span>Home</span>
-        </Link>
-        <Link to="/employee-portal" className="nav-link">
+        </NavLink>
+        <NavLink to="/employee-portal" className="nav-link" activeClassName="active-link">
           <span>Employee Portal</span>
-        </Link>
-        <Link to="/leader-portal" className="nav-link">
+        </NavLink>
+        <NavLink to="/leader-portal" className="nav-link" activeClassName="active-link">
           <span>Manager Portal</span>
-        </Link>
-        <Link to="/hr-portal" className="nav-link">
+        </NavLink>
+        <NavLink to="/hr-portal" className="nav-link" activeClassName="active-link">
           <span>HR Portal</span>
-        </Link>
+        </NavLink>
 
         {accounts.length > 0 ? (
-          <>
-            <button className="button btn" onClick={handleLogout}>Logout</button>
-          </>
+          <button className="button btn" onClick={handleLogout}>Logout</button>
         ) : (
           <button className="button btn" onClick={handleLogin}>Login</button>
         )}
