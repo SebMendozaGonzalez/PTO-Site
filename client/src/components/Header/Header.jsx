@@ -42,7 +42,7 @@ const Header = () => {
         <Link to="/leader-portal" className="nav-link">
           <span>Manager Portal</span>
         </Link>
-        <Link to="/hr-portal" className='nav-link'>
+        <Link to="/hr-portal" className="nav-link">
           <span>HR Portal</span>
         </Link>
 

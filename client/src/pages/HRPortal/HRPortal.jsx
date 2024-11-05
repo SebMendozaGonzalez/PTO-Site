@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import LPTable from '../../components/LPTable/LPTable';
-import WelcomeLeaders from '../../components/WelcomeLeaders/WelcomeLeaders';
+import WelcomeHRManagers from '../../components/WelcomeLeaders/WelcomeHRManagers';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
 import './HRPortal.css';
 
-function HRPortal
-() {
+function HRPortal() {
   const [filterLeaderEmail, setFilterLeaderEmail] = useState('');
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
   const [requestDetails, setRequestDetails] = useState(null);
@@ -39,7 +38,7 @@ function HRPortal
       </div>
 
       <div className='paddings'>
-        <WelcomeLeaders />
+        <WelcomeHRManagers />
         <LPTable filterLeaderEmail={filterLeaderEmail} onEmployeeSelect={handleEmployeeSelect} />
 
         <div style={{
@@ -64,5 +63,4 @@ function HRPortal
   );
 }
 
-export default HRPortal
-;
+export default HRPortal;

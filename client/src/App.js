@@ -29,7 +29,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/hr-portal" component={<HRPortal/>}></Route>
+          <Route path="/hr-portal" component={<HRPortal />}></Route>
         </Routes>
       </main>
       <Footer />
