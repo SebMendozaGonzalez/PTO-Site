@@ -7,8 +7,8 @@ function WelcomeHRManagers() {
     const { accounts } = useMsal();
 
     return (
-        <div className='flexColCenter paddings innerWidth welcomeEmployees'>
-            <div className='flexColStart'>
+        <div className='contain paddings innerWidth welcomeEmployees'>
+            <div className='left'>
                 <h1 className='fonts-secondary' style={{ fontWeight: "700" }}>
                     Welcome, {accounts.length > 0 ? accounts[0].name : 'HR Manager'}!
                 </h1>
@@ -18,7 +18,7 @@ function WelcomeHRManagers() {
                     </p>
                 </div>
             </div>
-            <div className='flexColEnd'>
+            <div className='right'>
                 <h1 className='fonts-secondary' style={{ fontWeight: "700" }}>
                     Manage Collaborators
                 </h1>

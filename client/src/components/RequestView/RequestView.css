@@ -22,32 +22,24 @@
     position: relative;
 }
 
-/* Flex layout for left-right sections in the first, second, third blocks */
 .first,
 .second,
 .third,
 .fourth {
     display: flex;
     justify-content: space-between;
-    /* Ensures maximum distance between left and right */
     align-items: flex-start;
     width: 100%;
-    /* Ensure full-width container */
 }
 
-/* General paddings */
 .paddings {
     padding: 5px;
-    /* Uniform padding around elements */
 }
 
-/* Specific padding for first, second, third sections */
 .padding {
     padding: 5px 0;
-    /* Adds padding only to top and bottom */
 }
 
-/* Left section styles - aligns to the left side of the container */
 .left {
     display: flex;
     justify-content: flex-start;
@@ -171,8 +163,6 @@
     border: 0.1em solid #2b2a2a;
     cursor: pointer;
     transform: scale(1.05);
-
-    
 }
 
 .cancel-button{
