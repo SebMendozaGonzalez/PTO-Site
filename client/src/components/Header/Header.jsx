@@ -33,16 +33,29 @@ const Header = () => {
         <img src={logo} alt="Company Logo" className="company-logo" />
       </div>
       <nav className="nav-options">
-        <NavLink to="/" className="nav-link" activeClassName="active-link" exact>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
+          end
+        >
           <span>Home</span>
         </NavLink>
-        <NavLink to="/employee-portal" className="nav-link" activeClassName="active-link">
+        <NavLink
+          to="/employee-portal"
+          className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
+        >
           <span>Employee Portal</span>
         </NavLink>
-        <NavLink to="/leader-portal" className="nav-link" activeClassName="active-link">
+        <NavLink
+          to="/leader-portal"
+          className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
+        >
           <span>Manager Portal</span>
         </NavLink>
-        <NavLink to="/hr-portal" className="nav-link" activeClassName="active-link">
+        <NavLink
+          to="/hr-portal"
+          className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
+        >
           <span>HR Portal</span>
         </NavLink>
 
