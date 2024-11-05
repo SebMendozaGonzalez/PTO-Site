@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LPTable from '../../components/LPTable/LPTable';
-import WelcomeHRManagers from '../../components/WelcomeLeaders/WelcomeHRManagers';
+import WelcomeHRManagers from '../../components/WelcomeHRManagers/WelcomeHRManagers';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
