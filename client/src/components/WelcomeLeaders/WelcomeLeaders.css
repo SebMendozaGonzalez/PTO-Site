@@ -8,27 +8,3 @@
     max-width: 60vw;
 }
 
-.contain {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-}
-
-.left {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    text-align: left;
-    width: 50%;
-    /* Occupies half of the width */
-}
-
-.right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    text-align: right;
-    width: 50%;
-    /* Occupies half of the width */
-}
