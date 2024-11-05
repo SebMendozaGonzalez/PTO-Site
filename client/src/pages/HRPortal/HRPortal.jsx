@@ -38,7 +38,7 @@ function HRPortal() {
       </div>
 
       <div className='paddings'>
-        <WelcomeHRManagers />
+        <WelcomeHRManagers className="innerWidth" />
         <LPTable filterLeaderEmail={filterLeaderEmail} onEmployeeSelect={handleEmployeeSelect} />
 
         <div style={{
