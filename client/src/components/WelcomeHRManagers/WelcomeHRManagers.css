@@ -1,10 +1,10 @@
-.paragraph>p{
+.paragraph>p {
     text-align: left;
     font-weight: 500;
     padding-bottom: 1rem;
 }
 
-.welcomeEmployees {
+.welcome-hr {
     max-width: 60vw;
 }
 
@@ -13,7 +13,8 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    gap: 2rem; /* Adds space between the .left and .right columns */
+    gap: 2rem;
+    /* Adds space between the .left and .right columns */
 }
 
 
@@ -37,8 +38,21 @@
 
 .column {
     display: flex;
-    flex-direction: column; /* Stacks items vertically within each .column */
+    flex-direction: column;
     align-items: flex-start;
-    width: 100%; /* Ensures each column takes up the full width within .contain */
-    gap: 1rem; /* Adds space between items in each column */
+    width: 100%;
+    gap: 1rem;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.button::after {
+    content: '🡢';
+    margin-left: 1em;
 }
