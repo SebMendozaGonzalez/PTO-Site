@@ -24,7 +24,7 @@ const Header = () => {
     instance.logoutRedirect();
   };
 
-  console.log('Completo: ',accounts[0])
+  console.log('Completo: ', accounts[0])
   console.log('Email: ', accounts[0]?.username)
 
   return (
@@ -42,7 +42,8 @@ const Header = () => {
         <Link to="/leader-portal" className="nav-link">
           <span>Manager Portal</span>
         </Link>
-        <Link to="/hr-portal">
+        <Link to="/hr-portal" className='nav-link'>
+          <span>HR Portal</span>
         </Link>
 
         {accounts.length > 0 ? (
