@@ -5,7 +5,7 @@ const { connectToDatabase } = require('../db/dbConfig');
 router.get('/', async (req, res) => {
     try {
         const pool = await connectToDatabase(); 
-        const result = await pool.request().query('SELECT * FROM dbo.roster ORDER BY name DESC');
+        const result = await pool.request().query('SELECT * FROM dbo.roster ORDER BY name ASC');
         res.json(result.recordset); 
     } catch (err) {
         console.error(err);
