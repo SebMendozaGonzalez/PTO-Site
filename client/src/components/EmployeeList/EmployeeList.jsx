@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import Divider from '@mui/material/Divider';
+import { Avatar } from '@mui/material';
 import './EmployeeList.css';
 
 function EmployeeList() {
@@ -48,12 +49,19 @@ function EmployeeList() {
                                             <IconButton edge="end" aria-label="edit">
                                                 <EditIcon />
                                             </IconButton>
-                                            <IconButton edge = "end" aria-label="person-remove">
+                                            <IconButton edge="end" aria-label="person-remove">
                                                 <PersonRemoveIcon />
                                             </IconButton>
                                         </div>
                                     }
                                 >
+                                    <Avatar
+                                        alt={employee.name}
+                                        src={`/employee-photos/${employee.employee_id}.jpeg`}
+                                        sx={{ width: 24, height: 24 }}
+                                    >
+                                        {employee.name ? employee.name.charAt(0) : 'E'}
+                                    </Avatar>
                                     <ListItemText
                                         primary={<p className='fonts-primary'>{employee.name}</p>}
                                         secondary={<span className='textico-normal'>Employee ID: {employee.employee_id}</span>}
