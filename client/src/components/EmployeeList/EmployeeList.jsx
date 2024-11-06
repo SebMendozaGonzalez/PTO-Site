@@ -13,6 +13,7 @@ import './EmployeeList.css';
 
 function EmployeeList() {
     const [employees, setEmployees] = useState([]);
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -31,33 +32,41 @@ function EmployeeList() {
                 console.error(err);
             }
         };
-
         fetchEmployees();
     }, []);
 
+    const handleSelectEmployee = (employee) => {
+        setSelectedEmployee(employee);
+    };
+
     return (
-        <div className='paddings innerWidth contain'>
-            <div className='paddings employee-list left'>
-                <Box sx={{ width: '100%', bgcolor: '#f8f9fe', padding: 2, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
+        <div className="employee-list-container">
+            <div className="employee-list">
+                <Box
+                    sx={{
+                        width: '100%',
+                        bgcolor: '#f8f9fe',
+                        padding: 2,
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                        maxHeight: '40rem',
+                        overflow: 'auto',
+                    }}
+                >
                     {error && <p style={{ color: 'red' }}>{error}</p>}
-                    <List dense
-                        sx={{
-                            width: '100%',
-                            position: 'relative',
-                            overflow: 'auto',
-                            maxHeight: '40rem',
-                            '& ul': { padding: 0 },
-                        }}>
+                    <List dense>
                         {employees.length > 0 ? (
                             employees.map(employee => (
                                 <div key={employee.employee_id}>
                                     <ListItem
+                                        button
+                                        onClick={() => handleSelectEmployee(employee)}
                                         secondaryAction={
                                             <div>
                                                 <IconButton edge="end" aria-label="edit">
                                                     <EditIcon />
                                                 </IconButton>
-                                                <IconButton edge="end" aria-label="person-remove">
+                                                <IconButton edge="end" aria-label="remove">
                                                     <PersonRemoveIcon />
                                                 </IconButton>
                                             </div>
@@ -71,8 +80,8 @@ function EmployeeList() {
                                             {employee.name ? employee.name.charAt(0) : 'E'}
                                         </Avatar>
                                         <ListItemText
-                                            primary={<p className='fonts-primary'>{employee.name}</p>}
-                                            secondary={<span className='textico-normal'>{employee.employee_id}</span>}
+                                            primary={<p className="fonts-primary">{employee.name}</p>}
+                                            secondary={<span className="textico-normal">{employee.employee_id}</span>}
                                         />
                                     </ListItem>
                                     <Divider style={{ backgroundColor: '#444444' }} />
@@ -85,10 +94,60 @@ function EmployeeList() {
                 </Box>
             </div>
 
-            <div className='paddings profile right innerWidth'>
-                <div className='flexColStart'>
-                    Hello
-                </div>
+            <div className="profile">
+                {selectedEmployee ? (
+                    <Box
+                        sx={{
+                            width: '100%',
+                            bgcolor: '#f8f9fe',
+                            padding: 3,
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 2,
+                        }}
+                    >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                            <Avatar
+                                alt={selectedEmployee.name}
+                                src={`/employee-photos/${selectedEmployee.employee_id}.jpeg`}
+                                sx={{ width: 80, height: 80 }}
+                            />
+                            <Box>
+                                <h2>{selectedEmployee.name}</h2>
+                                <p>{selectedEmployee.position}</p>
+                            </Box>
+                        </Box>
+
+                        <Divider />
+
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Box>
+                                <h4>Contact Info</h4>
+                                <p>Email: {selectedEmployee.email}</p>
+                                <p>Phone: {selectedEmployee.phone_number}</p>
+                                <p>Address: {selectedEmployee.home_address}</p>
+                            </Box>
+
+                            <Box>
+                                <h4>Company Info</h4>
+                                <p>Company: {selectedEmployee.company}</p>
+                                <p>Department: {selectedEmployee.department}</p>
+                                <p>Leader: {selectedEmployee.leader}</p>
+                            </Box>
+
+                            <Box>
+                                <h4>Emergency Contact</h4>
+                                <p>Contact: {selectedEmployee.emergency_contact}</p>
+                                <p>Name: {selectedEmployee.emergency_name}</p>
+                                <p>Phone: {selectedEmployee.emergency_phone}</p>
+                            </Box>
+                        </Box>
+                    </Box>
+                ) : (
+                    <p>Select an employee to view details</p>
+                )}
             </div>
         </div>
     );

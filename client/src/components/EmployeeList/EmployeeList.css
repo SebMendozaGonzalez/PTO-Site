@@ -1,11 +1,15 @@
 
 .employee-list {
     max-width: 30vw;
-    height: 45rem;
+    height: 41rem;
     background-color: #f8f9fe;
-    padding: 1rem;
 }
 
+.employee-list-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
 
 .profile {
     max-width: 65vw;
