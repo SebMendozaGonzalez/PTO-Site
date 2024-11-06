@@ -48,7 +48,7 @@ function EmployeeList() {
                         bgcolor: '#f8f9fe',
                         borderRadius: '8px',
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                        maxHeight: '40rem',
+                        maxHeight: '35rem',
                         overflow: 'auto',
                     }}
                     className="paddings"
