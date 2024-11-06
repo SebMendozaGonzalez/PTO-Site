@@ -49,7 +49,7 @@ function EmployeeList() {
                         padding: 2,
                         borderRadius: '8px',
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                        maxHeight: '30rem',
+                        maxHeight: '27rem',
                         overflow: 'auto',
                     }}
                 >
@@ -120,7 +120,7 @@ function EmployeeList() {
                             <Avatar
                                 alt={selectedEmployee.name}
                                 src={`/employee-photos/${selectedEmployee.employee_id}.jpeg`}
-                                sx={{ width: 80, height: 80 }}
+                                sx={{ width: 100, height: 100 }}
                             />
                             <Box>
                                 <Typography variant="h5" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--primary)' }}>
