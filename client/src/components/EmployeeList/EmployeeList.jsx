@@ -81,7 +81,7 @@ function EmployeeList() {
                                         </Avatar>
                                         <ListItemText
                                             primary={<p className="fonts-primary">{employee.name}</p>}
-                                            secondary={<span className="textico-normal">{employee.employee_id}</span>}
+                                            secondary={<span className="fonts-regular">{employee.employee_id}</span>}
                                         />
                                     </ListItem>
                                     <Divider style={{ backgroundColor: '#444444' }} />
@@ -115,8 +115,8 @@ function EmployeeList() {
                                 sx={{ width: 80, height: 80 }}
                             />
                             <Box>
-                                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{selectedEmployee.name}</Typography>
-                                <Typography variant="subtitle1" color="text.secondary">{selectedEmployee.employee_id}</Typography>
+                                <Typography variant="h5" sx={{ fontWeight: 'bold' }} className="fonts-primary">{selectedEmployee.name}</Typography>
+                                <Typography variant="subtitle1" color="text.secondary" className="fonts-regular">{selectedEmployee.employee_id}</Typography>
                             </Box>
                         </Box>
 
@@ -124,13 +124,13 @@ function EmployeeList() {
 
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 4, marginBottom: 2 }}>
                             <Box>
-                                <Typography variant="h6" color="primary">Contact Info</Typography>
-                                <Typography>Email: {selectedEmployee.email}</Typography>
+                                <Typography variant="h6" color="primary" className="fonts-secondary">Contact Info</Typography>
+                                <Typography>Email: {selectedEmployee.email_surgical}</Typography>
                                 <Typography>Phone: {selectedEmployee.phone_number}</Typography>
                                 <Typography>Address: {selectedEmployee.home_address}</Typography>
                             </Box>
                             <Box>
-                                <Typography variant="h6" color="primary">Company Info</Typography>
+                                <Typography variant="h6" color="primary" className="fonts-secondary">Company Info</Typography>
                                 <Typography>Company: {selectedEmployee.company}</Typography>
                                 <Typography>Department: {selectedEmployee.department}</Typography>
                                 <Typography>Leader: {selectedEmployee.leader}</Typography>
@@ -140,7 +140,7 @@ function EmployeeList() {
                         <Divider />
 
                         <Box>
-                            <Typography variant="h6" color="primary">Emergency Contact</Typography>
+                            <Typography variant="h6" color="primary" className="fonts-secondary">Emergency Contact</Typography>
                             <Typography>Contact: {selectedEmployee.emergency_contact}</Typography>
                             <Typography>Name: {selectedEmployee.emergency_name}</Typography>
                             <Typography>Phone: {selectedEmployee.emergency_phone}</Typography>
