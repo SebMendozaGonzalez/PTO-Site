@@ -40,18 +40,16 @@ const Header = () => {
         >
           <span>Home</span>
         </NavLink>
+
         <NavLink
           to="/employee-portal"
           className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
         >
           <span>Employee Portal</span>
         </NavLink>
-        <NavLink
-          to="/leader-portal"
-          className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
-        >
-          <span>Manager Portal</span>
-        </NavLink>
+
+
+
         <NavLink
           to="/hr-portal"
           className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
@@ -60,7 +58,16 @@ const Header = () => {
         </NavLink>
 
         {accounts.length > 0 ? (
-          <button className="button btn" onClick={handleLogout}>Logout</button>
+          <div>
+            <NavLink
+              to="/leader-portal"
+              className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
+            >
+              <span>Manager Portal</span>
+            </NavLink>
+            <button className="button btn" onClick={handleLogout}>Logout</button>
+          </div>
+
         ) : (
           <button className="button btn" onClick={handleLogin}>Login</button>
         )}
