@@ -53,16 +53,23 @@ function LeaderPortal() {
         </div>
 
         {selectedEmployeeId && (
-          <RequestsCalendar employee_id={selectedEmployeeId} onEventSelect={handleEventSelect} />
+          <RequestsCalendar 
+            employee_id={selectedEmployeeId} 
+            filterLeaderEmail={filterLeaderEmail} 
+            onEventSelect={handleEventSelect} 
+          />
         )}
 
-        <RequestView requestDetails={requestDetails}
+        <RequestView 
+          requestDetails={requestDetails}
           onClose={closePopup}
           managerPermissions={true}
-          employeePermissions={false} />
+          employeePermissions={false} 
+        />
       </div>
     </div>
   );
 }
 
 export default LeaderPortal;
+

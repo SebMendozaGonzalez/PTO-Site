@@ -10,7 +10,7 @@ import './HRPortal.css';
 
 
 function HRPortal() {
-  const [filterLeaderEmail, setFilterLeaderEmail] = useState('');
+  const [filterLeaderEmail] = useState('');
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
   const [requestDetails, setRequestDetails] = useState(null);
   const [manageRequests, setManageRequests] = useState(false);
@@ -74,19 +74,6 @@ function HRPortal() {
 
   return (
     <div className='flexColCenter leader-portal'>
-      <div className='paddings'>
-        <label htmlFor="leaderEmail" className='filter-label fonts-primary'>Manager Email: </label>
-        <input
-          id="leaderEmail"
-          type="text"
-          value={filterLeaderEmail}
-          onChange={(e) => setFilterLeaderEmail(e.target.value)}
-          placeholder="Enter Leader Email"
-          className='filter-input'
-        />
-      </div>
-
-      {/* Pass handleManageRequestsClick to WelcomeHRManagers as a prop */}
       <WelcomeHRManagers onManageRequestsClick={handleManageRequestsClick} onManageCollaboratorsClick={handleManageCollaboratorsClick} />
 
       {requestsComponent}
