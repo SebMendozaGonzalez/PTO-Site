@@ -40,7 +40,14 @@ function EmployeeList() {
             <div className='paddings employee-list left'>
                 <Box sx={{ width: '100%', bgcolor: '#f8f9fe', padding: 2, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
                     {error && <p style={{ color: 'red' }}>{error}</p>}
-                    <List dense>
+                    <List dense
+                        sx={{
+                            width: '100%',
+                            position: 'relative',
+                            overflow: 'auto',
+                            maxHeight: '40rem',
+                            '& ul': { padding: 0 },
+                        }}>
                         {employees.length > 0 ? (
                             employees.map(employee => (
                                 <div key={employee.employee_id}>
