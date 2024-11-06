@@ -64,7 +64,7 @@ function EmployeeList() {
                                     </Avatar>
                                     <ListItemText
                                         primary={<p className='fonts-primary'>{employee.name}</p>}
-                                        secondary={<span className='textico-normal'>Employee ID: {employee.employee_id}</span>}
+                                        secondary={<span className='textico-normal'>{employee.employee_id}</span>}
                                     />
                                 </ListItem>
                                 <Divider style={{ backgroundColor: '#444444' }} />
