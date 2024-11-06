@@ -46,12 +46,12 @@ function EmployeeList() {
                     sx={{
                         width: '100%',
                         bgcolor: '#f8f9fe',
-                        padding: 2,
                         borderRadius: '8px',
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                        maxHeight: '27rem',
+                        maxHeight: '40rem',
                         overflow: 'auto',
                     }}
+                    className="paddings"
                 >
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     <List dense>
@@ -108,13 +108,13 @@ function EmployeeList() {
                         sx={{
                             width: '100%',
                             bgcolor: '#f8f9fe',
-                            padding: 3,
                             borderRadius: '8px',
                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                             display: 'flex',
                             flexDirection: 'column',
                             gap: 2,
                         }}
+                        className = "paddings"
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 2 }}>
                             <Avatar
