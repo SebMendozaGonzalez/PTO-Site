@@ -58,7 +58,7 @@ function EmployeeList() {
                                     <Avatar
                                         alt={employee.name}
                                         src={`/employee-photos/${employee.employee_id}.jpeg`}
-                                        sx={{ width: 24, height: 24, marginRight: 2 }}
+                                        sx={{ width: 56, height: 56, marginRight: 2 }}
                                     >
                                         {employee.name ? employee.name.charAt(0) : 'E'}
                                     </Avatar>
