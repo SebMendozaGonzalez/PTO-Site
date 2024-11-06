@@ -78,8 +78,8 @@ function EmployeeList() {
                 </Box>
             </div>
 
-            <div className='paddings profile right'>
-                <div>
+            <div className='paddings profile right innerWidth'>
+                <div className='flexColStart'>
                     Hello
                 </div>
             </div>

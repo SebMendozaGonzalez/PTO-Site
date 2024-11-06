@@ -1,12 +1,25 @@
-.profile {
-    width: '100%';
-    background-color: '#f8f9fe';
-    padding: 2;
-    border-radius: '8px';
-    box-shadow: '0 4px 8px rgba(0, 0, 0, 0.2)';
-    max-width: 70vw;
-}
 
 .employee-list {
     max-width: 30vw;
+    overflow-y: auto;
+    height: 35rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #f8f9fe;
+    padding: 1rem;
+}
+
+
+.profile {
+    max-width: 65vw;
+    width: 100%;
+    height: 35rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #f8f9fe;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e0e0e0;
 }
