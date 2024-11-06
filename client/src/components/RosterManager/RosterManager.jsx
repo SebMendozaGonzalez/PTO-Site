@@ -1,8 +1,12 @@
 import React from 'react'
+import EmployeeList from '../EmployeeList/EmployeeList'
+import "./RosterManager.css"
 
 function RosterManager() {
   return (
-    <div>RosterManager Component</div>
+    <div className='paddings innerWidth'>
+        <EmployeeList/>
+    </div>
   )
 }
 
