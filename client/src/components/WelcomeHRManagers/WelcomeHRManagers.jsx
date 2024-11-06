@@ -3,7 +3,7 @@ import React from 'react';
 import { useMsal } from '@azure/msal-react';
 import './WelcomeHRManagers.css';
 
-function WelcomeHRManagers() {
+function WelcomeHRManagers({ onManageRequestsClick, onManageCollaboratorsClick }) {
     const { accounts } = useMsal();
 
     return (
@@ -31,7 +31,10 @@ function WelcomeHRManagers() {
                         </p>
                     </div>
                     <div className='padding'>
-                        <button className='button'>Go</button>
+                        {/* Attach onManageRequestsClick to the button */}
+                        <button className='button' onClick={onManageRequestsClick}>
+                            Manage TO Requests
+                        </button>
                     </div>
                 </div>
 
@@ -45,11 +48,12 @@ function WelcomeHRManagers() {
                         </p>
                     </div>
                     <div className='padding'>
-                        <button className='button'>Go</button>
+                        <button className='button' onClick={onManageCollaboratorsClick}>
+                        Manage Collaborators
+                        </button>
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
