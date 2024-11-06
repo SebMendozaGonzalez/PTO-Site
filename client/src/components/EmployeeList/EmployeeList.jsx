@@ -80,8 +80,16 @@ function EmployeeList() {
                                             {employee.name ? employee.name.charAt(0) : 'E'}
                                         </Avatar>
                                         <ListItemText
-                                            primary={<p className="fonts-primary">{employee.name}</p>}
-                                            secondary={<span className="fonts-regular">{employee.employee_id}</span>}
+                                            primary={
+                                                <Typography sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--primary)' }}>
+                                                    {employee.name}
+                                                </Typography>
+                                            }
+                                            secondary={
+                                                <Typography sx={{ fontFamily: 'Poppins', fontWeight: 400, color: 'var(--small)' }}>
+                                                    {employee.employee_id}
+                                                </Typography>
+                                            }
                                         />
                                     </ListItem>
                                     <Divider style={{ backgroundColor: '#444444' }} />
@@ -115,8 +123,12 @@ function EmployeeList() {
                                 sx={{ width: 80, height: 80 }}
                             />
                             <Box>
-                                <Typography variant="h5" sx={{ fontWeight: 'bold' }} className="fonts-primary">{selectedEmployee.name}</Typography>
-                                <Typography variant="subtitle1" color="text.secondary" className="fonts-regular">{selectedEmployee.employee_id}</Typography>
+                                <Typography variant="h5" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--primary)' }}>
+                                    {selectedEmployee.name}
+                                </Typography>
+                                <Typography variant="subtitle1" color="text.secondary" sx={{ fontFamily: 'Poppins', fontWeight: 400 }}>
+                                    {selectedEmployee.employee_id}
+                                </Typography>
                             </Box>
                         </Box>
 
@@ -124,26 +136,32 @@ function EmployeeList() {
 
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 4, marginBottom: 2 }}>
                             <Box>
-                                <Typography variant="h6" color="primary" className="fonts-secondary">Contact Info</Typography>
-                                <Typography>Email: {selectedEmployee.email_surgical}</Typography>
-                                <Typography>Phone: {selectedEmployee.phone_number}</Typography>
-                                <Typography>Address: {selectedEmployee.home_address}</Typography>
+                                <Typography variant="h6" color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
+                                    Contact Info
+                                </Typography>
+                                <Typography> <strong className='fonts-primary'>Email:</strong> {selectedEmployee.email_surgical}</Typography>
+                                <Typography> <strong className='fonts-primary'>Phone:</strong> {selectedEmployee.phone_number}</Typography>
+                                <Typography> <strong className='fonts-primary'>Address:</strong> {selectedEmployee.home_address}</Typography>
                             </Box>
                             <Box>
-                                <Typography variant="h6" color="primary" className="fonts-secondary">Company Info</Typography>
-                                <Typography>Company: {selectedEmployee.company}</Typography>
-                                <Typography>Department: {selectedEmployee.department}</Typography>
-                                <Typography>Leader: {selectedEmployee.leader}</Typography>
+                                <Typography variant="h6" color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
+                                    Company Info
+                                </Typography>
+                                <Typography> <strong className='fonts-primary'>Company:</strong> {selectedEmployee.company}</Typography>
+                                <Typography> <strong className='fonts-primary'>Department:</strong> {selectedEmployee.department}</Typography>
+                                <Typography> <strong className='fonts-primary'>Leader:</strong> {selectedEmployee.leader}</Typography>
                             </Box>
                         </Box>
 
                         <Divider />
 
                         <Box>
-                            <Typography variant="h6" color="primary" className="fonts-secondary">Emergency Contact</Typography>
-                            <Typography>Contact: {selectedEmployee.emergency_contact}</Typography>
-                            <Typography>Name: {selectedEmployee.emergency_name}</Typography>
-                            <Typography>Phone: {selectedEmployee.emergency_phone}</Typography>
+                            <Typography variant="h6" color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
+                                Emergency Contact
+                            </Typography>
+                            <Typography> <strong className='fonts-primary'>Contact:</strong>  {selectedEmployee.emergency_contact}</Typography>
+                            <Typography> <strong className='fonts-primary'>Name:</strong>  {selectedEmployee.emergency_name}</Typography>
+                            <Typography> <strong className='fonts-primary'>Phone:</strong> {selectedEmployee.emergency_phone}</Typography>
                         </Box>
                     </Box>
                 ) : (
