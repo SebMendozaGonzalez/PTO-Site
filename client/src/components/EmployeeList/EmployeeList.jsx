@@ -36,45 +36,53 @@ function EmployeeList() {
     }, []);
 
     return (
-        <div className='paddings innerWidth employee-list'>
-            <Box sx={{ width: '100%', bgcolor: '#f8f9fe', padding: 2, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <List dense>
-                    {employees.length > 0 ? (
-                        employees.map(employee => (
-                            <div key={employee.employee_id}>
-                                <ListItem
-                                    secondaryAction={
-                                        <div>
-                                            <IconButton edge="end" aria-label="edit">
-                                                <EditIcon />
-                                            </IconButton>
-                                            <IconButton edge="end" aria-label="person-remove">
-                                                <PersonRemoveIcon />
-                                            </IconButton>
-                                        </div>
-                                    }
-                                >
-                                    <Avatar
-                                        alt={employee.name}
-                                        src={`/employee-photos/${employee.employee_id}.jpeg`}
-                                        sx={{ width: 48, height: 48, marginRight: 2 }}
+        <div className='paddings innerWidth contain'>
+            <div className='paddings employee-list left'>
+                <Box sx={{ width: '100%', bgcolor: '#f8f9fe', padding: 2, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <List dense>
+                        {employees.length > 0 ? (
+                            employees.map(employee => (
+                                <div key={employee.employee_id}>
+                                    <ListItem
+                                        secondaryAction={
+                                            <div>
+                                                <IconButton edge="end" aria-label="edit">
+                                                    <EditIcon />
+                                                </IconButton>
+                                                <IconButton edge="end" aria-label="person-remove">
+                                                    <PersonRemoveIcon />
+                                                </IconButton>
+                                            </div>
+                                        }
                                     >
-                                        {employee.name ? employee.name.charAt(0) : 'E'}
-                                    </Avatar>
-                                    <ListItemText
-                                        primary={<p className='fonts-primary'>{employee.name}</p>}
-                                        secondary={<span className='textico-normal'>{employee.employee_id}</span>}
-                                    />
-                                </ListItem>
-                                <Divider style={{ backgroundColor: '#444444' }} />
-                            </div>
-                        ))
-                    ) : (
-                        !error && <p style={{ color: '#b6b6b6' }}>Loading employees...</p>
-                    )}
-                </List>
-            </Box>
+                                        <Avatar
+                                            alt={employee.name}
+                                            src={`/employee-photos/${employee.employee_id}.jpeg`}
+                                            sx={{ width: 48, height: 48, marginRight: 2 }}
+                                        >
+                                            {employee.name ? employee.name.charAt(0) : 'E'}
+                                        </Avatar>
+                                        <ListItemText
+                                            primary={<p className='fonts-primary'>{employee.name}</p>}
+                                            secondary={<span className='textico-normal'>{employee.employee_id}</span>}
+                                        />
+                                    </ListItem>
+                                    <Divider style={{ backgroundColor: '#444444' }} />
+                                </div>
+                            ))
+                        ) : (
+                            !error && <p style={{ color: '#b6b6b6' }}>Loading employees...</p>
+                        )}
+                    </List>
+                </Box>
+            </div>
+
+            <div className='paddings profile right'>
+                <div>
+                    Hello
+                </div>
+            </div>
         </div>
     );
 }
