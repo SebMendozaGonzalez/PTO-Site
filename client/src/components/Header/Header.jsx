@@ -48,6 +48,14 @@ const Header = () => {
           <span>Employee Portal</span>
         </NavLink>
 
+        {accounts.length > 0 ? (
+          <NavLink
+            to="/leader-portal"
+            className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
+          >
+            <span>Manager Portal</span>
+          </NavLink>
+        ) : (<div></div>)}
 
 
         <NavLink
@@ -59,12 +67,7 @@ const Header = () => {
 
         {accounts.length > 0 ? (
           <div>
-            <NavLink
-              to="/leader-portal"
-              className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
-            >
-              <span>Manager Portal</span>
-            </NavLink>
+
             <button className="button btn" onClick={handleLogout}>Logout</button>
           </div>
 
