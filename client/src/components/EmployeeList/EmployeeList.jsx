@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import Divider from '@mui/material/Divider';
 import './EmployeeList.css';
 
@@ -39,7 +42,18 @@ function EmployeeList() {
                     {employees.length > 0 ? (
                         employees.map(employee => (
                             <div key={employee.employee_id}>
-                                <ListItem>
+                                <ListItem
+                                    secondaryAction={
+                                        <div>
+                                            <IconButton edge="end" aria-label="edit">
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton edge = "end" aria-label="person-remove">
+                                                <PersonRemoveIcon />
+                                            </IconButton>
+                                        </div>
+                                    }
+                                >
                                     <ListItemText
                                         primary={<p className='fonts-primary'>{employee.name}</p>}
                                         secondary={<span className='textico-normal'>Employee ID: {employee.employee_id}</span>}
