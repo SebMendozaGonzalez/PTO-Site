@@ -5,7 +5,7 @@
 }
 
 .welcome-hr {
-    max-width: 60vw;
+    width: 100vw;
 }
 
 .left {
@@ -13,8 +13,8 @@
     justify-content: flex-start;
     align-items: flex-start;
     text-align: left;
-    width: 48%;
-    /* Occupies half of the width */
+    width: 50%;
+
 }
 
 .right {
@@ -22,23 +22,24 @@
     justify-content: flex-end;
     align-items: flex-start;
     text-align: right;
-    width: 48%;
-    /* Occupies half of the width */
+    width: 50%;
 }
 
 .contain {
     display: flex;
-    justify-content: space-between; /* Space between will push items to edges */
+    justify-content: space-between;
+    /* Space between will push items to edges */
     align-items: flex-start;
-    width: 100vw; /* Full viewport width to ensure it spans the screen */
-    padding: 0 2rem; /* Add some padding if you want a gap from the screen edges */
+    width: 100vw;
+    /* Full viewport width to ensure it spans the screen */
 }
 
 .column {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 48%; /* Ensures each column takes up about half the space */
+    width: 48%;
+    /* Ensures each column takes up about half the space */
     gap: 1rem;
 }
 

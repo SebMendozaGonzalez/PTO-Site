@@ -8,8 +8,8 @@ function WelcomeHRManagers() {
 
     return (
         <div className='flexColStart paddings innerWidth welcome-hr'>
-            <div className='row innerWidth'>
-                <div className='column left'>
+            <div className='innerWidth paddings'>
+                <div className='column left innerWidth'>
                     <h1 className='fonts-secondary' style={{ fontWeight: "700" }}>
                         Welcome, {accounts.length > 0 ? accounts[0].name : 'HR Manager'}!
                     </h1>
@@ -20,9 +20,9 @@ function WelcomeHRManagers() {
                     </div>
                 </div>
             </div>
-            <div className='contain innerWidth'>
-                <div className='column left'>
-                    <h1 className='fonts-secondary' style={{ fontWeight: "700" }}>
+            <div className='contain innerWidth paddings'>
+                <div className='column flexColStart'>
+                    <h1 className='fonts-secondary flexColStart' style={{ fontWeight: "700" }}>
                         Manage Time Off Requests
                     </h1>
                     <div className="paragraph">
@@ -30,13 +30,13 @@ function WelcomeHRManagers() {
                             Here, you will be able to review and decide on the requests from everyone in the company.
                         </p>
                     </div>
-                    <div className='paddings'>
+                    <div className='padding'>
                         <button className='button'>Go</button>
                     </div>
                 </div>
 
-                <div className='column right'>
-                    <h1 className='fonts-secondary' style={{ fontWeight: "700" }}>
+                <div className='column flexColStart'>
+                    <h1 className='fonts-secondary flexColStart' style={{ fontWeight: "700" }}>
                         Manage Collaborators
                     </h1>
                     <div className="paragraph">
@@ -44,11 +44,12 @@ function WelcomeHRManagers() {
                             Here, you will be able to review, manage and update the company's roster.
                         </p>
                     </div>
-                    <div className='paddings'>
+                    <div className='padding'>
                         <button className='button'>Go</button>
                     </div>
                 </div>
             </div>
+
         </div>
     );
 }
