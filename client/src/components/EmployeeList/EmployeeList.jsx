@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import Divider from '@mui/material/Divider';
-import { Avatar } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import './EmployeeList.css';
 
 function EmployeeList() {
@@ -108,45 +108,46 @@ function EmployeeList() {
                             gap: 2,
                         }}
                     >
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 2 }}>
                             <Avatar
                                 alt={selectedEmployee.name}
                                 src={`/employee-photos/${selectedEmployee.employee_id}.jpeg`}
                                 sx={{ width: 80, height: 80 }}
                             />
                             <Box>
-                                <h2>{selectedEmployee.name}</h2>
-                                <p>{selectedEmployee.position}</p>
+                                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{selectedEmployee.name}</Typography>
+                                <Typography variant="subtitle1" color="text.secondary">{selectedEmployee.employee_id}</Typography>
                             </Box>
                         </Box>
 
                         <Divider />
 
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 4, marginBottom: 2 }}>
                             <Box>
-                                <h4>Contact Info</h4>
-                                <p>Email: {selectedEmployee.email}</p>
-                                <p>Phone: {selectedEmployee.phone_number}</p>
-                                <p>Address: {selectedEmployee.home_address}</p>
+                                <Typography variant="h6" color="primary">Contact Info</Typography>
+                                <Typography>Email: {selectedEmployee.email}</Typography>
+                                <Typography>Phone: {selectedEmployee.phone_number}</Typography>
+                                <Typography>Address: {selectedEmployee.home_address}</Typography>
                             </Box>
+                            <Box>
+                                <Typography variant="h6" color="primary">Company Info</Typography>
+                                <Typography>Company: {selectedEmployee.company}</Typography>
+                                <Typography>Department: {selectedEmployee.department}</Typography>
+                                <Typography>Leader: {selectedEmployee.leader}</Typography>
+                            </Box>
+                        </Box>
 
-                            <Box>
-                                <h4>Company Info</h4>
-                                <p>Company: {selectedEmployee.company}</p>
-                                <p>Department: {selectedEmployee.department}</p>
-                                <p>Leader: {selectedEmployee.leader}</p>
-                            </Box>
+                        <Divider />
 
-                            <Box>
-                                <h4>Emergency Contact</h4>
-                                <p>Contact: {selectedEmployee.emergency_contact}</p>
-                                <p>Name: {selectedEmployee.emergency_name}</p>
-                                <p>Phone: {selectedEmployee.emergency_phone}</p>
-                            </Box>
+                        <Box>
+                            <Typography variant="h6" color="primary">Emergency Contact</Typography>
+                            <Typography>Contact: {selectedEmployee.emergency_contact}</Typography>
+                            <Typography>Name: {selectedEmployee.emergency_name}</Typography>
+                            <Typography>Phone: {selectedEmployee.emergency_phone}</Typography>
                         </Box>
                     </Box>
                 ) : (
-                    <p>Select an employee to view details</p>
+                    <Typography>Select an employee to view details</Typography>
                 )}
             </div>
         </div>
