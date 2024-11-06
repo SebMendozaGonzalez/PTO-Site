@@ -6,37 +6,45 @@ import './RequestsCalendar.css';
 
 const localizer = momentLocalizer(moment);
 
-function RequestsCalendar({ employee_id, filterLeaderEmail, onEventSelect }) {
+function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        const url = `/requests-info${filterLeaderEmail ? `?leader_email=${encodeURIComponent(filterLeaderEmail)}` : ''}`;
-        const response = await fetch(url);
-        const data = await response.json();
+    fetch('/requests-info')
+      .then(response => response.json())
+      .then(data => {
+        const filteredData = data.filter(request => 
+          // Filter by leader_email if filterLeaderEmail is not empty
+          !filterLeaderEmail || request.leader_email?.includes(filterLeaderEmail)
+        );
 
-        const events = data.map(request => {
+        const events = [];
+
+        filteredData.forEach(request => {
           const startDate = new Date(request.start_date);
           const endDate = new Date(request.end_date);
-          return {
-            ...request,
-            start: startDate,
-            end: endDate,
-            allDay: true,
-            employeeId: request.employee_id,
-            details: request,
-          };
+          for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+            events.push({
+              name: request.name,
+              type: request.type,
+              start: new Date(d),
+              end: new Date(d),
+              allDay: true,
+              employeeId: request.employee_id,
+              accepted: request.accepted,
+              decided: request.decided,
+              cancelled: request.cancelled,
+              taken: request.taken,
+              requestId: request.request_id, // Add request_id
+              details: request, // Store the entire request for the popup
+            });
+          }
         });
 
         setRequests(events);
-      } catch (error) {
-        console.error('Error fetching requests:', error);
-      }
-    };
-
-    fetchRequests();
-  }, [employee_id, filterLeaderEmail]);
+      })
+      .catch(err => console.error('Error fetching requests:', err));
+  }, [employee_id, filterLeaderEmail]); // Add filterLeaderEmail as a dependency
 
   const eventStyleGetter = (event) => {
     const backgroundColor = event.employeeId === employee_id ? '#0b49c5' : '#050f38';
@@ -56,18 +64,20 @@ function RequestsCalendar({ employee_id, filterLeaderEmail, onEventSelect }) {
     };
   };
 
-  const Event = ({ event }) => (
-    <div className="event">
-      <span className="event-title">{event.name}</span>
-      <div className="right-side">
-        <span className="event-type">{event.type}</span>
-        <div className="dots">
-          <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
-          <div className={`dot ${event.taken ? 'green' : (event.cancelled ? 'red' : 'grey')}`}></div>
+  const Event = ({ event }) => {
+    return (
+      <div className="event">
+        <span className="event-title">{event.name}</span>
+        <div className="right-side">
+          <span className="event-type">{event.type}</span>
+          <div className="dots">
+            <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
+            <div className={`dot ${event.taken ? 'green' : (event.cancelled ? 'red' : 'grey')}`}></div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };  
 
   return (
     <div className='paddings request-calendar'>
