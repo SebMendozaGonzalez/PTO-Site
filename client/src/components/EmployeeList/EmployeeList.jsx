@@ -47,7 +47,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect }) {
     };
 
     return (
-        <div className="employee-list-container">
+        <div className="employee-list-container paddings">
             <div className="employee-list">
                 <Box
                     sx={{

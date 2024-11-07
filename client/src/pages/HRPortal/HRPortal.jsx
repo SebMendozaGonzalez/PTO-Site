@@ -1,6 +1,6 @@
 // src/pages/HRPortal/HRPortal.jsx
 import React, { useState } from 'react';
-import LPTable from '../../components/LPTable/LPTable';
+import EmployeeList from '../../components/EmployeeList/EmployeeList'
 import WelcomeHRManagers from '../../components/WelcomeHRManagers/WelcomeHRManagers';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
@@ -41,7 +41,7 @@ function HRPortal() {
   const requestsComponent = manageRequests && (
     <div className='manage-requests'>
       <div className='paddings innerWidth'>
-        <LPTable filterLeaderEmail={filterLeaderEmail} onEmployeeSelect={handleEmployeeSelect} />
+        <EmployeeList filterLeaderEmail={filterLeaderEmail} onEmployeeSelect={handleEmployeeSelect} />
 
         <div
           style={{
