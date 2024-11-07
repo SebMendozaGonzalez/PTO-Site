@@ -4,10 +4,11 @@ import { Divider } from '@mui/material';
 import './EmployeeEditCard.css';
 
 function EmployeeEditCard({ employee, onClose }) {
-    
+
   const [formData, setFormData] = useState({
     employee_id: employee.employee_id || '', 
-    email_surgical: employee.email_surgical || '',
+    name: employee.name || '',
+    email: employee.email_surgical || '',
     phone_number: employee.phone_number || '',
     home_address: employee.home_address || '',
     company: employee.company || '',
