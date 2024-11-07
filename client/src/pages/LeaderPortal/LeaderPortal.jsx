@@ -41,9 +41,12 @@ function LeaderPortal() {
 
       <div className='paddings'>
         <WelcomeLeaders />
-        
-        <div className='innerWidth'>
-          <EmployeeList filterLeaderEmail={filterLeaderEmail} onEmployeeSelect={handleEmployeeSelect} />
+
+        <div className='innerWidth paddings'>
+          <EmployeeList filterLeaderEmail={filterLeaderEmail}
+            onEmployeeSelect={handleEmployeeSelect}
+            hasPermissions={false}
+          />
         </div>
 
         <div style={{

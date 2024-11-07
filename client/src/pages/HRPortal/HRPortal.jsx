@@ -41,7 +41,10 @@ function HRPortal() {
   const requestsComponent = manageRequests && (
     <div className='manage-requests'>
       <div className='paddings innerWidth'>
-        <EmployeeList filterLeaderEmail={filterLeaderEmail} onEmployeeSelect={handleEmployeeSelect} />
+        <EmployeeList filterLeaderEmail={filterLeaderEmail}
+          onEmployeeSelect={handleEmployeeSelect}
+          hasPermissions={false}
+        />
 
         <div
           style={{

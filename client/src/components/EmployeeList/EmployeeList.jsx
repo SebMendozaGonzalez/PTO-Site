@@ -11,7 +11,7 @@ import Divider from '@mui/material/Divider';
 import { Avatar, Typography } from '@mui/material';
 import './EmployeeList.css';
 
-function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick }) {
+function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPermissions }) {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
@@ -47,7 +47,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick }) {
     };
 
     return (
-        <div className="employee-list-container paddings" style={{paddingBottom: "2rem"}}>
+        <div className="employee-list-container paddings" style={{ paddingBottom: "2rem" }}>
             <div className="employee-list">
                 <Box
                     sx={{
@@ -69,19 +69,23 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick }) {
                                         button
                                         onClick={() => handleSelectEmployee(employee)}
                                         secondaryAction={
-                                            <div>
-                                                <IconButton edge="end"
-                                                 aria-label="edit"
-                                                 onClick={(e) => {
-                                                    e.stopPropagation(); // Prevent row click
-                                                    onEditClick(employee);
-                                                  }} >
-                                                    <EditIcon />
-                                                </IconButton>
-                                                <IconButton edge="end" aria-label="remove">
-                                                    <PersonRemoveIcon />
-                                                </IconButton>
-                                            </div>
+                                            hasPermissions && (
+                                                <div>
+                                                    <IconButton
+                                                        edge="end"
+                                                        aria-label="edit"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation(); // Prevent row click
+                                                            onEditClick(employee);
+                                                        }}
+                                                    >
+                                                        <EditIcon />
+                                                    </IconButton>
+                                                    <IconButton edge="end" aria-label="remove">
+                                                        <PersonRemoveIcon />
+                                                    </IconButton>
+                                                </div>
+                                            )
                                         }
                                     >
                                         <Avatar

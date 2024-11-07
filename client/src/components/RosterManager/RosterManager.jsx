@@ -7,20 +7,22 @@ function RosterManager() {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  // Trigger edit popup on edit icon click
   const handleEditClick = (employee) => {
     setSelectedEmployee(employee);
-    setIsEditMode(true); // Edit mode
+    setIsEditMode(true); 
   };
 
   const handleClose = () => {
     setSelectedEmployee(null);
-    setIsEditMode(false); // Close both views
+    setIsEditMode(false); 
   };
 
   return (
     <div className="paddings innerWidth">
-      <EmployeeList onEditClick={handleEditClick} />
+      <EmployeeList 
+        onEditClick={handleEditClick}
+        hasPermissions={true}
+      />
       {selectedEmployee && isEditMode && (
         <EmployeeEditCard employee={selectedEmployee} onClose={handleClose} />
       )}
@@ -29,3 +31,4 @@ function RosterManager() {
 }
 
 export default RosterManager;
+
