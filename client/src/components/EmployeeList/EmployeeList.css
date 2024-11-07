@@ -22,3 +22,13 @@
 .profile {
     min-width: 50vw;
 }
+
+.search-bar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fe;
+    border-radius: 8px;
+    margin-bottom: 1rem; /* Adds space between the search bar and list */
+}

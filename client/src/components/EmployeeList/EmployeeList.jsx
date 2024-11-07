@@ -7,14 +7,16 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Divider from '@mui/material/Divider';
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, Typography, TextField } from '@mui/material';
 import './EmployeeList.css';
 
 function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPermissions }) {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         const fetchEmployees = async () => {
@@ -35,11 +37,18 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
         fetchEmployees();
     }, []);
 
-    const filteredEmployees = employees.filter(employee =>
-        filterLeaderEmail
-            ? employee.leader_email?.toLowerCase().includes(filterLeaderEmail.toLowerCase())
-            : true
-    );
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+    const filteredEmployees = employees
+        .filter(employee =>
+            employee.name.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        .filter(employee =>
+            filterLeaderEmail
+                ? employee.leader_email?.toLowerCase().includes(filterLeaderEmail.toLowerCase())
+                : true
+        );
 
     const handleSelectEmployee = (employee) => {
         setSelectedEmployee(employee);
@@ -49,10 +58,34 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
     return (
         <div className="employee-list-container paddings" style={{ paddingBottom: "2rem" }}>
             <div className="employee-list">
+
+                <Box  className="search-bar-container"
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '1rem',
+                        bgcolor: '#f8f9fe',
+                        borderRadius: '8px',
+                        marginBottom: '1rem'
+                    }}
+                >
+                    <TextField
+                        label="Search Employee"
+                        variant="outlined"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        sx={{ width: '70%' }}
+                    />
+                    <IconButton color="primary" aria-label="add employee">
+                        <PersonAddIcon />
+                    </IconButton>
+                </Box>
+
                 <Box
                     sx={{
                         width: '100%',
-                        height: '100%',  // Ensures List box fills container height
+                        height: '100%',
                         bgcolor: '#f8f9fe',
                         borderRadius: '8px',
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
