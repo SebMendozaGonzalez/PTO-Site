@@ -52,11 +52,11 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect }) {
                 <Box
                     sx={{
                         width: '100%',
+                        height: '100%',  // Ensures List box fills container height
                         bgcolor: '#f8f9fe',
                         borderRadius: '8px',
                         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-                        maxHeight: '35rem',
-                        overflow: 'auto',
+                        overflowY: 'auto',
                     }}
                     className="paddings"
                 >
@@ -138,9 +138,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect }) {
                                 </Typography>
                             </Box>
                         </Box>
-
                         <Divider />
-
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 4, marginBottom: 2 }}>
                             <Box>
                                 <Typography variant="h6" color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
@@ -159,9 +157,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect }) {
                                 <Typography> <strong className='fonts-primary'>Leader:</strong> {selectedEmployee.leader}</Typography>
                             </Box>
                         </Box>
-
                         <Divider />
-
                         <Box>
                             <Typography variant="h6" color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
                                 Emergency Contact
