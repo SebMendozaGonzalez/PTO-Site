@@ -59,7 +59,8 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
         <div className="employee-list-container paddings" style={{ paddingBottom: "2rem" }}>
             <div className="employee-list">
 
-                <Box  className="search-bar-container"
+                <Box
+                    className="search-bar-container"
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -67,7 +68,10 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
                         padding: '1rem',
                         bgcolor: '#f8f9fe',
                         borderRadius: '8px',
-                        marginBottom: '1rem'
+                        marginBottom: '1rem',
+                        position: 'sticky',  
+                        top: 0,              
+                        zIndex: 1            
                     }}
                 >
                     <TextField
@@ -75,12 +79,13 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
                         variant="outlined"
                         value={searchQuery}
                         onChange={handleSearchChange}
-                        sx={{ width: '70%', position: 'fixed' }}
+                        sx={{ width: '70%' }}
                     />
                     <IconButton aria-label="add employee">
                         <PersonAddIcon />
                     </IconButton>
                 </Box>
+
 
                 <Box
                     sx={{
