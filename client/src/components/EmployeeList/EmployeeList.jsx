@@ -11,7 +11,7 @@ import Divider from '@mui/material/Divider';
 import { Avatar, Typography } from '@mui/material';
 import './EmployeeList.css';
 
-function EmployeeList({ filterLeaderEmail, onEmployeeSelect }) {
+function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick }) {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
@@ -70,7 +70,12 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect }) {
                                         onClick={() => handleSelectEmployee(employee)}
                                         secondaryAction={
                                             <div>
-                                                <IconButton edge="end" aria-label="edit">
+                                                <IconButton edge="end"
+                                                 aria-label="edit"
+                                                 onClick={(e) => {
+                                                    e.stopPropagation(); // Prevent row click
+                                                    onEditClick(employee);
+                                                  }} >
                                                     <EditIcon />
                                                 </IconButton>
                                                 <IconButton edge="end" aria-label="remove">

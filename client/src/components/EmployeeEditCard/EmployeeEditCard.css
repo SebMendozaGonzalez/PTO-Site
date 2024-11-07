@@ -1,0 +1,62 @@
+/* General style for text input fields */
+.MuiTextField-root {
+    background-color: transparent;  /* Ensure the input background matches the dialog's background */
+    border: none; /* Remove any borders */
+    padding: 8px 0; /* Padding for better spacing */
+    width: 100%;  /* Ensure it takes full width */
+    box-sizing: border-box;  /* Account for padding in width calculation */
+  }
+  
+  .MuiInputBase-root {
+    font-family: 'Poppins', sans-serif;  /* Use the same font as the component */
+  }
+  
+  /* Styling for the input label */
+  .MuiInputLabel-root {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: #555;  /* Set the label color to a soft gray */
+  }
+  
+  /* Add a subtle line below the input fields when focused or active */
+  .MuiInput-underline:before {
+    border-bottom: 1px solid #ccc;  /* Light gray line when the input is not focused */
+  }
+  
+  .MuiInput-underline:hover:before {
+    border-bottom: 2px solid #050f38;  /* Darken the line when hovering */
+  }
+  
+  .MuiInput-underline:after {
+    border-bottom: 2px solid #050f38;  /* Make the line bold when focused */
+  }
+  
+  /* Specific styling for the container to ensure it integrates smoothly with the component */
+  .MuiDialogContent-root {
+    background-color: #f8f9fe;  /* Maintain the consistent background color for the component */
+    padding: 16px;
+  }
+  
+  .MuiAvatar-root {
+    border-radius: 50%;  /* Make sure the avatar stays round */
+  }
+  
+  .MuiTypography-root {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Optional: Styling for buttons (Save, Cancel) to fit with the overall theme */
+  .MuiButton-root {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .MuiButton-contained {
+    background-color: #050f38;  /* Match the primary theme color */
+    color: #fff;
+  }
+  
+  .MuiButton-outlined {
+    color: #050f38;
+    border: 1px solid #050f38;
+  }
+  
