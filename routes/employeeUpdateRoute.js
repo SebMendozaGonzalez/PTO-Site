@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 
         // Update query to modify the employee's information
         const updateQuery = `
-            UPDATE employee
+            UPDATE roster
             SET 
                 name = @name,
                 email_surgical = @email,
