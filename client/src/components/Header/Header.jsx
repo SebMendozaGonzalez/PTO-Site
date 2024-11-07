@@ -41,12 +41,14 @@ const Header = () => {
           <span>Home</span>
         </NavLink>
 
-        <NavLink
-          to="/employee-portal"
-          className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
-        >
-          <span>Employee Portal</span>
-        </NavLink>
+        {accounts.length > 0 ? (
+          <NavLink
+            to="/employee-portal"
+            className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
+          >
+            <span>Employee Portal</span>
+          </NavLink>
+        ) : (<div></div>)}
 
         {accounts.length > 0 ? (
           <NavLink
@@ -55,15 +57,18 @@ const Header = () => {
           >
             <span>Manager Portal</span>
           </NavLink>
+
         ) : (<div></div>)}
 
+        {accounts.length > 0 ? (
+          <NavLink
+            to="/hr-portal"
+            className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
+          >
+            <span>HR Portal</span>
+          </NavLink>
+        ) : (<div></div>)}
 
-        <NavLink
-          to="/hr-portal"
-          className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
-        >
-          <span>HR Portal</span>
-        </NavLink>
 
         {accounts.length > 0 ? (
           <div>
