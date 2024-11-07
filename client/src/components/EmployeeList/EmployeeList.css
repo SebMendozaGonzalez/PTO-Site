@@ -1,7 +1,7 @@
 .employee-list {
     min-width: 30vw;
     max-width: 30vw;
-    height: 41rem;
+    height: 33rem;
     background-color: #f8f9fe;
 }
 
@@ -9,7 +9,7 @@
     display: flex;
     gap: 10px; /* Reduced gap to bring components closer */
     padding: 20px;
-    height: 41rem; /* Ensures both components are of equal height */
+    height: 33rem; /* Ensures both components are of equal height */
 }
 
 .profile {
