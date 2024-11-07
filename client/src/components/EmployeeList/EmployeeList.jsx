@@ -69,9 +69,9 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
                         bgcolor: '#f8f9fe',
                         borderRadius: '8px',
                         marginBottom: '1rem',
-                        position: 'sticky',  
-                        top: 0,              
-                        zIndex: 1            
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 1
                     }}
                 >
                     <TextField
@@ -81,9 +81,12 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
                         onChange={handleSearchChange}
                         sx={{ width: '70%' }}
                     />
-                    <IconButton aria-label="add employee">
-                        <PersonAddIcon />
-                    </IconButton>
+                    {hasPermissions && (
+                        <IconButton aria-label="add employee">
+                            <PersonAddIcon />
+                        </IconButton>
+                    )}
+
                 </Box>
 
 
