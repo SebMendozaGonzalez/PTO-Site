@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
             UPDATE employee
             SET 
                 name = @name,
-                email = @email,
+                email_surgical = @email,
                 phone_number = @phone_number,
                 home_address = @home_address,
                 company = @company,
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
         // Retrieve and return the updated employee record
         const result = await request.query(`
             SELECT * 
-            FROM employee 
+            FROM roster 
             WHERE employee_id = @employee_id;
         `);
 
