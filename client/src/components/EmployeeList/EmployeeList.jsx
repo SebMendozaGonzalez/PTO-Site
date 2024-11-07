@@ -12,7 +12,7 @@ import Divider from '@mui/material/Divider';
 import { Avatar, Typography, TextField } from '@mui/material';
 import './EmployeeList.css';
 
-function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPermissions }) {
+function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onAddClick, hasPermissions }) {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
@@ -82,11 +82,10 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
                         sx={{ width: '70%' }}
                     />
                     {hasPermissions && (
-                        <IconButton aria-label="add employee">
+                        <IconButton aria-label="add employee" onClick={onAddClick}>
                             <PersonAddIcon />
                         </IconButton>
                     )}
-
                 </Box>
 
 

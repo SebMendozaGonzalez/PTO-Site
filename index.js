@@ -9,6 +9,7 @@ const vacationRequestRoute = require('./routes/requestRoute');
 const decideRequestRoute = require('./routes/decideRequestRoute');
 const cancelRequestRoute = require('./routes/cancelRequestRoute');
 const updateEmployee = require('./routes/employeeUpdateRoute')
+const addEmployee = require('.routes/employeeAddRoute')
 const photoRoute = require('./routes/photoRoute');
 
 require('dotenv').config();
@@ -41,6 +42,7 @@ app.use('/employee-photos', photoRoute);
 app.use('/decide-request', decideRequestRoute);
 app.use('/cancel-request', cancelRequestRoute);
 app.use('/update-employee', updateEmployee);
+app.use('/add-employee', updateEmployee);
 
 // Logout functionality
 app.get('/logout', (req, res) => {
