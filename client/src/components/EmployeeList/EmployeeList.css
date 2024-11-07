@@ -1,18 +1,20 @@
+.employee-list-container {
+    display: flex;
+    gap: 5px; 
+    align-items: start; 
+    height: 32rem; 
+    padding: 0; 
+}
+
 .employee-list {
     min-width: 30vw;
     max-width: 30vw;
+    max-height: 100%; 
     background-color: #f8f9fe;
-}
-
-.employee-list-container {
-    display: flex;
-    gap: 5px; /* Reduced gap to bring components closer */
-    align-items: start; /* Aligns top sides of both containers */
-    height: 32rem; /* Ensures both components are of equal height */
-    padding: 0; /* Removes extra padding that could misalign components */
+    overflow-y: auto;
 }
 
 .employee-list, .profile {
-    margin: 0; /* Removes any default margins */
-    padding: 0; /* Removes any default padding */
+    margin: 0; 
+    padding: 0; 
 }
