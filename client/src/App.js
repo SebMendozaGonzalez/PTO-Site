@@ -21,7 +21,13 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/employee-portal" element={<EmployeePortal />} />
           <Route path="/request-portal" element={<RequestPortal />} />
-          <Route path="/hr-portal" element={<HRPortal />} />
+          <Route path="/hr-portal"
+            element={
+              <ProtectedRoute>
+                <HRPortal />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/leader-portal"
             element={
@@ -30,7 +36,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          
+
         </Routes>
       </main>
       <Footer />
