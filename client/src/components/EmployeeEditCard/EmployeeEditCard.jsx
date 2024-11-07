@@ -3,10 +3,10 @@ import { Dialog, DialogContent, Box, Avatar, TextField, Typography, Button } fro
 import { Divider } from '@mui/material';
 import './EmployeeEditCard.css';
 
-
 function EmployeeEditCard({ employee, onClose }) {
-  // Initialize form data with employee data
+    
   const [formData, setFormData] = useState({
+    employee_id: employee.employee_id || '', 
     email_surgical: employee.email_surgical || '',
     phone_number: employee.phone_number || '',
     home_address: employee.home_address || '',
@@ -16,7 +16,6 @@ function EmployeeEditCard({ employee, onClose }) {
     emergency_contact: employee.emergency_contact || '',
     emergency_name: employee.emergency_name || '',
     emergency_phone: employee.emergency_phone || '',
-    // Include other employee fields as needed
   });
 
   // Handle field changes
@@ -34,11 +33,11 @@ function EmployeeEditCard({ employee, onClose }) {
       const response = await fetch('/update-employee', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData), // employee_id is included here
       });
 
       if (response.ok) {
-        // Close the dialog after successful update
+        // Close the dialog after a successful update
         onClose();
       } else {
         console.error('Failed to update employee data');
