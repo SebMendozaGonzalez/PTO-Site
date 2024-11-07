@@ -1,15 +1,14 @@
 .employee-list {
     min-width: 30vw;
     max-width: 30vw;
-    height: 31rem;
     background-color: #f8f9fe;
 }
 
 .employee-list-container {
     display: flex;
-    gap: 10px; /* Reduced gap to bring components closer */
+    gap: 5px; /* Reduced gap to bring components closer */
     padding: 20px;
-    height: 31rem; /* Ensures both components are of equal height */
+    height: 32rem; /* Ensures both components are of equal height */
 }
 
 .profile {
