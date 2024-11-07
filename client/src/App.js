@@ -29,7 +29,7 @@ const App = () => {
           />
           <Route path="/hr-portal"
             element={
-              <ProtectedRoute requiredRole="HR Manager">
+              <ProtectedRoute requiredRole="HR manager">
                 <HRPortal />
               </ProtectedRoute>
             }
