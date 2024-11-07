@@ -75,9 +75,9 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
                         variant="outlined"
                         value={searchQuery}
                         onChange={handleSearchChange}
-                        sx={{ width: '70%' }}
+                        sx={{ width: '70%', position: 'fixed' }}
                     />
-                    <IconButton color="primary" aria-label="add employee">
+                    <IconButton aria-label="add employee">
                         <PersonAddIcon />
                     </IconButton>
                 </Box>
@@ -108,7 +108,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, hasPer
                                                         edge="end"
                                                         aria-label="edit"
                                                         onClick={(e) => {
-                                                            e.stopPropagation(); // Prevent row click
+                                                            e.stopPropagation();
                                                             onEditClick(employee);
                                                         }}
                                                     >
