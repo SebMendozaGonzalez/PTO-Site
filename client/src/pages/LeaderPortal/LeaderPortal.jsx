@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LPTable from '../../components/LPTable/LPTable';
+import EmployeeList from '../../components/EmployeeList/EmployeeList'
 import WelcomeLeaders from '../../components/WelcomeLeaders/WelcomeLeaders';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
@@ -41,7 +41,7 @@ function LeaderPortal() {
 
       <div className='paddings'>
         <WelcomeLeaders />
-        <LPTable filterLeaderEmail={filterLeaderEmail} onEmployeeSelect={handleEmployeeSelect} />
+        <EmployeeList filterLeaderEmail={filterLeaderEmail} onEmployeeSelect={handleEmployeeSelect} />
 
         <div style={{
           transform: 'scale(0.91)',

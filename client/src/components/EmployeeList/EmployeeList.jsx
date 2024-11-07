@@ -11,7 +11,7 @@ import Divider from '@mui/material/Divider';
 import { Avatar, Typography } from '@mui/material';
 import './EmployeeList.css';
 
-function EmployeeList() {
+function EmployeeList({ filterLeaderEmail, onEmployeeSelect }) {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
@@ -35,8 +35,15 @@ function EmployeeList() {
         fetchEmployees();
     }, []);
 
+    const filteredEmployees = employees.filter(employee =>
+        filterLeaderEmail
+            ? employee.leader_email?.toLowerCase().includes(filterLeaderEmail.toLowerCase())
+            : true
+    );
+
     const handleSelectEmployee = (employee) => {
         setSelectedEmployee(employee);
+        onEmployeeSelect(employee); // Pass selected employee to parent
     };
 
     return (
@@ -55,8 +62,8 @@ function EmployeeList() {
                 >
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     <List dense>
-                        {employees.length > 0 ? (
-                            employees.map(employee => (
+                        {filteredEmployees.length > 0 ? (
+                            filteredEmployees.map(employee => (
                                 <div key={employee.employee_id}>
                                     <ListItem
                                         button
@@ -114,7 +121,7 @@ function EmployeeList() {
                             flexDirection: 'column',
                             gap: 2,
                         }}
-                        className = "paddings"
+                        className="paddings"
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 2 }}>
                             <Avatar
