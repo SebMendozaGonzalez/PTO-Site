@@ -9,7 +9,7 @@
     display: flex;
     gap: 10px; /* Reduced gap to bring components closer */
     padding: 20px;
-    height: 33rem; /* Ensures both components are of equal height */
+    height: 31rem; /* Ensures both components are of equal height */
 }
 
 .profile {
