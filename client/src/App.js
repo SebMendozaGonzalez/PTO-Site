@@ -19,11 +19,17 @@ const App = () => {
       <main className='inside'> {/* Adjust padding to account for fixed header */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/employee-portal" element={<EmployeePortal />} />
           <Route path="/request-portal" element={<RequestPortal />} />
+          <Route path="/employee-portal"
+            element={
+              <ProtectedRoute requiredRole='Employee'>
+                <EmployeePortal />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/hr-portal"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requiredRole="HR Manager">
                 <HRPortal />
               </ProtectedRoute>
             }
