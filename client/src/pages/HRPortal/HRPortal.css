@@ -1,9 +1,18 @@
-/* src/pages/HRPortal/HRPortal.css */
 .hr-portal {
   margin-top: 10rem;
   overflow-x: hidden;
-  margin: 0 auto;
-  width: 95vw;            /* Set width to 95% of the viewport width */
-  max-width: 95vw;        /* Ensure no component exceeds 95% viewport width */
-  padding: 0 2.5vw;       /* Optional padding for additional inner margin */
+  width: 95vw;
+  max-width: 95vw;
+  padding: 0 2.5vw;
+}
+
+.manage-requests {
+  width: 100%;
+}
+
+.hr-content {
+  width: 100%; /* Ensure child components don't overflow */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -25,7 +25,7 @@ function HRPortal() {
   };
 
   const HRComponent = (
-    <div className="manage-requests">
+    <div className="manage-requests hr-content">
       <div className="innerWidth">
         <div style={{ paddingBottom: "3rem" }}>
           <RosterManager
