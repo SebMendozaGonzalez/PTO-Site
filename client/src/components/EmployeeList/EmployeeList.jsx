@@ -50,7 +50,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                 : true
         )
         .filter(employee =>
-            employee.active === 1  // Filter employees with active = 1
+            employee.active === true
         );
 
 
