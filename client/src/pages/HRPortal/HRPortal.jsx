@@ -33,7 +33,7 @@ function HRPortal() {
         <RosterManager
           filterLeaderEmail={filterLeaderEmail}
           onEmployeeSelect={handleEmployeeSelect}
-          hasPermissions={false} // or true depending on your requirements
+          hasPermissions={true} // or true depending on your requirements
         />
 
         <div
