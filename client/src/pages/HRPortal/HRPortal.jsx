@@ -31,7 +31,7 @@ function HRPortal() {
     <div className="manage-requests">
       <div className="paddings innerWidth">
 
-        <div style={{ paddingBottom: "8rem" }}>
+        <div style={{ paddingBottom: "3rem" }}>
           <RosterManager
             filterLeaderEmail={filterLeaderEmail}
             onEmployeeSelect={handleEmployeeSelect}
