@@ -7,12 +7,9 @@ function DashboardEmployee({ employee_id }) {
   const [photoUrl, setPhotoUrl] = useState(null); 
   const [error, setError] = useState(null); 
 
-
   const employeeId = employee_id || '123';
 
-  console.log('id recibido: ', employeeId)
   useEffect(() => {
-    // Reset states when employeeId changes to allow a fresh fetch
     setVacationInfo(null);
     setPhotoUrl(null);
     setError(null); 
@@ -34,7 +31,6 @@ function DashboardEmployee({ employee_id }) {
         setPhotoUrl(`/employee-photos/${employeeId}.jpeg`);
       } catch (err) {
         if (err.response && err.response.status === 404) {
-          // Set default photo if not found (404 error)
           setPhotoUrl(`/employee-photos/0.jpeg`);
         } else {
           console.error('Error fetching photo URL:', err);
@@ -42,21 +38,17 @@ function DashboardEmployee({ employee_id }) {
       }
     };
     fetchPhotoUrl();
-  }, [employeeId]); // Effect runs whenever employeeId changes
+  }, [employeeId]);
 
-  // Handle errors here
   if (error) return <div>{error}</div>;
   if (!vacationInfo) return <div>Loading vacation info...</div>;
 
-  const accumulatedDays = vacationInfo.accued_days || 0;
-  const usedDays = vacationInfo.used_days || 0;
-  const availableDays = vacationInfo.remaining_days || 0;
-  const daysInCompany = vacationInfo.total_days || 0;
+  const { accued_days, used_days, remaining_days, total_days, compensated_days } = vacationInfo;
 
   return (
-    <div className='flexColStart paddings dashboard-employee'>
-      <div className='flexCenter insideStuff'>
-        <div className='paddings image-container' style={{ marginLeft: "3em" }}>
+    <div className="flexColStart paddings dashboard-employee">
+      <div className="insideStuff">
+        <div className="image-container">
           {photoUrl ? (
             <img src={photoUrl} alt="Employee" />
           ) : (
@@ -64,29 +56,29 @@ function DashboardEmployee({ employee_id }) {
           )}
         </div>
 
-        <div className="dashboardText" style={{ marginLeft: "3em" }}>
-          <div className='flexCenter'>
-            <div className='flexColCenter paddings'>
+        <div className="dashboardText">
+          <div className="flexCenter">
+            <div className="flexColCenter paddings">
               <h2>Accumulated days</h2>
-              <h3>{accumulatedDays}</h3>
+              <h3>{accued_days || 0}</h3>
             </div>
-            <div className='flexColCenter paddings'>
+            <div className="flexColCenter paddings">
               <h2>Used days</h2>
-              <h3>{usedDays}</h3>
+              <h3>{used_days || 0}</h3>
             </div>
-            <div className='flexColCenter paddings'>
+            <div className="flexColCenter paddings">
               <h2>Available days</h2>
-              <h3>{availableDays}</h3>
+              <h3>{remaining_days || 0}</h3>
             </div>
           </div>
-          <div className='flexCenter'>
-            <div className='flexColCenter paddings'>
+          <div className="flexCenter">
+            <div className="flexColCenter paddings">
               <h2>Days in the company</h2>
-              <h3>{daysInCompany}</h3>
+              <h3>{total_days || 0}</h3>
             </div>
-            <div className='flexColCenter paddings'>
+            <div className="flexColCenter paddings">
               <h2>Liquidated days</h2>
-              <h3>{vacationInfo.compensated_days || 0}</h3>
+              <h3>{compensated_days || 0}</h3>
             </div>
           </div>
         </div>
