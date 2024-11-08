@@ -12,7 +12,7 @@ import Divider from '@mui/material/Divider';
 import { Avatar, Typography, TextField } from '@mui/material';
 import './EmployeeList.css';
 
-function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onAddClick, hasPermissions }) {
+function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDeleteClick, onAddClick, hasPermissions }) {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
@@ -121,7 +121,14 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onAddC
                                                     >
                                                         <EditIcon />
                                                     </IconButton>
-                                                    <IconButton edge="end" aria-label="remove">
+                                                    <IconButton
+                                                        edge="end"
+                                                        aria-label="remove"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            onDeleteClick(employee); // Trigger delete on click
+                                                        }}
+                                                    >
                                                         <PersonRemoveIcon />
                                                     </IconButton>
                                                 </div>
