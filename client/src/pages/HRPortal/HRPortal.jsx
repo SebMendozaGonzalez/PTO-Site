@@ -7,10 +7,12 @@ import RequestView from '../../components/RequestView/RequestView';
 import RosterManager from '../../components/RosterManager/RosterManager';
 import './HRPortal.css';
 
+
 function HRPortal() {
   const [filterLeaderEmail] = useState('');
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
   const [requestDetails, setRequestDetails] = useState(null);
+
 
   const handleEmployeeSelect = (employee) => {
     setSelectedEmployeeId(employee.employee_id);
@@ -24,9 +26,11 @@ function HRPortal() {
     setRequestDetails(null);
   };
 
+
   const HRComponent = (
-    <div className="manage-requests hr-content">
+    <div className="manage-requests innerWidth flexColCenter">
       <div className="innerWidth">
+
         <div style={{ paddingBottom: "3rem" }}>
           <RosterManager
             filterLeaderEmail={filterLeaderEmail}
@@ -34,8 +38,16 @@ function HRPortal() {
             hasPermissions={true}
           />
         </div>
-
-        {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
+        <div
+          style={{
+            transform: "scale(0.91)",
+            transformOrigin: "top left",
+            marginLeft: "2rem",
+            width: "100%",
+          }}
+        >
+          {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
+        </div>
 
         {selectedEmployeeId && (
           <RequestsCalendar employee_id={selectedEmployeeId} onEventSelect={handleEventSelect} />
@@ -52,7 +64,7 @@ function HRPortal() {
   );
 
   return (
-    <div className="flexColCenter hr-portal"> {/* Apply the new width constraint here */}
+    <div className='flexColCenter hr-portal'>
       <WelcomeHRManagers />
       {HRComponent}
     </div>

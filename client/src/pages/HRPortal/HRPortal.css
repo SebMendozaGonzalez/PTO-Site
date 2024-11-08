@@ -1,18 +1,6 @@
 .hr-portal {
   margin-top: 10rem;
-  overflow-x: hidden;
-  width: 95vw;
   max-width: 95vw;
-  padding: 0 2.5vw;
 }
 
-.manage-requests {
-  width: 100%;
-}
 
-.hr-content {
-  width: 100%; /* Ensure child components don't overflow */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
