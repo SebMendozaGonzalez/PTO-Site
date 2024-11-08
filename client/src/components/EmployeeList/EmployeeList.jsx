@@ -60,9 +60,9 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
     };
 
     return (
-        <div className="employee-list-container paddings" style={{ paddingBottom: "8rem" }}>
-            <div className="employee-list">
+        <div className="employee-list-container paddings">
 
+            <div className="employee-list">
                 <Box
                     className="search-bar-container"
                     sx={{
