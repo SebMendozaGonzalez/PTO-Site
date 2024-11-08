@@ -15,7 +15,7 @@ function WelcomeHRManagers({ onManageRequestsClick, onManageCollaboratorsClick }
                     </h1>
                     <div className="paragraph">
                         <p className="fonts-regular" style={{ fontSize: "1.4rem" }}>
-                            Here, you will be able to manage everyone's vacation requests, view their remaining days, upload their disabilities, add new collaborators, take old ones out of the roster, and more.
+                            The HR portal is a centralized tool for making typical HR tasks be easier and more intuitive. From here, you can:
                         </p>
                     </div>
                 </div>
@@ -27,15 +27,16 @@ function WelcomeHRManagers({ onManageRequestsClick, onManageCollaboratorsClick }
                     </h1>
                     <div className="paragraph">
                         <p className="fonts-regular" style={{ fontSize: "1.4rem" }}>
-                            Here, you will be able to review and decide on the requests from everyone in the company.
+                            Review and decide upon the requests from everyone in the company.
                         </p>
                     </div>
+                    {/* 
                     <div className='padding'>
-                        {/* Attach onManageRequestsClick to the button */}
                         <button className='button' onClick={onManageRequestsClick}>
                             Manage TO Requests
                         </button>
                     </div>
+                    */}
                 </div>
 
                 <div className='column flexColStart'>
@@ -44,14 +45,16 @@ function WelcomeHRManagers({ onManageRequestsClick, onManageCollaboratorsClick }
                     </h1>
                     <div className="paragraph">
                         <p className="fonts-regular" style={{ fontSize: "1.4rem" }}>
-                            Here, you will be able to review, manage and update the company's roster.
+                            Review, manage and update the company's roster.
                         </p>
                     </div>
+                    {/*
                     <div className='padding'>
                         <button className='button' onClick={onManageCollaboratorsClick}>
                         Manage Collaborators
                         </button>
                     </div>
+                    */}
                 </div>
             </div>
         </div>

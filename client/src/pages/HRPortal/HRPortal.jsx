@@ -1,6 +1,5 @@
 // src/pages/HRPortal/HRPortal.jsx
 import React, { useState } from 'react';
-import EmployeeList from '../../components/EmployeeList/EmployeeList'
 import WelcomeHRManagers from '../../components/WelcomeHRManagers/WelcomeHRManagers';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
@@ -13,8 +12,7 @@ function HRPortal() {
   const [filterLeaderEmail] = useState('');
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
   const [requestDetails, setRequestDetails] = useState(null);
-  const [manageRequests, setManageRequests] = useState(false);
-  const [manageRoster, setManageRoster] = useState(false);
+
 
   const handleEmployeeSelect = (employee) => {
     setSelectedEmployeeId(employee.employee_id);
@@ -28,30 +26,22 @@ function HRPortal() {
     setRequestDetails(null);
   };
 
-  const handleManageRequestsClick = () => {
-    setManageRequests(true);
-    setManageRoster(false)
-  };
 
-  const handleManageCollaboratorsClick = () => {
-    setManageRoster(true)
-    setManageRequests(false)
-  }
-
-  const requestsComponent = manageRequests && (
-    <div className='manage-requests'>
-      <div className='paddings innerWidth'>
-        <EmployeeList filterLeaderEmail={filterLeaderEmail}
+  const HRComponent = (
+    <div className="manage-requests">
+      <div className="paddings innerWidth">
+        <RosterManager
+          filterLeaderEmail={filterLeaderEmail}
           onEmployeeSelect={handleEmployeeSelect}
-          hasPermissions={false}
+          hasPermissions={false} // or true depending on your requirements
         />
 
         <div
           style={{
-            transform: 'scale(0.91)',
-            transformOrigin: 'top left',
-            marginLeft: '2rem',
-            width: '100%',
+            transform: "scale(0.91)",
+            transformOrigin: "top left",
+            marginLeft: "2rem",
+            width: "100%",
           }}
         >
           {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
@@ -71,16 +61,10 @@ function HRPortal() {
     </div>
   );
 
-  const rosterComponent = manageRoster && (
-    <RosterManager />
-  );
-
   return (
     <div className='flexColCenter leader-portal'>
-      <WelcomeHRManagers onManageRequestsClick={handleManageRequestsClick} onManageCollaboratorsClick={handleManageCollaboratorsClick} />
-
-      {requestsComponent}
-      {rosterComponent}
+      <WelcomeHRManagers />
+      {HRComponent}
     </div>
   );
 }
