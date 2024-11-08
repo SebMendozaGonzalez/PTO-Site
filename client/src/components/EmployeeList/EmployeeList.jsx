@@ -48,7 +48,11 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
             filterLeaderEmail
                 ? employee.leader_email?.toLowerCase().includes(filterLeaderEmail.toLowerCase())
                 : true
+        )
+        .filter(employee =>
+            employee.active === 1  // Filter employees with active = 1
         );
+
 
     const handleSelectEmployee = (employee) => {
         setSelectedEmployee(employee);
