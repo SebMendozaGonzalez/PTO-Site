@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Dialog, DialogContent, Box, Typography, TextField, Button } from '@mui/material';
 import './EmployeeDeleteCard.css';
 
-
-function EmployeeDeleteCard({ onClose, onDelete }) {
+function EmployeeDeleteCard({ onClose, onDelete, employee }) {
     const [step, setStep] = useState(1);  // Step 1: Confirmation, Step 2: Termination Reason
     const [terminationReason, setTerminationReason] = useState('');
 
@@ -18,15 +17,32 @@ function EmployeeDeleteCard({ onClose, onDelete }) {
     };
 
     // Handle delete action with the termination reason
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (terminationReason.trim()) {
-            onDelete(terminationReason);  // Call the onDelete prop with the reason
-            onClose();  // Close the dialog after deletion
+            try {
+                // Make an API call to remove the employee
+                const response = await fetch(`/remove-employee/${employee.employee_id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ termination_reason: terminationReason }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to deactivate the employee');
+                }
+
+                // Call the onDelete prop with the termination reason (Optional for parent component logic)
+                onDelete(terminationReason);
+                onClose();  // Close the dialog after successful deletion
+            } catch (error) {
+                alert('Error deleting employee: ' + error.message);
+            }
         } else {
-            alert("Please provide a termination reason.");
+            alert('Please provide a termination reason.');
         }
     };
-
 
     return (
         <Dialog open={true} onClose={onClose} fullWidth>
