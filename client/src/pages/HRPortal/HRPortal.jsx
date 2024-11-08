@@ -29,13 +29,13 @@ function HRPortal() {
 
   const HRComponent = (
     <div className="manage-requests">
-      <div className="paddings innerWidth">
+      <div className="innerWidth">
 
         <div style={{ paddingBottom: "3rem" }}>
           <RosterManager
             filterLeaderEmail={filterLeaderEmail}
             onEmployeeSelect={handleEmployeeSelect}
-            hasPermissions={true} // or true depending on your requirements
+            hasPermissions={true}
           />
         </div>
         <div
