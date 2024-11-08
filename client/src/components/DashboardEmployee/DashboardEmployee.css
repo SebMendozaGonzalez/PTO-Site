@@ -1,8 +1,11 @@
 .dashboard-employee {
-    background: linear-gradient(199deg, #050f38 70%, #a4c3ff 100%);;
-    box-shadow:15px 8px 10px 10px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(199deg, #050f38 70%, #a4c3ff 100%);
+    box-shadow: 15px 8px 10px 10px rgba(0, 0, 0, 0.25);
     width: 100%;
-    border-radius: 0.7rem 0.7rem 0.7rem 0.7rem;
+    border-radius: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
@@ -50,6 +53,26 @@ h3 {
     height: auto;
 }
 
-.insideStuff{
-    margin: auto;
+.insideStuff {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    gap: 2em;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.image-container, .dashboardText {
+    flex: 1;
+    min-width: 0;
+}
+
+.dashboardText {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    align-items: center;
+    width: 49em;
 }
