@@ -28,8 +28,8 @@ function HRPortal() {
 
 
   const HRComponent = (
-    <div className="manage-requests innerWidth flexColCenter">
-      <div className="innerWidth">
+    <div className="manage-requests">
+      <div>
 
         <div style={{ paddingBottom: "3rem" }}>
           <RosterManager
