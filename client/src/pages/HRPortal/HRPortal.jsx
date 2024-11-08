@@ -38,16 +38,9 @@ function HRPortal() {
             hasPermissions={true}
           />
         </div>
-        <div
-          style={{
-            transform: "scale(0.91)",
-            transformOrigin: "top left",
-            marginLeft: "2rem",
-            width: "100%",
-          }}
-        >
-          {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
-        </div>
+
+        {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
+
 
         {selectedEmployeeId && (
           <RequestsCalendar employee_id={selectedEmployeeId} onEventSelect={handleEventSelect} />
