@@ -25,7 +25,8 @@ const Header = () => {
   };
 
   console.log('Completo: ', accounts[0]);
-  console.log('Email: ', accounts[0]?.username);
+  console.log('Roles: ', accounts[0]?.roles);
+  console.log('lo contiene?', accounts[0]?.roles?.includes('Leader'))
 
   return (
     <header className="header">
@@ -50,7 +51,8 @@ const Header = () => {
           </NavLink>
         ) : (<div></div>)}
 
-        {accounts.length &&  accounts[0]?.roles?.includes("Leader")> 0 ? (
+        
+        {accounts.length > 0 &&  accounts[0]?.roles?.includes('Leader') ? (
           <NavLink
             to="/leader-portal"
             className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
