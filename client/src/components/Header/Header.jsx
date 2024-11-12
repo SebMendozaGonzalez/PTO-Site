@@ -25,8 +25,8 @@ const Header = () => {
   };
 
   console.log('Completo: ', accounts[0]);
-  console.log('Roles: ', accounts[0]?.roles);
-  console.log('lo contiene?', accounts[0]?.roles?.includes('Leader'))
+  console.log('Roles: ', accounts[0]?.idTokenClaims?.roles);
+  console.log('lo contiene?', accounts[0]?.idTokenClaims?.roles?.includes('Leader'))
 
   return (
     <header className="header">
