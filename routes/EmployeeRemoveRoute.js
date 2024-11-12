@@ -6,7 +6,7 @@ const { connectToDatabase } = require('../db/dbConfig');
 router.patch('/:employee_id', async (req, res) => {
     console.log('Deactivate employee route hit');
     const { employee_id } = req.params;
-    const { termination_reason } = req.body;
+    const { termination_reason, termination_date } = req.body;
 
     try {
         const pool = await connectToDatabase();
@@ -15,7 +15,10 @@ router.patch('/:employee_id', async (req, res) => {
         // Parameterize inputs to prevent SQL injection
         request.input('employee_id', employee_id);
         request.input('termination_reason', termination_reason);
-        request.input('termination_date', new Date()); // Current date
+
+        // Use the provided termination date or default to the current timestamp
+        const terminationDate = termination_date ? new Date(termination_date) : new Date();
+        request.input('termination_date', terminationDate);
 
         // Update query to set active to 0, termination reason, and termination date
         const updateQuery = `
