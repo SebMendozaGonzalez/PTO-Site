@@ -50,7 +50,7 @@ const Header = () => {
           </NavLink>
         ) : (<div></div>)}
 
-        {accounts.length > 0 ? (
+        {accounts.length &&  accounts[0]?.roles?.includes("Leader")> 0 ? (
           <NavLink
             to="/leader-portal"
             className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
