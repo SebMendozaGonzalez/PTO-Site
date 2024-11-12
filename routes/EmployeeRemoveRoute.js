@@ -15,13 +15,15 @@ router.patch('/:employee_id', async (req, res) => {
         // Parameterize inputs to prevent SQL injection
         request.input('employee_id', employee_id);
         request.input('termination_reason', termination_reason);
+        request.input('termination_date', new Date()); // Current date
 
-        // Update query to set active to 0 and add termination reason
+        // Update query to set active to 0, termination reason, and termination date
         const updateQuery = `
             UPDATE roster
             SET 
                 active = 0,
-                termination_reason = @termination_reason
+                termination_reason = @termination_reason,
+                termination_date = @termination_date
             WHERE employee_id = @employee_id;
         `;
 
