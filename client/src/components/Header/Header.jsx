@@ -52,7 +52,7 @@ const Header = () => {
         ) : (<div></div>)}
 
         
-        {accounts.length > 0 &&  accounts[0]?.roles?.includes('Leader') ? (
+        {accounts.length > 0 &&  accounts[0]?.idTokenClaims?.roles?.includes('Leader') ? (
           <NavLink
             to="/leader-portal"
             className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
@@ -62,7 +62,7 @@ const Header = () => {
 
         ) : (<div></div>)}
 
-        {accounts.length > 0 ? (
+        {accounts.length > 0 && accounts[0]?.idTokenClaims?.roles?.includes('HR_Manager') ? (
           <NavLink
             to="/hr-portal"
             className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
