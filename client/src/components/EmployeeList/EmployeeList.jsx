@@ -6,13 +6,14 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Divider from '@mui/material/Divider';
 import { Avatar, Typography, TextField } from '@mui/material';
 import './EmployeeList.css';
 
-function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDeleteClick, onAddClick, hasPermissions }) {
+function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDeleteClick, onAddClick, hasPermissions/*, onAddLicenseClick*/ }) {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
@@ -85,6 +86,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                         onChange={handleSearchChange}
                         sx={{ width: '70%' }}
                     />
+
                     {hasPermissions && (
                         <IconButton aria-label="add employee" onClick={onAddClick}>
                             <PersonAddIcon />
@@ -130,10 +132,14 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                                                         aria-label="remove"
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            onDeleteClick(employee); // Trigger delete on click
+                                                            onDeleteClick(employee);
                                                         }}
                                                     >
                                                         <PersonRemoveIcon />
+                                                    </IconButton>
+                                                    <IconButton edge="end"
+                                                        aria-label="add license">
+                                                        <PostAddIcon />
                                                     </IconButton>
                                                 </div>
                                             )
