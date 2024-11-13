@@ -115,34 +115,37 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                                         button
                                         onClick={() => handleSelectEmployee(employee)}
                                         secondaryAction={
-                                            hasPermissions && (
-                                                <div>
-                                                    <IconButton
-                                                        edge="end"
-                                                        aria-label="edit"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            onEditClick(employee);
-                                                        }}
-                                                    >
-                                                        <EditIcon />
-                                                    </IconButton>
-                                                    <IconButton
-                                                        edge="end"
-                                                        aria-label="remove"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            onDeleteClick(employee);
-                                                        }}
-                                                    >
-                                                        <PersonRemoveIcon />
-                                                    </IconButton>
-                                                    <IconButton edge="end"
-                                                        aria-label="add license">
-                                                        <PostAddIcon />
-                                                    </IconButton>
-                                                </div>
-                                            )
+                                            <div>
+                                                <IconButton edge="end"
+                                                    aria-label="add license">
+                                                    <PostAddIcon />
+                                                </IconButton>
+                                                {hasPermissions && (
+                                                    <div>
+                                                        <IconButton
+                                                            edge="end"
+                                                            aria-label="edit"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                onEditClick(employee);
+                                                            }}
+                                                        >
+                                                            <EditIcon />
+                                                        </IconButton>
+                                                        <IconButton
+                                                            edge="end"
+                                                            aria-label="remove"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                onDeleteClick(employee);
+                                                            }}
+                                                        >
+                                                            <PersonRemoveIcon />
+                                                        </IconButton>
+                                                    </div>
+                                                )}
+                                            </div>
+
                                         }
                                     >
                                         <Avatar
