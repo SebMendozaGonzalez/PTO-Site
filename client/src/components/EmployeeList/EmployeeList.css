@@ -22,8 +22,6 @@
 .profile {
     min-width: 50vw;
     min-height: 32rem; 
-    border: 1px solid #e0e0e0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
