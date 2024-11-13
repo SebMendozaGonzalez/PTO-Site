@@ -115,7 +115,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                                         button
                                         onClick={() => handleSelectEmployee(employee)}
                                         secondaryAction={
-                                            <div>
+                                            <div className='flexCenter'>
                                                 <IconButton edge="end"
                                                     aria-label="add license">
                                                     <PostAddIcon />

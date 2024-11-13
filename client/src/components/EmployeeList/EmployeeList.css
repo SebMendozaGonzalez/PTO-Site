@@ -7,8 +7,8 @@
 }
 
 .employee-list {
-    min-width: 40vw;
-    max-width: 40vw;
+    min-width: 35vw;
+    max-width: 35vw;
     max-height: 100%;
     background-color: #f8f9fe;
     overflow-y: auto;
