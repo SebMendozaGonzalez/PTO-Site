@@ -1,11 +1,14 @@
-/* General style for text input fields */
 .MuiTextField-root {
   background-color: transparent;
   border: none;
   padding: 8px 0;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 16px; /* Add spacing between fields */
+  margin-bottom: 16px; 
+}
+
+.MuiTextField-root:not(:last-child) {
+  margin-bottom: 24px; 
 }
 
 .MuiInputBase-root {
@@ -30,12 +33,11 @@
   border-bottom: 2px solid #050f38;
 }
 
-/* Adjust the dialog content with padding and overflow */
 .MuiDialogContent-root {
   background-color: #f8f9fe;
   padding: 16px;
-  max-height: 500px; /* Set a max height to limit content area */
-  overflow-y: auto;  /* Enable vertical scrolling */
+  max-height: 500px;
+  overflow-y: auto; 
 }
 
 .MuiAvatar-root {
