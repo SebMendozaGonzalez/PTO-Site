@@ -84,7 +84,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                         variant="outlined"
                         value={searchQuery}
                         onChange={handleSearchChange}
-                        sx={{ width: '70%' }}
+                        sx={{ width: '80%' }}
                     />
 
                     {hasPermissions && (
