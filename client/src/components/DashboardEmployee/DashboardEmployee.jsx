@@ -7,7 +7,7 @@ function DashboardEmployee({ employee_id }) {
   const [photoUrl, setPhotoUrl] = useState(null); 
   const [error, setError] = useState(null); 
 
-  const employeeId = employee_id || '123';
+  const employeeId = employee_id;
 
   useEffect(() => {
     setVacationInfo(null);
