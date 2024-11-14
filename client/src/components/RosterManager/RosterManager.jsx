@@ -73,7 +73,7 @@ function RosterManager({ filterLeaderEmail, onEmployeeSelect, hasPermissions }) 
 
             {selectedEmployee && isLicenseMode && (
                 <EmployeeLicenseCard
-                    employee={selectedEmployee.employee_id} // Pass the selected employee
+                    employeeId={selectedEmployee.employee_id} // Correct prop name
                     onClose={handleClose}
                 />
             )}
