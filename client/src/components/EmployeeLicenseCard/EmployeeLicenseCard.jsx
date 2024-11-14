@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent, Box, TextField, Typography, Button, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import { Divider } from '@mui/material';
 
 function EmployeeLicenseCard({ employeeId, onClose }) {
+  // Initialize with the employee ID from props
   const [formData, setFormData] = useState({
     employee_id: employeeId || '',
     start_date: '',
@@ -11,14 +12,6 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
     documentation: '',
     type: '',
   });
-
-  useEffect(() => {
-    // Automatically fill the employee ID
-    setFormData((prev) => ({
-      ...prev,
-      employee_id: employeeId,
-    }));
-  }, [employeeId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -98,7 +91,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
               value={formData.employee_id}
               onChange={handleChange}
               fullWidth
-              disabled
+              disabled // Field is greyed out and non-editable
             />
             <TextField
               label="Start Date"
