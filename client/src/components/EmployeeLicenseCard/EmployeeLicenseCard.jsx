@@ -146,11 +146,11 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                                 value={formData.type}
                                 onChange={handleChange}
                             >
-                                <MenuItem value="ML">Maternity License</MenuItem>
-                                <MenuItem value="PL">Paternity License</MenuItem>
-                                <MenuItem value="DCL">Domestic Calamity License</MenuItem>
-                                <MenuItem value="BL">Bereavement License</MenuItem>
-                                <MenuItem value="Ina">Inability</MenuItem>
+                                <MenuItem value="Maternity License">Maternity License</MenuItem>
+                                <MenuItem value="Paternity License">Paternity License</MenuItem>
+                                <MenuItem value="Domestic Calamity License">Domestic Calamity License</MenuItem>
+                                <MenuItem value="Bereavement License">Bereavement License</MenuItem>
+                                <MenuItem value="Inability">Inability</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>

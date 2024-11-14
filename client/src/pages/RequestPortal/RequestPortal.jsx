@@ -19,15 +19,6 @@ const RequestPortal = () => {
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Mapping of long form to short form
-    const typeMapping = {
-        'Paid Time Off': 'PTO',
-        'Maternity License': 'ML',
-        'Paternity License': 'PL',
-        'Domestic Calamity License': 'DCL',
-        'Bereavement License': 'BL',
-        'Unpaid Time Off': 'UTO'
-    };
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -48,7 +39,7 @@ const RequestPortal = () => {
             const endDate = new Date(formData.end_date).toISOString().split('T')[0];
 
             console.log('Submitting request with data:', {
-                type: typeMapping[formData.type] || formData.type,
+                type: formData.type || formData.type,
                 start_date: startDate,
                 end_date: endDate,
                 explanation: formData.explanation,
@@ -63,7 +54,7 @@ const RequestPortal = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    type: typeMapping[formData.type] || formData.type,
+                    type: formData.type || formData.type,
                     start_date: startDate,
                     end_date: endDate,
                     explanation: formData.explanation,

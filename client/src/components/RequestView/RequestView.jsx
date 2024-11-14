@@ -156,14 +156,6 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
     };
 
-    const typeMapping = {
-        'PTO': 'Paid Time Off',
-        'ML': 'Maternity License',
-        'PL': 'Paternity License',
-        'DCL': 'Domestic Calamity License',
-        'BL': 'Bereavement License',
-        'UTO': 'Unpaid Time Off'
-    };
 
     return (
         <div className='request-popup'>
@@ -187,7 +179,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                         </div>
                         <div className='right dates-and-type'>
                             <div className='flexColCenter'>
-                                <span className='f1 flexColCenter'>{typeMapping[requestDetails.type] || requestDetails.type}</span>
+                                <span className='f1 flexColCenter'>{requestDetails.type || requestDetails.type}</span>
                                 <span className='f2'>
                                     <strong>from: </strong>{formatDate(requestDetails.start_date)}
                                 </span>
