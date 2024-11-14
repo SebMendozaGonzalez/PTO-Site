@@ -6,6 +6,16 @@ import './RequestsCalendar.css';
 
 const localizer = momentLocalizer(moment);
 
+const typeMapping = {
+  'Paid Time Off': 'PTO',
+  'Maternity License': 'ML',
+  'Paternity License': 'PL',
+  'Domestic Calamity License': 'DCL',
+  'Bereavement License': 'BL',
+  'Unpaid Time Off': 'UTO',
+  'Inability': 'Ina'
+};
+
 function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
   const [requests, setRequests] = useState([]);
 
@@ -13,7 +23,7 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
     fetch('/requests-info')
       .then(response => response.json())
       .then(data => {
-        const filteredData = data.filter(request => 
+        const filteredData = data.filter(request =>
           // Filter by leader_email if filterLeaderEmail is not empty
           !filterLeaderEmail || request.leader_email?.includes(filterLeaderEmail)
         );
@@ -26,7 +36,7 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
           for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
             events.push({
               name: request.name,
-              type: request.type,
+              type: typeMapping[request.type],
               start: new Date(d),
               end: new Date(d),
               allDay: true,
@@ -77,7 +87,7 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
         </div>
       </div>
     );
-  };  
+  };
 
   return (
     <div className='paddings request-calendar'>

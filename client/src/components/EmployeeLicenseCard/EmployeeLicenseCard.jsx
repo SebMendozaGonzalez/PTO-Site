@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, Box, TextField, Typography, Button, MenuItem, Select, InputLabel, FormControl, FormHelperText } from '@mui/material';
+import { Dialog, DialogContent, Box, TextField, Typography, Button, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import { Divider } from '@mui/material';
 
 function EmployeeLicenseCard({ employeeId, onClose }) {
@@ -102,31 +102,29 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                             disabled // Greyed out to prevent editing
                         />
                         <TextField
-                            label={
-                                <>
-                                    Start Date <span style={{ color: 'red' }}>*</span>
-                                </>
-                            }
+                            label="Start Date"
                             name="start_date"
                             type="date"
                             value={formData.start_date}
                             onChange={handleChange}
                             fullWidth
                             InputLabelProps={{ shrink: true }}
+                            InputProps={{
+                                endAdornment: <span style={{ color: 'red' }}>*</span>,
+                            }}
                             required
                         />
                         <TextField
-                            label={
-                                <>
-                                    End Date <span style={{ color: 'red' }}>*</span>
-                                </>
-                            }
+                            label="End Date"
                             name="end_date"
                             type="date"
                             value={formData.end_date}
                             onChange={handleChange}
                             fullWidth
                             InputLabelProps={{ shrink: true }}
+                            InputProps={{
+                                endAdornment: <span style={{ color: 'red' }}>*</span>,
+                            }}
                             required
                         />
                         <TextField
@@ -147,9 +145,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                         />
                         <FormControl fullWidth required>
                             <InputLabel>
-                                <>
-                                    Type <span style={{ color: 'red' }}>*</span>
-                                </>
+                                Type <span style={{ color: 'red' }}>*</span>
                             </InputLabel>
                             <Select
                                 name="type"
@@ -162,9 +158,6 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                                 <MenuItem value="Bereavement License">Bereavement License</MenuItem>
                                 <MenuItem value="Inability">Inability</MenuItem>
                             </Select>
-                            <FormHelperText style={{ color: 'red' }}>
-                                This field is mandatory.
-                            </FormHelperText>
                         </FormControl>
                     </Box>
 
