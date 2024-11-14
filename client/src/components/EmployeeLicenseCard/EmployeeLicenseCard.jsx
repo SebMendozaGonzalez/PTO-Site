@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, Box, TextField, Typography, Button, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
+import { Dialog, DialogContent, Box, TextField, Typography, Button, MenuItem, Select, InputLabel, FormControl, FormHelperText } from '@mui/material';
 import { Divider } from '@mui/material';
 
 function EmployeeLicenseCard({ employeeId, onClose }) {
@@ -36,7 +36,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             alert('Please fill in all mandatory fields.');
             return;
         }
-    
+
         try {
             // Step 1: Submit license request
             const requestResponse = await fetch('/request', {
@@ -47,23 +47,23 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                     is_exception: false,
                 }),
             });
-    
+
             if (!requestResponse.ok) throw new Error('Failed to submit license request');
             const newRequest = await requestResponse.json();
-    
+
             // Step 2: Automatically accept the license
             const decideResponse = await fetch('/decide-request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     request_id: newRequest.request_id,
-                    accepted: String(2+2 === 4),
+                    accepted: String(2 + 2 === 4),
                     rejection_reason: null, // Explicitly set rejection_reason to null
                 }),
             });
-    
+
             if (!decideResponse.ok) throw new Error('Failed to accept the license');
-    
+
             alert('License successfully created and accepted!');
             onClose();
         } catch (error) {
@@ -71,8 +71,6 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             alert('An error occurred while processing the license request.');
         }
     };
-    
-
 
     return (
         <Dialog open={true} onClose={onClose} fullWidth>
@@ -104,7 +102,11 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                             disabled // Greyed out to prevent editing
                         />
                         <TextField
-                            label="Start Date"
+                            label={
+                                <>
+                                    Start Date <span style={{ color: 'red' }}>*</span>
+                                </>
+                            }
                             name="start_date"
                             type="date"
                             value={formData.start_date}
@@ -114,7 +116,11 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                             required
                         />
                         <TextField
-                            label="End Date"
+                            label={
+                                <>
+                                    End Date <span style={{ color: 'red' }}>*</span>
+                                </>
+                            }
                             name="end_date"
                             type="date"
                             value={formData.end_date}
@@ -140,7 +146,11 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                             disabled
                         />
                         <FormControl fullWidth required>
-                            <InputLabel>Type</InputLabel>
+                            <InputLabel>
+                                <>
+                                    Type <span style={{ color: 'red' }}>*</span>
+                                </>
+                            </InputLabel>
                             <Select
                                 name="type"
                                 value={formData.type}
@@ -152,6 +162,9 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                                 <MenuItem value="Bereavement License">Bereavement License</MenuItem>
                                 <MenuItem value="Inability">Inability</MenuItem>
                             </Select>
+                            <FormHelperText style={{ color: 'red' }}>
+                                This field is mandatory.
+                            </FormHelperText>
                         </FormControl>
                     </Box>
 

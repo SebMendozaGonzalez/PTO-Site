@@ -25,7 +25,8 @@ function EmployeeAddCard({ onClose }) {
         leader_id: ''
     });
 
-    // Handle field changes
+    const [error, setError] = useState(false);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -34,8 +35,15 @@ function EmployeeAddCard({ onClose }) {
         }));
     };
 
-    // Handle form submission to add a new employee
     const handleSubmit = async () => {
+        const { employee_id, name, email_surgical, leader_email } = formData;
+
+        if (!employee_id || !name || !email_surgical || !leader_email) {
+            setError(true);
+            alert('Please fill in all mandatory fields.');
+            return;
+        }
+
         try {
             const response = await fetch('/add-employee', {
                 method: 'POST',
@@ -44,7 +52,6 @@ function EmployeeAddCard({ onClose }) {
             });
 
             if (response.ok) {
-                // Close the dialog after a successful addition
                 onClose();
             } else {
                 console.error('Failed to add employee');
@@ -53,6 +60,13 @@ function EmployeeAddCard({ onClose }) {
             console.error('Error:', error);
         }
     };
+
+    const renderLabel = (label, mandatory) => (
+        <Typography component="span">
+            {label}
+            {mandatory && <Typography component="span" sx={{ color: 'red' }}>*</Typography>}
+        </Typography>
+    );
 
     return (
         <Dialog open={true} onClose={onClose} fullWidth>
@@ -84,56 +98,65 @@ function EmployeeAddCard({ onClose }) {
 
                     <Divider />
 
-                    {/* Contact Info */}
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
                             Basic Info
                         </Typography>
-                        <TextField label="Employee ID" name="employee_id" value={formData.employee_id} onChange={handleChange} fullWidth />
-                        <TextField label="Name" name="name" value={formData.name} onChange={handleChange} fullWidth />
+                        <TextField
+                            label={renderLabel('Employee ID', true)}
+                            name="employee_id"
+                            value={formData.employee_id}
+                            onChange={handleChange}
+                            fullWidth
+                            error={error && !formData.employee_id}
+                        />
+                        <TextField
+                            label={renderLabel('Name', true)}
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            fullWidth
+                            error={error && !formData.name}
+                        />
                         <TextField label="Full Name" name="full_name" value={formData.full_name} onChange={handleChange} fullWidth />
-                        <TextField label="Date of Birth" name="date_of_birth" type="date" value={formData.date_of_birth} onChange={handleChange} fullWidth InputLabelProps={{ shrink: true }} />
+                        <TextField
+                            label="Date of Birth"
+                            name="date_of_birth"
+                            type="date"
+                            value={formData.date_of_birth}
+                            onChange={handleChange}
+                            fullWidth
+                            InputLabelProps={{ shrink: true }}
+                        />
                         <TextField label="Position" name="position" value={formData.position} onChange={handleChange} fullWidth />
                         <TextField label="Leader" name="leader" value={formData.leader} onChange={handleChange} fullWidth />
-                        <TextField label="Leader Email" name="leader_email" value={formData.leader_email} onChange={handleChange} fullWidth />
+                        <TextField
+                            label={renderLabel('Leader Email', true)}
+                            name="leader_email"
+                            value={formData.leader_email}
+                            onChange={handleChange}
+                            fullWidth
+                            error={error && !formData.leader_email}
+                        />
                     </Box>
 
                     <Divider />
 
-                    {/* Company Info */}
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
-                            Company Info
-                        </Typography>
-                        <TextField label="Company" name="company" value={formData.company} onChange={handleChange} fullWidth />
-                        <TextField label="Department" name="department" value={formData.department} onChange={handleChange} fullWidth />
-                        <TextField label="Start Date" name="start_date" type="date" value={formData.start_date} onChange={handleChange} fullWidth InputLabelProps={{ shrink: true }} />
-                        <TextField label="Leader ID" name="leader_id" value={formData.leader_id} onChange={handleChange} fullWidth />
-                    </Box>
-
-                    <Divider />
-
-                    {/* Contact Info */}
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
                             Contact Info
                         </Typography>
-                        <TextField label="Email Surgical" name="email_surgical" value={formData.email_surgical} onChange={handleChange} fullWidth />
+                        <TextField
+                            label={renderLabel('Email Surgical', true)}
+                            name="email_surgical"
+                            value={formData.email_surgical}
+                            onChange={handleChange}
+                            fullWidth
+                            error={error && !formData.email_surgical}
+                        />
                         <TextField label="Email Quantum" name="email_quantum" value={formData.email_quantum} onChange={handleChange} fullWidth />
                         <TextField label="Phone Number" name="phone_number" value={formData.phone_number} onChange={handleChange} fullWidth />
                         <TextField label="Home Address" name="home_address" value={formData.home_address} onChange={handleChange} fullWidth />
-                    </Box>
-
-                    <Divider />
-
-                    {/* Emergency Contact */}
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
-                            Emergency Contact
-                        </Typography>
-                        <TextField label="Emergency Contact" name="emergency_contact" value={formData.emergency_contact} onChange={handleChange} fullWidth />
-                        <TextField label="Emergency Name" name="emergency_name" value={formData.emergency_name} onChange={handleChange} fullWidth />
-                        <TextField label="Emergency Phone" name="emergency_phone" value={formData.emergency_phone} onChange={handleChange} fullWidth />
                     </Box>
 
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, marginTop: 2 }}>
