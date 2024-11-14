@@ -24,10 +24,11 @@ const Header = () => {
     instance.logoutRedirect();
   };
 
+/*
   console.log('Completo: ', accounts[0]);
   console.log('Roles: ', accounts[0]?.idTokenClaims?.roles);
   console.log('lo contiene?', accounts[0]?.idTokenClaims?.roles?.includes('Leader'))
-
+*/
   return (
     <header className="header">
       <div className="logo-container">
