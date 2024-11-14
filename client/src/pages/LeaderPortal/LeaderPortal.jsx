@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import EmployeeList from '../../components/EmployeeList/EmployeeList'
+import EmployeeList from '../../components/EmployeeList/EmployeeList';
 import WelcomeLeaders from '../../components/WelcomeLeaders/WelcomeLeaders';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
+import EmployeeLicenseCard from '../../components/EmployeeLicenseCard/EmployeeLicenseCard';
 import { useMsal } from '@azure/msal-react';
 import './LeaderPortal.css';
 
 function LeaderPortal() {
   const { accounts } = useMsal();
   const [filterLeaderEmail, setFilterLeaderEmail] = useState(() => accounts[0]?.username || '');
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [requestDetails, setRequestDetails] = useState(null);
+  const [isLicenseMode, setIsLicenseMode] = useState(false);
 
   const handleEmployeeSelect = (employee) => {
-    setSelectedEmployeeId(employee.employee_id);
+    setSelectedEmployee(employee);
   };
 
   const handleEventSelect = (details) => {
@@ -23,6 +25,16 @@ function LeaderPortal() {
 
   const closePopup = () => {
     setRequestDetails(null);
+  };
+
+  const handleLicenseClick = (employee) => {
+    setSelectedEmployee(employee);
+    setIsLicenseMode(true);
+  };
+
+  const handleClose = () => {
+    setSelectedEmployee(null);
+    setIsLicenseMode(false);
   };
 
   return (
@@ -43,9 +55,11 @@ function LeaderPortal() {
         <WelcomeLeaders />
 
         <div className='innerWidth paddings'>
-          <EmployeeList filterLeaderEmail={filterLeaderEmail}
+          <EmployeeList
+            filterLeaderEmail={filterLeaderEmail}
             onEmployeeSelect={handleEmployeeSelect}
             hasPermissions={false}
+            onLicenseClick={handleLicenseClick} // Add license functionality
           />
         </div>
 
@@ -55,21 +69,34 @@ function LeaderPortal() {
           marginLeft: "2rem",
           width: "100%"
         }}>
-          {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
+          {selectedEmployee && !isLicenseMode && (
+            <DashboardEmployee employee_id={selectedEmployee.employee_id} />
+          )}
         </div>
 
-        {selectedEmployeeId && (
+        {selectedEmployee && !isLicenseMode && (
           <RequestsCalendar
-            employee_id={selectedEmployeeId}
+            employee_id={selectedEmployee.employee_id}
             onEventSelect={handleEventSelect}
-            filterLeaderEmail={filterLeaderEmail} // Pass filter email to RequestsCalendar
+            filterLeaderEmail={filterLeaderEmail}
           />
         )}
 
-        <RequestView requestDetails={requestDetails}
-          onClose={closePopup}
-          managerPermissions={true}
-          employeePermissions={false} />
+        {requestDetails && (
+          <RequestView
+            requestDetails={requestDetails}
+            onClose={closePopup}
+            managerPermissions={true}
+            employeePermissions={false}
+          />
+        )}
+
+        {selectedEmployee && isLicenseMode && (
+          <EmployeeLicenseCard
+            employeeId={selectedEmployee.employee_id}
+            onClose={handleClose}
+          />
+        )}
       </div>
     </div>
   );
