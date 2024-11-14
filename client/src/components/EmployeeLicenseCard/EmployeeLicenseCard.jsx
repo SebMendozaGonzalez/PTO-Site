@@ -36,7 +36,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             alert('Please fill in all mandatory fields.');
             return;
         }
-
+    
         try {
             // Step 1: Submit license request
             const requestResponse = await fetch('/request', {
@@ -47,22 +47,23 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                     is_exception: false,
                 }),
             });
-
+    
             if (!requestResponse.ok) throw new Error('Failed to submit license request');
             const newRequest = await requestResponse.json();
-
+    
             // Step 2: Automatically accept the license
             const decideResponse = await fetch('/decide-request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     request_id: newRequest.request_id,
-                    accepted: 'true',
+                    accepted: true,
+                    rejection_reason: null, // Explicitly set rejection_reason to null
                 }),
             });
-
+    
             if (!decideResponse.ok) throw new Error('Failed to accept the license');
-
+    
             alert('License successfully created and accepted!');
             onClose();
         } catch (error) {
@@ -70,6 +71,8 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             alert('An error occurred while processing the license request.');
         }
     };
+    
+
 
     return (
         <Dialog open={true} onClose={onClose} fullWidth>
