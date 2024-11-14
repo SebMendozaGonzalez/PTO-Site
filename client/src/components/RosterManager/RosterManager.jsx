@@ -3,6 +3,7 @@ import EmployeeList from '../EmployeeList/EmployeeList';
 import EmployeeEditCard from '../EmployeeEditCard/EmployeeEditCard';
 import EmployeeAddCard from '../EmployeeAddCard/EmployeeAddCard';
 import EmployeeDeleteCard from '../EmployeeDeleteCard/EmployeeDeleteCard';
+import EmployeeLicenseCard from '../EmployeeLicenseCard/EmployeeLicenseCard';
 import './RosterManager.css';
 
 function RosterManager({ filterLeaderEmail, onEmployeeSelect, hasPermissions }) {
@@ -10,6 +11,12 @@ function RosterManager({ filterLeaderEmail, onEmployeeSelect, hasPermissions }) 
     const [isEditMode, setIsEditMode] = useState(false);
     const [isAddMode, setIsAddMode] = useState(false);
     const [isDeleteMode, setIsDeleteMode] = useState(false);
+    const [isLicenseMode, setIsLicenseMode] = useState(false);
+
+    const handleLicenseClick = (employee) => {
+        setSelectedEmployee(employee);
+        setIsLicenseMode(true);
+    };
 
     const handleEditClick = (employee) => {
         setSelectedEmployee(employee);
@@ -30,6 +37,7 @@ function RosterManager({ filterLeaderEmail, onEmployeeSelect, hasPermissions }) 
         setIsEditMode(false);
         setIsAddMode(false);
         setIsDeleteMode(false);
+        setIsLicenseMode(false);
     };
 
     const handleDeleteEmployee = (terminationReason) => {
@@ -46,21 +54,27 @@ function RosterManager({ filterLeaderEmail, onEmployeeSelect, hasPermissions }) 
                 onAddClick={handleAddClick}
                 onDeleteClick={handleDeleteClick}
                 hasPermissions={hasPermissions}
+                onLicenseClick={handleLicenseClick} // Ensure the license click functionality is passed
             />
 
             {selectedEmployee && isEditMode && (
                 <EmployeeEditCard employee={selectedEmployee} onClose={handleClose} />
             )}
 
-            {isAddMode && (
-                <EmployeeAddCard onClose={handleClose} />
-            )}
+            {isAddMode && <EmployeeAddCard onClose={handleClose} />}
 
             {selectedEmployee && isDeleteMode && (
                 <EmployeeDeleteCard
                     employee={selectedEmployee}
                     onClose={handleClose}
                     onDelete={handleDeleteEmployee}
+                />
+            )}
+
+            {selectedEmployee && isLicenseMode && (
+                <EmployeeLicenseCard
+                    employee={selectedEmployee.employee_id} // Pass the selected employee
+                    onClose={handleClose}
                 />
             )}
         </div>

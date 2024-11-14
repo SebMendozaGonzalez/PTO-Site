@@ -13,7 +13,7 @@ import Divider from '@mui/material/Divider';
 import { Avatar, Typography, TextField } from '@mui/material';
 import './EmployeeList.css';
 
-function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDeleteClick, onAddClick, hasPermissions/*, onAddLicenseClick*/ }) {
+function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDeleteClick, onAddClick, hasPermissions, onLicenseClick }) {
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
@@ -117,7 +117,12 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                                         secondaryAction={
                                             <div className='flexCenter'>
                                                 <IconButton edge="end"
-                                                    aria-label="add license">
+                                                    aria-label="add license"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        onLicenseClick(employee);
+                                                    }}
+                                                >
                                                     <PostAddIcon />
                                                 </IconButton>
                                                 {hasPermissions && (

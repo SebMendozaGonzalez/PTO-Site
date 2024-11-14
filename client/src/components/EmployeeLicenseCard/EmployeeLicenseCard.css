@@ -1,0 +1,49 @@
+/* EmployeeLicenseCard.css */
+.MuiTextField-root {
+    background-color: transparent;
+    border: none;
+    padding: 8px 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+  }
+  
+  .MuiTextField-root:not(:last-child) {
+    margin-bottom: 24px;
+  }
+  
+  .MuiInputBase-root {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .MuiInputLabel-root {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: #555;
+  }
+  
+  .MuiDialogContent-root {
+    background-color: #f8f9fe;
+    padding: 16px;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  
+  .MuiTypography-root {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .MuiButton-root {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .MuiButton-contained {
+    background-color: #050f38;
+    color: #fff;
+  }
+  
+  .MuiButton-outlined {
+    color: #050f38;
+    border: 1px solid #050f38;
+  }
+  
