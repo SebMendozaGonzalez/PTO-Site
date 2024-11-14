@@ -57,7 +57,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     request_id: newRequest.request_id,
-                    accepted: 'true',
+                    accepted: String(2+2 === 4),
                     rejection_reason: null, // Explicitly set rejection_reason to null
                 }),
             });
