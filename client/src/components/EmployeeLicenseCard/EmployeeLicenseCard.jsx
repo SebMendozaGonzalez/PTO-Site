@@ -3,8 +3,9 @@ import { Dialog, DialogContent, Box, TextField, Typography, Button, MenuItem, Se
 import { Divider } from '@mui/material';
 
 function EmployeeLicenseCard({ employeeId, onClose }) {
+    // Initialize state
     const [formData, setFormData] = useState({
-        employee_id: '',
+        employee_id: employeeId || '', // Set the initial value directly
         start_date: '',
         end_date: '',
         explanation: '',
@@ -12,14 +13,15 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
         type: '',
     });
 
+    // Ensure the employee_id updates correctly if the prop changes
     useEffect(() => {
-        if (employeeId) {
+        if (employeeId && employeeId !== formData.employee_id) {
             setFormData((prev) => ({
                 ...prev,
                 employee_id: employeeId,
             }));
         }
-    }, [employeeId]); // Updates whenever `employeeId` changes
+    }, [employeeId, formData.employee_id]); // Dependency includes both employeeId and formData.employee_id
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -69,7 +71,6 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
         }
     };
 
-
     return (
         <Dialog open={true} onClose={onClose} fullWidth>
             <DialogContent>
@@ -97,7 +98,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                             name="employee_id"
                             value={formData.employee_id}
                             fullWidth
-                            disabled
+                            disabled // Greyed out to prevent editing
                         />
                         <TextField
                             label="Start Date"
