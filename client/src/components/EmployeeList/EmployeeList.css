@@ -2,7 +2,7 @@
     display: flex;
     gap: 5px;
     align-items: start;
-    height: 45rem;
+    height: 60rem;
     padding: 0;
     overflow: hidden; /* Prevent container from having its own scrollbar */
 }
