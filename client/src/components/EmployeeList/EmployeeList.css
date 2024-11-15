@@ -23,6 +23,10 @@
     min-width: 50vw;
     min-height: 32rem; 
     border-radius: 8px;
+}
+
+.profile-2 {
+    max-height: 33rem;
     overflow: scroll;
 }
 
