@@ -30,6 +30,7 @@
 }
 
 .event {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,16 +38,23 @@
     height: calc(1.1rem * 1.2); /* Increased by 20% */
     overflow: hidden;
     font-size: 0.68em;
+    width: 100%;
 }
 
 .event-title {
+    position: absolute;
+    left: 0;
+    padding-left: 5px;
     overflow: hidden;
     white-space: nowrap;
     flex-grow: 1;
     text-align: left;
+    max-width: 70%; /* Ensure title doesn't overflow into the right side */
 }
 
 .right-side {
+    position: absolute;
+    right: 0;
     display: flex;
     align-items: center;
     min-width: 5rem; /* Ensures the right side takes up a fixed width */
@@ -56,6 +64,7 @@
 
 .event-type {
     margin-right: 0.5rem; 
+    font-size: 0.85rem;
 }
 
 .dots {
