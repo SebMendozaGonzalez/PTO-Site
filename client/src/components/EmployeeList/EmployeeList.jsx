@@ -197,6 +197,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                         }}
                         className="paddings"
                     >
+                        {/* Header Section */}
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 2 }}>
                             <Avatar
                                 alt={selectedEmployee.name}
@@ -212,39 +213,69 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                                 </Typography>
                             </Box>
                         </Box>
+
                         <Divider />
+
+                        {/* Basic Information */}
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 4, marginBottom: 2 }}>
                             <Box>
-                                <Typography variant="h6" color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
-                                    Contact Info
+                                <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
+                                    Basic Info
                                 </Typography>
-                                <Typography> <strong className='fonts-primary'>Email:</strong> {selectedEmployee.email_surgical}</Typography>
-                                <Typography> <strong className='fonts-primary'>Phone:</strong> {selectedEmployee.phone_number}</Typography>
-                                <Typography> <strong className='fonts-primary'>Address:</strong> {selectedEmployee.home_address}</Typography>
+                                <Typography><strong className='fonts-primary'>Full Name:</strong> {selectedEmployee.full_name}</Typography>
+                                <Typography><strong className='fonts-primary'>Date of Birth:</strong> {selectedEmployee.date_of_birth}</Typography>
+                                <Typography><strong className='fonts-primary'>Position:</strong> {selectedEmployee.position}</Typography>
                             </Box>
                             <Box>
-                                <Typography variant="h6" color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
-                                    Company Info
+                                <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
+                                    Leader Info
                                 </Typography>
-                                <Typography> <strong className='fonts-primary'>Company:</strong> {selectedEmployee.company}</Typography>
-                                <Typography> <strong className='fonts-primary'>Department:</strong> {selectedEmployee.department}</Typography>
-                                <Typography> <strong className='fonts-primary'>Leader:</strong> {selectedEmployee.leader}</Typography>
+                                <Typography><strong className='fonts-primary'>Leader:</strong> {selectedEmployee.leader}</Typography>
+                                <Typography><strong className='fonts-primary'>Leader Email:</strong> {selectedEmployee.leader_email}</Typography>
+                                <Typography><strong className='fonts-primary'>Leader ID:</strong> {selectedEmployee.leader_id}</Typography>
                             </Box>
                         </Box>
+
                         <Divider />
+
+                        {/* Contact Information */}
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 4, marginBottom: 2 }}>
+                            <Box>
+                                <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
+                                    Contact Info
+                                </Typography>
+                                <Typography><strong className='fonts-primary'>Email Surgical:</strong> {selectedEmployee.email_surgical}</Typography>
+                                <Typography><strong className='fonts-primary'>Email Quantum:</strong> {selectedEmployee.email_quantum}</Typography>
+                                <Typography><strong className='fonts-primary'>Phone:</strong> {selectedEmployee.phone_number}</Typography>
+                                <Typography><strong className='fonts-primary'>Home Address:</strong> {selectedEmployee.home_address}</Typography>
+                            </Box>
+                            <Box>
+                                <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
+                                    Company Info
+                                </Typography>
+                                <Typography><strong className='fonts-primary'>Company:</strong> {selectedEmployee.company}</Typography>
+                                <Typography><strong className='fonts-primary'>Department:</strong> {selectedEmployee.department}</Typography>
+                                <Typography><strong className='fonts-primary'>Start Date:</strong> {selectedEmployee.start_date}</Typography>
+                            </Box>
+                        </Box>
+
+                        <Divider />
+
+                        {/* Emergency Contact */}
                         <Box>
-                            <Typography variant="h6" color="primary" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
+                            <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
                                 Emergency Contact
                             </Typography>
-                            <Typography> <strong className='fonts-primary'>Contact:</strong>  {selectedEmployee.emergency_contact}</Typography>
-                            <Typography> <strong className='fonts-primary'>Name:</strong>  {selectedEmployee.emergency_name}</Typography>
-                            <Typography> <strong className='fonts-primary'>Phone:</strong> {selectedEmployee.emergency_phone}</Typography>
+                            <Typography><strong className='fonts-primary'>Contact:</strong> {selectedEmployee.emergency_contact}</Typography>
+                            <Typography><strong className='fonts-primary'>Name:</strong> {selectedEmployee.emergency_name}</Typography>
+                            <Typography><strong className='fonts-primary'>Phone:</strong> {selectedEmployee.emergency_phone}</Typography>
                         </Box>
                     </Box>
                 ) : (
                     <Typography>Select an employee to view details</Typography>
                 )}
             </div>
+
         </div>
     );
 }
