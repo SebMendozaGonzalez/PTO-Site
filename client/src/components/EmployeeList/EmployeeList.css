@@ -2,15 +2,14 @@
     display: flex;
     gap: 5px;
     align-items: start;
-    height: 49rem;
+    height: 45rem;
     padding: 0;
-    overflow-y:hidden;
 }
 
 .employee-list {
     min-width: 33vw;
     max-width: 33vw;
-    height: 45rem;
+    height: 40rem;
     max-height: 100%;
     background-color: #f8f9fe;
     overflow-y: auto;
