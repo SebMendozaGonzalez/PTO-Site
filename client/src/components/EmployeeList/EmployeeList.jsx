@@ -222,9 +222,8 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                                 <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
                                     Basic Info
                                 </Typography>
-                                <Typography><strong className='fonts-primary'>Full Name:</strong> {selectedEmployee.full_name}</Typography>
-                                <Typography><strong className='fonts-primary'>Date of Birth:</strong> {selectedEmployee.date_of_birth}</Typography>
-                                <Typography><strong className='fonts-primary'>Position:</strong> {selectedEmployee.position}</Typography>
+                                <Typography><strong className='fonts-primary'>Date of Birth:</strong> {new Date(selectedEmployee.date_of_birth).toLocaleDateString('en-US')}</Typography>
+                                <Typography><strong className='fonts-primary'>Start Date:</strong> {new Date(selectedEmployee.start_date).toLocaleDateString('en-US')}</Typography>
                             </Box>
                             <Box>
                                 <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
@@ -255,7 +254,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                                 </Typography>
                                 <Typography><strong className='fonts-primary'>Company:</strong> {selectedEmployee.company}</Typography>
                                 <Typography><strong className='fonts-primary'>Department:</strong> {selectedEmployee.department}</Typography>
-                                <Typography><strong className='fonts-primary'>Start Date:</strong> {selectedEmployee.start_date}</Typography>
+                                <Typography><strong className='fonts-primary'>Position:</strong> {selectedEmployee.position}</Typography>
                             </Box>
                         </Box>
 
@@ -264,7 +263,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                         {/* Emergency Contact */}
                         <Box>
                             <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
-                                Emergency Contact
+                                Emergency Info
                             </Typography>
                             <Typography><strong className='fonts-primary'>Contact:</strong> {selectedEmployee.emergency_contact}</Typography>
                             <Typography><strong className='fonts-primary'>Name:</strong> {selectedEmployee.emergency_name}</Typography>

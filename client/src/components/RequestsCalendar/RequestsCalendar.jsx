@@ -89,7 +89,7 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
         events={requests}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500, width: '77rem' }}
+        style={{ height: 530, width: '77rem' }}
         eventPropGetter={eventStyleGetter}
         views={['month', 'work_week']}
         components={{ event: Event }}
