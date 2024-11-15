@@ -2,16 +2,19 @@
     display: flex;
     gap: 5px;
     align-items: start;
-    height: 45rem;
+    height: 45rem; /* Fixed height for the container */
+    overflow: hidden; /* Prevent unnecessary scrollbars */
     padding: 0;
+    box-sizing: border-box; /* Ensure padding doesn't increase dimensions */
 }
 
 .employee-list {
     min-width: 33vw;
     max-width: 33vw;
-    height: 37rem; 
+    height: 100%; /* Adjust to parent height */
     background-color: #f8f9fe;
-    overflow-y: auto;
+    overflow-y: auto; /* Enable scrolling only for this section */
+    box-sizing: border-box;
 }
 
 .employee-list, .profile {
@@ -21,8 +24,11 @@
 
 .profile {
     min-width: 50vw;
-    min-height: 45rem; 
+    max-width: 50vw; /* Prevent content overflow */
+    height: 100%; /* Adjust to parent height */
     border-radius: 8px;
+    overflow-y: auto; /* Enable scrolling for long content in the profile */
+    box-sizing: border-box;
 }
 
 .search-bar-container {
@@ -32,5 +38,9 @@
     padding: 1rem;
     background-color: #f8f9fe;
     border-radius: 8px;
-    margin-bottom: 1rem; 
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
