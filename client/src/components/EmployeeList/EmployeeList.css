@@ -2,17 +2,17 @@
     display: flex;
     gap: 5px;
     align-items: start;
-    height: 60rem;
+    height: 45rem;
     padding: 0;
-    overflow: hidden; /* Prevent container from having its own scrollbar */
+    overflow: hidden; /* Prevents the container from scrolling */
 }
 
 .employee-list {
     min-width: 33vw;
     max-width: 33vw;
-    height: 100%; /* Ensure it matches the parent height */
+    max-height: calc(100% - 8rem); /* Account for search bar and spacing */
     background-color: #f8f9fe;
-    overflow-y: auto; /* Scroll only within the list */
+    overflow-y: auto; /* Scrolling only happens here */
 }
 
 .employee-list, .profile {
@@ -22,7 +22,7 @@
 
 .profile {
     min-width: 50vw;
-    min-height: 100%; /* Adjust height to fully fit within the container */
+    min-height: 100%; /* Stays within the container height */
     border-radius: 8px;
 }
 
@@ -33,5 +33,5 @@
     padding: 1rem;
     background-color: #f8f9fe;
     border-radius: 8px;
-    margin-bottom: 1rem; 
+    margin-bottom: 1rem;
 }
