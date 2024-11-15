@@ -1,5 +1,5 @@
 .rbc-day-slot .rbc-events-container {
-    max-height: calc(6rem * 1.2); /* Increased by 20% */
+    max-height: 5rem; 
     overflow-y: auto; 
     -ms-overflow-style: none; 
     scrollbar-width: none;
@@ -17,44 +17,24 @@
     display: none;
 }
 
-.rbc-time-content {
-    height: calc(100% + 20%); /* Increase the total height of the time grid by 20% */
-}
-
-.rbc-day-slot {
-    min-height: calc(1.2 * var(--rbc-day-slot-height, 100px)); /* Default increased by 20% */
-}
-
-.rbc-day-bg {
-    height: calc(1.2 * var(--rbc-day-slot-height, 100px)); /* Match the increased height */
-}
-
 .event {
-    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.2rem 0.5rem; 
-    height: calc(1.1rem * 1.2); /* Increased by 20% */
+    height: 1.1rem; 
     overflow: hidden;
     font-size: 0.68em;
-    width: 100%;
 }
 
 .event-title {
-    position: absolute;
-    left: 0;
-    padding-left: 5px;
     overflow: hidden;
     white-space: nowrap;
     flex-grow: 1;
     text-align: left;
-    max-width: 70%; /* Ensure title doesn't overflow into the right side */
 }
 
 .right-side {
-    position: absolute;
-    right: 0;
     display: flex;
     align-items: center;
     min-width: 5rem; /* Ensures the right side takes up a fixed width */
@@ -64,7 +44,6 @@
 
 .event-type {
     margin-right: 0.5rem; 
-    font-size: 0.85rem;
 }
 
 .dots {
