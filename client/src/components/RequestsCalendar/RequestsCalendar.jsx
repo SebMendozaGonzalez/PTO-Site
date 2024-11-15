@@ -28,33 +28,26 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
           !filterLeaderEmail || request.leader_email?.includes(filterLeaderEmail)
         );
 
-        const events = [];
-
-        filteredData.forEach(request => {
-          const startDate = new Date(request.start_date);
-          const endDate = new Date(request.end_date);
-          for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
-            events.push({
-              name: request.name,
-              type: typeMapping[request.type],
-              start: new Date(d),
-              end: new Date(d),
-              allDay: true,
-              employeeId: request.employee_id,
-              accepted: request.accepted,
-              decided: request.decided,
-              cancelled: request.cancelled,
-              taken: request.taken,
-              requestId: request.request_id, // Add request_id
-              details: request, // Store the entire request for the popup
-            });
-          }
-        });
+        const events = filteredData.map(request => ({
+          name: request.name,
+          type: typeMapping[request.type],
+          start: new Date(request.start_date),
+          end: new Date(request.end_date),
+          allDay: true,
+          employeeId: request.employee_id,
+          accepted: request.accepted,
+          decided: request.decided,
+          cancelled: request.cancelled,
+          taken: request.taken,
+          requestId: request.request_id, // Add request_id
+          details: request, // Store the entire request for the popup
+        }));
 
         setRequests(events);
       })
       .catch(err => console.error('Error fetching requests:', err));
   }, [employee_id, filterLeaderEmail]); // Add filterLeaderEmail as a dependency
+
 
   const eventStyleGetter = (event) => {
     const backgroundColor = event.employeeId === employee_id ? '#0b49c5' : '#050f38';
