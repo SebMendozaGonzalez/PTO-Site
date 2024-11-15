@@ -2,32 +2,29 @@
     display: flex;
     gap: 5px;
     align-items: start;
-    height: 45rem; /* Fixed height for the container */
-    overflow: hidden; /* Prevent unnecessary scrollbars */
+    height: 45rem; /* Fixed height */
+    overflow: hidden; /* Prevent container from scrolling */
     padding: 0;
-    box-sizing: border-box; /* Ensure padding doesn't increase dimensions */
+    box-sizing: border-box; /* Ensure padding is accounted for */
 }
 
 .employee-list {
-    min-width: 33vw;
-    max-width: 33vw;
-    height: 100%; /* Adjust to parent height */
+    flex: 1 1 33%; /* Proportional width */
+    max-width: 33%; /* Prevent over-expansion */
+    height: 100%; /* Match container height */
     background-color: #f8f9fe;
-    overflow-y: auto; /* Enable scrolling only for this section */
+    overflow-y: auto; /* Allow scroll only within the list */
+    margin: 0; /* Remove unintended extra space */
+    padding: 0; /* Prevent padding from affecting height */
     box-sizing: border-box;
 }
 
-.employee-list, .profile {
-    margin: 0;
-    padding: 0;
-}
-
 .profile {
-    min-width: 50vw;
-    max-width: 50vw; /* Prevent content overflow */
-    height: 100%; /* Adjust to parent height */
+    flex: 1 1 67%; /* Proportional width */
+    max-width: 67%; /* Prevent over-expansion */
+    height: 100%; /* Match container height */
     border-radius: 8px;
-    overflow-y: auto; /* Enable scrolling for long content in the profile */
+    overflow: hidden; /* No internal scrolling */
     box-sizing: border-box;
 }
 
@@ -38,9 +35,6 @@
     padding: 1rem;
     background-color: #f8f9fe;
     border-radius: 8px;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* Ensure this doesn't interfere with layout */
     box-sizing: border-box;
-    position: sticky;
-    top: 0;
-    z-index: 1;
 }
