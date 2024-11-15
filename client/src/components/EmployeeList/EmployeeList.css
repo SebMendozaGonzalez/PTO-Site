@@ -2,8 +2,9 @@
     display: flex;
     gap: 5px;
     align-items: start;
-    height: 50rem;
+    height: 49rem;
     padding: 0;
+    overflow-y:hidden;
 }
 
 .employee-list {
