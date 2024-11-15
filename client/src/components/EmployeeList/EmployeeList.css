@@ -2,30 +2,28 @@
     display: flex;
     gap: 5px;
     align-items: start;
-    height: 45rem; /* Fixed height */
-    overflow: hidden; /* Prevent container from scrolling */
+    height: 45rem;
     padding: 0;
-    box-sizing: border-box; /* Ensure padding is accounted for */
+    overflow: hidden; /* Prevent container from having its own scrollbar */
 }
 
 .employee-list {
-    flex: 1 1 33%; /* Proportional width */
-    max-width: 33%; /* Prevent over-expansion */
-    height: 100%; /* Match container height */
+    min-width: 33vw;
+    max-width: 33vw;
+    height: 100%; /* Ensure it matches the parent height */
     background-color: #f8f9fe;
-    overflow-y: auto; /* Allow scroll only within the list */
-    margin: 0; /* Remove unintended extra space */
-    padding: 0; /* Prevent padding from affecting height */
-    box-sizing: border-box;
+    overflow-y: auto; /* Scroll only within the list */
+}
+
+.employee-list, .profile {
+    margin: 0;
+    padding: 0;
 }
 
 .profile {
-    flex: 1 1 67%; /* Proportional width */
-    max-width: 67%; /* Prevent over-expansion */
-    height: 100%; /* Match container height */
+    min-width: 50vw;
+    min-height: 100%; /* Adjust height to fully fit within the container */
     border-radius: 8px;
-    overflow: hidden; /* No internal scrolling */
-    box-sizing: border-box;
 }
 
 .search-bar-container {
@@ -35,6 +33,5 @@
     padding: 1rem;
     background-color: #f8f9fe;
     border-radius: 8px;
-    margin-bottom: 1rem; /* Ensure this doesn't interfere with layout */
-    box-sizing: border-box;
+    margin-bottom: 1rem; 
 }
