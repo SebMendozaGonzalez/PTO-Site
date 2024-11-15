@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         name,
         full_name,
         date_of_birth,
-        position,
+        position, // Optional
         leader,
         leader_email,
         company,
@@ -31,12 +31,11 @@ router.post('/', async (req, res) => {
         const pool = await connectToDatabase();
         const request = pool.request();
 
-        // Parameterize inputs to prevent SQL injection
+        // Mandatory inputs
         request.input('employee_id', employee_id);
         request.input('name', name);
         request.input('full_name', full_name);
         request.input('date_of_birth', date_of_birth);
-        request.input('position', position);
         request.input('leader', leader);
         request.input('leader_email', leader_email);
         request.input('company', company);
@@ -51,47 +50,32 @@ router.post('/', async (req, res) => {
         request.input('start_date', start_date);
         request.input('leader_id', leader_id);
 
-        // Insert query to add a new employee to the roster table
+        // Optional inputs (only bind if provided)
+        if (position !== undefined) request.input('position', position);
+
+        // Build dynamic insert query to handle optional fields
+        const columns = [
+            'employee_id', 'name', 'full_name', 'date_of_birth', 'leader',
+            'leader_email', 'company', 'email_surgical', 'email_quantum',
+            'home_address', 'phone_number', 'emergency_contact', 'emergency_name',
+            'emergency_phone', 'department', 'start_date', 'leader_id'
+        ];
+        const values = [
+            '@employee_id', '@name', '@full_name', '@date_of_birth', '@leader',
+            '@leader_email', '@company', '@email_surgical', '@email_quantum',
+            '@home_address', '@phone_number', '@emergency_contact', '@emergency_name',
+            '@emergency_phone', '@department', '@start_date', '@leader_id'
+        ];
+
+        // Include `position` only if it is provided
+        if (position !== undefined) {
+            columns.push('position');
+            values.push('@position');
+        }
+
         const insertQuery = `
-            INSERT INTO roster (
-                employee_id,
-                name,
-                full_name,
-                date_of_birth,
-                position,
-                leader,
-                leader_email,
-                company,
-                email_surgical,
-                email_quantum,
-                home_address,
-                phone_number,
-                emergency_contact,
-                emergency_name,
-                emergency_phone,
-                department,
-                start_date,
-                leader_id
-            ) VALUES (
-                @employee_id,
-                @name,
-                @full_name,
-                @date_of_birth,
-                @position,
-                @leader,
-                @leader_email,
-                @company,
-                @email_surgical,
-                @email_quantum,
-                @home_address,
-                @phone_number,
-                @emergency_contact,
-                @emergency_name,
-                @emergency_phone,
-                @department,
-                @start_date,
-                @leader_id
-            );
+            INSERT INTO roster (${columns.join(', ')})
+            VALUES (${values.join(', ')});
         `;
 
         // Execute the insert query

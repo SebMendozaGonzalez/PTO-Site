@@ -9,7 +9,7 @@ function EmployeeAddCard({ onClose }) {
         name: '',
         full_name: '',
         date_of_birth: '',
-        position: '',
+        position: '', // Optional field
         leader: '',
         leader_email: '',
         company: '',
@@ -22,7 +22,7 @@ function EmployeeAddCard({ onClose }) {
         emergency_phone: '',
         department: '',
         start_date: '',
-        leader_id: ''
+        leader_id: '',
     });
 
     const [error, setError] = useState(false);
@@ -38,6 +38,7 @@ function EmployeeAddCard({ onClose }) {
     const handleSubmit = async () => {
         const { employee_id, name, email_surgical, leader_email } = formData;
 
+        // Validate mandatory fields
         if (!employee_id || !name || !email_surgical || !leader_email) {
             setError(true);
             alert('Please fill in all mandatory fields.');

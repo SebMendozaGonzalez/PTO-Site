@@ -17,6 +17,18 @@
     display: none;
 }
 
+.rbc-time-content {
+    height: calc(100% + 20%); /* Increase the total height of the time grid by 20% */
+}
+
+.rbc-day-slot {
+    min-height: calc(1.2 * var(--rbc-day-slot-height, 100px)); /* Default increased by 20% */
+}
+
+.rbc-day-bg {
+    height: calc(1.2 * var(--rbc-day-slot-height, 100px)); /* Match the increased height */
+}
+
 .event {
     display: flex;
     justify-content: space-between;
@@ -73,17 +85,4 @@
 
 .dot.red {
     background-color: #a10b00;
-}
-
-/* New CSS to ensure proper height scaling */
-.rbc-time-content {
-    height: calc(100% + 20%); /* Increase the total height of the time grid by 20% */
-}
-
-.rbc-day-slot {
-    min-height: calc(1.2 * var(--rbc-day-slot-height, 100px)); /* Default increased by 20% */
-}
-
-.rbc-day-bg {
-    height: calc(1.2 * var(--rbc-day-slot-height, 100px)); /* Match the increased height */
 }
