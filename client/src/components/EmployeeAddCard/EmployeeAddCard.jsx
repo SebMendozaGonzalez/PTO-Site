@@ -149,6 +149,25 @@ function EmployeeAddCard({ onClose }) {
                             error={error && !formData.leader_email}
                         />
                         <TextField label="Company" name="company" value={formData.company} onChange={handleChange} fullWidth />
+                        <TextField
+                            label="Department"
+                            name="department"
+                            value={formData.department}
+                            onChange={handleChange}
+                            fullWidth
+                            error={error && !formData.department}
+                        />
+                        <TextField
+                            label="Start Date"
+                            name="start_date"
+                            type="date"
+                            value={formData.start_date}
+                            onChange={handleChange}
+                            fullWidth
+                            InputLabelProps={{ shrink: true }}
+                            error={error && !formData.start_date}
+                        />
+                        
                     </Box>
 
                     <Divider />
@@ -197,24 +216,8 @@ function EmployeeAddCard({ onClose }) {
                             onChange={handleChange}
                             fullWidth
                         />
-                        <TextField
-                            label="Department"
-                            name="department"
-                            value={formData.department}
-                            onChange={handleChange}
-                            fullWidth
-                            error={error && !formData.department}
-                        />
-                        <TextField
-                            label="Start Date"
-                            name="start_date"
-                            type="date"
-                            value={formData.start_date}
-                            onChange={handleChange}
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                            error={error && !formData.start_date}
-                        />
+                        
+                        
                     </Box>
 
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, marginTop: 2 }}>
