@@ -99,6 +99,7 @@ router.post('/', async (req, res) => {
             request.input('position', position || null); // Use null if position is undefined
             request.input('start_date', start_date);
             request.input('leader_email', leader_email);
+            request.input('full_name', full_name || ''); // Add this line
 
             const insertVacationQuery = `
                 INSERT INTO vacations (
@@ -114,6 +115,7 @@ router.post('/', async (req, res) => {
 
             await request.query(insertVacationQuery);
         }
+
 
         // If both inserts succeed
         res.status(201).json({ message: 'Employee data added or updated successfully.' });
