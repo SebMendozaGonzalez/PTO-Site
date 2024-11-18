@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogContent, Box, Avatar, TextField, Typography, Button } from '@mui/material';
-import { Divider } from '@mui/material';
+import { Dialog, DialogContent, Box, Avatar, TextField, Typography, Button, Divider } from '@mui/material';
 import './EmployeeAddCard.css';
 
 function EmployeeAddCard({ onClose }) {
@@ -9,8 +8,7 @@ function EmployeeAddCard({ onClose }) {
         name: '',
         full_name: '',
         date_of_birth: '',
-        position: '', // Optional field
-        leader: '',
+        position: '', // Optional
         leader_email: '',
         company: '',
         email_surgical: '',
@@ -22,7 +20,6 @@ function EmployeeAddCard({ onClose }) {
         emergency_phone: '',
         department: '',
         start_date: '',
-        leader_id: '',
     });
 
     const [error, setError] = useState(false);
@@ -36,12 +33,19 @@ function EmployeeAddCard({ onClose }) {
     };
 
     const handleSubmit = async () => {
-        const { employee_id, name, email_surgical, leader_email } = formData;
+        const mandatoryFields = [
+            'employee_id',
+            'name',
+            'leader_email',
+            'email_surgical',
+            'start_date',
+        ];
 
-        // Validate mandatory fields
-        if (!employee_id || !name || !email_surgical || !leader_email) {
+        // Check for missing mandatory fields
+        const missingFields = mandatoryFields.filter((field) => !formData[field]);
+        if (missingFields.length > 0) {
             setError(true);
-            alert('Please fill in all mandatory fields.');
+            alert(`Please fill in all mandatory fields: ${missingFields.join(', ')}`);
             return;
         }
 
@@ -53,12 +57,16 @@ function EmployeeAddCard({ onClose }) {
             });
 
             if (response.ok) {
+                alert('Employee added successfully.');
                 onClose();
             } else {
-                console.error('Failed to add employee');
+                const errorMessage = await response.json();
+                console.error('Failed to add employee:', errorMessage.message);
+                alert(errorMessage.message || 'An error occurred while adding the employee.');
             }
         } catch (error) {
             console.error('Error:', error);
+            alert('An unexpected error occurred.');
         }
     };
 
@@ -99,6 +107,7 @@ function EmployeeAddCard({ onClose }) {
 
                     <Divider />
 
+                    {/* Basic Info */}
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
                             Basic Info
@@ -130,7 +139,7 @@ function EmployeeAddCard({ onClose }) {
                             InputLabelProps={{ shrink: true }}
                         />
                         <TextField label="Position" name="position" value={formData.position} onChange={handleChange} fullWidth />
-                        <TextField label="Leader" name="leader" value={formData.leader} onChange={handleChange} fullWidth />
+                        
                         <TextField
                             label={renderLabel('Leader Email', true)}
                             name="leader_email"
@@ -139,10 +148,12 @@ function EmployeeAddCard({ onClose }) {
                             fullWidth
                             error={error && !formData.leader_email}
                         />
+                        <TextField label="Company" name="company" value={formData.company} onChange={handleChange} fullWidth />
                     </Box>
 
                     <Divider />
 
+                    {/* Contact Info */}
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
                             Contact Info
@@ -156,8 +167,54 @@ function EmployeeAddCard({ onClose }) {
                             error={error && !formData.email_surgical}
                         />
                         <TextField label="Email Quantum" name="email_quantum" value={formData.email_quantum} onChange={handleChange} fullWidth />
-                        <TextField label="Phone Number" name="phone_number" value={formData.phone_number} onChange={handleChange} fullWidth />
+                        <TextField
+                            label="Phone Number"
+                            name="phone_number"
+                            value={formData.phone_number}
+                            onChange={handleChange}
+                            fullWidth
+                            error={error && !formData.phone_number}
+                        />
                         <TextField label="Home Address" name="home_address" value={formData.home_address} onChange={handleChange} fullWidth />
+                        <TextField
+                            label="Emergency Contact"
+                            name="emergency_contact"
+                            value={formData.emergency_contact}
+                            onChange={handleChange}
+                            fullWidth
+                        />
+                        <TextField
+                            label="Emergency Name"
+                            name="emergency_name"
+                            value={formData.emergency_name}
+                            onChange={handleChange}
+                            fullWidth
+                        />
+                        <TextField
+                            label="Emergency Phone"
+                            name="emergency_phone"
+                            value={formData.emergency_phone}
+                            onChange={handleChange}
+                            fullWidth
+                        />
+                        <TextField
+                            label="Department"
+                            name="department"
+                            value={formData.department}
+                            onChange={handleChange}
+                            fullWidth
+                            error={error && !formData.department}
+                        />
+                        <TextField
+                            label="Start Date"
+                            name="start_date"
+                            type="date"
+                            value={formData.start_date}
+                            onChange={handleChange}
+                            fullWidth
+                            InputLabelProps={{ shrink: true }}
+                            error={error && !formData.start_date}
+                        />
                     </Box>
 
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, marginTop: 2 }}>

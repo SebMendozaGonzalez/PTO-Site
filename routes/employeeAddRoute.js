@@ -12,7 +12,6 @@ router.post('/', async (req, res) => {
         full_name,
         date_of_birth,
         position, // Optional
-        leader,
         leader_email,
         company,
         email_surgical,
@@ -24,7 +23,6 @@ router.post('/', async (req, res) => {
         emergency_phone,
         department,
         start_date,
-        leader_id
     } = req.body;
 
     try {
@@ -56,7 +54,6 @@ router.post('/', async (req, res) => {
             request.input('name', name);
             request.input('full_name', full_name);
             request.input('date_of_birth', date_of_birth);
-            request.input('leader', leader);
             request.input('leader_email', leader_email);
             request.input('company', company);
             request.input('email_surgical', email_surgical);
@@ -68,21 +65,20 @@ router.post('/', async (req, res) => {
             request.input('emergency_phone', emergency_phone);
             request.input('department', department);
             request.input('start_date', start_date);
-            request.input('leader_id', leader_id);
 
             if (position !== undefined) request.input('position', position);
 
             const columns = [
-                'employee_id', 'name', 'full_name', 'date_of_birth', 'leader',
+                'employee_id', 'name', 'full_name', 'date_of_birth',
                 'leader_email', 'company', 'email_surgical', 'email_quantum',
                 'home_address', 'phone_number', 'emergency_contact', 'emergency_name',
-                'emergency_phone', 'department', 'start_date', 'leader_id'
+                'emergency_phone', 'department', 'start_date'
             ];
             const values = [
-                '@employee_id', '@name', '@full_name', '@date_of_birth', '@leader',
+                '@employee_id', '@name', '@full_name', '@date_of_birth',
                 '@leader_email', '@company', '@email_surgical', '@email_quantum',
                 '@home_address', '@phone_number', '@emergency_contact', '@emergency_name',
-                '@emergency_phone', '@department', '@start_date', '@leader_id'
+                '@emergency_phone', '@department', '@start_date'
             ];
 
             if (position !== undefined) {
@@ -103,17 +99,16 @@ router.post('/', async (req, res) => {
             request.input('position', position || null); // Use null if position is undefined
             request.input('start_date', start_date);
             request.input('leader_email', leader_email);
-            request.input('leader_id', leader_id);
 
             const insertVacationQuery = `
                 INSERT INTO vacations (
                     employee_id, full_name, position, start_date, end_date,
                     total_days, accued_days, [2020], [2021], [2022], [2023], [2024],
-                    total, used_days, compensated_days, remaining_days, leader_email, leader_id
+                    total, used_days, compensated_days, remaining_days, leader_email
                 )
                 VALUES (
                     @employee_id, @full_name, @position, @start_date, CURRENT_TIMESTAMP,
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, @leader_email, @leader_id
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, @leader_email
                 );
             `;
 
