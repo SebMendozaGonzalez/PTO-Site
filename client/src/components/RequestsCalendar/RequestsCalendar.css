@@ -46,6 +46,20 @@
     margin-right: 0.5rem; 
 }
 
+
+.daily-popup {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+
+
+
 .dots {
     display: flex;
     gap: 0.2rem; 

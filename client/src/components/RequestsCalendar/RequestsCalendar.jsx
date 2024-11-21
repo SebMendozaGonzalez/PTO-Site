@@ -13,18 +13,18 @@ const typeMapping = {
   'Domestic Calamity License': 'DCL',
   'Bereavement License': 'BL',
   'Unpaid Time Off': 'UTO',
-  'Inability': 'Ina'
+  'Inability': 'Ina',
 };
 
 function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
   const [requests, setRequests] = useState([]);
+  const [hoveredDate, setHoveredDate] = useState(null);
 
   useEffect(() => {
     fetch('/requests-info')
       .then(response => response.json())
       .then(data => {
         const filteredData = data.filter(request =>
-          // Filter by leader_email if filterLeaderEmail is not empty
           !filterLeaderEmail || request.leader_email?.includes(filterLeaderEmail)
         );
 
@@ -45,8 +45,8 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
               decided: request.decided,
               cancelled: request.cancelled,
               taken: request.taken,
-              requestId: request.request_id, // Add request_id
-              details: request, // Store the entire request for the popup
+              requestId: request.request_id,
+              details: request,
             });
           }
         });
@@ -54,9 +54,9 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
         setRequests(events);
       })
       .catch(err => console.error('Error fetching requests:', err));
-  }, [employee_id, filterLeaderEmail]); // Add filterLeaderEmail as a dependency
+  }, [employee_id, filterLeaderEmail]);
 
-  const eventStyleGetter = (event) => {
+  const eventStyleGetter = event => {
     const backgroundColor = event.employeeId === employee_id ? '#0b49c5' : '#050f38';
     return {
       style: {
@@ -89,8 +89,17 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
     );
   };
 
+  const handleDateHover = (date) => {
+    setHoveredDate(date);
+  };
+
+  const filteredEvents = hoveredDate
+    ? requests.filter(event =>
+        moment(event.start).isSame(moment(hoveredDate), 'day'))
+    : [];
+
   return (
-    <div className='paddings request-calendar'>
+    <div className="paddings request-calendar">
       <Calendar
         localizer={localizer}
         events={requests}
@@ -100,8 +109,22 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
         eventPropGetter={eventStyleGetter}
         views={['month', 'work_week']}
         components={{ event: Event }}
-        onSelectEvent={(event) => onEventSelect(event.details)}
+        onSelectEvent={event => onEventSelect(event.details)}
+        onMouseOver={(slot) => handleDateHover(slot.start)} // Track hovered date
+        onMouseLeave={() => setHoveredDate(null)} // Reset on mouse leave
       />
+      {hoveredDate && filteredEvents.length > 0 && (
+        <div className="daily-popup">
+          <h3>Events on {moment(hoveredDate).format('MMM Do YYYY')}</h3>
+          <ul>
+            {filteredEvents.map((event, index) => (
+              <li key={index}>
+                <strong>{event.name}</strong> ({event.type})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
