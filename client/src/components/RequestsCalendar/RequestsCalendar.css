@@ -6,7 +6,8 @@
     background-color: #050f38;
     color: #ffffff;
     text-align: center;
-    font-weight: 400;
+    font-weight: 500;
+    font-size: 1.5em;
     padding: 0.5em;
 }
 
@@ -28,16 +29,16 @@
 .event-title {
     overflow: hidden;
     white-space: nowrap;
-    font-size: 1.5em;
-    font-weight: 300;
+    font-size: 1.1em;
+    font-weight: 200;
     flex-grow: 1;
     text-align: left;
 }
 
 .event-type {
     margin-right: 0.5rem; 
-    font-size: 1.5em;
-    font-weight: 300;
+    font-size: 1.1em;
+    font-weight: 200;
 }
 
 .right-side {
