@@ -13,8 +13,10 @@
     padding: 0.5em;
 }
 
-.rbc-day-slot .rbc-events-container::-webkit-scrollbar {
-    display: none;
+
+.rbc-day-bg {
+    overflow: scroll;
+    scroll-behavior: auto;
 }
 
 .event {
