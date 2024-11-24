@@ -27,6 +27,7 @@
     font-weight: 300;
     flex-grow: 1;
     text-align: left;
+    flex-basis: 65%;
 }
 
 .event-type {
@@ -42,8 +43,6 @@
     justify-content: flex-end;
     flex-shrink: 0;
     flex-basis: 30%;
-    max-width: 30%;
-
 }
 
 
@@ -60,14 +59,8 @@
     transition: background-color 0.3s ease;
 }
 
-.dot.grey {
-    background-color: #cccccc;
-}
+.dot.grey { background-color: #cccccc; }
 
-.dot.green {
-    background-color: #39850e;
-}
+.dot.green { background-color: #39850e; }
 
-.dot.red {
-    background-color: #a10b00;
-}
+.dot.red { background-color: #a10b00; }
