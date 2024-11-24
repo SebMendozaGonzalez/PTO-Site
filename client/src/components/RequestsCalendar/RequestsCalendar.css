@@ -1,3 +1,7 @@
+.request-calendar {
+    height: 80rem;
+}
+
 .rbc-header {
     background-color: #050f38;
     color: #ffffff;
@@ -7,9 +11,8 @@
 }
 
 .rbc-calendar {
-    height: 100rem;
+    height: 100%;
 }
-
 
 
 .event {
@@ -25,10 +28,16 @@
 .event-title {
     overflow: hidden;
     white-space: nowrap;
-    font-size: 3em;
+    font-size: 1.5em;
     font-weight: 300;
     flex-grow: 1;
     text-align: left;
+}
+
+.event-type {
+    margin-right: 0.5rem; 
+    font-size: 1.5em;
+    font-weight: 300;
 }
 
 .right-side {
@@ -38,14 +47,6 @@
     justify-content: flex-end; /* Aligns the type and dots to the right */
     flex-shrink: 0; /* Prevent shrinking when title is long */
 }
-
-.event-type {
-    margin-right: 0.5rem; 
-    font-size: 3em;
-    font-weight: 300;
-}
-
-
 
 
 .dots {
