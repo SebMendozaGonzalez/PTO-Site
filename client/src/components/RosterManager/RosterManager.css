@@ -1,3 +1,4 @@
 .roster-manager {
+    display: flex;
     justify-content: center;
 }
