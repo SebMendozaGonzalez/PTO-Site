@@ -24,7 +24,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.2rem 0.5rem; 
-    height: 1.1rem; 
+    height: 0.9rem; 
     overflow: hidden;
     font-size: 0.68em;
 }
@@ -32,6 +32,8 @@
 .event-title {
     overflow: hidden;
     white-space: nowrap;
+    font-size: 0.6em;
+    font-weight: 300;
     flex-grow: 1;
     text-align: left;
 }
@@ -48,17 +50,9 @@
     margin-right: 0.5rem; 
 }
 
-
-.daily-popup {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-  }
-  
+.rbc-calendar {
+    height: 60rem;
+}
 
 
 
@@ -77,10 +71,6 @@
 
 .dot.grey {
     background-color: #cccccc;
-}
-
-.dot.yellow {
-    background-color: #f79e00;
 }
 
 .dot.green {
