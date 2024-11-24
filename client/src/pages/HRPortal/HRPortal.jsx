@@ -41,7 +41,6 @@ function HRPortal() {
 
         {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
 
-
         {selectedEmployeeId && (
           <RequestsCalendar employee_id={selectedEmployeeId} onEventSelect={handleEventSelect} />
         )}

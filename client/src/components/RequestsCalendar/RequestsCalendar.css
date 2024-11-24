@@ -27,7 +27,6 @@
     font-weight: 300;
     flex-grow: 1;
     text-align: left;
-    flex-basis: 65%;
 }
 
 .event-type {
@@ -39,12 +38,10 @@
 .right-side {
     display: flex;
     align-items: center;
-    min-width: 5rem;
+    min-width: 3rem;
     justify-content: flex-end;
     flex-shrink: 0;
-    flex-basis: 30%;
 }
-
 
 .dots {
     display: flex;

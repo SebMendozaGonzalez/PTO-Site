@@ -46,7 +46,7 @@ function RosterManager({ filterLeaderEmail, onEmployeeSelect, hasPermissions }) 
     };
 
     return (
-        <div className="paddings innerWidth">
+        <div className="paddings innerWidth roster-manager">
             <EmployeeList
                 filterLeaderEmail={filterLeaderEmail}
                 onEmployeeSelect={onEmployeeSelect} // Pass the function to select an employee
