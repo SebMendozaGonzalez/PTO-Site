@@ -3,8 +3,7 @@
     align-items: start;
     height: 45rem;
     padding: 0;
-    overflow: hidden;
-    display: block;
+    overflow: visible;
     margin: 0 auto;
     max-width: 100%;
     width: auto;
