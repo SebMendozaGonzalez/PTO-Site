@@ -18,7 +18,6 @@ const typeMapping = {
 
 function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
   const [requests, setRequests] = useState([]);
-  const [hoveredDate, setHoveredDate] = useState(null);
 
   useEffect(() => {
     fetch('/requests-info')
@@ -74,29 +73,18 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
     };
   };
 
-  const Event = ({ event }) => {
-    return (
-      <div className="event">
-        <span className="event-title">{event.name}</span>
-        <div className="right-side">
-          <span className="event-type">{event.type}</span>
-          <div className="dots">
-            <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
-            <div className={`dot ${event.taken ? 'green' : (event.cancelled ? 'red' : 'grey')}`}></div>
-          </div>
+  const Event = ({ event }) => (
+    <div className="event">
+      <span className="event-title">{event.name}</span>
+      <div className="right-side">
+        <span className="event-type">{event.type}</span>
+        <div className="dots">
+          <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
+          <div className={`dot ${event.taken ? 'green' : (event.cancelled ? 'red' : 'grey')}`}></div>
         </div>
       </div>
-    );
-  };
-
-  const handleDateHover = (date) => {
-    setHoveredDate(date);
-  };
-
-  const filteredEvents = hoveredDate
-    ? requests.filter(event =>
-        moment(event.start).isSame(moment(hoveredDate), 'day'))
-    : [];
+    </div>
+  );
 
   return (
     <div className="paddings request-calendar">
@@ -108,23 +96,12 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
         style={{ height: 500, width: '77rem' }}
         eventPropGetter={eventStyleGetter}
         views={['month', 'work_week']}
-        components={{ event: Event }}
+        components={{
+          event: Event,
+        }}
+        showAllEvents={true} // Enable scrollable date cells
         onSelectEvent={event => onEventSelect(event.details)}
-        onMouseOver={(slot) => handleDateHover(slot.start)} // Track hovered date
-        onMouseLeave={() => setHoveredDate(null)} // Reset on mouse leave
       />
-      {hoveredDate && filteredEvents.length > 0 && (
-        <div className="daily-popup">
-          <h3>Events on {moment(hoveredDate).format('MMM Do YYYY')}</h3>
-          <ul>
-            {filteredEvents.map((event, index) => (
-              <li key={index}>
-                <strong>{event.name}</strong> ({event.type})
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }
