@@ -6,6 +6,9 @@
     padding: 0.5em;
 }
 
+.rbc-calendar {
+    height: 100rem;
+}
 
 
 
@@ -42,9 +45,6 @@
     font-weight: 300;
 }
 
-.rbc-calendar {
-    height: 60rem;
-}
 
 
 
