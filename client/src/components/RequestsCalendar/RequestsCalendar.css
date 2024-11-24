@@ -9,6 +9,7 @@
     font-weight: 500;
     font-size: 1.5em;
     padding: 0.5em;
+    height: 3rem;
 }
 
 .rbc-calendar {
@@ -30,7 +31,7 @@
     overflow: hidden;
     white-space: nowrap;
     font-size: 1.1em;
-    font-weight: 200;
+    font-weight: 300;
     flex-grow: 1;
     text-align: left;
 }
@@ -38,7 +39,7 @@
 .event-type {
     margin-right: 0.5rem; 
     font-size: 1.1em;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .right-side {
