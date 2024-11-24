@@ -5,8 +5,7 @@
     padding: 0;
     overflow: visible;
     margin: 0 auto;
-    max-width: 100%;
-    width: auto;
+    width: 100%;
 }
 
 .employee-list {
