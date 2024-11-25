@@ -181,10 +181,10 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                             <div className='flexColCenter'>
                                 <span className='f1 flexColCenter'>{requestDetails.type || requestDetails.type}</span>
                                 <span className='f2'>
-                                    <strong>from: </strong>{formatDate(requestDetails.start_date)}
+                                    <strong>from: </strong>{formatDate(new Date(requestDetails.start_date).toLocaleDateString())}
                                 </span>
                                 <span className='f2'>
-                                    <strong>to: </strong>{formatDate(requestDetails.end_date)}
+                                    <strong>to: </strong>{formatDate(new Date(requestDetails.end_date).toLocaleDateString())}
                                 </span>
                             </div>
                         </div>
