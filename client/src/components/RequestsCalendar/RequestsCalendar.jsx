@@ -75,8 +75,11 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
 
   const Event = ({ event }) => (
     <div className="event">
-      <span className="event-title">{event.name}</span>
-      <div className="right-side">
+      <div className='left-side left'>
+        <span className="event-title">{event.name}</span>
+      </div>
+
+      <div className="right-side right">
         <span className="event-type">{event.type}</span>
         <div className="dots">
           <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
