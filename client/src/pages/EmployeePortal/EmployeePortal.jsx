@@ -13,10 +13,11 @@ function EmployeePortal() {
   const [filterEmail, setFilterEmail] = useState(() => accounts[0]?.username || '');  
   const [employeeId, setEmployeeId] = useState('');
   const [requestDetails, setRequestDetails] = useState(null);
-  
+
+  const isSearchEnabled = accounts[0]?.username === "dev1@surgicalcapital.com";
 
   useEffect(() => {
-    if (filterEmail) {
+    if (filterEmail && isSearchEnabled) {
       const fetchEmployeeId = async () => {
         try {
           const response = await axios.get(`/email_id/${filterEmail}`);
@@ -27,8 +28,10 @@ function EmployeePortal() {
         }
       };
       fetchEmployeeId();
+    } else if (!isSearchEnabled) {
+      setEmployeeId(''); // Ensure employeeId is reset if search is disabled
     }
-  }, [filterEmail]);
+  }, [filterEmail, isSearchEnabled]);
 
   const closePopup = () => {
     setRequestDetails(null);
@@ -38,29 +41,34 @@ function EmployeePortal() {
     setRequestDetails(request);
   };
 
-  console.log('id Enviado: ', employeeId)
+  console.log('id Enviado: ', employeeId);
+
   return (
     <div className="employee-portal">
-      <div className='paddings'>
-        <label htmlFor="EmployeeEmail" className='filter-label fonts-primary'>Employee Email: </label>
-        <input
-          id="EmployeeEmail"
-          type="text"
-          value={filterEmail}
-          onChange={(e) => setFilterEmail(e.target.value)}
-          placeholder="Enter Employee Email"
-          className='filter-input'
-        />
-      </div>
+      {isSearchEnabled && (
+        <div className='paddings'>
+          <label htmlFor="EmployeeEmail" className='filter-label fonts-primary'>Employee Email: </label>
+          <input
+            id="EmployeeEmail"
+            type="text"
+            value={filterEmail}
+            onChange={(e) => setFilterEmail(e.target.value)}
+            placeholder="Enter Employee Email"
+            className='filter-input'
+          />
+        </div>
+      )}
 
       <WelcomeEmployees />
       <DashboardEmployee employee_id={employeeId} />
       <RequestsList employee_id={employeeId} onClickRequest={handleClickRequest} />
       <RequestsEmployee employee_id={employeeId} />
-      <RequestView requestDetails={requestDetails}
+      <RequestView 
+        requestDetails={requestDetails}
         onClose={closePopup}
         managerPermissions={false}
-        employeePermissions={true} />
+        employeePermissions={true} 
+      />
     </div>
   );
 }

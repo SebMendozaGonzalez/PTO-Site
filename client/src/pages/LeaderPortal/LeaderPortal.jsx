@@ -37,26 +37,30 @@ function LeaderPortal() {
     setIsLicenseMode(false);
   };
 
+  const isSearchEnabled = accounts[0]?.username === "dev1@surgicalcapital.com";
+
   return (
     <div className='flexColCenter leader-portal'>
-      <div className='paddings'>
-        <label htmlFor="leaderEmail" className='filter-label fonts-primary'>Manager Email: </label>
-        <input
-          id="leaderEmail"
-          type="text"
-          value={filterLeaderEmail}
-          onChange={(e) => setFilterLeaderEmail(e.target.value)}
-          placeholder="Enter Leader Email"
-          className='filter-input'
-        />
-      </div>
+      {isSearchEnabled && (
+        <div className='paddings'>
+          <label htmlFor="leaderEmail" className='filter-label fonts-primary'>Manager Email: </label>
+          <input
+            id="leaderEmail"
+            type="text"
+            value={filterLeaderEmail}
+            onChange={(e) => setFilterLeaderEmail(e.target.value)}
+            placeholder="Enter Leader Email"
+            className='filter-input'
+          />
+        </div>
+      )}
 
       <div className='paddings'>
         <WelcomeLeaders />
 
         <div className='innerWidth paddings'>
           <EmployeeList
-            filterLeaderEmail={filterLeaderEmail}
+            filterLeaderEmail={isSearchEnabled ? filterLeaderEmail : ''}
             onEmployeeSelect={handleEmployeeSelect}
             hasPermissions={false}
             onLicenseClick={handleLicenseClick} // Add license functionality
@@ -78,7 +82,7 @@ function LeaderPortal() {
           <RequestsCalendar
             employee_id={selectedEmployee.employee_id}
             onEventSelect={handleEventSelect}
-            filterLeaderEmail={filterLeaderEmail}
+            filterLeaderEmail={isSearchEnabled ? filterLeaderEmail : ''}
           />
         )}
 

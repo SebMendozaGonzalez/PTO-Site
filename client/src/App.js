@@ -28,7 +28,9 @@ const App = () => {
             }
           />
           <Route path="/hr-portal"
-            element={<HRPortal />}
+            element={<ProtectedRoute requiredRole="HR_Manager">
+              <HRPortal />
+            </ProtectedRoute>}
           />
           <Route
             path="/leader-portal"
