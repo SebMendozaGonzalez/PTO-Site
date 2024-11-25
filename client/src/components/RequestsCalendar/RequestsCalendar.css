@@ -8,15 +8,14 @@
     padding: 0.5em;
     height: 3rem;
 }
-
 .event {
     display: flex;
-    justify-content: space-between; /* Ensures space between title and right side */
     align-items: center; /* Vertically centers content */
     padding: 0.2rem 0.5rem;
     height: 0.8rem;
     overflow: hidden;
     font-size: 0.68em;
+    position: relative; /* Required for positioning the right-side absolutely */
 }
 
 .event-title {
@@ -25,8 +24,8 @@
     text-overflow: ellipsis; /* Adds ellipsis for long text */
     font-size: 1.1em;
     font-weight: 300;
-    margin-right: auto; /* Pushes the right-side container to the far right */
     text-align: left; /* Ensures the text is aligned to the left */
+    flex-shrink: 1; /* Allows the title to shrink if space is limited */
 }
 
 .event-type {
@@ -38,11 +37,11 @@
 .right-side {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Aligns content to the right */
-    min-width: 3rem; /* Maintains a fixed minimum width */
-    flex-shrink: 0; /* Prevents shrinking */
+    justify-content: flex-end; /* Aligns content within the right-side container */
+    min-width: 3rem;
+    position: absolute; /* Positions it relative to the event container */
+    right: 0; /* Fixes it to the right side */
 }
-
 
 .dots {
     display: flex;
@@ -57,8 +56,14 @@
     transition: background-color 0.3s ease;
 }
 
-.dot.grey { background-color: #cccccc; }
+.dot.grey {
+    background-color: #cccccc;
+}
 
-.dot.green { background-color: #39850e; }
+.dot.green {
+    background-color: #39850e;
+}
 
-.dot.red { background-color: #a10b00; }
+.dot.red {
+    background-color: #a10b00;
+}
