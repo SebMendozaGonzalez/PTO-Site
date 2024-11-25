@@ -8,24 +8,26 @@
     padding: 0.5em;
     height: 3rem;
 }
+
+
+
 .event {
     display: flex;
-    align-items: center; /* Vertically centers content */
+    justify-content: space-between;
+    align-items: center;
     padding: 0.2rem 0.5rem;
     height: 0.8rem;
     overflow: hidden;
     font-size: 0.68em;
-    position: relative; /* Required for positioning the right-side absolutely */
 }
 
 .event-title {
     overflow: hidden;
-    white-space: nowrap; /* Prevents wrapping */
-    text-overflow: ellipsis; /* Adds ellipsis for long text */
+    white-space: nowrap;
     font-size: 1.1em;
     font-weight: 300;
-    text-align: left; /* Ensures the text is aligned to the left */
-    flex-shrink: 1; /* Allows the title to shrink if space is limited */
+    flex-grow: 1;
+    text-align: left;
 }
 
 .event-type {
@@ -34,14 +36,6 @@
     font-weight: 300;
 }
 
-.right-side {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Aligns content within the right-side container */
-    min-width: 3rem;
-    position: absolute; /* Positions it relative to the event container */
-    right: 0; /* Fixes it to the right side */
-}
 
 .dots {
     display: flex;
@@ -56,14 +50,8 @@
     transition: background-color 0.3s ease;
 }
 
-.dot.grey {
-    background-color: #cccccc;
-}
+.dot.grey { background-color: #cccccc; }
 
-.dot.green {
-    background-color: #39850e;
-}
+.dot.green { background-color: #39850e; }
 
-.dot.red {
-    background-color: #a10b00;
-}
+.dot.red { background-color: #a10b00; }
