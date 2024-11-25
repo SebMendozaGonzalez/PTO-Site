@@ -9,11 +9,10 @@
     height: 3rem;
 }
 
-
 .event {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* Ensures space between title and right side */
+    align-items: center; /* Vertically centers content */
     padding: 0.2rem 0.5rem;
     height: 0.8rem;
     overflow: hidden;
@@ -22,11 +21,12 @@
 
 .event-title {
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap; /* Prevents wrapping */
+    text-overflow: ellipsis; /* Adds ellipsis for long text */
     font-size: 1.1em;
     font-weight: 300;
-    flex-grow: 1;
-    text-align: left;
+    margin-right: auto; /* Pushes the right-side container to the far right */
+    text-align: left; /* Ensures the text is aligned to the left */
 }
 
 .event-type {
@@ -38,10 +38,11 @@
 .right-side {
     display: flex;
     align-items: center;
-    min-width: 3rem;
-    justify-content: flex-end;
-    flex-shrink: 0;
+    justify-content: flex-end; /* Aligns content to the right */
+    min-width: 3rem; /* Maintains a fixed minimum width */
+    flex-shrink: 0; /* Prevents shrinking */
 }
+
 
 .dots {
     display: flex;
