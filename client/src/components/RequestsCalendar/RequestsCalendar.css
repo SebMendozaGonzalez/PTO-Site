@@ -38,12 +38,9 @@
 .right-side {
     display: flex;
     align-items: center;
-    min-width: 5rem;
+    width: 3rem;
     justify-content: flex-end;
     flex-shrink: 0;
-    flex-basis: 30%;
-    max-width: 30%;
-
 }
 
 
