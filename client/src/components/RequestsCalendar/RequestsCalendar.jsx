@@ -75,7 +75,7 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
 
   const Event = ({ event }) => (
     <div className="event">
-      <div className='left-side left'>
+      <div className='left'>
         <span className="event-title">{event.name}</span>
       </div>
 
