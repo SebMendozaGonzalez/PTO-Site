@@ -114,7 +114,6 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided) &&
         !requestDetails.cancelled &&
         new Date(requestDetails.start_date).toLocaleDateString() > today && (() => {
-            console.log(new Date(requestDetails.start_date).toLocaleDateString(), today, new Date(requestDetails.start_date).toLocaleDateString() > today);
             return (
                 <div className='fourth padding flexCenter innerWidth'>
                     <div className='left'>
