@@ -24,7 +24,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
         const fetchEmployeeDetails = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`/employee-info/${employeeId}`);
+                const response = await fetch(`/employees-info/${employeeId}`);
                 if (!response.ok) throw new Error('Failed to fetch employee details');
                 const data = await response.json();
                 if (data.length > 0) {
@@ -123,18 +123,6 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                             <TextField
                                 label="Name"
                                 value={employeeDetails.name}
-                                fullWidth
-                                disabled
-                            />
-                            <TextField
-                                label="Leader Email"
-                                value={employeeDetails.leader_email}
-                                fullWidth
-                                disabled
-                            />
-                            <TextField
-                                label="Department"
-                                value={employeeDetails.department}
                                 fullWidth
                                 disabled
                             />

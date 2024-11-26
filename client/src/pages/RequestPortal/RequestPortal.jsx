@@ -28,7 +28,7 @@ const RequestPortal = () => {
             if (!formData.employee_id) return;
 
             try {
-                const response = await fetch(`/employee-info/${formData.employee_id}`);
+                const response = await fetch(`/employees-info/${formData.employee_id}`);
                 if (!response.ok) {
                     throw new Error(`Failed to fetch employee details: ${response.statusText}`);
                 }
@@ -167,38 +167,6 @@ const RequestPortal = () => {
                         <input type="date" name="end_date" value={formData.end_date} onChange={handleChange} required />
                     </div>
                 </div>
-
-                <div className='flexColStart pack'>
-                    <label>Employee Name:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        readOnly
-                        className="blocked-input"
-                    />
-                </div>
-                <div className='flexColStart pack'>
-                    <label>Leader Email:</label>
-                    <input
-                        type="email"
-                        name="leader_email"
-                        value={formData.leader_email}
-                        readOnly
-                        className="blocked-input"
-                    />
-                </div>
-                <div className='flexColStart pack'>
-                    <label>Department:</label>
-                    <input
-                        type="text"
-                        name="department"
-                        value={formData.department}
-                        readOnly
-                        className="blocked-input"
-                    />
-                </div>
-
                 <div className='flexColStart explanation'>
                     <label>Explanation:</label>
                     <textarea name="explanation" value={formData.explanation} onChange={handleChange}></textarea>
