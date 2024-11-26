@@ -80,7 +80,7 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
 
       <div className="right-side">
         <span className="event-type">{event.type}</span>
-        <div className="dots-container">
+        <div>
           <Dots requestDetails={event} />
         </div>
       </div>

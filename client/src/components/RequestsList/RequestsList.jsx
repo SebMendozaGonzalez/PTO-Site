@@ -47,7 +47,7 @@ function RequestsList({ employee_id, onClickRequest }) {
                                 <ListItem button onClick={() => onClickRequest(request)}
                                     secondaryAction={
                                         <ListItemIcon edge="end">
-                                            <div className="dots-container">
+                                            <div>
                                                 <Dots requestDetails={request} />
                                             </div>
                                         </ListItemIcon>
