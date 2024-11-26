@@ -50,27 +50,27 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
     };
 
     const handleSubmit = async () => {
-        // Basic validation for mandatory fields
+        // Validate mandatory fields
         if (!formData.start_date || !formData.end_date || !formData.type) {
             alert('Please fill in all mandatory fields.');
             return;
         }
 
-        // Debugging: Log the payload to ensure it includes all fields
-        console.log('Submitting the following payload:', {
+        // Combine formData and employeeDetails into a single payload
+        const payload = {
             ...formData,
+            ...employeeDetails,
             is_exception: false,
-        });
+        };
+
+        console.log('Submitting the following payload:', payload);
 
         try {
             // API call to submit license request
             const requestResponse = await fetch('/request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    ...formData,
-                    is_exception: false,
-                }),
+                body: JSON.stringify(payload),
             });
 
             if (!requestResponse.ok) {
@@ -103,6 +103,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             alert('An error occurred while processing the license request.');
         }
     };
+
 
 
     return (
