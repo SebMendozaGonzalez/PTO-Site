@@ -39,7 +39,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ request_id: requestDetails.request_id }),
             });
-    
+
             const result = await response.json();
             if (response.ok) {
                 setStatusMessage({ message: 'Request canceled successfully!', type: 'success' });
@@ -53,7 +53,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
             setStatusMessage({ message: 'An error occurred. Please try again.', type: 'failure' });
         }
     };
-    
+
 
     const submitDecision = async () => {
         if (decision === 'reject' && !rejectionReason) {
@@ -108,13 +108,19 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         </div>
     );
 
-    const cancellationButton = employeePermissions && ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided ) && !requestDetails.cancelled && (
-        <div className='fourth padding flexCenter innerWidth'>
-            <div className='left'>
-                <button className='decision-button' onClick={cancelRequest}>Cancel Request</button>
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in 'yyyy-mm-dd' format
+
+    const cancellationButton = employeePermissions &&
+        ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided) &&
+        !requestDetails.cancelled &&
+        requestDetails.start_date > today && ( 
+            <div className='fourth padding flexCenter innerWidth'>
+                <div className='left'>
+                    <button className='decision-button' onClick={cancelRequest}>Cancel Request</button>
+                </div>
             </div>
-        </div>
-    );
+        );
+
 
     const confirmationModal = managerPermissions && showConfirm && (
         <div className='confirm-modal padding'>
@@ -166,7 +172,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                     <div className={`dot ${requestDetails.decided ? (requestDetails.accepted ? 'green' : 'red') : 'grey'}`}></div>
                     <div className={`dot ${requestDetails.taken ? 'green' : (requestDetails.cancelled ? 'red' : 'grey')}`}></div>
                 </div>
-                
+
 
                 <div className='paddings flexColCenter innerWidth'>
                     {/* First Section */}
