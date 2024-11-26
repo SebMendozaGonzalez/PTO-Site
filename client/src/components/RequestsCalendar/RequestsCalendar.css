@@ -38,7 +38,7 @@
 .right-side {
     display: flex;
     align-items: center;
-    min-width: 3rem;
+    min-width: 4rem;
     justify-content: flex-end;
     flex-shrink: 0;
     flex-basis: 30%;
