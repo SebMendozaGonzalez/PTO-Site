@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
+import Dots from '../Dots/Dots';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './RequestsCalendar.css';
 
@@ -79,9 +80,8 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
 
       <div className="right-side">
         <span className="event-type">{event.type}</span>
-        <div className="dots">
-          <div className={`dot ${event.decided ? (event.accepted ? 'green' : 'red') : 'grey'}`}></div>
-          <div className={`dot ${event.taken ? 'green' : (event.cancelled ? 'red' : 'grey')}`}></div>
+        <div className="dots-container">
+          <Dots requestDetails={event} />
         </div>
       </div>
     </div>

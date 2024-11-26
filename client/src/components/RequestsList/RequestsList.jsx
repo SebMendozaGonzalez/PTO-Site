@@ -6,6 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { ListItemIcon } from '@mui/material';
+import Dots from '../Dots/Dots';
 import './RequestsList.css';
 
 
@@ -46,9 +47,8 @@ function RequestsList({ employee_id, onClickRequest }) {
                                 <ListItem button onClick={() => onClickRequest(request)}
                                     secondaryAction={
                                         <ListItemIcon edge="end">
-                                            <div className="dots-container" style={{ display: 'flex' }}>
-                                                <div className={`dot ${request.decided ? (request.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                                                <div className={`dot ${request.taken ? 'green' : (request.cancelled ? 'red' : 'grey')}`}></div>
+                                            <div className="dots-container">
+                                                <Dots requestDetails={request} />
                                             </div>
                                         </ListItemIcon>
                                     }>
