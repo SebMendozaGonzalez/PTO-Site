@@ -113,13 +113,17 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
     const cancellationButton = employeePermissions &&
         ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided) &&
         !requestDetails.cancelled &&
-        requestDetails.start_date > today && ( 
-            <div className='fourth padding flexCenter innerWidth'>
-                <div className='left'>
-                    <button className='decision-button' onClick={cancelRequest}>Cancel Request</button>
+        requestDetails.start_date > today && (() => {
+            console.log(requestDetails.start_date, today, requestDetails.start_date > today);
+            return (
+                <div className='fourth padding flexCenter innerWidth'>
+                    <div className='left'>
+                        <button className='decision-button' onClick={cancelRequest}>Cancel Request</button>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        })();
+
 
 
     const confirmationModal = managerPermissions && showConfirm && (
