@@ -21,40 +21,18 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        // Fetch all requests
-        const response = await fetch('/requests-info');
-        const requestData = await response.json();
-
-        // Filter requests by leader email, if provided
-        const filteredRequests = requestData.filter(request =>
+    fetch('/requests-info')
+      .then(response => response.json())
+      .then(data => {
+        const filteredData = data.filter(request =>
           !filterLeaderEmail || request.leader_email?.includes(filterLeaderEmail)
         );
 
-        // Fetch employee info for each request and merge the data
-        const requestsWithEmployeeInfo = await Promise.all(
-          filteredRequests.map(async request => {
-            const employeeResponse = await fetch(`/employee-info/${request.employee_id}`);
-            const employeeData = await employeeResponse.json();
-
-            // Merge employee data into the request
-            const employeeInfo = employeeData.length > 0 ? employeeData[0] : {};
-            return {
-              ...request,
-              name: employeeInfo.name || request.name,
-              leader_email: employeeInfo.leader_email || request.leader_email,
-              department: employeeInfo.department || 'Unknown',
-            };
-          })
-        );
-
-        // Convert merged data into calendar events
         const events = [];
-        requestsWithEmployeeInfo.forEach(request => {
+
+        filteredData.forEach(request => {
           const startDate = new Date(request.start_date);
           const endDate = new Date(request.end_date);
-
           for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
             events.push({
               name: request.name,
@@ -68,20 +46,14 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
               cancelled: request.cancelled,
               taken: request.taken,
               requestId: request.request_id,
-              leaderEmail: request.leader_email,
-              department: request.department,
               details: request,
             });
           }
         });
 
         setRequests(events);
-      } catch (err) {
-        console.error('Error fetching requests:', err);
-      }
-    };
-
-    fetchRequests();
+      })
+      .catch(err => console.error('Error fetching requests:', err));
   }, [employee_id, filterLeaderEmail]);
 
   const eventStyleGetter = event => {
@@ -104,7 +76,8 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
 
   const Event = ({ event }) => (
     <div className="event">
-      <span className="event-title">{event.name}</span>
+      <span className="event-title">{event.name}          .</span>
+
       <div className="right-side">
         <span className="event-type">{event.type}</span>
         <div>
