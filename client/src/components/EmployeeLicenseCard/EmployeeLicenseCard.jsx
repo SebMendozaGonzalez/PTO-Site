@@ -50,12 +50,20 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
     };
 
     const handleSubmit = async () => {
+        // Basic validation for mandatory fields
         if (!formData.start_date || !formData.end_date || !formData.type) {
             alert('Please fill in all mandatory fields.');
             return;
         }
 
+        // Debugging: Log the payload to ensure it includes all fields
+        console.log('Submitting the following payload:', {
+            ...formData,
+            is_exception: false,
+        });
+
         try {
+            // API call to submit license request
             const requestResponse = await fetch('/request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -65,20 +73,28 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                 }),
             });
 
-            if (!requestResponse.ok) throw new Error('Failed to submit license request');
+            if (!requestResponse.ok) {
+                console.error('Failed to submit license request:', await requestResponse.text());
+                throw new Error('Failed to submit license request');
+            }
+
             const newRequest = await requestResponse.json();
 
+            // API call to automatically accept the license
             const decideResponse = await fetch('/decide-request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     request_id: newRequest.request_id,
-                    accepted: String(true),
+                    accepted: true,
                     rejection_reason: null,
                 }),
             });
 
-            if (!decideResponse.ok) throw new Error('Failed to accept the license');
+            if (!decideResponse.ok) {
+                console.error('Failed to accept the license:', await decideResponse.text());
+                throw new Error('Failed to accept the license');
+            }
 
             alert('License successfully created and accepted!');
             onClose();
@@ -87,6 +103,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             alert('An error occurred while processing the license request.');
         }
     };
+
 
     return (
         <Dialog open={true} onClose={onClose} fullWidth>
