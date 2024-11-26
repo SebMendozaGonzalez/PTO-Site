@@ -113,8 +113,8 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
     const cancellationButton = employeePermissions &&
         ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided) &&
         !requestDetails.cancelled &&
-        requestDetails.start_date > today && (() => {
-            console.log(requestDetails.start_date, today, requestDetails.start_date > today);
+        new Date(requestDetails.start_date).toLocaleDateString() > today && (() => {
+            console.log(new Date(requestDetails.start_date).toLocaleDateString(), today, new Date(requestDetails.start_date).toLocaleDateString() > today);
             return (
                 <div className='fourth padding flexCenter innerWidth'>
                     <div className='left'>
