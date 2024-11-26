@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './RequestView.css';
+import Dots from '../Dots/Dots';
 
 function RequestView({ requestDetails, onClose, managerPermissions, employeePermissions }) {
     const [showConfirm, setShowConfirm] = useState(false);
@@ -172,8 +173,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                 <button className='close-btn' onClick={onClose}>✕</button>
 
                 <div className="dots-container">
-                    <div className={`dot ${requestDetails.decided ? (requestDetails.accepted ? 'green' : 'red') : 'grey'}`}></div>
-                    <div className={`dot ${requestDetails.taken ? 'green' : (requestDetails.cancelled ? 'red' : 'grey')}`}></div>
+                    <Dots requestDetails={requestDetails}/>
                 </div>
 
 
