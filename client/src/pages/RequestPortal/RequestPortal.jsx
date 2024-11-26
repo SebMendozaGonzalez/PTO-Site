@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './RequestPortal.css';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 
@@ -12,13 +12,42 @@ const RequestPortal = () => {
         end_date: '',
         explanation: '',
         is_exception: 0,
-        employee_id: employee_id || ''
+        employee_id: employee_id || '',
+        name: '',
+        leader_email: '',
+        department: ''
     });
 
     const [responseMessage, setResponseMessage] = useState('');
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Fetch employee details based on employee_id
+    useEffect(() => {
+        const fetchEmployeeDetails = async () => {
+            if (!formData.employee_id) return;
+
+            try {
+                const response = await fetch(`/employee-info/${formData.employee_id}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch employee details: ${response.statusText}`);
+                }
+
+                const [employeeData] = await response.json(); // Assuming a single record is returned
+                setFormData((prev) => ({
+                    ...prev,
+                    name: employeeData.name || '',
+                    leader_email: employeeData.leader_email || '',
+                    department: employeeData.department || ''
+                }));
+            } catch (err) {
+                setError(err.message);
+                console.error('Error fetching employee details:', err);
+            }
+        };
+
+        fetchEmployeeDetails();
+    }, [formData.employee_id]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -30,7 +59,7 @@ const RequestPortal = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isSubmitting) return; 
+        if (isSubmitting) return;
         setIsSubmitting(true);
 
         try {
@@ -39,14 +68,11 @@ const RequestPortal = () => {
             const endDate = new Date(formData.end_date).toISOString().split('T')[0];
 
             console.log('Submitting request with data:', {
-                type: formData.type || formData.type,
+                ...formData,
                 start_date: startDate,
-                end_date: endDate,
-                explanation: formData.explanation,
-                employee_id: formData.employee_id,
-                is_exception: formData.is_exception
+                end_date: endDate
             });
-            
+
             // Make the API call to upload the request
             const response = await fetch('/request', {
                 method: 'POST',
@@ -54,17 +80,14 @@ const RequestPortal = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    type: formData.type || formData.type,
+                    ...formData,
                     start_date: startDate,
-                    end_date: endDate,
-                    explanation: formData.explanation,
-                    employee_id: formData.employee_id,
-                    is_exception: formData.is_exception
+                    end_date: endDate
                 })
             });
 
-            const responseData = await response.json();  // Capture the response
-            console.log('Response:', responseData);  // Log the response
+            const responseData = await response.json(); // Capture the response
+            console.log('Response:', responseData);
 
             if (!response.ok) {
                 throw new Error('Failed to submit request: ' + response.statusText);
@@ -76,7 +99,11 @@ const RequestPortal = () => {
                 start_date: '',
                 end_date: '',
                 explanation: '',
-                employee_id: ''
+                is_exception: 0,
+                employee_id: '',
+                name: '',
+                leader_email: '',
+                department: ''
             });
 
             // Redirect to employee portal after successful submission
@@ -84,7 +111,7 @@ const RequestPortal = () => {
         } catch (err) {
             setError('Failed to submit request: ' + err.message);
         } finally {
-            setIsSubmitting(false); // Reset submitting state
+            setIsSubmitting(false);
         }
     };
 
@@ -139,6 +166,37 @@ const RequestPortal = () => {
                         <label>End Date:</label>
                         <input type="date" name="end_date" value={formData.end_date} onChange={handleChange} required />
                     </div>
+                </div>
+
+                <div className='flexColStart pack'>
+                    <label>Employee Name:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        readOnly
+                        className="blocked-input"
+                    />
+                </div>
+                <div className='flexColStart pack'>
+                    <label>Leader Email:</label>
+                    <input
+                        type="email"
+                        name="leader_email"
+                        value={formData.leader_email}
+                        readOnly
+                        className="blocked-input"
+                    />
+                </div>
+                <div className='flexColStart pack'>
+                    <label>Department:</label>
+                    <input
+                        type="text"
+                        name="department"
+                        value={formData.department}
+                        readOnly
+                        className="blocked-input"
+                    />
                 </div>
 
                 <div className='flexColStart explanation'>
