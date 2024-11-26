@@ -194,27 +194,3 @@
     display: flex;
     gap: 0.2rem;
 }
-
-.dot {
-    width: 0.6rem;
-    height: 0.6rem; 
-    border-radius: 50%;
-    background-color: lightgray;
-    transition: background-color 0.3s ease;
-}
-
-.dot.grey {
-    background-color: #cccccc;
-}
-
-.dot.yellow {
-    background-color: #f79e00;
-}
-
-.dot.green {
-    background-color: #39850e;
-}
-
-.dot.red {
-    background-color: #a10b00;
-}
