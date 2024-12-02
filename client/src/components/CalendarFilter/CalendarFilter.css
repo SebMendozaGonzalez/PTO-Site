@@ -23,8 +23,12 @@
     background-color: white;
     padding: 0.5rem 1rem;
     border-radius: 4px;
+    color: #9e9e9e; 
   }
-  
+  .calendar-filter .MuiSelect-root:not(:empty) {
+    color: #000;
+  }
+
   .calendar-filter .MuiMenuItem-root {
     padding: 0.5rem 1rem;
   }

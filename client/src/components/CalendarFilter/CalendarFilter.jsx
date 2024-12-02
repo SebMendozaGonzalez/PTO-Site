@@ -77,7 +77,9 @@ function CalendarFilter({ employee_id, onFilterChange }) {
         multiple
         value={selectedTypes}
         onChange={handleTypeChange}
-        renderValue={selected => selected.join(', ')}
+        renderValue={selected => 
+          selected.length > 0 ? selected.join(', ') : 'Filter by Type'
+        }
       >
         {requestTypes.map(type => (
           <MenuItem key={type} value={typeMapping[type]}>
