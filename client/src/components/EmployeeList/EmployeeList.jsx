@@ -24,8 +24,13 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
         const fetchEmployees = async () => {
             setEmployees([]);
             setError('');
+
             try {
-                const response = await axios.get('/employees-info');
+                // Fetch employees by leader email
+                const response = filterLeaderEmail
+                    ? await axios.get(`/employees-by-leader/${filterLeaderEmail}`)
+                    : await axios.get('/employees-info');
+
                 if (response.data.length > 0) {
                     setEmployees(response.data);
                 } else {
@@ -36,24 +41,19 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                 console.error(err);
             }
         };
+
         fetchEmployees();
-    }, []);
+    }, [filterLeaderEmail]);
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
+
     const filteredEmployees = employees
         .filter(employee =>
             employee.name.toLowerCase().includes(searchQuery.toLowerCase())
         )
-        .filter(employee =>
-            filterLeaderEmail
-                ? employee.leader_email?.toLowerCase().includes(filterLeaderEmail.toLowerCase())
-                : true
-        )
-        .filter(employee =>
-            employee.active === true
-        );
+        .filter(employee => employee.active === true);
 
     const handleSelectEmployee = (employee) => {
         setSelectedEmployee(employee);
@@ -62,7 +62,6 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
 
     return (
         <div className="employee-list-container paddings">
-
             <div className="employee-list">
                 <Box
                     className="search-bar-container"
@@ -93,7 +92,6 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                         </IconButton>
                     )}
                 </Box>
-
 
                 <Box
                     sx={{
@@ -150,7 +148,6 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                                                     </div>
                                                 )}
                                             </div>
-
                                         }
                                     >
                                         <Avatar
@@ -185,12 +182,11 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
 
             <div className="profile">
                 {selectedEmployee ? (
-                    <EmployeeProfile selectedEmployee={selectedEmployee}/>
+                    <EmployeeProfile selectedEmployee={selectedEmployee} />
                 ) : (
                     <Typography>Select an employee to view details</Typography>
                 )}
             </div>
-
         </div>
     );
 }
