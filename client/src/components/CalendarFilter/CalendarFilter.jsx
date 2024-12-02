@@ -106,7 +106,7 @@ function CalendarFilter({ employee_id, onFilterChange }) {
   return (
     <Box className="calendar-filter" display="flex" flexDirection="row" flexWrap="wrap" gap={2}>
       {filterOptions.map(({ label, key }) => {
-        const isTypeFilter = key === 'type';
+        //const isTypeFilter = key === 'type';
         const value = key === 'type' ? selectedTypes :
                       key === 'decided' ? selectedDecisions :
                       selectedAcceptances;
