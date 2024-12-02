@@ -21,15 +21,28 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    fetch('/requests-info')
-      .then(response => response.json())
-      .then(data => {
-        const filteredData = data.filter(request =>
-          !filterLeaderEmail || request.leader_email?.includes(filterLeaderEmail)
-        );
+    const fetchRequests = async () => {
+      try {
+        let employeeIds = null;
 
+        // Step 1: Fetch employees under the leader (if filterLeaderEmail is provided)
+        if (filterLeaderEmail) {
+          const employeeResponse = await fetch(`/employees-by-leader/${filterLeaderEmail}`);
+          const employees = await employeeResponse.json();
+          employeeIds = employees.map(emp => emp.employee_id);
+        }
+
+        // Step 2: Fetch all requests
+        const requestsResponse = await fetch('/requests-info');
+        const requestsData = await requestsResponse.json();
+
+        // Step 3: Filter requests if employeeIds is available
+        const filteredData = employeeIds
+          ? requestsData.filter(request => employeeIds.includes(request.employee_id))
+          : requestsData;
+
+        // Step 4: Map requests to calendar events
         const events = [];
-
         filteredData.forEach(request => {
           const startDate = new Date(request.start_date);
           const endDate = new Date(request.end_date);
@@ -52,8 +65,12 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
         });
 
         setRequests(events);
-      })
-      .catch(err => console.error('Error fetching requests:', err));
+      } catch (error) {
+        console.error('Error fetching requests:', error);
+      }
+    };
+
+    fetchRequests();
   }, [employee_id, filterLeaderEmail]);
 
   const eventStyleGetter = event => {
@@ -76,8 +93,7 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
 
   const Event = ({ event }) => (
     <div className="event">
-      <span className="event-title">{event.name}          .</span>
-
+      <span className="event-title">{event.name}</span>
       <div className="right-side">
         <span className="event-type">{event.type}</span>
         <div>
@@ -100,7 +116,7 @@ function RequestsCalendar({ employee_id, onEventSelect, filterLeaderEmail }) {
         components={{
           event: Event,
         }}
-        showAllEvents={true} // Enable scrollable date cells
+        showAllEvents={true}
         onSelectEvent={event => onEventSelect(event.details)}
       />
     </div>
