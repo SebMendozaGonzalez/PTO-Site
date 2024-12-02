@@ -1,0 +1,39 @@
+.calendar-filter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9; /* Light grey background */
+    border: 1px solid #e0e0e0; /* Subtle border */
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 1rem;
+  }
+  
+  .calendar-filter select {
+    min-width: 200px;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+  }
+  
+  .calendar-filter .MuiSelect-root {
+    background-color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+  }
+  
+  .calendar-filter .MuiMenuItem-root {
+    padding: 0.5rem 1rem;
+  }
+  
+  .calendar-filter .MuiCheckbox-root {
+    color: #0b49c5; /* Custom checkbox color */
+  }
+  
+  .calendar-filter .MuiCheckbox-root.Mui-checked {
+    color: #0b49c5; /* Custom checked color */
+  }
+  
