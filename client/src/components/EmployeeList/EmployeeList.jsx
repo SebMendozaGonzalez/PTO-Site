@@ -11,7 +11,7 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Divider from '@mui/material/Divider';
 import { Avatar, Typography, TextField } from '@mui/material';
-import EmployeeProfile from '../EmployeeProfile/EmployeeProfile'
+import EmployeeProfile from '../EmployeeProfile/EmployeeProfile';
 import './EmployeeList.css';
 
 function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDeleteClick, onAddClick, hasPermissions, onLicenseClick }) {
@@ -55,10 +55,9 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
             employee.active === true
         );
 
-
     const handleSelectEmployee = (employee) => {
         setSelectedEmployee(employee);
-        onEmployeeSelect(employee); // Pass selected employee to parent
+        onEmployeeSelect(employee);
     };
 
     return (
