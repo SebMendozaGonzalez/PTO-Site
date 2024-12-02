@@ -1,5 +1,9 @@
 import React from 'react'
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import { Avatar, Typography } from '@mui/material';
 import './EmployeeProfile.css'
+
 
 function EmployeeProfile(selectedEmployee) {
     return (
