@@ -130,16 +130,16 @@ function CalendarFilter({ employee_id, onFilterChange }) {
                   <ListItemText primary={type} />
                 </MenuItem>
               )) : 
-              key === 'decided' ? [0, 1].map(val => (
+              key === 'decided' ? [false, true].map(val => (
                 <MenuItem key={val} value={val}>
                   <Checkbox checked={value.includes(val)} />
-                  <ListItemText primary={val === 0 ? 'Undecided' : 'Decided'} />
+                  <ListItemText primary={val === false ? 'Undecided' : 'Decided'} />
                 </MenuItem>
               )) : 
-              [0, 1].map(val => (
+              [false, true].map(val => (
                 <MenuItem key={val} value={val}>
                   <Checkbox checked={value.includes(val)} />
-                  <ListItemText primary={val === 0 ? 'Not Accepted' : 'Accepted'} />
+                  <ListItemText primary={val === false ? 'Not Accepted' : 'Accepted'} />
                 </MenuItem>
               ))}
             </Select>
