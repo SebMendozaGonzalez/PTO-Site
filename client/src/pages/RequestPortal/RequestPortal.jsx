@@ -168,7 +168,7 @@ const RequestPortal = () => {
                     </div>
                 </div>
                 <div className='flexColStart explanation'>
-                    <label>Explanation:</label>
+                    <label>Explanation (optional):</label>
                     <textarea name="explanation" value={formData.explanation} onChange={handleChange}></textarea>
                 </div>
 

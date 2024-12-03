@@ -156,7 +156,7 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
             value: val,
           })),
           accepted: [false, true].map(val => ({
-            label: val ? 'Accepted' : 'Not Accepted',
+            label: val ? 'Accepted' : 'Denied',
             value: val,
           })),
           department: departmentOptions.map(dep => ({

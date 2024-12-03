@@ -26,7 +26,7 @@ function RequestsList({ employee_id, onClickRequest }) {
                     setError('No requests found for this employee.');
                 }
             } catch (err) {
-                setError('Failed to fetch requests');
+                setError('No requests were found');
                 console.error(err);
             }
         };
@@ -73,6 +73,7 @@ function RequestsList({ employee_id, onClickRequest }) {
                         !error && <p style={{ color: '#b6b6b6' }}>Searching for requests...</p>
                     )}
                 </List>
+                <span>Not seeing a request reflected in here? Refresh the page! They may take a little to appear.</span>
             </Box>
         </div>
     );
