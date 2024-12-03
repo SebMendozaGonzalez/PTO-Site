@@ -60,7 +60,7 @@ function LeaderPortal() {
 
         <div className='innerWidth paddings'>
           <EmployeeList
-            filterLeaderEmail={isSearchEnabled ? filterLeaderEmail : ''}
+            filterLeaderEmail={filterLeaderEmail}
             onEmployeeSelect={handleEmployeeSelect}
             hasPermissions={false}
             onLicenseClick={handleLicenseClick} // Add license functionality
@@ -82,7 +82,7 @@ function LeaderPortal() {
           <RequestsCalendar
             employee_id={selectedEmployee.employee_id}
             onEventSelect={handleEventSelect}
-            filterLeaderEmail={isSearchEnabled ? filterLeaderEmail : ''}
+            filterLeaderEmail={filterLeaderEmail}
           />
         )}
 
