@@ -63,6 +63,7 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
           type: typeMapping[request.type],
           start: new Date(request.start_date),
           end: new Date(request.end_date),
+          allDay: true,
           employeeId: request.employee_id,
           accepted: request.accepted,
           decided: request.decided,
@@ -83,74 +84,53 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
     fetchRequestsAndEmployees();
   }, [filterLeaderEmail, onFilterChange]);
 
-  const applyFilters = (types, decisions, acceptances, departments, employees) => {
-    return requests.filter(request => {
-      const typeMatch = !types.length || types.includes(request.type);
-      const decisionMatch = !decisions.length || decisions.includes(request.decided);
-      const acceptanceMatch = !acceptances.length || acceptances.includes(request.accepted);
-      const departmentMatch = !departments.length || departments.includes(request.department);
-      const employeeMatch = !employees.length || employees.includes(request.employeeId);
-      return typeMatch && decisionMatch && acceptanceMatch && departmentMatch && employeeMatch;
-    });
+  const handleFilterChange = (key, value) => {
+    const setters = {
+      type: setSelectedTypes,
+      decided: setSelectedDecisions,
+      accepted: setSelectedAcceptances,
+      department: setSelectedDepartments,
+      employee: setSelectedEmployees,
+    };
+    setters[key](value);
+    onFilterChange(applyFilters({ ...filters, [key]: value }));
   };
 
-  const handleFilterChange = (key, value) => {
-    switch (key) {
-      case 'type':
-        setSelectedTypes(value);
-        break;
-      case 'decided':
-        setSelectedDecisions(value);
-        break;
-      case 'accepted':
-        setSelectedAcceptances(value);
-        break;
-      case 'department':
-        setSelectedDepartments(value);
-        break;
-      case 'employee':
-        setSelectedEmployees(value);
-        break;
-      default:
-        break;
-    }
+  const filters = {
+    type: selectedTypes,
+    decided: selectedDecisions,
+    accepted: selectedAcceptances,
+    department: selectedDepartments,
+    employee: selectedEmployees,
+  };
 
-    onFilterChange(
-      applyFilters(
-        key === 'type' ? value : selectedTypes,
-        key === 'decided' ? value : selectedDecisions,
-        key === 'accepted' ? value : selectedAcceptances,
-        key === 'department' ? value : selectedDepartments,
-        key === 'employee' ? value : selectedEmployees
-      )
-    );
+  const applyFilters = filters => {
+    return requests.filter(request => {
+      const typeMatch = !filters.type.length || filters.type.includes(request.type);
+      const decisionMatch = !filters.decided.length || filters.decided.includes(request.decided);
+      const acceptanceMatch = !filters.accepted.length || filters.accepted.includes(request.accepted);
+      const departmentMatch = !filters.department.length || filters.department.includes(request.department);
+      const employeeMatch =
+        !filters.employee.length || filters.employee.some(emp => emp.employee_id === request.employeeId);
+      return typeMatch && decisionMatch && acceptanceMatch && departmentMatch && employeeMatch;
+    });
   };
 
   return (
     <Box className="calendar-filter" display="flex" flexDirection="row" flexWrap="wrap" gap={2}>
       {filterOptions.map(({ label, key }) => {
-        const value =
-          key === 'type'
-            ? selectedTypes
-            : key === 'decided'
-            ? selectedDecisions
-            : key === 'accepted'
-            ? selectedAcceptances
-            : key === 'department'
-            ? selectedDepartments
-            : selectedEmployees;
-
+        const value = filters[key];
         const options =
-          key === 'employee'
-            ? employees.map(emp => ({ label: emp.name, value: emp.employee_id }))
-            : key === 'type'
+          key === 'type'
             ? requestTypes.map(type => ({ label: type, value: typeMapping[type] }))
             : key === 'decided' || key === 'accepted'
-            ? [
-                { label: 'Yes', value: true },
-                { label: 'No', value: false },
-              ]
-            : departmentOptions.map(department => ({ label: department, value: department }));
+            ? [false, true].map(val => ({
+                label: val ? (key === 'decided' ? 'Decided' : 'Accepted') : (key === 'decided' ? 'Undecided' : 'Not Accepted'),
+                value: val,
+              }))
+            : key === 'department'
+            ? departmentOptions.map(dept => ({ label: dept, value: dept }))
+            : employees.map(emp => ({ label: emp.name, value: emp }));
 
         return (
           <Box key={key} flex={1} minWidth="200px">
@@ -158,21 +138,15 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
             <Select
               multiple
               value={value}
-              onChange={event => handleFilterChange(key, event.target.value)}
+              onChange={e => handleFilterChange(key, e.target.value)}
               renderValue={selected =>
-                Array.isArray(selected) && selected.length
-                  ? selected
-                      .map(sel =>
-                        options.find(option => option.value === sel)?.label || sel
-                      )
-                      .join(', ')
-                  : `Select ${label}`
+                selected.map(opt => (opt.name ? opt.name : opt)).join(', ') || `Select ${label}`
               }
               fullWidth
             >
               {options.map(({ label, value }) => (
-                <MenuItem key={value} value={value}>
-                  <Checkbox checked={Array.isArray(value) && value.includes(value)} />
+                <MenuItem key={label} value={value}>
+                  <Checkbox checked={Array.isArray(value) ? value.includes(value) : value} />
                   <ListItemText primary={label} />
                 </MenuItem>
               ))}
