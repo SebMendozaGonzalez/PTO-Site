@@ -41,7 +41,8 @@ function CalendarFilter({ employee_id, onFilterChange, filterLeaderEmail }) {
     const fetchRequests = async () => {
       try {
         // Step 1: Query /employees-by-leader
-        const leaderResponse = await fetch(`/employees-by-leader/${filterLeaderEmail}`);
+        const leaderResponse = filterLeaderEmail ? await fetch(`/employees-by-leader/${filterLeaderEmail}`) 
+                                                : await fetch('/employees-info');
         const leaderData = await leaderResponse.json();
         const employeeIds = leaderData.map(row => row.employee_id);
 
