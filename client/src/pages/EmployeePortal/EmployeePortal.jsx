@@ -22,14 +22,16 @@ function EmployeePortal() {
         try {
           const response = await axios.get(`/email_id/${filterEmail}`);
           setEmployeeId(response.data.employee_id);
+          console.log('response.data.employee_id', response.data.employee_id)
+          console.log('response.data', response.data)
         } catch (error) {
           console.error("Error fetching employee ID:", error);
-          setEmployeeId(''); // Clear employee ID if not found or error occurs
+          setEmployeeId('');
         }
       };
       fetchEmployeeId();
     } else if (!isSearchEnabled) {
-      setEmployeeId(''); // Ensure employeeId is reset if search is disabled
+      setEmployeeId('');
     }
   }, [filterEmail, isSearchEnabled]);
 
@@ -42,6 +44,7 @@ function EmployeePortal() {
   };
 
   console.log('id Enviado: ', employeeId);
+  
 
   return (
     <div className="employee-portal">
