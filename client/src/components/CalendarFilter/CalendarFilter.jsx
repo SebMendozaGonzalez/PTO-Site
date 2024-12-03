@@ -23,6 +23,7 @@ const filterOptions = [
   { label: 'Filter for Decision', key: 'decided' },
   { label: 'Filter for Acceptance', key: 'accepted' },
   { label: 'Filter for Department', key: 'department' },
+  { label: 'Filter for Employee', key: 'employee' }, // Added filter for employees
 ];
 
 const departmentOptions = [
@@ -30,27 +31,32 @@ const departmentOptions = [
   'Marketing', 'Servicing', 'Payment', 'Odonaga', 'TBI', 'SCOF',
 ];
 
-function CalendarFilter({ employee_id, onFilterChange, filterLeaderEmail }) {
+function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
   const [requests, setRequests] = useState([]);
+  const [employees, setEmployees] = useState([]); // Store employees
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedDecisions, setSelectedDecisions] = useState([]);
   const [selectedAcceptances, setSelectedAcceptances] = useState([]);
   const [selectedDepartments, setSelectedDepartments] = useState([]);
+  const [selectedEmployees, setSelectedEmployees] = useState([]); // Track selected employees
 
   useEffect(() => {
-    const fetchRequests = async () => {
+    const fetchRequestsAndEmployees = async () => {
       try {
-        // Step 1: Query /employees-by-leader
-        const leaderResponse = filterLeaderEmail ? await fetch(`/employees-by-leader/${filterLeaderEmail}`) 
-                                                : await fetch('/employees-info');
+        // Step 1: Query /employees-by-leader or /employees-info
+        const leaderResponse = filterLeaderEmail
+          ? await fetch(`/employees-by-leader/${filterLeaderEmail}`)
+          : await fetch('/employees-info');
         const leaderData = await leaderResponse.json();
+        setEmployees(leaderData); // Save employees
+
         const employeeIds = leaderData.map(row => row.employee_id);
 
         // Step 2: Query /requests-info
         const requestsResponse = await fetch('/requests-info');
         const requestsData = await requestsResponse.json();
 
-        // Step 3: Filter requests by employee_id in X
+        // Step 3: Filter requests by employee_id in leaderData
         const filteredRequests = requestsData.filter(request =>
           employeeIds.includes(request.employee_id)
         );
@@ -86,40 +92,49 @@ function CalendarFilter({ employee_id, onFilterChange, filterLeaderEmail }) {
       }
     };
 
-    fetchRequests();
+    fetchRequestsAndEmployees();
   }, [filterLeaderEmail, onFilterChange]);
 
   const handleTypeChange = event => {
     const { value } = event.target;
     setSelectedTypes(value);
-    onFilterChange(applyFilters(value, selectedDecisions, selectedAcceptances, selectedDepartments));
+    onFilterChange(applyFilters(value, selectedDecisions, selectedAcceptances, selectedDepartments, selectedEmployees));
   };
 
   const handleDecisionChange = event => {
     const { value } = event.target;
     setSelectedDecisions(value);
-    onFilterChange(applyFilters(selectedTypes, value, selectedAcceptances, selectedDepartments));
+    onFilterChange(applyFilters(selectedTypes, value, selectedAcceptances, selectedDepartments, selectedEmployees));
   };
 
   const handleAcceptanceChange = event => {
     const { value } = event.target;
     setSelectedAcceptances(value);
-    onFilterChange(applyFilters(selectedTypes, selectedDecisions, value, selectedDepartments));
+    onFilterChange(applyFilters(selectedTypes, selectedDecisions, value, selectedDepartments, selectedEmployees));
   };
 
   const handleDepartmentChange = event => {
     const { value } = event.target;
     setSelectedDepartments(value);
-    onFilterChange(applyFilters(selectedTypes, selectedDecisions, selectedAcceptances, value));
+    onFilterChange(applyFilters(selectedTypes, selectedDecisions, selectedAcceptances, value, selectedEmployees));
   };
 
-  const applyFilters = (types, decisions, acceptances, departments) => {
+  const handleEmployeeChange = event => {
+    const { value } = event.target;
+    setSelectedEmployees(value);
+    onFilterChange(applyFilters(selectedTypes, selectedDecisions, selectedAcceptances, selectedDepartments, value));
+  };
+
+  const applyFilters = (types, decisions, acceptances, departments, employees) => {
     return requests.filter(request => {
       const typeMatch = types.length ? types.includes(request.type) : true;
       const decisionMatch = decisions.length ? decisions.includes(request.decided) : true;
       const acceptanceMatch = acceptances.length ? acceptances.includes(request.accepted) : true;
       const departmentMatch = departments.length ? departments.includes(request.department) : true;
-      return typeMatch && decisionMatch && acceptanceMatch && departmentMatch;
+      const employeeMatch = employees.length
+        ? employees.some(emp => emp.employee_id === request.employeeId)
+        : true;
+      return typeMatch && decisionMatch && acceptanceMatch && departmentMatch && employeeMatch;
     });
   };
 
@@ -129,12 +144,28 @@ function CalendarFilter({ employee_id, onFilterChange, filterLeaderEmail }) {
         const value = key === 'type' ? selectedTypes :
                       key === 'decided' ? selectedDecisions :
                       key === 'accepted' ? selectedAcceptances :
-                      selectedDepartments;
+                      key === 'department' ? selectedDepartments :
+                      selectedEmployees;
 
         const handleChange = key === 'type' ? handleTypeChange :
                             key === 'decided' ? handleDecisionChange :
                             key === 'accepted' ? handleAcceptanceChange :
-                            handleDepartmentChange;
+                            key === 'department' ? handleDepartmentChange :
+                            handleEmployeeChange;
+
+        const options = key === 'employee' ? employees.map(emp => ({
+          label: emp.name,
+          value: emp,
+        })) : key === 'type' ? requestTypes.map(type => ({
+          label: type,
+          value: typeMapping[type],
+        })) : key === 'decided' || key === 'accepted' ? [false, true].map(val => ({
+          label: val ? (key === 'decided' ? 'Decided' : 'Accepted') : (key === 'decided' ? 'Undecided' : 'Not Accepted'),
+          value: val,
+        })) : departmentOptions.map(department => ({
+          label: department,
+          value: department,
+        }));
 
         return (
           <Box key={key} flex={1} minWidth="200px">
@@ -143,25 +174,13 @@ function CalendarFilter({ employee_id, onFilterChange, filterLeaderEmail }) {
               multiple
               value={value}
               onChange={handleChange}
-              renderValue={selected => selected.join(', ') || `Select ${label}`}
+              renderValue={selected => selected.map(opt => opt.name || opt).join(', ') || `Select ${label}`}
               fullWidth
             >
-              {key === 'type' ? requestTypes.map(type => (
-                <MenuItem key={type} value={typeMapping[type]}>
-                  <Checkbox checked={selectedTypes.includes(typeMapping[type])} />
-                  <ListItemText primary={type} />
-                </MenuItem>
-              )) : 
-              key === 'decided' || key === 'accepted' ? [false, true].map(val => (
-                <MenuItem key={val} value={val}>
-                  <Checkbox checked={value.includes(val)} />
-                  <ListItemText primary={val === false ? (key === 'decided' ? 'Undecided' : 'Not Accepted') : (key === 'decided' ? 'Decided' : 'Accepted')} />
-                </MenuItem>
-              )) : 
-              departmentOptions.map(department => (
-                <MenuItem key={department} value={department}>
-                  <Checkbox checked={value.includes(department)} />
-                  <ListItemText primary={department} />
+              {options.map(({ label, value }) => (
+                <MenuItem key={label} value={value}>
+                  <Checkbox checked={value.includes(value)} />
+                  <ListItemText primary={label} />
                 </MenuItem>
               ))}
             </Select>
