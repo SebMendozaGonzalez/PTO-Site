@@ -8,7 +8,7 @@ import './RequestsCalendar.css';
 
 const localizer = momentLocalizer(moment);
 
-function RequestsCalendar({ employee_id, onEventSelect }) {
+const RequestsCalendar = ({ employee_id, onEventSelect, filterLeaderEmail }) => {
   const [filteredRequests, setFilteredRequests] = useState([]);
 
   const eventStyleGetter = event => {
@@ -45,6 +45,7 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
     <div className="paddings request-calendar">
       <CalendarFilter
         employee_id={employee_id}
+        filterLeaderEmail={filterLeaderEmail}
         onFilterChange={setFilteredRequests}
       />
       <Calendar
@@ -63,6 +64,6 @@ function RequestsCalendar({ employee_id, onEventSelect }) {
       />
     </div>
   );
-}
+};
 
 export default RequestsCalendar;
