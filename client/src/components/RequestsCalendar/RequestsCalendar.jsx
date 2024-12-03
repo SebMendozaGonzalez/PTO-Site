@@ -55,7 +55,7 @@ const RequestsCalendar = ({ employee_id, onEventSelect, filterLeaderEmail }) => 
         endAccessor="end"
         style={{ height: 700, width: '77rem' }}
         eventPropGetter={eventStyleGetter}
-        views={['month', 'work_week']}
+        views={['month', 'day']}
         components={{
           event: Event,
         }}
