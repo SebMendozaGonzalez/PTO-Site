@@ -94,6 +94,12 @@ const RequestPortal = () => {
             }
 
             setResponseMessage('Request submitted successfully!');
+
+            // Close the success message after 3 seconds
+            setTimeout(() => {
+                setResponseMessage('');
+            }, 3000);
+
             setFormData({
                 type: '',
                 start_date: '',

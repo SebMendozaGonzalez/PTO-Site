@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Dialog, DialogContent, Box, Typography, TextField, Button } from '@mui/material';
+import { Dialog, DialogContent, Box, Typography, TextField, Button, Alert } from '@mui/material';
 import './EmployeeDeleteCard.css';
 
 function EmployeeDeleteCard({ onClose, onDelete, employee }) {
     const [step, setStep] = useState(1); // Step 1: Confirmation, Step 2: Termination Reason, Step 3: Termination Date
     const [terminationReason, setTerminationReason] = useState('');
     const [terminationDate, setTerminationDate] = useState(''); // State for termination date
+    const [showSuccess, setShowSuccess] = useState(false); // State for showing the success alert
 
     // Proceed to the next step
     const handleNextStep = () => {
@@ -41,7 +42,11 @@ function EmployeeDeleteCard({ onClose, onDelete, employee }) {
 
                 // Call the onDelete prop with the termination reason (Optional for parent component logic)
                 onDelete(terminationReason);
-                onClose(); // Close the dialog after successful deletion
+                setShowSuccess(true); // Show success notification
+                setTimeout(() => {
+                    setShowSuccess(false); // Close the notification after 3 seconds
+                    onClose(); // Close the dialog after successful deletion
+                }, 3000);
             } catch (error) {
                 alert('Error deleting employee: ' + error.message);
             }
@@ -54,6 +59,11 @@ function EmployeeDeleteCard({ onClose, onDelete, employee }) {
         <Dialog open={true} onClose={onClose} fullWidth>
             <DialogContent>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, padding: 2 }}>
+                    {showSuccess && (
+                        <Alert severity="success" sx={{ marginBottom: 2 }}>
+                            Employee successfully deleted!
+                        </Alert>
+                    )}
                     {step === 1 && (
                         <>
                             <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700 }}>
@@ -123,3 +133,4 @@ function EmployeeDeleteCard({ onClose, onDelete, employee }) {
 }
 
 export default EmployeeDeleteCard;
+

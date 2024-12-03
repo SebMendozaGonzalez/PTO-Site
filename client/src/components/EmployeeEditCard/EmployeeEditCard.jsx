@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogContent, Box, Avatar, TextField, Typography, Button, Divider } from '@mui/material';
+import { Dialog, DialogContent, Box, Avatar, TextField, Typography, Button, Divider, Alert } from '@mui/material';
 import './EmployeeEditCard.css';
 
 function EmployeeEditCard({ employee, onClose }) {
@@ -23,6 +23,7 @@ function EmployeeEditCard({ employee, onClose }) {
     emergency_name: employee.emergency_name || '',
     emergency_phone: employee.emergency_phone || '',
   });
+  const [showSuccess, setShowSuccess] = useState(false); // State for success notification
 
   // Handle field changes
   const handleChange = (e) => {
@@ -43,7 +44,11 @@ function EmployeeEditCard({ employee, onClose }) {
       });
 
       if (response.ok) {
-        onClose(); // Close the dialog after a successful update
+        setShowSuccess(true); // Show success notification
+        setTimeout(() => {
+          setShowSuccess(false); // Hide success notification after 3 seconds
+          onClose(); // Close the dialog after successful update
+        }, 3000);
       } else {
         console.error('Failed to update employee data');
       }
@@ -67,6 +72,12 @@ function EmployeeEditCard({ employee, onClose }) {
             padding: 2,
           }}
         >
+          {showSuccess && (
+            <Alert severity="success" sx={{ marginBottom: 2 }}>
+              Employee data successfully updated!
+            </Alert>
+          )}
+
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 2 }}>
             <Avatar
               alt={formData.name}
@@ -256,3 +267,4 @@ function EmployeeEditCard({ employee, onClose }) {
 }
 
 export default EmployeeEditCard;
+

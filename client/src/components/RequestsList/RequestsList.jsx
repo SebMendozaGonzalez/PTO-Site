@@ -73,7 +73,7 @@ function RequestsList({ employee_id, onClickRequest }) {
                         !error && <p style={{ color: '#b6b6b6' }}>Searching for requests...</p>
                     )}
                 </List>
-                <span>Not seeing a request reflected in here? Refresh the page! They may take a little to appear.</span>
+                <span>Not seeing a particular request in here? Refresh the page! They may take a little to appear.</span>
             </Box>
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, Box, TextField, Typography, Button, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
+import { Dialog, DialogContent, Box, TextField, Typography, Button, MenuItem, Select, InputLabel, FormControl, Snackbar } from '@mui/material';
 import { Divider } from '@mui/material';
 
 function EmployeeLicenseCard({ employeeId, onClose }) {
@@ -19,6 +19,8 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
     });
 
     const [loading, setLoading] = useState(true);
+    const [notificationOpen, setNotificationOpen] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState('');
 
     useEffect(() => {
         const fetchEmployeeDetails = async () => {
@@ -96,7 +98,9 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                 throw new Error('Failed to accept the license');
             }
 
-            alert('License successfully created and accepted!');
+            // Success notification
+            setNotificationMessage('License successfully created and accepted!');
+            setNotificationOpen(true);
             onClose();
         } catch (error) {
             console.error('Error submitting license:', error);
@@ -104,7 +108,10 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
         }
     };
 
-
+    // Handle Snackbar close
+    const handleNotificationClose = () => {
+        setNotificationOpen(false);
+    };
 
     return (
         <Dialog open={true} onClose={onClose} fullWidth>
@@ -200,6 +207,14 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                     </Box>
                 </Box>
             </DialogContent>
+
+            {/* Snackbar for success notification */}
+            <Snackbar
+                open={notificationOpen}
+                autoHideDuration={3000} // Automatically close after 3 seconds
+                onClose={handleNotificationClose}
+                message={notificationMessage}
+            />
         </Dialog>
     );
 }
