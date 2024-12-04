@@ -60,8 +60,8 @@ function RequestsList({ employee_id, onClickRequest }) {
                                         }
                                         secondary={
                                             <div className='flexColStart'>
-                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>Start Date:</strong> {new Date(request.start_date).toLocaleDateString()} </span>
-                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>End Date:</strong> {new Date(request.end_date).toLocaleDateString()} </span>
+                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>Start Date:</strong> {new Date(`${request.start_date}T00:00:00`).toLocaleDateString()} </span>
+                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>End Date:</strong> {new Date(`${request.end_date}T00:00:00`).toLocaleDateString()} </span>
                                             </div>
                                         }
                                     />
