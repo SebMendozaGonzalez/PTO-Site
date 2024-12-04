@@ -5,7 +5,7 @@ const { connectToDatabase } = require('../db/dbConfig');
 // Helper to bind inputs dynamically
 const bindInputs = (request, inputs) => {
     for (const [key, value] of Object.entries(inputs)) {
-        request.input(key, value);
+        request.input(key, value !== "" ? value : null); // Use `null` for empty strings
     }
 };
 
@@ -22,20 +22,20 @@ router.post('/', async (req, res) => {
     const {
         employee_id,
         name,
-        full_name,
-        date_of_birth,
-        position,
+        full_name = null,
+        date_of_birth = null,
+        position = null,
         leader_email,
-        company,
+        company = null,
         email_surgical,
-        email_quantum,
-        home_address,
-        phone_number,
-        emergency_contact,
-        emergency_name,
-        emergency_phone,
-        department,
-        start_date,
+        email_quantum = null,
+        home_address = null,
+        phone_number = null,
+        emergency_contact = null,
+        emergency_name = null,
+        emergency_phone = null,
+        department = null,
+        start_date
     } = req.body;
 
     // Validate required fields
