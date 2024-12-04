@@ -109,12 +109,17 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         </div>
     );
 
-    const today = new Date().toISOString().split('T')[0]; // Get today's date in 'yyyy-mm-dd' format
+    const today = new Date().toLocaleDateString('en-CA', { timeZone: 'UTC' }); // Get today's date in 'yyyy-mm-dd' format
+    
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
+    };
 
     const cancellationButton = employeePermissions &&
         ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided) &&
         !requestDetails.cancelled &&
-        new Date(requestDetails.start_date).toLocaleDateString() > today && (() => {
+        formatDate(requestDetails.start_date) > today && (() => {
             return (
                 <div className='fourth padding flexCenter innerWidth'>
                     <div className='left'>
@@ -160,12 +165,6 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
             {statusMessage.message}
         </div>
     );
-
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
-    };
-
 
     return (
         <div className='request-popup'>
