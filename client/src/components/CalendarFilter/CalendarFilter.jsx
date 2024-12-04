@@ -40,6 +40,12 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
 
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
+  };
+
   useEffect(() => {
     const fetchRequestsAndEmployees = async () => {
       try {
@@ -60,8 +66,8 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 
         const events = [];
         filteredRequests.forEach(request => {
-          const startDate = new Date(request.start_date);
-          const endDate = new Date(request.end_date);
+          const startDate = formatDate(request.start_date);
+          const endDate = formatDate(request.end_date);
           for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
             events.push({
               name: request.name,
@@ -134,6 +140,7 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
       return typeMatch && decisionMatch && acceptanceMatch && departmentMatch && employeeMatch;
     });
   };
+
 
   return (
     <Box className="calendar-filter" display="flex" flexDirection="row" flexWrap="wrap" gap={2}>
