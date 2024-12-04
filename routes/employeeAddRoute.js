@@ -49,18 +49,22 @@ router.post('/', async (req, res) => {
 
     try {
         const pool = await connectToDatabase();
-        const request = pool.request();
 
-        // Check existence in both tables
+        // Check existence in both tables using separate request objects
+        const rosterRequest = pool.request();
+        rosterRequest.input('employee_id', employee_id);
+
+        const vacationsRequest = pool.request();
+        vacationsRequest.input('employee_id', employee_id);
+
         const queries = {
             roster: 'SELECT COUNT(*) AS count FROM roster WHERE employee_id = @employee_id;',
             vacations: 'SELECT COUNT(*) AS count FROM vacations WHERE employee_id = @employee_id;'
         };
-        request.input('employee_id', employee_id);
 
         const [rosterResult, vacationsResult] = await Promise.all([
-            request.query(queries.roster),
-            request.query(queries.vacations)
+            rosterRequest.query(queries.roster),
+            vacationsRequest.query(queries.vacations)
         ]);
 
         const inRoster = rosterResult.recordset[0].count > 0;
@@ -107,15 +111,17 @@ router.post('/', async (req, res) => {
         // Insert into roster if needed
         if (!inRoster) {
             const rosterInsertQuery = constructInsertQuery('roster', rosterData);
-            bindInputs(request, rosterData);
-            await request.query(rosterInsertQuery);
+            const rosterRequest = pool.request(); // Create new request instance for roster insert
+            bindInputs(rosterRequest, rosterData);
+            await rosterRequest.query(rosterInsertQuery);
         }
 
         // Insert into vacations if needed
         if (!inVacations) {
             const vacationsInsertQuery = constructInsertQuery('vacations', vacationsData);
-            bindInputs(request, vacationsData);
-            await request.query(vacationsInsertQuery);
+            const vacationsRequest = pool.request(); // Create new request instance for vacations insert
+            bindInputs(vacationsRequest, vacationsData);
+            await vacationsRequest.query(vacationsInsertQuery);
         }
 
         res.status(201).json({ message: 'Employee data added or updated successfully.' });

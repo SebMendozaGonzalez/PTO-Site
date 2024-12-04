@@ -229,7 +229,6 @@ function EmployeeAddCard({ onClose }) {
             </Snackbar>
         </>
     );
-
 }
 
 export default EmployeeAddCard;
