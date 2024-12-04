@@ -36,6 +36,12 @@ function RequestsList({ employee_id, onClickRequest }) {
         }
     }, [employee_id]);
 
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
+    };
+
     return (
         <div className='paddings innerWidth requests-list'>
             <Box sx={{ width: '100%', bgcolor: '#f8f9fe', padding: 2, borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
@@ -60,8 +66,8 @@ function RequestsList({ employee_id, onClickRequest }) {
                                         }
                                         secondary={
                                             <div className='flexColStart'>
-                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>Start Date:</strong> {new Date(`${request.start_date}T00:00:00`).toLocaleDateString()} </span>
-                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>End Date:</strong> {new Date(`${request.end_date}T00:00:00`).toLocaleDateString()} </span>
+                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>Start Date:</strong> {formatDate(request.start_date)} </span>
+                                                <span className='textico-normal'> <strong className='fonts-secondary sub'>End Date:</strong> {formatDate(request.end_date)} </span>
                                             </div>
                                         }
                                     />

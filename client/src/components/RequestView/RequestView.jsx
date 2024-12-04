@@ -161,6 +161,10 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         </div>
     );
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
+    };
 
 
     return (
@@ -186,10 +190,10 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                             <div className='flexColCenter'>
                                 <span className='f1 flexColCenter'>{requestDetails.type || requestDetails.type}</span>
                                 <span className='f2'>
-                                    <strong>from: </strong>{new Date(`${requestDetails.start_date}T00:00:00`).toLocaleDateString()}
+                                    <strong>from: </strong>{formatDate(requestDetails.start_date)}
                                 </span>
                                 <span className='f2'>
-                                    <strong>to: </strong>{new Date(`${requestDetails.end_date}T00:00:00`).toLocaleDateString()}
+                                    <strong>to: </strong>{formatDate(requestDetails.end_date)}
                                 </span>
                             </div>
                         </div>
@@ -203,21 +207,21 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                     {/* Second Section */}
                     <div className='second padding flexColStart innerWidth'>
                         <span className='f3'>
-                            <strong>Requested on:  </strong>{new Date(`${requestDetails.request_date}T00:00:00`).toLocaleDateString()}
+                            <strong>Requested on:  </strong>{formatDate(requestDetails.request_date)}
                         </span>
                         {requestDetails.accepted && (
                             <span className='f3'>
-                                <strong>Accepted on:  </strong>{new Date(`${requestDetails.decision_date}T00:00:00`).toLocaleDateString()}
+                                <strong>Accepted on:  </strong>{formatDate(requestDetails.decision_date)}
                             </span>
                         )}
                         {requestDetails.decided && !requestDetails.accepted && (
                             <span className='f3'>
-                                <strong>Rejected on:  </strong>{new Date(`${requestDetails.decision_date}T00:00:00`).toLocaleDateString()}
+                                <strong>Rejected on:  </strong>{formatDate(requestDetails.decision_date)}
                             </span>
                         )}
                         {requestDetails.accepted && requestDetails.cancelled && (
                             <span className='f3'>
-                                <strong>Cancelled on:  </strong>{new Date(`${requestDetails.cancel_date}T00:00:00`).toLocaleDateString()}
+                                <strong>Cancelled on:  </strong>{formatDate(requestDetails.cancel_date)}
                             </span>
                         )}
                         {requestDetails.taken && (
