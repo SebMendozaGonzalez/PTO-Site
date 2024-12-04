@@ -110,11 +110,20 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
     );
 
     const today = new Date().toLocaleDateString('en-CA', { timeZone: 'UTC' }); // Get today's date in 'yyyy-mm-dd' format
-    
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
     };
+
+    console.log('employeePermissions', employeePermissions)
+    console.log('requestDetails.decided', requestDetails.decided)
+    console.log('requestDetails.accepted', requestDetails.accepted)
+    console.log('requestDetails.taken', requestDetails.taken)
+    console.log('requestDetails.cancelled', requestDetails.cancelled)
+    console.log('formatDate(requestDetails.start_date) > today', formatDate(requestDetails.start_date) > today)
+    console.log('start_date: ', formatDate(requestDetails.start_date))
+    console.log('today', today)
 
     const cancellationButton = employeePermissions &&
         ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided) &&
@@ -172,7 +181,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                 <button className='close-btn' onClick={onClose}>✕</button>
 
                 <div className="dots-container">
-                    <Dots requestDetails={requestDetails}/>
+                    <Dots requestDetails={requestDetails} />
                 </div>
 
 
