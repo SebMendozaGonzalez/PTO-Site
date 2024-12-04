@@ -40,12 +40,6 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
 
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
-  };
-
   useEffect(() => {
     const fetchRequestsAndEmployees = async () => {
       try {
@@ -66,8 +60,12 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 
         const events = [];
         filteredRequests.forEach(request => {
-          const startDate = formatDate(request.start_date);
-          const endDate = formatDate(request.end_date);
+          const startDate = new Date(request.start_date);
+          startDate.setDate(startDate.getDate() + 1);
+
+          const endDate = new Date(request.end_date);
+          endDate.setDate(endDate.getDate() + 1);
+
           for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
             events.push({
               name: request.name,
