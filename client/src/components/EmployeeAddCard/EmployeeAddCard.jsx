@@ -33,6 +33,13 @@ function EmployeeAddCard({ onClose }) {
         }));
     };
 
+    const renderLabel = (label, mandatory) => (
+        <Typography component="span">
+            {label}
+            {mandatory && <Typography component="span" sx={{ color: 'red' }}>*</Typography>}
+        </Typography>
+    );
+
     const handleSubmit = async () => {
         const mandatoryFields = [
             'employee_id',
@@ -70,13 +77,6 @@ function EmployeeAddCard({ onClose }) {
             alert('An unexpected error occurred.');
         }
     };
-
-    const renderLabel = (label, mandatory) => (
-        <Typography component="span">
-            {label}
-            {mandatory && <Typography component="span" sx={{ color: 'red' }}>*</Typography>}
-        </Typography>
-    );
 
     return (
         <>
@@ -130,9 +130,9 @@ function EmployeeAddCard({ onClose }) {
                                 fullWidth
                                 error={error && !formData.name}
                             />
-                            <TextField label="Full Name" name="full_name" value={formData.full_name} onChange={handleChange} fullWidth />
+                            <TextField label={renderLabel('Full Name', false)} name="full_name" value={formData.full_name} onChange={handleChange} fullWidth />
                             <TextField
-                                label="Date of Birth"
+                                label={renderLabel('Date of Birth', false)}
                                 name="date_of_birth"
                                 type="date"
                                 value={formData.date_of_birth}
@@ -140,8 +140,8 @@ function EmployeeAddCard({ onClose }) {
                                 fullWidth
                                 InputLabelProps={{ shrink: true }}
                             />
-                            <TextField label="Position" name="position" value={formData.position} onChange={handleChange} fullWidth />
-                            
+                            <TextField label={renderLabel('Position', false)} name="position" value={formData.position} onChange={handleChange} fullWidth />
+
                             <TextField
                                 label={renderLabel('Leader Email', true)}
                                 name="leader_email"
@@ -150,17 +150,10 @@ function EmployeeAddCard({ onClose }) {
                                 fullWidth
                                 error={error && !formData.leader_email}
                             />
-                            <TextField label="Company" name="company" value={formData.company} onChange={handleChange} fullWidth />
+                            <TextField label={renderLabel('Company', false)} name="company" value={formData.company} onChange={handleChange} fullWidth />
+                            <TextField label={renderLabel('Department', false)} name="department" value={formData.department} onChange={handleChange} fullWidth />
                             <TextField
-                                label="Department"
-                                name="department"
-                                value={formData.department}
-                                onChange={handleChange}
-                                fullWidth
-                                error={error && !formData.department}
-                            />
-                            <TextField
-                                label="Start Date"
+                                label={renderLabel('Start Date', true)}
                                 name="start_date"
                                 type="date"
                                 value={formData.start_date}
@@ -169,7 +162,6 @@ function EmployeeAddCard({ onClose }) {
                                 InputLabelProps={{ shrink: true }}
                                 error={error && !formData.start_date}
                             />
-                            
                         </Box>
 
                         <Divider />
@@ -187,39 +179,36 @@ function EmployeeAddCard({ onClose }) {
                                 fullWidth
                                 error={error && !formData.email_surgical}
                             />
-                            <TextField label="Email Quantum" name="email_quantum" value={formData.email_quantum} onChange={handleChange} fullWidth />
+                            <TextField label={renderLabel('Email Quantum', false)} name="email_quantum" value={formData.email_quantum} onChange={handleChange} fullWidth />
                             <TextField
-                                label="Phone Number"
+                                label={renderLabel('Phone Number', false)}
                                 name="phone_number"
                                 value={formData.phone_number}
                                 onChange={handleChange}
                                 fullWidth
-                                error={error && !formData.phone_number}
                             />
-                            <TextField label="Home Address" name="home_address" value={formData.home_address} onChange={handleChange} fullWidth />
+                            <TextField label={renderLabel('Home Address', false)} name="home_address" value={formData.home_address} onChange={handleChange} fullWidth />
                             <TextField
-                                label="Emergency Contact"
+                                label={renderLabel('Emergency Contact', false)}
                                 name="emergency_contact"
                                 value={formData.emergency_contact}
                                 onChange={handleChange}
                                 fullWidth
                             />
                             <TextField
-                                label="Emergency Name"
+                                label={renderLabel('Emergency Name', false)}
                                 name="emergency_name"
                                 value={formData.emergency_name}
                                 onChange={handleChange}
                                 fullWidth
                             />
                             <TextField
-                                label="Emergency Phone"
+                                label={renderLabel('Emergency Phone', false)}
                                 name="emergency_phone"
                                 value={formData.emergency_phone}
                                 onChange={handleChange}
                                 fullWidth
                             />
-                            
-                            
                         </Box>
 
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, marginTop: 2 }}>
@@ -233,17 +222,14 @@ function EmployeeAddCard({ onClose }) {
                     </Box>
                 </DialogContent>
             </Dialog>
-            <Snackbar
-                open={success}
-                autoHideDuration={3000}
-                onClose={() => setSuccess(false)}
-            >
+            <Snackbar open={success} autoHideDuration={3000} onClose={() => setSuccess(false)}>
                 <Alert severity="success" onClose={() => setSuccess(false)}>
                     Employee added successfully!
                 </Alert>
             </Snackbar>
         </>
     );
+
 }
 
 export default EmployeeAddCard;
