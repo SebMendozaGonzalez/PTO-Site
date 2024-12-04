@@ -116,15 +116,6 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
     };
 
-    console.log('employeePermissions', employeePermissions)
-    console.log('requestDetails.decided', requestDetails.decided)
-    console.log('requestDetails.accepted', requestDetails.accepted)
-    console.log('requestDetails.taken', requestDetails.taken)
-    console.log('requestDetails.cancelled', requestDetails.cancelled)
-    console.log('formatDate(requestDetails.start_date) > today', requestDetails.start_date > today)
-    console.log('start_date: ', requestDetails.start_date)
-    console.log('today', today)
-
     const cancellationButton = employeePermissions &&
         ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided) &&
         !requestDetails.cancelled &&
