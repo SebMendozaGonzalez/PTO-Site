@@ -121,14 +121,14 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
     console.log('requestDetails.accepted', requestDetails.accepted)
     console.log('requestDetails.taken', requestDetails.taken)
     console.log('requestDetails.cancelled', requestDetails.cancelled)
-    console.log('formatDate(requestDetails.start_date) > today', formatDate(requestDetails.start_date) > today)
-    console.log('start_date: ', formatDate(requestDetails.start_date))
+    console.log('formatDate(requestDetails.start_date) > today', requestDetails.start_date > today)
+    console.log('start_date: ', requestDetails.start_date)
     console.log('today', today)
 
     const cancellationButton = employeePermissions &&
         ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided) &&
         !requestDetails.cancelled &&
-        formatDate(requestDetails.start_date) > today && (() => {
+        requestDetails.start_date > today && (() => {
             return (
                 <div className='fourth padding flexCenter innerWidth'>
                     <div className='left'>
