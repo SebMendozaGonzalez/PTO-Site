@@ -3,7 +3,7 @@ import './RequestEmployee.css'
 import { Link } from 'react-router-dom';
 
 
-function RequestsEmployee({employee_id}) {
+function RequestsEmployee({ employee_id }) {
     return (
         <div className='paddings flexColStart innerWidth' style={{ marginTop: "2rem" }}>
             <div className='flexColStart paddings'>
@@ -57,8 +57,6 @@ function RequestsEmployee({employee_id}) {
                             </Link>
                         </div>
                     </div>
-
-
 
                     <h3>Paternity License</h3>
                     <div className='license-container flexCenter'>
@@ -143,6 +141,29 @@ function RequestsEmployee({employee_id}) {
 
             </div>
 
+            <div className='flexColStart paddings'>
+                <h1 className='fonts-primary' style={{ fontSize: "2.8rem" }}>Do you want to Liquidate days?</h1>
+                <h1 className='fonts-secondary' style={{ fontSize: "2.2rem" }}>Here's what you need to know</h1>
+            </div>
+
+            <div className='flexColStart paddings paragraph'>
+                <p>
+                    Liquidating days allow you to turn your available vacation days into monetary compensation. <br />
+                    To request liquidated days, you must first have accumulated at least <strong className='fonts-secondary'>15 days</strong>,
+                    which is the amount earned over the course of one year. <br />
+                    Additionally, you are limited to requesting no more than <strong className='fonts-secondary'>7 liquidated days</strong>
+                    within a single calendar year. <br />
+                    If you meet these requirements, you can proceed with your request.
+                </p>
+                <div className='paddings'>
+                    <Link /*to="/request-portal"*/ state={{ type: 'Liquidating Days', employee_id }}>
+                        <button className='button'>
+                            Request Liquidation
+                        </button>
+                    </Link>
+                </div>
+
+            </div>
         </div>
 
     )
