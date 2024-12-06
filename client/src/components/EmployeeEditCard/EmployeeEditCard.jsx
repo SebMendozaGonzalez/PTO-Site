@@ -4,50 +4,58 @@ import './EmployeeEditCard.css';
 
 function EmployeeEditCard({ employee, onClose }) {
   const [formData, setFormData] = useState({
-    employee_id: employee.employee_id || '',
-    name: employee.name || '',
-    full_name: employee.full_name || '',
-    date_of_birth: employee.date_of_birth || '',
-    position: employee.position || '',
-    email_surgical: employee.email_surgical || '',
-    email_quantum: employee.email_quantum || '',
-    phone_number: employee.phone_number || '',
-    home_address: employee.home_address || '',
-    company: employee.company || '',
-    department: employee.department || '',
-    start_date: employee.start_date || '',
-    leader: employee.leader || '',
-    leader_email: employee.leader_email || '',
-    leader_id: employee.leader_id || '',
-    emergency_contact: employee.emergency_contact || '',
-    emergency_name: employee.emergency_name || '',
-    emergency_phone: employee.emergency_phone || '',
+    employee_id: employee.employee_id ?? '',
+    name: employee.name ?? '',
+    full_name: employee.full_name ?? '',
+    date_of_birth: employee.date_of_birth ?? '',
+    position: employee.position ?? '',
+    email_surgical: employee.email_surgical ?? '',
+    email_quantum: employee.email_quantum ?? '',
+    phone_number: employee.phone_number ?? '',
+    home_address: employee.home_address ?? '',
+    company: employee.company ?? '',
+    department: employee.department ?? '',
+    start_date: employee.start_date ?? '',
+    leader: employee.leader ?? '',
+    leader_email: employee.leader_email ?? '',
+    leader_id: employee.leader_id ?? '',
+    emergency_contact: employee.emergency_contact ?? '',
+    emergency_name: employee.emergency_name ?? '',
+    emergency_phone: employee.emergency_phone ?? '',
   });
   const [showSuccess, setShowSuccess] = useState(false); // State for success notification
 
   // Handle field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    if (name && value !== undefined) {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
+
 
   // Handle form submission to update the employee's info
   const handleSubmit = async () => {
+    const payload = Object.keys(formData).reduce((acc, key) => {
+      acc[key] = formData[key] || employee[key];
+      return acc;
+    }, {});
+
     try {
       const response = await fetch('/update-employee', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
-        setShowSuccess(true); // Show success notification
+        setShowSuccess(true);
         setTimeout(() => {
-          setShowSuccess(false); // Hide success notification after 3 seconds
-          onClose(); // Close the dialog after successful update
+          setShowSuccess(false);
+          onClose();
         }, 3000);
       } else {
         console.error('Failed to update employee data');
@@ -56,6 +64,7 @@ function EmployeeEditCard({ employee, onClose }) {
       console.error('Error:', error);
     }
   };
+
 
   return (
     <Dialog open={true} onClose={onClose} fullWidth>
