@@ -6,7 +6,7 @@ const { connectToDatabase } = require('../db/dbConfig');
 // Route to handle updating employee information
 router.post('/', async (req, res) => {
     console.log('Update employee route hit');
-    console.log('Final payload:', JSON.stringify(payload));
+    console.log('Final payload:', JSON.stringify(req.body));
     const { employee_id, name, email, phone_number, home_address, company, department, leader, emergency_contact, emergency_name, emergency_phone } = req.body;
 
     try {
@@ -43,6 +43,7 @@ router.post('/', async (req, res) => {
             WHERE employee_id = @employee_id;
         `;
 
+        console.log('Executing query:', updateQuery);
         // Execute the update query
         await request.query(updateQuery);
 
