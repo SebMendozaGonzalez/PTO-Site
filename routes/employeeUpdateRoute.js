@@ -1,4 +1,4 @@
-// updateEmployeeRoute.js
+               // updateEmployeeRoute.js
 const express = require('express');
 const router = express.Router();
 const { connectToDatabase } = require('../db/dbConfig');
@@ -6,6 +6,7 @@ const { connectToDatabase } = require('../db/dbConfig');
 // Route to handle updating employee information
 router.post('/', async (req, res) => {
     console.log('Update employee route hit');
+    console.log('Final payload:', JSON.stringify(payload));
     const { employee_id, name, email, phone_number, home_address, company, department, leader, emergency_contact, emergency_name, emergency_phone } = req.body;
 
     try {
