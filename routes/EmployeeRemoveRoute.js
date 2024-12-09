@@ -20,8 +20,8 @@ router.patch('/:employee_id', async (req, res) => {
         const terminationDate = termination_date ? new Date(termination_date) : new Date();
         request.input('termination_date', terminationDate);
 
-        // Update query to set active to 0, termination reason, and termination date
-        const updateQuery = `
+        // Update query to set active to 0, termination reason, and termination date in the roster table
+        const deactivateEmployeeQuery = `
             UPDATE roster
             SET 
                 active = 0,
@@ -30,16 +30,31 @@ router.patch('/:employee_id', async (req, res) => {
             WHERE employee_id = @employee_id;
         `;
 
-        // Execute the update query
-        const updateResult = await request.query(updateQuery);
+        // Execute the employee deactivation query
+        const employeeUpdateResult = await request.query(deactivateEmployeeQuery);
 
         // Check if any row was affected (i.e., an employee was modified)
-        if (updateResult.rowsAffected[0] === 0) {
+        if (employeeUpdateResult.rowsAffected[0] === 0) {
             console.log(`No employee found with ID: ${employee_id}`);
             return res.status(404).json({ message: 'Employee not found' });
         }
 
-        res.status(200).json({ message: 'Employee deactivated successfully', employee_id });
+        // Update query to set active to 0 in the vacations table for the same employee
+        const deactivateVacationsQuery = `
+            UPDATE vacations
+            SET active = 0
+            WHERE employee_id = @employee_id;
+        `;
+
+        // Execute the vacation deactivation query
+        const vacationUpdateResult = await request.query(deactivateVacationsQuery);
+
+        console.log(`Deactivated vacations for employee ID: ${employee_id}, Rows affected: ${vacationUpdateResult.rowsAffected[0]}`);
+
+        res.status(200).json({ 
+            message: 'Employee and related vacations deactivated successfully', 
+            employee_id 
+        });
 
     } catch (err) {
         console.error('Error deactivating employee:', err);
