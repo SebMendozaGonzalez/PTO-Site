@@ -1,4 +1,4 @@
-               // updateEmployeeRoute.js
+// updateEmployeeRoute.js
 const express = require('express');
 const router = express.Router();
 const { connectToDatabase } = require('../db/dbConfig');
@@ -13,6 +13,20 @@ router.post('/', async (req, res) => {
         const pool = await connectToDatabase();
         const request = pool.request();
 
+        console.log('Binding parameters:');
+        console.log({
+            employee_id,
+            name,
+            email, // <-- Log this value to ensure it's being set correctly
+            phone_number,
+            home_address,
+            company,
+            department,
+            leader,
+            emergency_contact,
+            emergency_name,
+            emergency_phone
+        });
         // Parameterize inputs to prevent SQL injection
         request.input('employee_id', employee_id);
         request.input('name', name);
