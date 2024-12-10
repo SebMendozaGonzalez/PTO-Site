@@ -6,7 +6,7 @@ const { connectToDatabase } = require('../db/dbConfig'); // Your SQL connection 
 router.post('/', async (req, res) => {
     const pool = await connectToDatabase();
     const { 
-        employe_id, 
+        employee_id, 
         name, 
         leader_email, 
         days, 
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 
     // Log the incoming data
     console.log('Inserting liquidation request with the following data:', {
-        employe_id,
+        employee_id,
         name,
         leader_email,
         days,
@@ -24,22 +24,29 @@ router.post('/', async (req, res) => {
         explanation
     });
 
+    // Check for required fields
+    if (!employee_id) {
+        return res.status(400).json({
+            message: 'Employee ID is required to submit a liquidation request.'
+        });
+    }
+
     try {
         // Start a new request
         const request = pool.request();
 
         // Add parameters for the SQL query
-        request.input('employe_id', employe_id);
-        request.input('name', name);
-        request.input('leader_email', leader_email);
-        request.input('days', days);
-        request.input('department', department);
-        request.input('explanation', explanation);
+        request.input('employee_id', employee_id);
+        request.input('name', name || null); // Optional field
+        request.input('leader_email', leader_email || null); // Optional field
+        request.input('days', days || 0); // Default to 0 if not provided
+        request.input('department', department || null); // Optional field
+        request.input('explanation', explanation || null); // Optional field
 
         // Insert the new liquidation request
         await request.query(
             `INSERT INTO liquidation_request (
-                employe_id, 
+                employee_id, 
                 name, 
                 leader_email, 
                 days, 
@@ -48,7 +55,7 @@ router.post('/', async (req, res) => {
                 request_date
              )
              VALUES (
-                @employe_id, 
+                @employee_id, 
                 @name, 
                 @leader_email, 
                 @days, 
@@ -61,7 +68,7 @@ router.post('/', async (req, res) => {
         // Retrieve the last inserted row for that employee
         const result = await request.query(
             `SELECT * FROM liquidation_request 
-             WHERE employe_id = @employe_id 
+             WHERE employee_id = @employee_id 
              ORDER BY request_date DESC 
              OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY`
         );
