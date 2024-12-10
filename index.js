@@ -6,6 +6,7 @@ const vacationsInfoRoute = require('./routes/vacationsInfo');
 const email_id = require('./routes/email_id');
 const requestsInfoRoute = require('./routes/requestsInfo');
 const vacationRequestRoute = require('./routes/requestRoute');
+const liqRequestRoute = require('./routes/liquidationRequestRoute')
 const decideRequestRoute = require('./routes/decideRequestRoute');
 const cancelRequestRoute = require('./routes/cancelRequestRoute');
 const updateEmployee = require('./routes/employeeUpdateRoute')
@@ -47,6 +48,7 @@ app.use('/update-employee', updateEmployee);
 app.use('/add-employee', addEmployee);
 app.use('/remove-employee', deleteEmployee);
 app.use('/employees-by-leader', employeesByLeader);
+app.use('/liquidation-request', liqRequestRoute)
 
 // Logout functionality
 app.get('/logout', (req, res) => {
