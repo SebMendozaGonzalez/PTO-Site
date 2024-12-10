@@ -142,17 +142,6 @@ const LiquidationRequestPortal = () => {
                             className="blocked-input"
                         />
                     </div>
-                    <div className='flexColStart pack'>
-                        <label>Leader Email:</label>
-                        <input
-                            type="email"
-                            name="leader_email"
-                            value={formData.leader_email}
-                            readOnly
-                            className="blocked-input"
-                            required
-                        />
-                    </div>
                 </div>
 
                 <div className='flexCenter'>
@@ -166,12 +155,11 @@ const LiquidationRequestPortal = () => {
                             required
                         />
                     </div>
-                    <div className='flexColStart explanation'>
-                        <label>Explanation (optional):</label>
-                        <textarea name="explanation" value={formData.explanation} onChange={handleChange}></textarea>
-                    </div>
                 </div>
-
+                <div className='flexColStart explanation'>
+                    <label>Explanation (optional):</label>
+                    <textarea name="explanation" value={formData.explanation} onChange={handleChange}></textarea>
+                </div>
 
 
                 <div>
