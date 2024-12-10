@@ -10,7 +10,6 @@ import Footer from './components/Footer/Footer';
 import RequestPortal from './pages/RequestPortal/RequestPortal';
 import LiquidationRequestPortal from './pages/LiquidationRequestPortal/LiquidationRequestPortal';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-
 import './App.css';
 
 const App = () => {
