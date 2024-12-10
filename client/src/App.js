@@ -8,6 +8,7 @@ import HRPortal from './pages/HRPortal/HRPortal';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import RequestPortal from './pages/RequestPortal/RequestPortal';
+import LiquidationRequestPortal from './pages/LiquidationRequestPortal/LiquidationRequestPortal';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 import './App.css';
@@ -20,6 +21,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/request-portal" element={<RequestPortal />} />
+          <Route path="/liquidation-request-portal" element={<LiquidationRequestPortal />} />
+
+
           <Route path="/employee-portal"
             element={
               <ProtectedRoute requiredRole='Employee'>
