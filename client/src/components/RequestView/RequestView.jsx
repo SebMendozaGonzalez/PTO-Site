@@ -68,7 +68,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
 
         try {
             const acceptedValue = String(decision === 'accept');
-            const decided_by = accounts[0]?.username
+            const decided_by = accounts[0]?.username;
             const response = await fetch('/decide-request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
