@@ -25,7 +25,7 @@ function LiquidationRequestsList({ employee_id, onClickRequest }) {
                     setError('No liquidation requests found for this employee.');
                 }
             } catch (err) {
-                setError('No requests were found.');
+                setError("You don't have any liquidation requests yet");
                 console.error(err);
             }
         };
@@ -97,7 +97,7 @@ function LiquidationRequestsList({ employee_id, onClickRequest }) {
                         !error && <p style={{ color: '#b6b6b6' }}>Searching for requests...</p>
                     )}
                 </List>
-                <span>Not seeing a particular request in here? Refresh the page! They may take a little to appear.</span>
+                <span>Not seeing a particular liquidation request in here? Refresh the page! They may take a little to appear.</span>
             </Box>
         </div>
     );
