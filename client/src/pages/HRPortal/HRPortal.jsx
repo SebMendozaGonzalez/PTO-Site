@@ -5,7 +5,7 @@ import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmplo
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
 import RosterManager from '../../components/RosterManager/RosterManager';
-import LiquidationRequestsList from '../LiquidationRequestsList/LiquidationRequestsList';
+import LiquidationRequestsList from '../../components/LiquidationRequestsList/LiquidationRequestsList';
 import './HRPortal.css';
 
 
