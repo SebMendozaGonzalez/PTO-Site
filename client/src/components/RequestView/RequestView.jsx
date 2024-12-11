@@ -213,25 +213,19 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                             <strong>Requested on:  </strong>{formatDate(requestDetails.request_date)}
                         </span>
                         {requestDetails.accepted && (
-                            <div>
-                                <span className='f3'>
-                                    <strong>Accepted on:  </strong>{formatDate(requestDetails.decision_date)}
-                                </span>
-                                <span>
-                                    <strong>Decided by:</strong>{requestDetails.decided_by}
-                                </span>
-                            </div>
-
+                            <span className='f3'>
+                                <strong>Accepted on:  </strong>{formatDate(requestDetails.decision_date)}
+                            </span>
                         )}
                         {requestDetails.decided && !requestDetails.accepted && (
-                            <div>
-                                <span className='f3'>
-                                    <strong>Rejected on:  </strong>{formatDate(requestDetails.decision_date)}
-                                </span>
-                                <span>
-                                    <strong>Decided by:</strong>{requestDetails.decided_by}
-                                </span>
-                            </div>
+                            <span className='f3'>
+                                <strong>Rejected on:  </strong>{formatDate(requestDetails.decision_date)}
+                            </span>
+                        )}
+                        {requestDetails.decided && (
+                            <span className='f3'>  
+                                <strong>Decided by:</strong>{requestDetails.decided_by}
+                            </span>
                         )}
                         {requestDetails.accepted && requestDetails.cancelled && (
                             <span className='f3'>
