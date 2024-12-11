@@ -213,14 +213,25 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                             <strong>Requested on:  </strong>{formatDate(requestDetails.request_date)}
                         </span>
                         {requestDetails.accepted && (
-                            <span className='f3'>
-                                <strong>Accepted on:  </strong>{formatDate(requestDetails.decision_date)}
-                            </span>
+                            <div>
+                                <span className='f3'>
+                                    <strong>Accepted on:  </strong>{formatDate(requestDetails.decision_date)}
+                                </span>
+                                <span>
+                                    <strong>Decided by:</strong>{requestDetails.decided_by}
+                                </span>
+                            </div>
+
                         )}
                         {requestDetails.decided && !requestDetails.accepted && (
-                            <span className='f3'>
-                                <strong>Rejected on:  </strong>{formatDate(requestDetails.decision_date)}
-                            </span>
+                            <div>
+                                <span className='f3'>
+                                    <strong>Rejected on:  </strong>{formatDate(requestDetails.decision_date)}
+                                </span>
+                                <span>
+                                    <strong>Decided by:</strong>{requestDetails.decided_by}
+                                </span>
+                            </div>
                         )}
                         {requestDetails.accepted && requestDetails.cancelled && (
                             <span className='f3'>
