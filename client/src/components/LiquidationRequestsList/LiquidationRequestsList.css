@@ -1,0 +1,49 @@
+.liquidation-requests-list .MuiListItem-root:hover {
+    background-color: #83abfc; /* Change this color to your desired hover color */
+    cursor: pointer; /* Change the cursor to indicate it's clickable */
+}
+
+.item-container {
+    position: relative; /* Ensure this is still set for the absolute positioning of the dots */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically centered */
+    width: 100%;
+}
+
+.liquidation-requests-list > .sub {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1560f6;
+}
+
+.liquidation-requests-list > .textico-normal {
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.8rem;
+    padding-bottom: 1rem;
+    color: #29304d;
+}
+
+
+.liquidation-requests-list > p {
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+}
+
+/* Divider customization */
+.liquidation-requests-list > .MuiDivider-root {
+    margin: 10px 0;
+}
+
+
+.liquidation-requests-list > .dots-container {
+    width: 100%;
+    align-items: center;
+    margin-left: auto; 
+    border-radius: 3px;
+    border: 0.1em solid grey;
+
+}

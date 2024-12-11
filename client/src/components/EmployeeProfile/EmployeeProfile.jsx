@@ -5,6 +5,11 @@ import { Avatar, Typography } from '@mui/material';
 import './EmployeeProfile.css';
 
 function EmployeeProfile({ selectedEmployee }) {
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
+    };
     return (
         <div>
             <Box
@@ -67,11 +72,11 @@ function EmployeeProfile({ selectedEmployee }) {
                         </Typography>
                         <Typography>
                             <strong className="fonts-primary">Date of Birth:</strong>{' '}
-                            {new Date(selectedEmployee.date_of_birth).toLocaleDateString('en-US')}
+                            {formatDate(selectedEmployee.date_of_birth)}
                         </Typography>
                         <Typography>
                             <strong className="fonts-primary">Start Date:</strong>{' '}
-                            {new Date(selectedEmployee.start_date).toLocaleDateString('en-US')}
+                            {formatDate(selectedEmployee.start_date)}
                         </Typography>
                     </Box>
                     <Box>

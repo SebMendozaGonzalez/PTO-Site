@@ -224,7 +224,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                         )}
                         {requestDetails.decided && (
                             <span className='f3'>  
-                                <strong>Decided by:</strong>{requestDetails.decided_by}
+                                <strong>Decided by: </strong>{requestDetails.decided_by}
                             </span>
                         )}
                         {requestDetails.accepted && requestDetails.cancelled && (
