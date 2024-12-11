@@ -11,7 +11,7 @@ import LiquidationRequestsList from '../../components/LiquidationRequestsList/Li
 
 function EmployeePortal() {
   const { accounts } = useMsal();
-  const [filterEmail, setFilterEmail] = useState(() => accounts[0]?.username || '');  
+  const [filterEmail, setFilterEmail] = useState(() => accounts[0]?.username || '');
   const [employeeId, setEmployeeId] = useState('');
   const [requestDetails, setRequestDetails] = useState(null);
 
@@ -75,7 +75,12 @@ function EmployeePortal() {
       <WelcomeEmployees />
       <DashboardEmployee employee_id={employeeId} />
       <RequestsList employee_id={employeeId} onClickRequest={handleClickRequest} />
-      <LiquidationRequestsList employee_id={employeeId} /*onClickRequest={handleClickRequest} *//>
+      <LiquidationRequestsList
+        employee_id={employeeId}
+        fromEP={true}
+        HRportal={false}
+        /*onClickRequest={handleClickRequest} */
+      />
       <RequestsEmployee employee_id={employeeId} />
       <RequestView
         requestDetails={requestDetails}

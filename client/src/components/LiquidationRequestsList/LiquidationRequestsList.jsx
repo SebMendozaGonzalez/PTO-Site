@@ -8,8 +8,10 @@ import Divider from '@mui/material/Divider';
 import { ListItemIcon } from '@mui/material';
 import Dots from '../Dots/Dots';
 import './LiquidationRequestsList.css';
+import { useMsal } from '@azure/msal-react';
 
-function LiquidationRequestsList({ employee_id, onClickRequest }) {
+function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal }) {
+    const { accounts } = useMsal();
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
 
@@ -17,23 +19,42 @@ function LiquidationRequestsList({ employee_id, onClickRequest }) {
         const fetchRequests = async () => {
             setRequests([]);
             setError('');
+
             try {
-                const response = await axios.get(`/liquidation-requests-info/${employee_id}`);
-                if (response.data.length > 0) {
+                if (fromEP) {
+                    // Case: fromEP is true
+                    const response = await axios.get(`/liquidation-requests-info/${employee_id}`);
                     setRequests(response.data);
                 } else {
-                    setError('No liquidation requests found for this employee.');
+                    if (HRportal) {
+                        // Case: fromEP is false, HRportal is true
+                        const response = await axios.get('/liquidation-requests-info');
+                        setRequests(response.data);
+                    } else {
+                        // Case: fromEP is false, HRportal is false
+                        const liquidationResponse = await axios.get('/liquidation-requests-info');
+                        const liquidationRequests = liquidationResponse.data;
+
+                        const employeesResponse = await axios.get(
+                            `/employees-by-leader/${accounts[0]?.username}`
+                        );
+                        const employeeList = employeesResponse.data;
+
+                        const filteredRequests = liquidationRequests.filter(request =>
+                            employeeList.includes(request.employee_id)
+                        );
+
+                        setRequests(filteredRequests);
+                    }
                 }
             } catch (err) {
-                setError("You don't have any liquidation requests yet");
+                setError("An error occurred while fetching the liquidation requests.");
                 console.error(err);
             }
         };
 
-        if (employee_id) {
-            fetchRequests();
-        }
-    }, [employee_id]);
+        fetchRequests();
+    }, [employee_id, fromEP, HRportal, accounts]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -70,7 +91,7 @@ function LiquidationRequestsList({ employee_id, onClickRequest }) {
                                     <ListItemText
                                         primary={
                                             <p className="fonts-primary">
-                                                {request.department || 'N/A'} {/* Map department field */}
+                                                {request.department || 'N/A'}
                                             </p>
                                         }
                                         secondary={

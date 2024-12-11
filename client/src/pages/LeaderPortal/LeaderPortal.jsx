@@ -5,6 +5,7 @@ import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmplo
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
 import EmployeeLicenseCard from '../../components/EmployeeLicenseCard/EmployeeLicenseCard';
+import LiquidationRequestsList from '../../components/LiquidationRequestsList/LiquidationRequestsList';
 import { useMsal } from '@azure/msal-react';
 import './LeaderPortal.css';
 
@@ -64,6 +65,11 @@ function LeaderPortal() {
             onEmployeeSelect={handleEmployeeSelect}
             hasPermissions={false}
             onLicenseClick={handleLicenseClick} // Add license functionality
+          />
+          <LiquidationRequestsList
+            employee_id={selectedEmployee.employeeId}
+            fromEP={false} HRportal={false}
+            /*onClickRequest={handleClickRequest} */
           />
         </div>
 

@@ -4,6 +4,7 @@ import EmployeeEditCard from '../EmployeeEditCard/EmployeeEditCard';
 import EmployeeAddCard from '../EmployeeAddCard/EmployeeAddCard';
 import EmployeeDeleteCard from '../EmployeeDeleteCard/EmployeeDeleteCard';
 import EmployeeLicenseCard from '../EmployeeLicenseCard/EmployeeLicenseCard';
+import LiquidationRequestsList from '../LiquidationRequestsList/LiquidationRequestsList';
 import './RosterManager.css';
 
 function RosterManager({ filterLeaderEmail, onEmployeeSelect, hasPermissions }) {
@@ -55,6 +56,11 @@ function RosterManager({ filterLeaderEmail, onEmployeeSelect, hasPermissions }) 
                 onDeleteClick={handleDeleteClick}
                 hasPermissions={hasPermissions}
                 onLicenseClick={handleLicenseClick} // Ensure the license click functionality is passed
+            />
+            <LiquidationRequestsList
+                employee_id={selectedEmployee.employeeId}
+                fromEP={false} HRportal={true}
+            /*onClickRequest={handleClickRequest} */
             />
 
             {selectedEmployee && isEditMode && (
