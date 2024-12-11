@@ -54,7 +54,7 @@ function LiquidationRequestsList({ employee_id, onClickRequest }) {
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <List dense>
                     {requests.length > 0 ? (
-                        requests.map((request) => (
+                        requests.map(request => (
                             <div key={request.request_id}>
                                 <ListItem
                                     button

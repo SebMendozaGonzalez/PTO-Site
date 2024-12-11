@@ -51,7 +51,7 @@ app.use('/add-employee', addEmployee);
 app.use('/remove-employee', deleteEmployee);
 app.use('/employees-by-leader', employeesByLeader);
 app.use('/liquidation-request', liqRequestRoute)
-app.use('/liquidation-requests-info', LiquidationRequestsList)
+app.use('/liquidation-requests-info', liquidationRequestsInfo)
 
 // Logout functionality
 app.get('/logout', (req, res) => {
