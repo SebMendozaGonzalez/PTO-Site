@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './RequestView.css';
 import Dots from '../Dots/Dots';
+import { useMsal } from '@azure/msal-react';
 
 function RequestView({ requestDetails, onClose, managerPermissions, employeePermissions }) {
+    const { accounts } = useMsal();
     const [showConfirm, setShowConfirm] = useState(false);
     const [decision, setDecision] = useState(null);
     const [rejectionReason, setRejectionReason] = useState('');
@@ -73,6 +75,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                     request_id: requestDetails.request_id,
                     accepted: acceptedValue,
                     rejection_reason: rejectionReason,
+                    decided_by: accounts[0]?.username,
                 }),
             });
 

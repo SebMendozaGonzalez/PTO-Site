@@ -6,7 +6,11 @@ const { connectToDatabase } = require('../db/dbConfig');
 // Route to handle decision on vacation requests
 router.post('/', async (req, res) => {
     console.log('Decide request route hit');
-    const { request_id, accepted, rejection_reason } = req.body;
+    const { request_id, accepted, rejection_reason, decided_by } = req.body; // Include decided_by in the request body
+
+    if (!decided_by) {
+        return res.status(400).json({ message: 'The decided_by field is required.' });
+    }
 
     try {
         const pool = await connectToDatabase();
@@ -15,12 +19,14 @@ router.post('/', async (req, res) => {
         // Parameterize inputs to prevent SQL injection
         request.input('request_id', request_id);
         request.input('accepted', accepted === 'true'); // Convert to boolean as per your setup
+        request.input('decided_by', decided_by);
 
         let updateQuery = `
             UPDATE request 
             SET decided = 1, 
-            accepted = @accepted, 
-            decision_date = CURRENT_TIMESTAMP
+                accepted = @accepted, 
+                decision_date = CURRENT_TIMESTAMP, 
+                decided_by = @decided_by
         `;
 
         // Append rejection_reason if the request is being rejected
@@ -50,7 +56,7 @@ router.post('/', async (req, res) => {
         }
 
         res.status(200).json(result.recordset[0]);
-        
+
     } catch (err) {
         console.error('Error updating request:', err);
         res.status(500).json({ message: 'Error updating request', error: err.message });
