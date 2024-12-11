@@ -58,7 +58,7 @@ function RosterManager({ filterLeaderEmail, onEmployeeSelect, hasPermissions }) 
                 onLicenseClick={handleLicenseClick} // Ensure the license click functionality is passed
             />
             <LiquidationRequestsList
-                employee_id={selectedEmployee.employeeId}
+                employee_id={selectedEmployee.employee_id}
                 fromEP={false} HRportal={true}
             /*onClickRequest={handleClickRequest} */
             />
