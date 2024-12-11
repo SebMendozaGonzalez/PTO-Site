@@ -82,7 +82,7 @@ function LeaderPortal() {
           <div>
             <LiquidationRequestsList
               employee_id={selectedEmployee.employee_id}
-              fromEP={false} HRportal={false}
+              fromEP={true} HRportal={false}
               filterLeaderEmail={filterLeaderEmail}
             /*onClickRequest={handleClickRequest} */
             />
