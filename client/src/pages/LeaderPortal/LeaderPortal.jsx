@@ -83,6 +83,7 @@ function LeaderPortal() {
             <LiquidationRequestsList
               employee_id={selectedEmployee.employee_id}
               fromEP={false} HRportal={false}
+              filterLeaderEmail={filterLeaderEmail}
             /*onClickRequest={handleClickRequest} */
             />
             <RequestsCalendar

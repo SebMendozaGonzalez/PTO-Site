@@ -5,15 +5,21 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import { ListItemIcon } from '@mui/material';
+import { ListItemIcon, Checkbox, FormGroup, MenuItem, Select, InputLabel } from '@mui/material';
 import Dots from '../Dots/Dots';
 import './LiquidationRequestsList.css';
-import { useMsal } from '@azure/msal-react';
 
-function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal }) {
-    const { accounts } = useMsal();
+function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal, filterLeaderEmail }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
+    const [departmentFilter, setDepartmentFilter] = useState([]);
+    const [employeeFilter, setEmployeeFilter] = useState('');
+    const [employeeList, setEmployeeList] = useState([]);
+
+    const departmentOptions = [
+        'Management', 'Collections', 'QA', 'CSU', 'GP', 'Underwriting',
+        'Marketing', 'Servicing', 'Payment', 'Odonaga', 'TBI', 'SCOF',
+    ];
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -36,12 +42,13 @@ function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal
                         const liquidationRequests = liquidationResponse.data;
 
                         const employeesResponse = await axios.get(
-                            `/employees-by-leader/${accounts[0]?.username}`
+                            `/employees-by-leader/${filterLeaderEmail}`
                         );
-                        const employeeList = employeesResponse.data;
+                        const employees = employeesResponse.data;
+                        setEmployeeList(employees);
 
                         const filteredRequests = liquidationRequests.filter(request =>
-                            employeeList.includes(request.employee_id)
+                            employees.includes(request.employee_id)
                         );
 
                         setRequests(filteredRequests);
@@ -54,15 +61,33 @@ function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal
         };
 
         fetchRequests();
-    }, [employee_id, fromEP, HRportal, accounts]);
+    }, [employee_id, fromEP, HRportal, filterLeaderEmail]);
+
+    const handleDepartmentChange = (event) => {
+        const value = event.target.value;
+        setDepartmentFilter(typeof value === 'string' ? value.split(',') : value);
+    };
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
     };
 
+    const filteredRequests = requests.filter(request => {
+        if (departmentFilter.length > 0 && !departmentFilter.includes(request.department)) {
+            return false;
+        }
+        if (employeeFilter && request.employee_id !== employeeFilter) {
+            return false;
+        }
+        return true;
+    });
+
     return (
         <div className="paddings innerWidth liquidation-requests-list">
+            <h2 className='fonts-secondary'>
+                Liquidation requests:
+            </h2>
             <Box
                 sx={{
                     width: '100%',
@@ -73,9 +98,49 @@ function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal
                 }}
             >
                 {error && <p style={{ color: '#1560f6' }}>{error}</p>}
+
+                {!fromEP && !HRportal && (
+                    <div>
+                        <FormGroup>
+                            <InputLabel id="department-filter-label">Filter by Department</InputLabel>
+                            <Select
+                                labelId="department-filter-label"
+                                multiple
+                                value={departmentFilter}
+                                onChange={handleDepartmentChange}
+                                renderValue={(selected) => selected.join(', ')}
+                                style={{ marginBottom: '16px', width: '100%' }}
+                            >
+                                {departmentOptions.map((option) => (
+                                    <MenuItem key={option} value={option}>
+                                        <Checkbox checked={departmentFilter.includes(option)} />
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormGroup>
+
+                        <FormGroup>
+                            <InputLabel id="employee-filter-label">Filter by Employee</InputLabel>
+                            <Select
+                                labelId="employee-filter-label"
+                                value={employeeFilter}
+                                onChange={(event) => setEmployeeFilter(event.target.value)}
+                                style={{ marginBottom: '16px', width: '100%' }}
+                            >
+                                {employeeList.map((employee) => (
+                                    <MenuItem key={employee} value={employee}>
+                                        {employee}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormGroup>
+                    </div>
+                )}
+
                 <List dense>
-                    {requests.length > 0 ? (
-                        requests.map(request => (
+                    {filteredRequests.length > 0 ? (
+                        filteredRequests.map(request => (
                             <div key={request.request_id}>
                                 <ListItem
                                     button
@@ -91,6 +156,7 @@ function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal
                                     <ListItemText
                                         primary={
                                             <p className="fonts-primary">
+                                                {request.name}
                                                 {request.department || 'N/A'}
                                             </p>
                                         }
