@@ -66,13 +66,7 @@ function LeaderPortal() {
             hasPermissions={false}
             onLicenseClick={handleLicenseClick} // Add license functionality
           />
-          <LiquidationRequestsList
-            employee_id={selectedEmployee.employee_id}
-            fromEP={false} HRportal={false}
-            /*onClickRequest={handleClickRequest} */
-          />
         </div>
-
         <div style={{
           transform: 'scale(0.91)',
           transformOrigin: 'top left',
@@ -85,11 +79,18 @@ function LeaderPortal() {
         </div>
 
         {selectedEmployee && !isLicenseMode && (
-          <RequestsCalendar
-            employee_id={selectedEmployee.employee_id}
-            onEventSelect={handleEventSelect}
-            filterLeaderEmail={filterLeaderEmail}
-          />
+          <div>
+            <LiquidationRequestsList
+              employee_id={selectedEmployee.employee_id}
+              fromEP={false} HRportal={false}
+            /*onClickRequest={handleClickRequest} */
+            />
+            <RequestsCalendar
+              employee_id={selectedEmployee.employee_id}
+              onEventSelect={handleEventSelect}
+              filterLeaderEmail={filterLeaderEmail}
+            />
+          </div>
         )}
 
         {requestDetails && (

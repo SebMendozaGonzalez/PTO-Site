@@ -5,6 +5,7 @@ import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmplo
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
 import RosterManager from '../../components/RosterManager/RosterManager';
+import LiquidationRequestsList from '../LiquidationRequestsList/LiquidationRequestsList';
 import './HRPortal.css';
 
 
@@ -40,6 +41,11 @@ function HRPortal() {
         </div>
 
         {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
+        <LiquidationRequestsList
+          employee_id={selectedEmployeeId}
+          fromEP={false} HRportal={true}
+        /*onClickRequest={handleClickRequest} */
+        />
 
         {selectedEmployeeId && (
           <RequestsCalendar employee_id={selectedEmployeeId} onEventSelect={handleEventSelect} />
