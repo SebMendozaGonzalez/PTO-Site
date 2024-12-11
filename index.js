@@ -5,6 +5,7 @@ const employeesInfoRoute = require('./routes/employeesInfo');
 const vacationsInfoRoute = require('./routes/vacationsInfo');
 const email_id = require('./routes/email_id');
 const requestsInfoRoute = require('./routes/requestsInfo');
+const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo')
 const vacationRequestRoute = require('./routes/requestRoute');
 const liqRequestRoute = require('./routes/liquidationRequestRoute')
 const decideRequestRoute = require('./routes/decideRequestRoute');
@@ -14,6 +15,7 @@ const addEmployee = require('./routes/employeeAddRoute')
 const deleteEmployee = require('./routes/EmployeeRemoveRoute')
 const employeesByLeader = require('./routes/employeesByLeader')
 const photoRoute = require('./routes/photoRoute');
+
 
 require('dotenv').config();
 
@@ -49,6 +51,7 @@ app.use('/add-employee', addEmployee);
 app.use('/remove-employee', deleteEmployee);
 app.use('/employees-by-leader', employeesByLeader);
 app.use('/liquidation-request', liqRequestRoute)
+app.use('/liquidation-requests-info', LiquidationRequestsList)
 
 // Logout functionality
 app.get('/logout', (req, res) => {
