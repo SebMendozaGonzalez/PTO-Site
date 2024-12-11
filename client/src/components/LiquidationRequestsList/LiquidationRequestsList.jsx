@@ -51,7 +51,7 @@ function LiquidationRequestsList({ employee_id, onClickRequest }) {
                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
                 }}
             >
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {error && <p style={{ color: '#1560f6' }}>{error}</p>}
                 <List dense>
                     {requests.length > 0 ? (
                         requests.map(request => (
