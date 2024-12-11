@@ -67,7 +67,7 @@ function LeaderPortal() {
             onLicenseClick={handleLicenseClick} // Add license functionality
           />
           <LiquidationRequestsList
-            employee_id={selectedEmployee.employeeId}
+            employee_id={selectedEmployee.employee_id}
             fromEP={false} HRportal={false}
             /*onClickRequest={handleClickRequest} */
           />
