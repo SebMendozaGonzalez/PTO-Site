@@ -34,7 +34,7 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
                     const employeeList = employeesResponse.data.map(employee => employee.employee_id);
 
                     const filteredRequests = liquidationRequests.filter(request =>
-                        !employeeList.includes(request.employee_id)
+                        employeeList.includes(request.employee_id)
                     );
 
                     setRequests(filteredRequests);
