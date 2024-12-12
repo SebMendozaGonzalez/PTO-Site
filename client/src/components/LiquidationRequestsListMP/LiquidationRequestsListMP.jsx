@@ -9,7 +9,7 @@ import { ListItemIcon } from '@mui/material';
 import Dots from '../Dots/Dots';
 import './LiquidationRequestsListMP.css';
 
-function LiquidationRequestsListEP({ employee_id, onClickRequest, HRportal, filterLeaderEmail }) {
+function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filterLeaderEmail }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
 
@@ -20,11 +20,11 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest, HRportal, filt
 
             try {
                 if (HRportal) {
-                    // Case: fromEP is false, HRportal is true
+                    // Case: HRportal is true
                     const response = await axios.get('/liquidation-requests-info');
                     setRequests(response.data);
                 } else {
-                    // Case: fromEP is false, HRportal is false
+                    // Case: HRportal is false
                     const liquidationResponse = await axios.get('/liquidation-requests-info');
                     const liquidationRequests = liquidationResponse.data;
 
@@ -46,7 +46,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest, HRportal, filt
         };
 
         fetchRequests();
-    }, [employee_id, HRportal, filterLeaderEmail]);
+    }, [employee_id, HRportal, filterLeaderEmail]); // Re-fetch data when these dependencies change
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -74,7 +74,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest, HRportal, filt
                             <div key={request.request_id}>
                                 <ListItem
                                     button
-                                    /*onClick={() => onClickRequest(request)}*/
+                                    /* onClick={() => onClickRequest(request)} */
                                     secondaryAction={
                                         <ListItemIcon edge="end">
                                             <div>
@@ -119,4 +119,4 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest, HRportal, filt
     );
 }
 
-export default LiquidationRequestsListEP;
+export default LiquidationRequestsListMP;
