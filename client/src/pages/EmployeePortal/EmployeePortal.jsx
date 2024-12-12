@@ -7,7 +7,7 @@ import RequestsList from '../../components/RequestsList/RequestsList';
 import RequestView from '../../components/RequestView/RequestView';
 import { useMsal } from '@azure/msal-react';
 import axios from 'axios';
-import LiquidationRequestsList from '../../components/LiquidationRequestsList/LiquidationRequestsList';
+import LiquidationRequestsListEP from '../../components/LiquidationRequestsListEP/LiquidationRequestsListEP';
 
 function EmployeePortal() {
   const { accounts } = useMsal();
@@ -75,10 +75,8 @@ function EmployeePortal() {
       <WelcomeEmployees />
       <DashboardEmployee employee_id={employeeId} />
       <RequestsList employee_id={employeeId} onClickRequest={handleClickRequest} />
-      <LiquidationRequestsList
+      <LiquidationRequestsListEP
         employee_id={employeeId}
-        fromEP={true}
-        HRportal={false}
         /*onClickRequest={handleClickRequest} */
       />
       <RequestsEmployee employee_id={employeeId} />

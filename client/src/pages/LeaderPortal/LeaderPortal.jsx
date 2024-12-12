@@ -5,7 +5,7 @@ import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmplo
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
 import EmployeeLicenseCard from '../../components/EmployeeLicenseCard/EmployeeLicenseCard';
-import LiquidationRequestsList from '../../components/LiquidationRequestsList/LiquidationRequestsList';
+import LiquidationRequestsList from '../../components/LiquidationRequestsListEP/LiquidationRequestsListEP';
 import { useMsal } from '@azure/msal-react';
 import './LeaderPortal.css';
 
@@ -82,8 +82,6 @@ function LeaderPortal() {
           <div>
             <LiquidationRequestsList
               employee_id={selectedEmployee.employee_id}
-              fromEP={true} HRportal={false}
-              filterLeaderEmail={filterLeaderEmail}
             /*onClickRequest={handleClickRequest} */
             />
             <RequestsCalendar

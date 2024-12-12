@@ -9,7 +9,7 @@ import { ListItemIcon } from '@mui/material';
 import Dots from '../Dots/Dots';
 import './LiquidationRequestsList.css';
 
-function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal, filterLeaderEmail }) {
+function LiquidationRequestsList({ employee_id, onClickRequest }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
 
@@ -19,32 +19,8 @@ function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal
             setError('');
 
             try {
-                if (fromEP) {
-                    // Case: fromEP is true
-                    const response = await axios.get(`/liquidation-requests-info/${employee_id}`);
-                    setRequests(response.data);
-                } else {
-                    if (HRportal) {
-                        // Case: fromEP is false, HRportal is true
-                        const response = await axios.get('/liquidation-requests-info');
-                        setRequests(response.data);
-                    } else {
-                        // Case: fromEP is false, HRportal is false
-                        const liquidationResponse = await axios.get('/liquidation-requests-info');
-                        const liquidationRequests = liquidationResponse.data;
-
-                        const employeesResponse = await axios.get(
-                            `/employees-by-leader/${filterLeaderEmail}`
-                        );
-                        const employeeList = employeesResponse.data;
-
-                        const filteredRequests = liquidationRequests.filter(request =>
-                            employeeList.includes(request.employee_id)
-                        );
-
-                        setRequests(filteredRequests);
-                    }
-                }
+                const response = await axios.get(`/liquidation-requests-info/${employee_id}`);
+                setRequests(response.data);
             } catch (err) {
                 setError("An error occurred while fetching the liquidation requests.");
                 console.error(err);
@@ -52,7 +28,7 @@ function LiquidationRequestsList({ employee_id, onClickRequest, fromEP, HRportal
         };
 
         fetchRequests();
-    }, [employee_id, fromEP, HRportal, filterLeaderEmail]);
+    }, [employee_id]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
