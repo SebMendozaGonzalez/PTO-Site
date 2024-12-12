@@ -28,6 +28,7 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
                     const liquidationResponse = await axios.get('/liquidation-requests-info');
                     const liquidationRequests = liquidationResponse.data;
 
+                    console.log('filterleaderemail: ', filterLeaderEmail)
                     const employeesResponse = await axios.get(
                         `/employees-by-leader/${filterLeaderEmail}`
                     );
