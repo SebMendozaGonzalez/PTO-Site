@@ -7,9 +7,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { ListItemIcon } from '@mui/material';
 import Dots from '../Dots/Dots';
-import './LiquidationRequestsListEP.css';
+import './LiquidationRequestsListMP.css';
 
-function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
+function LiquidationRequestsListEP({ employee_id, onClickRequest, HRportal, filterLeaderEmail }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
 
@@ -19,8 +19,26 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
             setError('');
 
             try {
-                const response = await axios.get(`/liquidation-requests-info/${employee_id}`);
-                setRequests(response.data);
+                if (HRportal) {
+                    // Case: fromEP is false, HRportal is true
+                    const response = await axios.get('/liquidation-requests-info');
+                    setRequests(response.data);
+                } else {
+                    // Case: fromEP is false, HRportal is false
+                    const liquidationResponse = await axios.get('/liquidation-requests-info');
+                    const liquidationRequests = liquidationResponse.data;
+
+                    const employeesResponse = await axios.get(
+                        `/employees-by-leader/${filterLeaderEmail}`
+                    );
+                    const employeeList = employeesResponse.data;
+
+                    const filteredRequests = liquidationRequests.filter(request =>
+                        employeeList.includes(request.employee_id)
+                    );
+
+                    setRequests(filteredRequests);
+                }
             } catch (err) {
                 setError("An error occurred while fetching the liquidation requests.");
                 console.error(err);
@@ -28,7 +46,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
         };
 
         fetchRequests();
-    }, [employee_id]);
+    }, [employee_id, HRportal, filterLeaderEmail]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
