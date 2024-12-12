@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { ListItemIcon } from '@mui/material';
 import Dots from '../Dots/Dots';
-import './LiquidationRequestsList.css';
+import './LiquidationRequestsListEP.css';
 
 function LiquidationRequestsList({ employee_id, onClickRequest }) {
     const [requests, setRequests] = useState([]);
