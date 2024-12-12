@@ -28,14 +28,13 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
                     const liquidationResponse = await axios.get('/liquidation-requests-info');
                     const liquidationRequests = liquidationResponse.data;
 
-                    console.log('filterleaderemail: ', filterLeaderEmail)
                     const employeesResponse = await axios.get(
                         `/employees-by-leader/${filterLeaderEmail}`
                     );
-                    const employeeList = employeesResponse.data;
+                    const employeeList = employeesResponse.data.map(employee => employee.employee_id);
 
                     const filteredRequests = liquidationRequests.filter(request =>
-                        employeeList.includes(request.employee_id)
+                        !employeeList.includes(request.employee_id)
                     );
 
                     setRequests(filteredRequests);
@@ -75,7 +74,7 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
                             <div key={request.request_id}>
                                 <ListItem
                                     button
-                                    /* onClick={() => onClickRequest(request)} */
+                                    /*onClick={() => onClickRequest(request)}*/
                                     secondaryAction={
                                         <ListItemIcon edge="end">
                                             <div>
