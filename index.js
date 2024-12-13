@@ -6,6 +6,8 @@ const vacationsInfoRoute = require('./routes/vacationsInfo');
 const email_id = require('./routes/email_id');
 const requestsInfoRoute = require('./routes/requestsInfo');
 const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo')
+const liquidationCancelRoute = require('./routes/liquidationCancelRoute')
+const liquidationDecideRoute = require('./routes/liquidationDecideRoute')
 const vacationRequestRoute = require('./routes/requestRoute');
 const liqRequestRoute = require('./routes/liquidationRequestRoute')
 const decideRequestRoute = require('./routes/decideRequestRoute');
@@ -52,6 +54,8 @@ app.use('/remove-employee', deleteEmployee);
 app.use('/employees-by-leader', employeesByLeader);
 app.use('/liquidation-request', liqRequestRoute)
 app.use('/liquidation-requests-info', liquidationRequestsInfo)
+app.use('/liquidation-cancel-request', liquidationCancelRoute)
+app.use('/liquidation-decide-request', liquidationDecideRoute)
 
 // Logout functionality
 app.get('/logout', (req, res) => {

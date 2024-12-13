@@ -138,7 +138,7 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
                             <div key={request.request_id}>
                                 <ListItem
                                     button
-                                    /*onClick={() => onClickRequest(request)}*/
+                                    onClick={() => onClickRequest(request)}
                                     secondaryAction={
                                         <ListItemIcon edge="end">
                                             <div>

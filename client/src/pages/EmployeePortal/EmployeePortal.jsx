@@ -5,6 +5,7 @@ import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmplo
 import RequestsEmployee from '../../components/RequestsEmployee/RequestsEmployee';
 import RequestsList from '../../components/RequestsList/RequestsList';
 import RequestView from '../../components/RequestView/RequestView';
+import LiquidationRequestView from '../../components/LiquidationRequestView/LiquidationRequestView'; // Import the LiquidationRequestView component
 import { useMsal } from '@azure/msal-react';
 import axios from 'axios';
 import LiquidationRequestsListEP from '../../components/LiquidationRequestsListEP/LiquidationRequestsListEP';
@@ -49,7 +50,11 @@ function EmployeePortal() {
   };
 
   const handleClickRequest = (request) => {
-    setRequestDetails(request);
+    setRequestDetails(request); // Regular request details
+  };
+
+  const handleClickLiqRequest = (liqRequest) => {
+    setRequestDetails(liqRequest); // Liquidation request details
   };
 
   console.log('Employee ID sent to child components:', employeeId);
@@ -77,15 +82,26 @@ function EmployeePortal() {
       <RequestsList employee_id={employeeId} onClickRequest={handleClickRequest} />
       <LiquidationRequestsListEP
         employee_id={employeeId}
-        /*onClickRequest={handleClickRequest} */
+        onClickRequest={handleClickLiqRequest} // Pass the handler to the LiquidationRequestsListEP component
       />
       <RequestsEmployee employee_id={employeeId} />
-      <RequestView
-        requestDetails={requestDetails}
-        onClose={closePopup}
-        managerPermissions={false}
-        employeePermissions={true}
-      />
+      
+      {/* Render the appropriate request view */}
+      {requestDetails && requestDetails.type ? (
+        <RequestView
+          requestDetails={requestDetails}
+          onClose={closePopup}
+          managerPermissions={false}
+          employeePermissions={true}
+        />
+      ) : (
+        <LiquidationRequestView
+          requestDetails={requestDetails}
+          onClose={closePopup}
+          managerPermissions={false}
+          employeePermissions={true}
+        />
+      )}
     </div>
   );
 }

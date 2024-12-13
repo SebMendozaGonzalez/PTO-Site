@@ -4,6 +4,7 @@ import WelcomeLeaders from '../../components/WelcomeLeaders/WelcomeLeaders';
 import DashboardEmployee from '../../components/DashboardEmployee/DashboardEmployee';
 import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar';
 import RequestView from '../../components/RequestView/RequestView';
+import LiquidationRequestView from '../../components/LiquidationRequestView/LiquidationRequestView';
 import EmployeeLicenseCard from '../../components/EmployeeLicenseCard/EmployeeLicenseCard';
 import LiquidationRequestsList from '../../components/LiquidationRequestsListMP/LiquidationRequestsListMP';
 import { useMsal } from '@azure/msal-react';
@@ -36,6 +37,11 @@ function LeaderPortal() {
   const handleClose = () => {
     setSelectedEmployee(null);
     setIsLicenseMode(false);
+  };
+
+  // New handler for Liquidation Request click
+  const handleClickLiqRequest = (liqRequest) => {
+    setRequestDetails(liqRequest); // Set liquidation request details
   };
 
   const isSearchEnabled = accounts[0]?.username === "dev1@surgicalcapital.com";
@@ -84,7 +90,7 @@ function LeaderPortal() {
               employee_id={selectedEmployee.employee_id}
               HRportal={false}
               filterLeaderEmail={filterLeaderEmail}
-            /*onClickRequest={handleClickRequest} */
+              onClickRequest={handleClickLiqRequest} // Handle liquidation request click
             />
             <RequestsCalendar
               employee_id={selectedEmployee.employee_id}
@@ -94,8 +100,16 @@ function LeaderPortal() {
           </div>
         )}
 
-        {requestDetails && (
+        {/* Conditional rendering for regular request or liquidation request */}
+        {requestDetails && requestDetails.type ? (
           <RequestView
+            requestDetails={requestDetails}
+            onClose={closePopup}
+            managerPermissions={true}
+            employeePermissions={false}
+          />
+        ) : (
+          <LiquidationRequestView
             requestDetails={requestDetails}
             onClose={closePopup}
             managerPermissions={true}
