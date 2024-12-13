@@ -1,0 +1,116 @@
+/* General Styles */
+.request-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 800px;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.separator {
+    border-top: 1px solid #ccc;
+    margin: 1rem 0;
+}
+
+/* Dots Container */
+.dots-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid grey;
+    background-color: #f9f9f9;
+}
+
+/* First Section */
+.first {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.requester-info {
+    text-align: left;
+}
+
+.requester-info .f1 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #29304d;
+}
+
+.requester-info .f2 {
+    font-weight: normal;
+    font-size: 1rem;
+    color: #555;
+}
+
+.dates-and-type .f2 {
+    font-weight: bold;
+    color: #1560f6;
+}
+
+/* Second Section */
+.second .f3 {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Third Section */
+.third {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.third .left {
+    text-align: left;
+}
+
+.third .right {
+    text-align: center;
+}
+
+.third .f1 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #29304d;
+}
+
+.third .f3 {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Hover Effect */
+.requests-list .MuiListItem-root:hover {
+    background-color: #83abfc; /* Change this color to your desired hover color */
+    cursor: pointer;
+}
