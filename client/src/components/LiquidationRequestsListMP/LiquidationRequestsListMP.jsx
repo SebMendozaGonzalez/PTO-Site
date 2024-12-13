@@ -17,6 +17,8 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
     const [acceptedFilter, setAcceptedFilter] = useState('all');
     const [employeeFilter, setEmployeeFilter] = useState([]);
     const [employeeOptions, setEmployeeOptions] = useState([]);
+    const [departmentFilter, setDepartmentFilter] = useState([]);
+    const [departmentOptions, setDepartmentOptions] = useState([]);
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -42,9 +44,12 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
 
                 setRequests(fetchedRequests);
 
-                // Extract unique employee names for the dropdown
-                const uniqueNames = [...new Set(fetchedRequests.map(request => request.name))];
-                setEmployeeOptions(uniqueNames);
+                // Extract unique department names and employee names
+                const uniqueDepartments = [...new Set(fetchedRequests.map(request => request.department).filter(Boolean))];
+                const uniqueEmployees = [...new Set(fetchedRequests.map(request => request.name))];
+
+                setDepartmentOptions(uniqueDepartments);
+                setEmployeeOptions(uniqueEmployees);
             } catch (err) {
                 setError("An error occurred while fetching the liquidation requests.");
                 console.error(err);
@@ -55,17 +60,31 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
     }, [employee_id, HRportal, filterLeaderEmail]);
 
     useEffect(() => {
+        // Update employee options based on selected departments
+        if (departmentFilter.length > 0) {
+            const filteredEmployees = requests
+                .filter(request => departmentFilter.includes(request.department))
+                .map(request => request.name);
+            setEmployeeOptions([...new Set(filteredEmployees)]);
+        } else {
+            const allEmployees = requests.map(request => request.name);
+            setEmployeeOptions([...new Set(allEmployees)]);
+        }
+    }, [departmentFilter, requests]);
+
+    useEffect(() => {
         // Filter requests based on filters
         const filtered = requests.filter(request => {
             const decidedMatch = decidedFilter === 'all' || request.decided === (decidedFilter === 'true');
             const acceptedMatch = acceptedFilter === 'all' || request.accepted === (acceptedFilter === 'true');
             const employeeMatch = employeeFilter.length === 0 || employeeFilter.includes(request.name);
+            const departmentMatch = departmentFilter.length === 0 || departmentFilter.includes(request.department);
 
-            return decidedMatch && acceptedMatch && employeeMatch;
+            return decidedMatch && acceptedMatch && employeeMatch && departmentMatch;
         });
 
         setFilteredRequests(filtered);
-    }, [decidedFilter, acceptedFilter, employeeFilter, requests]);
+    }, [decidedFilter, acceptedFilter, employeeFilter, departmentFilter, requests]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -90,6 +109,25 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
 
                 {/* Filters */}
                 <div className="filters">
+                    {HRportal && (
+                        <FormControl sx={{ minWidth: 200, marginRight: 2 }}>
+                            <InputLabel>Department</InputLabel>
+                            <Select
+                                multiple
+                                value={departmentFilter}
+                                onChange={(e) => setDepartmentFilter(e.target.value)}
+                                renderValue={(selected) => selected.join(', ')}
+                            >
+                                {departmentOptions.map(department => (
+                                    <MenuItem key={department} value={department}>
+                                        <Checkbox checked={departmentFilter.includes(department)} />
+                                        <MuiListItemText primary={department} />
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    )}
+
                     <FormControl sx={{ minWidth: 120, marginRight: 2 }}>
                         <InputLabel>Decided</InputLabel>
                         <Select
