@@ -43,8 +43,7 @@ function HRPortal() {
         {selectedEmployeeId && <DashboardEmployee employee_id={selectedEmployeeId} />}
         <LiquidationRequestsList
           employee_id={selectedEmployeeId}
-          HRPortal={true}
-        /*onClickRequest={handleClickRequest} */
+          HRportal={true}
         />
 
         {selectedEmployeeId && (
