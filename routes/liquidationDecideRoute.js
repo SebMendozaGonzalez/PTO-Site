@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
         request.input('decided_by', decided_by);
 
         let updateQuery = `
-            UPDATE liquidation-request 
+            UPDATE liquidation_request 
             SET decided = 1, 
                 accepted = @accepted, 
                 decision_date = CURRENT_TIMESTAMP, 
@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
         // Retrieve and return the updated record
         const result = await request.query(`
             SELECT * 
-            FROM liquidation-request 
+            FROM liquidation_request
             WHERE request_id = @request_id 
             ORDER BY decision_date DESC 
             OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY;

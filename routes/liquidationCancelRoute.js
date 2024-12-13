@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 
         // Update the cancelled column
         const updateQuery = `
-            UPDATE liquidation-request
+            UPDATE liquidation_request
             SET cancelled = 1, cancel_date= CURRENT_TIMESTAMP
             WHERE request_id = @request_id;
         `;
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
         // Confirm the update
         const result = await request.query(`
             SELECT * 
-            FROM liquidation-request 
+            FROM liquidation_request
             WHERE request_id = @request_id 
             ORDER BY decision_date DESC 
             OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY;
