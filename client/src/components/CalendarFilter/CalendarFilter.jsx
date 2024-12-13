@@ -34,6 +34,7 @@ const departmentOptions = [
 function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
   const [requests, setRequests] = useState([]);
   const [employees, setEmployees] = useState([]);
+  const [filteredEmployees, setFilteredEmployees] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedDecisions, setSelectedDecisions] = useState([]);
   const [selectedAcceptances, setSelectedAcceptances] = useState([]);
@@ -95,6 +96,16 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
     fetchRequestsAndEmployees();
   }, [filterLeaderEmail, onFilterChange]);
 
+  useEffect(() => {
+    if (selectedDepartments.length) {
+      setFilteredEmployees(
+        employees.filter(emp => selectedDepartments.includes(emp.department))
+      );
+    } else {
+      setFilteredEmployees(employees);
+    }
+  }, [selectedDepartments, employees]);
+
   const handleFilterChange = (key, value) => {
     switch (key) {
       case 'type':
@@ -139,7 +150,6 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
     });
   };
 
-
   return (
     <Box className="calendar-filter" display="flex" flexDirection="row" flexWrap="wrap" gap={2}>
       {filterOptions.map(({ label, key }) => {
@@ -168,7 +178,7 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
             label: dep,
             value: dep,
           })),
-          employee: employees.map(emp => ({
+          employee: filteredEmployees.map(emp => ({
             label: emp.name,
             value: emp,
           })),

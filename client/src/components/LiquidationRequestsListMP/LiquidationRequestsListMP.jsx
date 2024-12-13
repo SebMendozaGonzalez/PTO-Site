@@ -109,24 +109,6 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
 
                 {/* Filters */}
                 <div className="filters">
-                    {HRportal && (
-                        <FormControl sx={{ minWidth: 200, marginRight: 2 }}>
-                            <InputLabel>Department</InputLabel>
-                            <Select
-                                multiple
-                                value={departmentFilter}
-                                onChange={(e) => setDepartmentFilter(e.target.value)}
-                                renderValue={(selected) => selected.join(', ')}
-                            >
-                                {departmentOptions.map(department => (
-                                    <MenuItem key={department} value={department}>
-                                        <Checkbox checked={departmentFilter.includes(department)} />
-                                        <MuiListItemText primary={department} />
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    )}
 
                     <FormControl sx={{ minWidth: 120, marginRight: 2 }}>
                         <InputLabel>Decided</InputLabel>
@@ -151,6 +133,25 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
                             <MenuItem value="false">Rejected</MenuItem>
                         </Select>
                     </FormControl>
+
+                    {HRportal && (
+                        <FormControl sx={{ minWidth: 200, marginRight: 2 }}>
+                            <InputLabel>Department</InputLabel>
+                            <Select
+                                multiple
+                                value={departmentFilter}
+                                onChange={(e) => setDepartmentFilter(e.target.value)}
+                                renderValue={(selected) => selected.join(', ')}
+                            >
+                                {departmentOptions.map(department => (
+                                    <MenuItem key={department} value={department}>
+                                        <Checkbox checked={departmentFilter.includes(department)} />
+                                        <MuiListItemText primary={department} />
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    )}
 
                     <FormControl sx={{ minWidth: 200 }}>
                         <InputLabel>Employee</InputLabel>
