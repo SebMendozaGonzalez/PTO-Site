@@ -5,13 +5,18 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import { ListItemIcon } from '@mui/material';
+import { ListItemIcon, FormControl, InputLabel, MenuItem, Select, Checkbox, ListItemText as MuiListItemText } from '@mui/material';
 import Dots from '../Dots/Dots';
 import './LiquidationRequestsListMP.css';
 
 function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filterLeaderEmail }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
+    const [filteredRequests, setFilteredRequests] = useState([]);
+    const [decidedFilter, setDecidedFilter] = useState('all');
+    const [acceptedFilter, setAcceptedFilter] = useState('all');
+    const [employeeFilter, setEmployeeFilter] = useState([]);
+    const [employeeOptions, setEmployeeOptions] = useState([]);
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -19,26 +24,27 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
             setError('');
 
             try {
+                let fetchedRequests;
                 if (HRportal) {
-                    // Case: HRportal is true
                     const response = await axios.get('/liquidation-requests-info');
-                    setRequests(response.data);
+                    fetchedRequests = response.data;
                 } else {
-                    // Case: HRportal is false
                     const liquidationResponse = await axios.get('/liquidation-requests-info');
                     const liquidationRequests = liquidationResponse.data;
 
-                    const employeesResponse = await axios.get(
-                        `/employees-by-leader/${filterLeaderEmail}`
-                    );
+                    const employeesResponse = await axios.get(`/employees-by-leader/${filterLeaderEmail}`);
                     const employeeList = employeesResponse.data.map(employee => employee.employee_id);
 
-                    const filteredRequests = liquidationRequests.filter(request =>
+                    fetchedRequests = liquidationRequests.filter(request =>
                         employeeList.includes(request.employee_id)
                     );
-
-                    setRequests(filteredRequests);
                 }
+
+                setRequests(fetchedRequests);
+
+                // Extract unique employee names for the dropdown
+                const uniqueNames = [...new Set(fetchedRequests.map(request => request.name))];
+                setEmployeeOptions(uniqueNames);
             } catch (err) {
                 setError("An error occurred while fetching the liquidation requests.");
                 console.error(err);
@@ -46,7 +52,20 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
         };
 
         fetchRequests();
-    }, [employee_id, HRportal, filterLeaderEmail]); // Re-fetch data when these dependencies change
+    }, [employee_id, HRportal, filterLeaderEmail]);
+
+    useEffect(() => {
+        // Filter requests based on filters
+        const filtered = requests.filter(request => {
+            const decidedMatch = decidedFilter === 'all' || request.decided === (decidedFilter === 'true');
+            const acceptedMatch = acceptedFilter === 'all' || request.accepted === (acceptedFilter === 'true');
+            const employeeMatch = employeeFilter.length === 0 || employeeFilter.includes(request.name);
+
+            return decidedMatch && acceptedMatch && employeeMatch;
+        });
+
+        setFilteredRequests(filtered);
+    }, [decidedFilter, acceptedFilter, employeeFilter, requests]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -68,9 +87,54 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
                 }}
             >
                 {error && <p style={{ color: '#1560f6' }}>{error}</p>}
+
+                {/* Filters */}
+                <div className="filters">
+                    <FormControl sx={{ minWidth: 120, marginRight: 2 }}>
+                        <InputLabel>Decided</InputLabel>
+                        <Select
+                            value={decidedFilter}
+                            onChange={(e) => setDecidedFilter(e.target.value)}
+                        >
+                            <MenuItem value="all">All</MenuItem>
+                            <MenuItem value="true">Decided</MenuItem>
+                            <MenuItem value="false">Not Decided</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl sx={{ minWidth: 120, marginRight: 2 }}>
+                        <InputLabel>Accepted</InputLabel>
+                        <Select
+                            value={acceptedFilter}
+                            onChange={(e) => setAcceptedFilter(e.target.value)}
+                        >
+                            <MenuItem value="all">All</MenuItem>
+                            <MenuItem value="true">Accepted</MenuItem>
+                            <MenuItem value="false">Rejected</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <FormControl sx={{ minWidth: 200 }}>
+                        <InputLabel>Employee</InputLabel>
+                        <Select
+                            multiple
+                            value={employeeFilter}
+                            onChange={(e) => setEmployeeFilter(e.target.value)}
+                            renderValue={(selected) => selected.join(', ')}
+                        >
+                            {employeeOptions.map(name => (
+                                <MenuItem key={name} value={name}>
+                                    <Checkbox checked={employeeFilter.includes(name)} />
+                                    <MuiListItemText primary={name} />
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
+
                 <List dense>
-                    {requests.length > 0 ? (
-                        requests.map(request => (
+                    {filteredRequests.length > 0 ? (
+                        filteredRequests.map(request => (
                             <div key={request.request_id}>
                                 <ListItem
                                     button
