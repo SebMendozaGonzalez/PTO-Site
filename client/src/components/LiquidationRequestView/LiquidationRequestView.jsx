@@ -224,7 +224,7 @@ function LiquidationRequestView({ requestDetails, onClose, managerPermissions, e
                             </span>
                         )}
                         {requestDetails.taken && (
-                            <span className='f3-italic'>This time off was already taken</span>
+                            <span className='f3-italic'>This liquidation request was already agreed upon</span>
                         )}
                     </div>
 
