@@ -112,7 +112,7 @@ function LeaderPortal() {
           <LiquidationRequestView
             requestDetails={requestDetails}
             onClose={closePopup}
-            managerPermissions={true}
+            managerPermissions={false}
             employeePermissions={false}
           />
         )}
