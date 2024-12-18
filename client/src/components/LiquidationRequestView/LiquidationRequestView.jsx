@@ -100,7 +100,7 @@ function LiquidationRequestView({ requestDetails, onClose, managerPermissions, e
     };
 
     // Conditional Elements for Cleaner Rendering
-    const decisionButtons = managerPermissions && !requestDetails.decided && (
+    const decisionButtons = managerPermissions && !requestDetails.decided && !requestDetails.cancelled && (
         <div className='fourth padding flexCenter innerWidth'>
             <div className='left'>
                 <button className='decision-button' onClick={() => handleDecision('accept')}>Accept</button>
@@ -118,8 +118,8 @@ function LiquidationRequestView({ requestDetails, onClose, managerPermissions, e
     };
 
     const cancellationButton = employeePermissions &&
-        ((requestDetails.decided && requestDetails.accepted && !requestDetails.taken) || !requestDetails.decided) &&
-        !requestDetails.cancelled &&
+        ((requestDetails.decided && requestDetails.accepted) || !requestDetails.decided) &&
+        !requestDetails.cancelled && !requestDetails.taken &&
         requestDetails.days > 0 && (() => {
             return (
                 <div className='fourth padding flexCenter innerWidth'>
@@ -218,7 +218,7 @@ function LiquidationRequestView({ requestDetails, onClose, managerPermissions, e
                                 <strong>Decided by: </strong>{requestDetails.decided_by}
                             </span>
                         )}
-                        {requestDetails.accepted && requestDetails.cancelled && (
+                        {requestDetails.cancelled && (
                             <span className='f3'>
                                 <strong>Cancelled on:  </strong>{formatDate(requestDetails.cancel_date)}
                             </span>

@@ -9,7 +9,12 @@ function Dots({ requestDetails }) {
     if (requestDetails.decided) {
         x = requestDetails.accepted ? "This request was accepted" : "This request was rejected";
     } else {
-        x = "This request hasn't been decided upon";
+        if (requestDetails.cancelled) {
+            x = "This request was cancelled before being decided upon"
+        } else {
+            x = "This request hasn't been decided upon";
+        }
+
     }
 
     // Determine the y part of the tooltip
