@@ -232,8 +232,11 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                                 <strong>Cancelled on:  </strong>{formatDate(requestDetails.cancel_date)}
                             </span>
                         )}
-                        {requestDetails.notified_manager && (
+                        {requestDetails.notified_manager && !requestDetails.decided &&(
                             <span className='f3-italic'>This request was already notified to the manager</span>
+                        )}
+                        {!(requestDetails.notified_manager && requestDetails.decided) && (
+                            <span className='f3-italic'>This request has not been notified to the manager</span>
                         )}
                         {requestDetails.taken && (
                             <span className='f3-italic'>This time off was already taken</span>
