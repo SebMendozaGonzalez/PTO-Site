@@ -235,7 +235,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                         {requestDetails.notified_manager && !requestDetails.decided &&(
                             <span className='f3-italic'>This request was already notified to the manager</span>
                         )}
-                        {!(requestDetails.notified_manager && requestDetails.decided) && (
+                        {!requestDetails.notified_manager && !requestDetails.decided && (
                             <span className='f3-italic'>This request has not been notified to the manager</span>
                         )}
                         {requestDetails.taken && (
