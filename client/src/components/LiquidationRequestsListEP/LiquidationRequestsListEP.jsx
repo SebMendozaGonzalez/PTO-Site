@@ -18,6 +18,12 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
             setRequests([]);
             setError('');
 
+            if (!employee_id) {
+                setError("Invalid employee ID. Cannot fetch liquidation requests.");
+                console.warn("Attempted to fetch liquidation requests with an invalid employee ID.");
+                return;
+            }
+
             try {
                 const response = await axios.get(`/liquidation-requests-info/${employee_id}`);
                 setRequests(response.data);
