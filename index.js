@@ -26,7 +26,7 @@ const port = process.env.PORT || 8080;
 
 // Middleware to handle CORS
 app.use(cors({
-    origin: ['https://quantumhr.azurewebsites.net', 'http://localhost:3000'],
+    origin: ['https://quantumhr.azurewebsites.net', 'http://localhost:3000', 'https://quantumhr-quantumh-testing.azurewebsites.net'],
     credentials: true
 }));
 
@@ -52,10 +52,10 @@ app.use('/update-employee', updateEmployee);
 app.use('/add-employee', addEmployee);
 app.use('/remove-employee', deleteEmployee);
 app.use('/employees-by-leader', employeesByLeader);
-app.use('/liquidation-request', liqRequestRoute)
-app.use('/liquidation-requests-info', liquidationRequestsInfo)
-app.use('/liquidation-cancel-request', liquidationCancelRoute)
-app.use('/liquidation-decide-request', liquidationDecideRoute)
+app.use('/liquidation-request', liqRequestRoute);
+app.use('/liquidation-requests-info', liquidationRequestsInfo);
+app.use('/liquidation-cancel-request', liquidationCancelRoute);
+app.use('/liquidation-decide-request', liquidationDecideRoute);
 
 // Logout functionality
 app.get('/logout', (req, res) => {
