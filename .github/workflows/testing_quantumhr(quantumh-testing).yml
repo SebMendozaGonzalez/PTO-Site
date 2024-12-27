@@ -95,6 +95,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'quantumhr'
-          slot-name: 'testing'
+          slot-name: 'quantumh-testing'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_28307CAD94594F2084D36329CD5863A5 }}
