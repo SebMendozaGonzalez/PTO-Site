@@ -3,6 +3,8 @@ import { LogLevel } from '@azure/msal-browser';
 
 // Environment-based configuration
 const isProduction = process.env.NODE_ENV === "production";
+console.log("Node env: ", process.env.NODE_ENV);
+console.log(isProduction);
 
 export const msalConfig = {
   auth: {
