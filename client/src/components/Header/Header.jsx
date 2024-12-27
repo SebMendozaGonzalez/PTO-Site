@@ -10,8 +10,14 @@ const Header = () => {
 
   // Login function
   const handleLogin = () => {
-    // Clear MSAL cache before starting login
-    instance.getTokenCache().clear();
+    // Clear MSAL cache by removing all related keys from sessionStorage
+    if (sessionStorage) {
+      Object.keys(sessionStorage).forEach((key) => {
+        if (key.includes('msal')) {
+          sessionStorage.removeItem(key);
+        }
+      });
+    }
 
     instance.loginRedirect(loginRequest)
       .then(response => {
