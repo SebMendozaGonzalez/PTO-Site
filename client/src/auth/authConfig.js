@@ -1,11 +1,16 @@
 import { PublicClientApplication } from '@azure/msal-browser';
 import { LogLevel } from '@azure/msal-browser';
 
+// Environment-based configuration
+const isTesting = process.env.NODE_ENV === "testing";
+
 export const msalConfig = {
   auth: {
-    clientId: "a564ad6f-c874-40c5-82c4-fbb412756468",
+    clientId: "a564ad6f-c874-40c5-82c4-fbb412756468", // Keep this consistent for both environments
     authority: "https://login.microsoftonline.com/33d1ad6a-c8e7-4be9-bd3b-9942f85502bf",
-    redirectUri: "/auth/callback"
+    redirectUri: isTesting 
+      ? "https://quantumhr-quantumh-testing.azurewebsites.net//auth/callback" // Testing slot redirect URI
+      : "https://quantumhr.azurewebsites.net/auth/callback", // Production slot redirect URI
   },
   cache: {
     cacheLocation: "sessionStorage",
@@ -21,17 +26,6 @@ export const msalConfig = {
           case LogLevel.Error:
             console.error(message);
             return;
-          /*
-          case LogLevel.Info:
-            console.info(message);
-            return;
-          case LogLevel.Verbose:
-            console.debug(message);
-            return;
-          case LogLevel.Warning:
-            console.warn(message);
-            return;
-          */
           default:
             return;
         }
