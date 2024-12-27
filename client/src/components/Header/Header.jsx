@@ -10,6 +10,9 @@ const Header = () => {
 
   // Login function
   const handleLogin = () => {
+    // Clear MSAL cache before starting login
+    instance.getTokenCache().clear();
+
     instance.loginRedirect(loginRequest)
       .then(response => {
         console.log('Login response:', response);
@@ -24,11 +27,6 @@ const Header = () => {
     instance.logoutRedirect();
   };
 
-/*
-  console.log('Completo: ', accounts[0]);
-  console.log('Roles: ', accounts[0]?.idTokenClaims?.roles);
-  console.log('lo contiene?', accounts[0]?.idTokenClaims?.roles?.includes('Leader'))
-*/
   return (
     <header className="header">
       <div className="logo-container">
@@ -52,15 +50,13 @@ const Header = () => {
           </NavLink>
         ) : (<div></div>)}
 
-        
-        {accounts.length > 0 &&  accounts[0]?.idTokenClaims?.roles?.includes('Leader') ? (
+        {accounts.length > 0 && accounts[0]?.idTokenClaims?.roles?.includes('Leader') ? (
           <NavLink
             to="/leader-portal"
             className={({ isActive }) => (isActive ? 'nav-link active-link' : 'nav-link')}
           >
             <span>Manager Portal</span>
           </NavLink>
-
         ) : (<div></div>)}
 
         {accounts.length > 0 && accounts[0]?.idTokenClaims?.roles?.includes('HR_Manager') ? (
@@ -72,13 +68,10 @@ const Header = () => {
           </NavLink>
         ) : (<div></div>)}
 
-
         {accounts.length > 0 ? (
           <div>
-
             <button className="button btn" onClick={handleLogout}>Logout</button>
           </div>
-
         ) : (
           <button className="button btn" onClick={handleLogin}>Login</button>
         )}
