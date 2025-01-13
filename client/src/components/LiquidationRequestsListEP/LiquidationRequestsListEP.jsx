@@ -25,7 +25,11 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
             }
 
             try {
-                const response = await axios.get(`/liquidation-requests-info/${employee_id}`);
+                const response = await axios.get(`/liquidation-requests-info/${employee_id}`, {
+                    headers: {
+                        'api-key': process.env.API_KEY
+                    }
+                });
                 setRequests(response.data);
             } catch (err) {
                 setError("An error occurred while fetching the liquidation requests.");
@@ -35,6 +39,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
 
         fetchRequests();
     }, [employee_id]);
+
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);

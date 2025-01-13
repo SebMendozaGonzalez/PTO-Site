@@ -5,19 +5,18 @@ const employeesInfoRoute = require('./routes/employeesInfo');
 const vacationsInfoRoute = require('./routes/vacationsInfo');
 const email_id = require('./routes/email_id');
 const requestsInfoRoute = require('./routes/requestsInfo');
-const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo')
-const liquidationCancelRoute = require('./routes/liquidationCancelRoute')
-const liquidationDecideRoute = require('./routes/liquidationDecideRoute')
+const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo');
+const liquidationCancelRoute = require('./routes/liquidationCancelRoute');
+const liquidationDecideRoute = require('./routes/liquidationDecideRoute');
 const vacationRequestRoute = require('./routes/requestRoute');
-const liqRequestRoute = require('./routes/liquidationRequestRoute')
+const liqRequestRoute = require('./routes/liquidationRequestRoute');
 const decideRequestRoute = require('./routes/decideRequestRoute');
 const cancelRequestRoute = require('./routes/cancelRequestRoute');
-const updateEmployee = require('./routes/employeeUpdateRoute')
-const addEmployee = require('./routes/employeeAddRoute')
-const deleteEmployee = require('./routes/EmployeeRemoveRoute')
-const employeesByLeader = require('./routes/employeesByLeader')
+const updateEmployee = require('./routes/employeeUpdateRoute');
+const addEmployee = require('./routes/employeeAddRoute');
+const deleteEmployee = require('./routes/EmployeeRemoveRoute');
+const employeesByLeader = require('./routes/employeesByLeader');
 const photoRoute = require('./routes/photoRoute');
-
 
 require('dotenv').config();
 
@@ -33,13 +32,27 @@ app.use(cors({
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error('Global Error Handler:', err);
-    res.status(500).send('Something went wrong!');
-});
+// Middleware to protect API routes
+const apiProtectionMiddleware = (req, res, next) => {
+    const apiKey = req.headers['api-key'];
+    if (apiKey === process.env.API_KEY) {
+        next(); // Allow access
+    } else {
+        res.status(403).send('Forbidden: Invalid API Key');
+    }
+};
 
-// API routes for data
+// API route group under '/api'
+const apiRouter = express.Router();
+
+apiRouter.use(apiProtectionMiddleware); // Protect all routes under '/api'
+
+apiRouter.use('/liquidation-requests-info', liquidationRequestsInfo);
+
+// Attach the protected API routes to the app
+app.use('/api', apiRouter);
+
+// Other unprotected routes
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
 app.use('/email_id', email_id);
@@ -52,15 +65,14 @@ app.use('/update-employee', updateEmployee);
 app.use('/add-employee', addEmployee);
 app.use('/remove-employee', deleteEmployee);
 app.use('/employees-by-leader', employeesByLeader);
-app.use('/liquidation-request', liqRequestRoute)
-app.use('/liquidation-requests-info', liquidationRequestsInfo)
-app.use('/liquidation-cancel-request', liquidationCancelRoute)
-app.use('/liquidation-decide-request', liquidationDecideRoute)
+app.use('/liquidation-request', liqRequestRoute);
+app.use('/liquidation-cancel-request', liquidationCancelRoute);
+app.use('/liquidation-decide-request', liquidationDecideRoute);
 
 // Logout functionality
 app.get('/logout', (req, res) => {
     req.session = null; // Clear session data
-    const logoutUrl = `?`;
+    const logoutUrl = process.env.AZURE_AD_LOGOUT_URL || '/'; // Replace with actual logout URL
     res.redirect(logoutUrl); // Redirect to Azure AD logout
 });
 
@@ -77,9 +89,9 @@ app.get('/health', (req, res) => {
     res.status(200).send('OK');
 });
 
-// Error handling middleware
+// Global error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error('Global Error Handler:', err);
     res.status(500).send('Something went wrong!');
 });
 
