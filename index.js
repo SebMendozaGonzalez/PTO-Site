@@ -25,7 +25,7 @@ const port = process.env.PORT || 8080;
 
 // Middleware to handle CORS
 app.use(cors({
-    origin: ['https://quantumhr.azurewebsites.net', 'http://localhost:3000'],
+    origin: ['https://quantumhr.azurewebsites.net', 'http://localhost:3000', 'https://quantumhr-api-ms.azure-api.net'],
     credentials: true
 }));
 
