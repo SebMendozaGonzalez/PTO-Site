@@ -25,9 +25,9 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
             }
 
             try {
-                const response = await axios.get(`/liquidation-requests-info/${employee_id}`, {
+                const response = await axios.get(`https://quantumhr-api-ms.azure-api.net/quantumhr/liquidation-requests-info/${employee_id}`, {
                     headers: {
-                        'api-key': process.env.API_KEY
+                        'Ocp-Apim-Subscription-Key': process.env.APIMS_SUBSCRIPTION_KEY
                     }
                 });
                 setRequests(response.data);

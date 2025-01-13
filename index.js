@@ -47,12 +47,10 @@ const apiRouter = express.Router();
 
 apiRouter.use(apiProtectionMiddleware); // Protect all routes under '/api'
 
-apiRouter.use('/liquidation-requests-info', liquidationRequestsInfo);
 
 // Attach the protected API routes to the app
 app.use('/api', apiRouter);
 
-// Other unprotected routes
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
 app.use('/email_id', email_id);
@@ -68,6 +66,7 @@ app.use('/employees-by-leader', employeesByLeader);
 app.use('/liquidation-request', liqRequestRoute);
 app.use('/liquidation-cancel-request', liquidationCancelRoute);
 app.use('/liquidation-decide-request', liquidationDecideRoute);
+apiRouter.use('/liquidation-requests-info', liquidationRequestsInfo);
 
 // Logout functionality
 app.get('/logout', (req, res) => {
