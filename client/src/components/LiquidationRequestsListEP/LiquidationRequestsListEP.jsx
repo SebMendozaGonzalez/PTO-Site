@@ -13,6 +13,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
 
+    console.log(process.env.APIMS_SUBSCRIPTION_KEY)
     useEffect(() => {
         const fetchRequests = async () => {
             setRequests([]);
