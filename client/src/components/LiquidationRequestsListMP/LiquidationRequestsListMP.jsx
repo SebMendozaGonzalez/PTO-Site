@@ -30,14 +30,14 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
                 if (HRportal) {
                     const response = await axios.get(`https://quantumhr-api-ms.azure-api.net/quantumhr/liquidation-requests-info/${employee_id}`, {
                         headers: {
-                            'Ocp-Apim-Subscription-Key': process.env.APIMS_SUBSCRIPTION_KEY
+                            'Ocp-Apim-Subscription-Key': process.env.REACT_APP_APIMS_SUBSCRIPTION_KEY
                         }
                     });
                     fetchedRequests = response.data;
                 } else {
                     const liquidationResponse = await axios.get(`https://quantumhr-api-ms.azure-api.net/quantumhr/liquidation-requests-info/${employee_id}`, {
                         headers: {
-                            'Ocp-Apim-Subscription-Key': process.env.APIMS_SUBSCRIPTION_KEY
+                            'Ocp-Apim-Subscription-Key': process.env.REACT_APP_APIMS_SUBSCRIPTION_KEY
                         }
                     });
                     const liquidationRequests = liquidationResponse.data;

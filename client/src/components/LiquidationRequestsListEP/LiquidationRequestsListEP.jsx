@@ -13,7 +13,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
 
-    console.log(process.env.APIMS_SUBSCRIPTION_KEY)
+    console.log(process.env.REACT_APP_APIMS_SUBSCRIPTION_KEY)
     useEffect(() => {
         const fetchRequests = async () => {
             setRequests([]);
@@ -28,7 +28,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
             try {
                 const response = await axios.get(`https://quantumhr-api-ms.azure-api.net/quantumhr/liquidation-requests-info/${employee_id}`, {
                     headers: {
-                        'Ocp-Apim-Subscription-Key': process.env.APIMS_SUBSCRIPTION_KEY
+                        'Ocp-Apim-Subscription-Key': process.env.REACT_APP_APIMS_SUBSCRIPTION_KEY
                     }
                 });
                 setRequests(response.data);
