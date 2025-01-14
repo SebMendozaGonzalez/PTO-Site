@@ -49,7 +49,7 @@ apiRouter.use(apiProtectionMiddleware); // Protect all routes under '/api'
 
 
 // Attach the protected API routes to the app
-app.use('/api', apiRouter);
+app.use('/protected', apiRouter);
 
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
