@@ -6,6 +6,7 @@ const vacationsInfoRoute = require('./routes/vacationsInfo');
 const email_id = require('./routes/email_id');
 const requestsInfoRoute = require('./routes/requestsInfo');
 const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo');
+const api_liquidationRequestsInfo = require('./routes/api_liquidationRequestsInfo');
 const liquidationCancelRoute = require('./routes/liquidationCancelRoute');
 const liquidationDecideRoute = require('./routes/liquidationDecideRoute');
 const vacationRequestRoute = require('./routes/requestRoute');
@@ -35,21 +36,33 @@ app.use(express.json());
 // Middleware to protect API routes
 const apiProtectionMiddleware = (req, res, next) => {
     const apiKey = req.headers['api-key'];
-    if (apiKey === process.env.API_KEY) {
+    if (apiKey === process.env.BACK_API_KEY) {
         next(); // Allow access
     } else {
         res.status(403).send('Forbidden: Invalid API Key');
     }
 };
 
-// API route group under '/api'
-const apiRouter = express.Router();
+const apiRoutingMiddleware = (req, res, next) => {
+    const apiKey = req.headers['api-key'];
+    if (apiKey === process.env.FRONT_API_KEY) {
+        next();
+    } else {
+        next();
+        //res.status(403).send('Forbidden: Invalid API Key')
+    }
+}
 
-apiRouter.use(apiProtectionMiddleware); // Protect all routes under '/api'
+
+const apiProtector = express.Router(); // API route group under '/protected'
+const apiRouter = express.Router(); // API route group under '/api'
+
+apiProtector.use(apiProtectionMiddleware); // Protect all routes under '/protected'
+apiRouter.use(apiRoutingMiddleware); // Protect all routes under '/api'
 
 
-// Attach the protected API routes to the app
-app.use('/protected', apiRouter);
+app.use('/protected', apiProtector); // Attach the protected API routes to the app
+app.use('/api', apiRouter) // Attach the API routing to the app
 
 app.use('/employees-info', employeesInfoRoute);
 app.use('/vacations-info', vacationsInfoRoute);
@@ -57,6 +70,7 @@ app.use('/email_id', email_id);
 app.use('/requests-info', requestsInfoRoute);
 app.use('/request', vacationRequestRoute);
 app.use('/employee-photos', photoRoute);
+
 app.use('/decide-request', decideRequestRoute);
 app.use('/cancel-request', cancelRequestRoute);
 app.use('/update-employee', updateEmployee);
@@ -66,7 +80,12 @@ app.use('/employees-by-leader', employeesByLeader);
 app.use('/liquidation-request', liqRequestRoute);
 app.use('/liquidation-cancel-request', liquidationCancelRoute);
 app.use('/liquidation-decide-request', liquidationDecideRoute);
-apiRouter.use('/liquidation-requests-info', liquidationRequestsInfo);
+
+// apiRouter apis
+apiRouter.use('/liquidation-requests-info', api_liquidationRequestsInfo);
+// apiProtector apis
+apiProtector.use('/liquidation-requests-info', liquidationRequestsInfo);
+
 
 // Logout functionality
 app.get('/logout', (req, res) => {
