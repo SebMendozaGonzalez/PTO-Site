@@ -6,7 +6,6 @@ require('dotenv').config();
 // routes
 const employeesInfoRoute = require('./routes/employeesInfo');
 const vacationsInfoRoute = require('./routes/vacationsInfo');
-const email_id = require('./routes/email_id');
 const requestsInfoRoute = require('./routes/requestsInfo');
 const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo');
 const api_liquidationRequestsInfo = require('./routes/api_liquidationRequestsInfo');
@@ -19,11 +18,13 @@ const cancelRequestRoute = require('./routes/cancelRequestRoute');
 const updateEmployee = require('./routes/employeeUpdateRoute');
 const addEmployee = require('./routes/employeeAddRoute');
 const deleteEmployee = require('./routes/EmployeeRemoveRoute');
-const employeesByLeader = require('./routes/employeesByLeader');
+
 const photoRoute = require('./routes/photoRoute');
 const employee_endpoint = require('./api/employee/routes'); 
 const request_endpoint = require('./api/request/routes')
 const liquidation_request_endpoint = require('./api/liquidation_request/routes')
+const email_id = require('./api/email_id');
+const employeesByLeader = require('./api/employeesByLeader');
 
 const app = express();
 const port = process.env.PORT || 8080;
