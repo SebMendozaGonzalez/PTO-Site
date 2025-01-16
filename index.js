@@ -81,7 +81,7 @@ console.log('employee_endpoint:', typeof employee_endpoint);
 
 // Attach Routes
 app.use('/employees-info', employeesInfoRoute);
-app.use('/vacations-info', vacationsInfoRoute);
+
 app.use('/email_id', email_id);
 app.use('/requests-info', requestsInfoRoute);
 app.use('/request', vacationRequestRoute);
@@ -89,9 +89,7 @@ app.use('/employee-photos', photoRoute);
 app.use('/decide-request', decideRequestRoute);
 app.use('/cancel-request', cancelRequestRoute);
 app.use('/update-employee', updateEmployee);
-app.use('/add-employee', addEmployee);
 app.use('/remove-employee', deleteEmployee);
-app.use('/employees-by-leader', employeesByLeader);
 app.use('/liquidation-request', liqRequestRoute);
 app.use('/liquidation-cancel-request', liquidationCancelRoute);
 app.use('/liquidation-decide-request', liquidationDecideRoute);
@@ -99,8 +97,12 @@ app.use('/liquidation-decide-request', liquidationDecideRoute);
 // Protected API routes
 apiProtector.use('/liquidation-requests-info', liquidationRequestsInfo);
 apiProtector.use('/employee', employee_endpoint);
-apiProtector.use('/request', request_endpoint)
-apiProtector.use('/liquidation-request' , liquidation_request_endpoint)
+apiProtector.use('/request', request_endpoint);
+apiProtector.use('/liquidation-request' , liquidation_request_endpoint);
+apiProtector.use('/vacations-info', vacationsInfoRoute);
+apiProtector.use('/add-employee', addEmployee);
+apiProtector.use('/employees-by-leader', employeesByLeader);
+
 
 // Additional API routes
 apiRouter.use('/liquidation-requests-info', api_liquidationRequestsInfo);
