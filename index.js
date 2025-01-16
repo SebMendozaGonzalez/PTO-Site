@@ -18,7 +18,7 @@ const addEmployee = require('./routes/employeeAddRoute');
 const deleteEmployee = require('./routes/EmployeeRemoveRoute');
 const employeesByLeader = require('./routes/employeesByLeader');
 const photoRoute = require('./routes/photoRoute');
-const employee_endpoint = require('./api/employee/routes')
+const employee_endpoint = require('./api/employee/routes');
 
 require('dotenv').config();
 
@@ -54,7 +54,6 @@ const apiRoutingMiddleware = (req, res, next) => {
     }
 }
 
-
 const apiProtector = express.Router(); // API route group under '/protected'
 const apiRouter = express.Router(); // API route group under '/api'
 
@@ -71,7 +70,6 @@ app.use('/email_id', email_id);
 app.use('/requests-info', requestsInfoRoute);
 app.use('/request', vacationRequestRoute);
 app.use('/employee-photos', photoRoute);
-
 app.use('/decide-request', decideRequestRoute);
 app.use('/cancel-request', cancelRequestRoute);
 app.use('/update-employee', updateEmployee);

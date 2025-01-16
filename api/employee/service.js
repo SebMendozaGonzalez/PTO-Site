@@ -32,30 +32,13 @@ const bindInputs = (request, inputs) => {
 const constructInsertQuery = (table, data) => {
     const columns = Object.keys(data);
     const values = columns.map(col => `@${col}`);
-
-    
     return `INSERT INTO ${table} (${columns.join(', ')}) VALUES (${values.join(', ')});`;
 };
 
 // Add a new employee to the database
 const addEmployeeToDB = async (employeeData) => {
     const {
-        employee_id,
-        name,
-        full_name,
-        date_of_birth,
-        position,
-        leader_email,
-        company,
-        email_surgical,
-        email_quantum,
-        home_address,
-        phone_number,
-        emergency_contact,
-        emergency_name,
-        emergency_phone,
-        department,
-        start_date
+        employee_id, name, full_name, date_of_birth, position, leader_email, company, email_surgical, email_quantum, home_address, phone_number, emergency_contact, emergency_name, emergency_phone, department, start_date
     } = employeeData;
 
     const pool = await connectToDatabase();
@@ -82,22 +65,7 @@ const addEmployeeToDB = async (employeeData) => {
 
     // Prepare data for insertion
     const rosterData = {
-        employee_id,
-        name,
-        full_name,
-        date_of_birth,
-        position,
-        leader_email,
-        company,
-        email_surgical,
-        email_quantum,
-        home_address,
-        phone_number,
-        emergency_contact,
-        emergency_name,
-        emergency_phone,
-        department,
-        start_date
+        employee_id, name, full_name, date_of_birth, position, leader_email, company, email_surgical, email_quantum, home_address, phone_number, emergency_contact, emergency_name, emergency_phone, department, start_date
     };
 
     const vacationsData = {
@@ -138,24 +106,7 @@ const addEmployeeToDB = async (employeeData) => {
 // Update an employee in the database
 const updateEmployeeInDB = async (employeeData) => {
     const {
-        employee_id,
-        name,
-        full_name,
-        date_of_birth,
-        position,
-        email_surgical,
-        email_quantum,
-        phone_number,
-        home_address,
-        company,
-        department,
-        start_date,
-        leader,
-        leader_email,
-        leader_id,
-        emergency_contact,
-        emergency_name,
-        emergency_phone
+        employee_id, name, full_name, date_of_birth, position, email_surgical, email_quantum, phone_number, home_address, company, department, start_date, leader, leader_email, leader_id, emergency_contact, emergency_name, emergency_phone
     } = employeeData;
 
     const pool = await connectToDatabase();
@@ -163,24 +114,7 @@ const updateEmployeeInDB = async (employeeData) => {
 
     // Bind input parameters
     const inputs = {
-        employee_id,
-        name,
-        full_name,
-        date_of_birth,
-        position,
-        email_surgical,
-        email_quantum,
-        phone_number,
-        home_address,
-        company,
-        department,
-        start_date,
-        leader,
-        leader_email,
-        leader_id,
-        emergency_contact,
-        emergency_name,
-        emergency_phone
+        employee_id, name, full_name, date_of_birth, position, email_surgical, email_quantum, phone_number, home_address, company, department, start_date, leader, leader_email, leader_id, emergency_contact, emergency_name, emergency_phone
     };
 
     for (const [key, value] of Object.entries(inputs)) {
