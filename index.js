@@ -24,7 +24,9 @@ const employee_endpoint = require('./api/employee/routes');
 const request_endpoint = require('./api/request/routes')
 const liquidation_request_endpoint = require('./api/liquidation_request/routes')
 const email_id = require('./api/email_id');
-const employeesByLeader = require('./api/employeesByLeader');
+const employees_by_Leader = require('./api/employees_by_leader');
+const vacations_by_leader = require('./api/vacations_by_leader')
+
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -75,13 +77,8 @@ apiRouter.use(apiRoutingMiddleware); // Protect '/api' routes
 app.use('/protected', apiProtector); // Attach protected API routes
 app.use('/api', apiRouter); // Attach additional API routes
 
-// Test Route Logging
-console.log('employeesInfoRoute:', typeof employeesInfoRoute);
-console.log('employee_endpoint:', typeof employee_endpoint);
-
 // Attach Routes
 app.use('/employees-info', employeesInfoRoute);
-
 app.use('/add-employee', email_id);
 app.use('/requests-info', requestsInfoRoute);
 app.use('/request', vacationRequestRoute);
@@ -99,13 +96,13 @@ apiProtector.use('/liquidation-requests-info', liquidationRequestsInfo);
 apiProtector.use('/employee', employee_endpoint);
 apiProtector.use('/request', request_endpoint);
 apiProtector.use('/liquidation-request' , liquidation_request_endpoint);
-apiProtector.use('/vacations-info', vacationsInfoRoute);
-apiProtector.use('/email_id', addEmployee);
-apiProtector.use('/employees-by-leader', employeesByLeader);
-
+apiProtector.use('/vacations-info', vacations_by_leader);
+apiProtector.use('/email_id', email_id);
+apiProtector.use('/employees-by-leader', employees_by_Leader);
 
 // Additional API routes
 apiRouter.use('/liquidation-requests-info', api_liquidationRequestsInfo);
+
 
 // Logout functionality
 app.get('/logout', (req, res) => {
