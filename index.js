@@ -23,7 +23,7 @@ const employeesByLeader = require('./routes/employeesByLeader');
 const photoRoute = require('./routes/photoRoute');
 const employee_endpoint = require('./api/employee/routes'); 
 const request_endpoint = require('./api/request/routes')
-const liquidation_request_endpoint = require('./api/request/routes')
+const liquidation_request_endpoint = require('./api/liquidation_request/routes')
 
 const app = express();
 const port = process.env.PORT || 8080;
