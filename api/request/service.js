@@ -112,29 +112,28 @@ const updateRequestDecision = async ({ request_id, accepted, rejection_reason, d
 };
 
 
-// Service function to cancel a vacation request
-const cancelRequest = async ({ request_id, employee_id }) => {
+// Service function to cancel a vacation request by ID
+const cancelRequestById = async (request_id) => {
     const pool = await connectToDatabase();
     const request = pool.request();
 
-    // Parameterize inputs to prevent SQL injection
+    // Parameterize the input to prevent SQL injection
     request.input('request_id', request_id);
-    request.input('employee_id', employee_id);
 
     // Update the cancelled column
     const updateQuery = `
         UPDATE request
         SET cancelled = 1, cancel_date = CURRENT_TIMESTAMP
-        WHERE request_id = @request_id AND employee_id = @employee_id;
+        WHERE request_id = @request_id;
     `;
 
     await request.query(updateQuery);
 
-    // Confirm the update
+    // Confirm the update by fetching the updated record
     const result = await request.query(`
         SELECT * 
         FROM request 
-        WHERE request_id = @request_id AND employee_id = @employee_id 
+        WHERE request_id = @request_id 
         ORDER BY decision_date DESC 
         OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY;
     `);
@@ -143,10 +142,11 @@ const cancelRequest = async ({ request_id, employee_id }) => {
     return result.recordset.length > 0 ? result.recordset[0] : null;
 };
 
+
 module.exports = {
     fetchAllRequests,
     fetchRequestsByEmployeeId,
     insertRequest,
     updateRequestDecision,
-    cancelRequest,
+    cancelRequestById
 };

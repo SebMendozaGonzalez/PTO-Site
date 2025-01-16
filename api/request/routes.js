@@ -15,6 +15,6 @@ router.post('/', requestController.createRequest);
 router.patch('/', requestController.decideRequest);
 
 // Route to handle cancellation of a vacation request
-router.delete('/:employee_id', requestController.cancelRequest);
+router.delete('/:request_id', requestController.cancelRequest);
 
 module.exports = router;

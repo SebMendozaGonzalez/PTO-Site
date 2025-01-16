@@ -113,13 +113,12 @@ const decideRequest = async (req, res) => {
 
 // Controller function to cancel a vacation request
 const cancelRequest = async (req, res) => {
-    const { employee_id } = req.params;
-    const { request_id } = req.body;
+    const { request_id } = req.params; // Retrieve request_id from URL parameter
 
-    console.log('Cancel request route hit with data:', { employee_id, request_id });
+    console.log('Cancel request route hit with request ID:', request_id);
 
     try {
-        const cancelledRequest = await requestService.cancelRequest({ request_id, employee_id });
+        const cancelledRequest = await requestService.cancelRequestById(request_id);
 
         if (!cancelledRequest) {
             console.log(`No record found for request ID: ${request_id}`);
