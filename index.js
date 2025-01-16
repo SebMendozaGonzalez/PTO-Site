@@ -3,7 +3,7 @@ const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
 
-// Import routes
+// routes
 const employeesInfoRoute = require('./routes/employeesInfo');
 const vacationsInfoRoute = require('./routes/vacationsInfo');
 const email_id = require('./routes/email_id');
@@ -21,8 +21,9 @@ const addEmployee = require('./routes/employeeAddRoute');
 const deleteEmployee = require('./routes/EmployeeRemoveRoute');
 const employeesByLeader = require('./routes/employeesByLeader');
 const photoRoute = require('./routes/photoRoute');
-const employee_endpoint = require('./api/employee/routes'); // Ensure this is exporting a valid Router
+const employee_endpoint = require('./api/employee/routes'); 
 const request_endpoint = require('./api/request/routes')
+const liquidation_request_endpoint = require('./api/request/routes')
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -98,6 +99,7 @@ app.use('/liquidation-decide-request', liquidationDecideRoute);
 apiProtector.use('/liquidation-requests-info', liquidationRequestsInfo);
 apiProtector.use('/employee', employee_endpoint);
 apiProtector.use('/request', request_endpoint)
+apiProtector.use('/liquidation-request' , liquidation_request_endpoint)
 
 // Additional API routes
 apiRouter.use('/liquidation-requests-info', api_liquidationRequestsInfo);
