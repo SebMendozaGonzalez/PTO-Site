@@ -22,6 +22,7 @@ const deleteEmployee = require('./routes/EmployeeRemoveRoute');
 const employeesByLeader = require('./routes/employeesByLeader');
 const photoRoute = require('./routes/photoRoute');
 const employee_endpoint = require('./api/employee/routes'); // Ensure this is exporting a valid Router
+const request_endpoint = require('./api/request/routes')
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -96,6 +97,7 @@ app.use('/liquidation-decide-request', liquidationDecideRoute);
 // Protected API routes
 apiProtector.use('/liquidation-requests-info', liquidationRequestsInfo);
 apiProtector.use('/employee', employee_endpoint);
+apiProtector.use('/request', request_endpoint)
 
 // Additional API routes
 apiRouter.use('/liquidation-requests-info', api_liquidationRequestsInfo);
