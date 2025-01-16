@@ -4,11 +4,10 @@ const cors = require('cors');
 require('dotenv').config();
 
 // routes
+/*
 const employeesInfoRoute = require('./routes/employeesInfo');
 const vacationsInfoRoute = require('./routes/vacationsInfo');
 const requestsInfoRoute = require('./routes/requestsInfo');
-const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo');
-const api_liquidationRequestsInfo = require('./routes/api_liquidationRequestsInfo');
 const liquidationCancelRoute = require('./routes/liquidationCancelRoute');
 const liquidationDecideRoute = require('./routes/liquidationDecideRoute');
 const vacationRequestRoute = require('./routes/requestRoute');
@@ -18,13 +17,16 @@ const cancelRequestRoute = require('./routes/cancelRequestRoute');
 const updateEmployee = require('./routes/employeeUpdateRoute');
 const addEmployee = require('./routes/employeeAddRoute');
 const deleteEmployee = require('./routes/EmployeeRemoveRoute');
+*/
+const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo');
+const api_liquidationRequestsInfo = require('./routes/api_liquidationRequestsInfo');
 
 const photoRoute = require('./routes/photoRoute');
 const employee_endpoint = require('./api/employee/routes'); 
 const request_endpoint = require('./api/request/routes')
 const liquidation_request_endpoint = require('./api/liquidation_request/routes')
 const email_id = require('./api/email_id');
-const employees_by_Leader = require('./api/employees_by_leader');
+const employees_by_leader = require('./api/employees_by_leader');
 const vacations_by_leader = require('./api/vacations_by_leader')
 
 
@@ -78,11 +80,11 @@ app.use('/protected', apiProtector); // Attach protected API routes
 app.use('/api', apiRouter); // Attach additional API routes
 
 // Attach Routes
+/*
 app.use('/employees-info', employeesInfoRoute);
 app.use('/add-employee', email_id);
 app.use('/requests-info', requestsInfoRoute);
 app.use('/request', vacationRequestRoute);
-app.use('/employee-photos', photoRoute);
 app.use('/decide-request', decideRequestRoute);
 app.use('/cancel-request', cancelRequestRoute);
 app.use('/update-employee', updateEmployee);
@@ -90,6 +92,8 @@ app.use('/remove-employee', deleteEmployee);
 app.use('/liquidation-request', liqRequestRoute);
 app.use('/liquidation-cancel-request', liquidationCancelRoute);
 app.use('/liquidation-decide-request', liquidationDecideRoute);
+*/
+app.use('/employee-photos', photoRoute);
 
 // Protected API routes
 apiProtector.use('/liquidation-requests-info', liquidationRequestsInfo);
@@ -98,7 +102,7 @@ apiProtector.use('/request', request_endpoint);
 apiProtector.use('/liquidation-request' , liquidation_request_endpoint);
 apiProtector.use('/vacations-info', vacations_by_leader);
 apiProtector.use('/email_id', email_id);
-apiProtector.use('/employees-by-leader', employees_by_Leader);
+apiProtector.use('/employees-by-leader', employees_by_leader);
 
 // Additional API routes
 apiRouter.use('/liquidation-requests-info', api_liquidationRequestsInfo);
