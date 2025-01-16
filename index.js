@@ -18,6 +18,7 @@ const addEmployee = require('./routes/employeeAddRoute');
 const deleteEmployee = require('./routes/EmployeeRemoveRoute');
 const employeesByLeader = require('./routes/employeesByLeader');
 const photoRoute = require('./routes/photoRoute');
+const employee_endpoint = require('./api/employee/routes')
 
 require('dotenv').config();
 
@@ -81,10 +82,12 @@ app.use('/liquidation-request', liqRequestRoute);
 app.use('/liquidation-cancel-request', liquidationCancelRoute);
 app.use('/liquidation-decide-request', liquidationDecideRoute);
 
-// apiRouter apis
-apiRouter.use('/liquidation-requests-info', api_liquidationRequestsInfo);
 // apiProtector apis
 apiProtector.use('/liquidation-requests-info', liquidationRequestsInfo);
+apiProtector.use('/employee', employee_endpoint)
+
+// apiRouter apis
+apiRouter.use('/liquidation-requests-info', api_liquidationRequestsInfo);
 
 
 // Logout functionality
