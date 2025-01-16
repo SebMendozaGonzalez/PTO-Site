@@ -82,7 +82,7 @@ console.log('employee_endpoint:', typeof employee_endpoint);
 // Attach Routes
 app.use('/employees-info', employeesInfoRoute);
 
-app.use('/email_id', email_id);
+app.use('/add-employee', email_id);
 app.use('/requests-info', requestsInfoRoute);
 app.use('/request', vacationRequestRoute);
 app.use('/employee-photos', photoRoute);
@@ -100,7 +100,7 @@ apiProtector.use('/employee', employee_endpoint);
 apiProtector.use('/request', request_endpoint);
 apiProtector.use('/liquidation-request' , liquidation_request_endpoint);
 apiProtector.use('/vacations-info', vacationsInfoRoute);
-apiProtector.use('/add-employee', addEmployee);
+apiProtector.use('/email_id', addEmployee);
 apiProtector.use('/employees-by-leader', employeesByLeader);
 
 
