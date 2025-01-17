@@ -19,15 +19,16 @@ const addEmployee = require('./routes/employeeAddRoute');
 const deleteEmployee = require('./routes/EmployeeRemoveRoute');
 */
 const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo');
-const api_liquidationRequestsInfo = require('./routes/api_liquidationRequestsInfo');
+//const api_liquidationRequestsInfo = require('./routes/api_liquidationRequestsInfo');
 
 const photoRoute = require('./routes/photoRoute');
-const employee_endpoint = require('./api/employee/routes'); 
-const request_endpoint = require('./api/request/routes')
-const liquidation_request_endpoint = require('./api/liquidation_request/routes')
-const email_id = require('./api/email_id');
-const employees_by_leader = require('./api/employees_by_leader');
-const vacations_by_leader = require('./api/vacations_by_leader')
+const apiFrontdoor = require('./frontdoor-endpoints/routes')
+const employee_endpoint = require('./backdoor-endpoints/employee/routes'); 
+const request_endpoint = require('./backdoor-endpoints/request/routes')
+const liquidation_request_endpoint = require('./backdoor-endpoints/liquidation_request/routes')
+const email_id = require('./backdoor-endpoints/email_id');
+const employees_by_leader = require('./backdoor-endpoints/employees_by_leader');
+const vacations_by_leader = require('./backdoor-endpoints/vacations_by_leader')
 
 
 const app = express();
@@ -49,7 +50,7 @@ app.use(
 app.use(express.json());
 
 // Middleware: Protect API routes
-const apiProtectionMiddleware = (req, res, next) => {
+const apiBackdoorMiddleware = (req, res, next) => {
   const apiKey = req.headers['api-key'];
   if (apiKey === process.env.BACK_API_KEY) {
     next();
@@ -58,26 +59,17 @@ const apiProtectionMiddleware = (req, res, next) => {
   }
 };
 
-// Middleware: Additional API routing logic
-const apiRoutingMiddleware = (req, res, next) => {
-  const apiKey = req.headers['api-key'];
-  if (apiKey === process.env.FRONT_API_KEY) {
-    next(); // Allow access
-  } else {
-    res.status(403).send('Forbidden: Invalid API Key');
-  }
-};
 
 // Routers
-const apiProtector = express.Router(); // Group under '/protected'
-const apiRouter = express.Router(); // Group under '/api'
+const apiBackdoor = express.Router(); // Group under '/protected'
 
-apiProtector.use(apiProtectionMiddleware); // Protect '/protected' routes
-apiRouter.use(apiRoutingMiddleware); // Protect '/api' routes
+apiBackdoor.use(apiBackdoorMiddleware); // Protect '/protected' routes
+
 
 // Routes
-app.use('/protected', apiProtector); // Attach protected API routes
-app.use('/api', apiRouter); // Attach additional API routes
+app.use('/protected', apiBackdoor); // Attach protected API routes
+app.use('/api', apiFrontdoor); // Attach additional API routes
+app.use('/employee-photos', photoRoute);
 
 // Attach Routes
 /*
@@ -93,19 +85,19 @@ app.use('/liquidation-request', liqRequestRoute);
 app.use('/liquidation-cancel-request', liquidationCancelRoute);
 app.use('/liquidation-decide-request', liquidationDecideRoute);
 */
-app.use('/employee-photos', photoRoute);
 
-// Protected API routes
-apiProtector.use('/liquidation-requests-info', liquidationRequestsInfo);
-apiProtector.use('/employee', employee_endpoint);
-apiProtector.use('/request', request_endpoint);
-apiProtector.use('/liquidation-request' , liquidation_request_endpoint);
-apiProtector.use('/vacations-info', vacations_by_leader);
-apiProtector.use('/email_id', email_id);
-apiProtector.use('/employees-by-leader', employees_by_leader);
 
-// Additional API routes
-apiRouter.use('/liquidation-requests-info', api_liquidationRequestsInfo);
+// Backdoor endpoint routes
+apiBackdoor.use('/liquidation-requests-info', liquidationRequestsInfo);
+apiBackdoor.use('/employee', employee_endpoint);
+apiBackdoor.use('/request', request_endpoint);
+apiBackdoor.use('/liquidation-request' , liquidation_request_endpoint);
+apiBackdoor.use('/vacations-info', vacations_by_leader);
+apiBackdoor.use('/email_id', email_id);
+apiBackdoor.use('/employees-by-leader', employees_by_leader);
+
+// Frondoor endpoint routes
+//apiFrontdoor.use('/liquidation-requests-info', api_liquidationRequestsInfo);
 
 
 // Logout functionality
