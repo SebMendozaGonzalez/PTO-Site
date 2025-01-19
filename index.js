@@ -59,6 +59,12 @@ app.use('/protected', apiBackdoor); // Attach protected API routes
 app.use('/api', apiFrontdoor); // Attach additional API routes
 app.use('/employee-photos', photoRoute);
 
+// Add a log to confirm the mount point
+app.use('/api', (req, res, next) => {
+  console.log('[Debug: Router Mount] /api prefix detected, passing to router');
+  next();
+}, frontdoorRouter);
+
 // Backdoor endpoint routes
 apiBackdoor.use('/employee', employee_endpoint);
 apiBackdoor.use('/request', request_endpoint);
