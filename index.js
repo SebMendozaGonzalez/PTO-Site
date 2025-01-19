@@ -63,7 +63,7 @@ app.use('/employee-photos', photoRoute);
 app.use('/api', (req, res, next) => {
   console.log('[Debug: Router Mount] /api prefix detected, passing to router');
   next();
-}, frontdoorRouter);
+}, apiFrontdoor);
 
 // Backdoor endpoint routes
 apiBackdoor.use('/employee', employee_endpoint);
