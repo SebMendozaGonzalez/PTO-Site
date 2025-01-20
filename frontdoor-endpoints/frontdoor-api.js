@@ -19,8 +19,9 @@ const addSubscriptionKey = (req, res, next) => {
 // Proxy logic for all routes under /api
 router.all('/*', addSubscriptionKey, async (req, res) => {
   try {
-    // Construct the APIMS URL
-    const targetUrl = `${process.env.APIMS_BASE_URL}${req.originalUrl}`;
+    // Construct the APIMS URL, removing the "/api" prefix from the original URL
+    const targetPath = req.originalUrl.replace('/api', ''); // Remove "/api" from the start of the path
+    const targetUrl = `${process.env.APIMS_BASE_URL}${targetPath}`;
 
     console.log(`[Proxy Middleware] Forwarding request to: ${targetUrl}`);
 
@@ -50,3 +51,4 @@ router.all('/*', addSubscriptionKey, async (req, res) => {
 });
 
 module.exports = router;
+
