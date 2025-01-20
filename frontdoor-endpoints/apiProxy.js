@@ -1,6 +1,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const apiProxy = () => {
+    console.log('[Debug: API Proxy Creation] Initializing Proxy Middleware');
     return createProxyMiddleware({
         target: process.env.APIMS_BASE_URL,
         changeOrigin: true,
