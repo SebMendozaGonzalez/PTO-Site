@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const apiProxy = () => {
     console.log('[Debug: API Proxy Creation] Initializing Proxy Middleware');
     return createProxyMiddleware({
-        target: process.env.APIMS_BASE_URL,
+        target: 'https://quantumhr-api-ms.azure-api.net',
         changeOrigin: true,
         pathRewrite: {
             '^/api': '/quantumhr', // Adjust the path for APIMS
