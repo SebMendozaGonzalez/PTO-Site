@@ -5,7 +5,7 @@ require('dotenv').config();
 
 // routes
 const photoRoute = require('./routes/photoRoute');
-const apiFrontdoor = require('./frontdoor-endpoints/routes');
+const apiFrontdoor = require('./frontdoor-endpoints/frontdoor-api');
 
 const employee_endpoint = require('./backdoor-endpoints/employee/routes');
 const request_endpoint = require('./backdoor-endpoints/request/routes');
@@ -55,11 +55,8 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/protected', apiBackdoor); // Attach protected API routes
-app.use('/api', apiFrontdoor); // Attach additional API routes
 app.use('/employee-photos', photoRoute);
-
-// Add a log to confirm the mount point
+app.use('/protected', apiBackdoor); // Attach protected API routes
 app.use('/api', (req, res, next) => {
   console.log('[Debug: Router Mount] /api prefix detected, passing to router');
   next();

@@ -12,25 +12,16 @@ router.use((req, res, next) => {
 router.use('/employee', (req, res, next) => {
     console.log('[Debug: /employee Route] Request received:', req.originalUrl);
     next();
-}, apiProxy());
+}, apiProxy);
 
 router.use('/request', (req, res, next) => {
     console.log('[Debug: /request Route] Request received:', req.originalUrl);
     next();
-}, apiProxy());
+}, apiProxy);
 
 router.use('/liquidation-request', (req, res, next) => {
     console.log('[Debug: /liquidation-request Route] Request received:', req.originalUrl);
     next();
-}, apiProxy());
-
-
-router.use('/employee', apiProxy());
-router.use('/request', apiProxy());
-router.use('/liquidation-request', apiProxy());
-router.use('/vacations-info', apiProxy());
-router.use('/email_id', apiProxy());
-router.use('/employees-by-leader', apiProxy());
-
+}, apiProxy);
 
 module.exports = router;
