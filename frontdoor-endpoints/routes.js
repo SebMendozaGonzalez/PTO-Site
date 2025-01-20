@@ -24,15 +24,13 @@ router.use('/liquidation-request', (req, res, next) => {
     next();
 }, apiProxy());
 
-router.use(apiProxy());
 
-/*
 router.use('/employee', apiProxy());
 router.use('/request', apiProxy());
 router.use('/liquidation-request', apiProxy());
 router.use('/vacations-info', apiProxy());
 router.use('/email_id', apiProxy());
 router.use('/employees-by-leader', apiProxy());
-*/
+
 
 module.exports = router;

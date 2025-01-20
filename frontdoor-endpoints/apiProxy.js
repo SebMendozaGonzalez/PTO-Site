@@ -7,16 +7,6 @@ const apiProxy = () => {
         pathRewrite: {
             '^/api': '/quantumhr', // Adjust the path for APIMS
         },
-        onProxyReq: (proxyReq, req, res) => {
-            console.log('[Debug: Proxy Middleware] Forwarding request:', req.method, req.originalUrl);
-            console.log('[Debug: Proxy Middleware] Target:', process.env.APIMS_BASE_URL);
-        },
-        onError: (err, req, res) => {
-            console.error('[Debug: Proxy Middleware Error]', err.message);
-        },
-        onProxyRes: (proxyRes, req, res) => {
-            console.log('[Debug: Proxy Response] Status:', proxyRes.statusCode, 'for', req.originalUrl);
-        },
         onProxyReq: (proxyReq, req) => {
             
             // Log the original request path and rewritten path
@@ -24,8 +14,6 @@ const apiProxy = () => {
             console.log('[Debug: Proxy Middleware] Target:', process.env.APIMS_BASE_URL);
             console.log('[Debug: Proxy Middleware] Rewritten path for APIMS:', proxyReq.path);
 
-            // Log the target APIMS base URL
-            console.log('[Proxy] Target APIMS Base URL:', process.env.APIMS_BASE_URL);
 
             // Add subscription key to the headers
             const subscriptionKey = process.env.REACT_APP_APIMS_SUBSCRIPTION_KEY;
