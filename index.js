@@ -13,6 +13,7 @@ const liquidation_request_endpoint = require('./backdoor-endpoints/liquidation_r
 const email_id = require('./backdoor-endpoints/email_id');
 const employees_by_leader = require('./backdoor-endpoints/employees_by_leader');
 const vacations_by_leader = require('./backdoor-endpoints/vacations_by_id');
+const employees_off = require('./backdoor-endpoints/employees_off');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -69,8 +70,8 @@ apiBackdoor.use('/liquidation-request', liquidation_request_endpoint);
 apiBackdoor.use('/vacations-info', vacations_by_leader);
 apiBackdoor.use('/email_id', email_id);
 apiBackdoor.use('/employees-by-leader', employees_by_leader);
+apiBackdoor.use('/employees-off', employees_off);
 
-// Frondoor endpoint routes
 
 // Logout functionality
 app.get('/logout', (req, res) => {
