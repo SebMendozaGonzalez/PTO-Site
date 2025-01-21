@@ -20,7 +20,7 @@ function EmployeesOffList() {
         setEmployeesOff([]);
         setError('');
         try {
-            const response = await axios.get('/employees-off', {
+            const response = await axios.get('/api/employees-off', {
                 params: { date: formatDate(date) },
             });
             if (response.data.length > 0) {
