@@ -6,6 +6,7 @@ import RequestView from '../../components/RequestView/RequestView';
 import LiquidationRequestView from '../../components/LiquidationRequestView/LiquidationRequestView';
 import RosterManager from '../../components/RosterManager/RosterManager';
 import LiquidationRequestsList from '../../components/LiquidationRequestsListMP/LiquidationRequestsListMP';
+import EmployeesOffList from '../../components/EmployeesOffList/EmployeesOffList'; // Import the component
 import './HRPortal.css';
 
 function HRPortal() {
@@ -80,6 +81,7 @@ function HRPortal() {
     <div className='flexColCenter hr-portal'>
       <WelcomeHRManagers />
       {HRComponent}
+      <EmployeesOffList />
     </div>
   );
 }
