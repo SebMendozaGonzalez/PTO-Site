@@ -16,7 +16,7 @@ function DashboardEmployee({ employee_id }) {
 
     const fetchVacationInfo = async () => {
       try {
-        const response = await axios.get(`/api/vacations/${employeeId}`); // Updated endpoint
+        const response = await axios.get(`/api/vacations-info/${employeeId}`); // Updated endpoint
         setVacationInfo(response.data);
       } catch (err) {
         console.error('Error fetching vacation info:', err);
