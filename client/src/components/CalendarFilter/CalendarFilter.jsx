@@ -44,21 +44,25 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
   useEffect(() => {
     const fetchRequestsAndEmployees = async () => {
       try {
+        // Fetch employees based on filterLeaderEmail
         const leaderResponse = filterLeaderEmail
-          ? await fetch(`/employees-by-leader/${filterLeaderEmail}`)
-          : await fetch('/employees-info');
+          ? await fetch(`/api/employees-by-leader/${filterLeaderEmail}`) // Updated for /api prefix
+          : await fetch('/api/employee'); // Updated for /api prefix
         const leaderData = await leaderResponse.json();
         setEmployees(leaderData);
 
         const employeeIds = leaderData.map(emp => emp.employee_id);
 
-        const requestsResponse = await fetch('/requests-info');
+        // Fetch requests
+        const requestsResponse = await fetch('/api/request'); // Updated for /api prefix
         const requestsData = await requestsResponse.json();
 
+        // Filter requests for employees
         const filteredRequests = requestsData.filter(request =>
           employeeIds.includes(request.employee_id)
         );
 
+        // Generate events from filtered requests
         const events = [];
         filteredRequests.forEach(request => {
           const startDate = new Date(request.start_date);
@@ -86,6 +90,7 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
           }
         });
 
+        // Update state
         setRequests(events);
         onFilterChange(events);
       } catch (error) {
@@ -95,6 +100,17 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 
     fetchRequestsAndEmployees();
   }, [filterLeaderEmail, onFilterChange]);
+
+  useEffect(() => {
+    if (selectedDepartments.length) {
+      setFilteredEmployees(
+        employees.filter(emp => selectedDepartments.includes(emp.department))
+      );
+    } else {
+      setFilteredEmployees(employees);
+    }
+  }, [selectedDepartments, employees]);
+
 
   useEffect(() => {
     if (selectedDepartments.length) {

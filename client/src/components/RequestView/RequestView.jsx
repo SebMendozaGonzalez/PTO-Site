@@ -37,10 +37,9 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
 
     const cancelRequest = async () => {
         try {
-            const response = await fetch('/cancel-request', {
-                method: 'POST',
+            const response = await fetch(`/api/request/${requestDetails.request_id}`, {
+                method: 'DELETE', // Changed method from PATCH to DELETE
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ request_id: requestDetails.request_id }),
             });
 
             const result = await response.json();
@@ -58,6 +57,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
     };
 
 
+
     const submitDecision = async () => {
         if (decision === 'reject' && !rejectionReason) {
             setError('Rejection reason is required.');
@@ -69,8 +69,8 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         try {
             const acceptedValue = String(decision === 'accept');
             const decided_by = accounts[0]?.username;
-            const response = await fetch('/decide-request', {
-                method: 'POST',
+            const response = await fetch('/api/request', {
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     request_id: requestDetails.request_id,
@@ -223,7 +223,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                             </span>
                         )}
                         {requestDetails.decided && (
-                            <span className='f3'>  
+                            <span className='f3'>
                                 <strong>Decided by: </strong>{requestDetails.decided_by}
                             </span>
                         )}
@@ -232,7 +232,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
                                 <strong>Cancelled on:  </strong>{formatDate(requestDetails.cancel_date)}
                             </span>
                         )}
-                        {requestDetails.notified_manager && !requestDetails.decided &&(
+                        {requestDetails.notified_manager && !requestDetails.decided && (
                             <span className='f3-italic'>This request was already notified to the manager</span>
                         )}
                         {!requestDetails.notified_manager && !requestDetails.decided && (

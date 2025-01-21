@@ -58,7 +58,7 @@ function EmployeeAddCard({ onClose }) {
         }
 
         try {
-            const response = await fetch('/add-employee', {
+            const response = await fetch('/api/employee', { // Updated endpoint
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -77,6 +77,7 @@ function EmployeeAddCard({ onClose }) {
             alert('An unexpected error occurred.');
         }
     };
+
 
     return (
         <>

@@ -36,10 +36,9 @@ function LiquidationRequestView({ requestDetails, onClose, managerPermissions, e
 
     const cancelRequest = async () => {
         try {
-            const response = await fetch('/liquidation-cancel-request', {
-                method: 'POST',
+            const response = await fetch(`/api/liquidation-request/${requestDetails.request_id}`, {
+                method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ request_id: requestDetails.request_id }),
             });
 
             const result = await response.json();
@@ -67,11 +66,10 @@ function LiquidationRequestView({ requestDetails, onClose, managerPermissions, e
         try {
             const acceptedValue = String(decision === 'accept');
             const decided_by = accounts[0]?.username;
-            const response = await fetch('/liquidation-decide-request', {
-                method: 'POST',
+            const response = await fetch(`/api/liquidation-request/${requestDetails.request_id}`, {
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    request_id: requestDetails.request_id,
                     accepted: acceptedValue,
                     rejection_reason: rejectionReason,
                     decided_by: decided_by,
@@ -225,7 +223,7 @@ function LiquidationRequestView({ requestDetails, onClose, managerPermissions, e
                         )}
                         {requestDetails.notified_manager && !requestDetails.decided && (
                             <span className='f3-italic'>This liquidation request was already notified to the manager</span>
-                        ) }
+                        )}
                         {!requestDetails.notified_manager && !requestDetails.decided && (
                             <span className='f3-italic'>This liquidation has not been notified to the manager</span>
                         )}

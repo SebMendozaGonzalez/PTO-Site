@@ -69,7 +69,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
 
         try {
             // API call to submit license request
-            const requestResponse = await fetch('/request', {
+            const requestResponse = await fetch('/api/request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
@@ -83,7 +83,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             const newRequest = await requestResponse.json();
 
             // API call to automatically accept the license
-            const decideResponse = await fetch('/decide-request', {
+            const decideResponse = await fetch('/api/request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

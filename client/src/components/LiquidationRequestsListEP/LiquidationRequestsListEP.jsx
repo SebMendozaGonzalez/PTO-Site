@@ -26,11 +26,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
             }
 
             try {
-                const response = await axios.get(`https://quantumhr-api-ms.azure-api.net/quantumhr/liquidation-requests-info/${employee_id}`, {
-                    headers: {
-                        'Ocp-Apim-Subscription-Key': '6aa1c0ab71d6494fb5ce7b0f8c038a4d'
-                    }
-                });
+                const response = await axios.get(`/api/liquidation-request/${employee_id}`); // Updated endpoint
                 setRequests(response.data);
             } catch (err) {
                 setError("An error occurred while fetching the liquidation requests.");
@@ -40,6 +36,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
 
         fetchRequests();
     }, [employee_id]);
+
 
 
     const formatDate = (dateString) => {

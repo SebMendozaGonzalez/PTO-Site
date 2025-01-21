@@ -13,7 +13,7 @@ const LPTable = ({ filterLeaderEmail, onEmployeeSelect }) => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('/employees-info');
+        const response = await axios.get('/api/employee');
         if (Array.isArray(response.data)) {
           const formattedEmployees = response.data.map(employee => ({
             ...employee,

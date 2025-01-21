@@ -45,8 +45,8 @@ function EmployeeEditCard({ employee, onClose }) {
     }, {});
 
     try {
-      const response = await fetch('/update-employee', {
-        method: 'POST',
+      const response = await fetch(`/api/employee/${employee.employee_id}`, { // Updated endpoint
+        method: 'PATCH', // Changed from POST to PATCH
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
@@ -64,6 +64,7 @@ function EmployeeEditCard({ employee, onClose }) {
       console.error('Error:', error);
     }
   };
+
 
 
   return (
