@@ -1,7 +1,7 @@
 /* Drawer Container */
 .drawer {
     position: fixed;
-    top: 0;
+    top: 30px;
     right: -300px; /* Hidden by default */
     width: 300px;
     height: 100%;

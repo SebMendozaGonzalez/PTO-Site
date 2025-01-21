@@ -6,7 +6,7 @@ import RequestView from '../../components/RequestView/RequestView';
 import LiquidationRequestView from '../../components/LiquidationRequestView/LiquidationRequestView';
 import RosterManager from '../../components/RosterManager/RosterManager';
 import LiquidationRequestsList from '../../components/LiquidationRequestsListMP/LiquidationRequestsListMP';
-import EmployeesOffList from '../../components/EmployeesOffList/EmployeesOffList'; // Import the component
+import EmployeesOffList from '../../components/EmployeesOffList/EmployeesOffList';
 import './HRPortal.css';
 
 function HRPortal() {
