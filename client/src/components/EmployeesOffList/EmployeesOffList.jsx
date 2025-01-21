@@ -61,7 +61,7 @@ function EmployeesOffList() {
                 className="drawer-toggle-btn" 
                 onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
-                {isDrawerOpen ? 'Close' : 'View Employees Off'}
+                {isDrawerOpen ? 'Close' : 'Today\'s overview'}
             </button>
 
             {/* Drawer Component */}
