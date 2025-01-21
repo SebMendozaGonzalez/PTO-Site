@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import './EmployeesOffList.css';
 
-function EmployeesOffList() {
+function EmployeesOffList({ filterLeaderEmail }) {
     const [employeesOff, setEmployeesOff] = useState([]);
     const [error, setError] = useState('');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -20,19 +20,36 @@ function EmployeesOffList() {
         setEmployeesOff([]);
         setError('');
         try {
+            // Fetch the employees-off data
             const response = await axios.get('/api/employees-off', {
                 params: { date: formatDate(date) },
             });
-            if (response.data.length > 0) {
-                setEmployeesOff(response.data);
+
+            let filteredEmployees = response.data;
+
+            // If a leader filter is applied, fetch employees reporting to that leader
+            if (filterLeaderEmail) {
+                const leaderResponse = await axios.get(`/api/employees-by-leader/${filterLeaderEmail}`);
+                const leaderEmployeeIds = leaderResponse.data.map((employee) => employee.employee_id);
+
+                // the employees-off data to include only those under the specified leader
+                filteredEmployees = response.data.filter((employee) =>
+                    leaderEmployeeIds.includes(employee.employee_id)
+                );
+            }
+
+            // Update state with filtered employees or show an error if no matches
+            if (filteredEmployees.length > 0) {
+                setEmployeesOff(filteredEmployees);
             } else {
-                setError('No employees off on the selected date.');
+                setError('No employees off on the selected date or matching the leader filter.');
             }
         } catch (err) {
             setError('Failed to fetch employees off.');
             console.error(err);
         }
-    }, []);
+    }, [filterLeaderEmail]);
+
 
     useEffect(() => {
         fetchEmployeesOff(selectedDate);
@@ -57,8 +74,8 @@ function EmployeesOffList() {
     return (
         <>
             {/* Drawer Toggle Button */}
-            <button 
-                className="drawer-toggle-btn" 
+            <button
+                className="drawer-toggle-btn"
                 onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
                 {isDrawerOpen ? 'Close' : 'Today\'s overview'}

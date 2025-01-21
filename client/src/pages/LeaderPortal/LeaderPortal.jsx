@@ -7,6 +7,7 @@ import RequestView from '../../components/RequestView/RequestView';
 import LiquidationRequestView from '../../components/LiquidationRequestView/LiquidationRequestView';
 import EmployeeLicenseCard from '../../components/EmployeeLicenseCard/EmployeeLicenseCard';
 import LiquidationRequestsList from '../../components/LiquidationRequestsListMP/LiquidationRequestsListMP';
+import EmployeesOffList from '../../components/EmployeesOffList/EmployeesOffList';
 import { useMsal } from '@azure/msal-react';
 import './LeaderPortal.css';
 
@@ -124,6 +125,7 @@ function LeaderPortal() {
           />
         )}
       </div>
+      <EmployeesOffList filterLeaderEmail={filterLeaderEmail}/>
     </div>
   );
 }
