@@ -26,7 +26,10 @@ router.get('/', async (req, res) => {
                 SELECT * 
                 FROM request
                 WHERE 
-                    start_date <= @selectedDate AND end_date >= @selectedDate
+                    start_date <= @selectedDate 
+                    AND end_date >= @selectedDate
+                    AND accepted = 1
+                    AND cancelled = 0
             `);
 
         if (result.recordset.length === 0) {

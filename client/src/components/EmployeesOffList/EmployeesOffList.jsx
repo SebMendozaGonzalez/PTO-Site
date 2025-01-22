@@ -5,6 +5,8 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import { ListItemIcon } from '@mui/material';
+import Dots from '../Dots/Dots';
 import './EmployeesOffList.css';
 
 function EmployeesOffList({ filterLeaderEmail }) {
@@ -105,14 +107,23 @@ function EmployeesOffList({ filterLeaderEmail }) {
                     {error && <p style={{ color: '#1560f6' }}>{error}</p>}
                     <List dense>
                         {employeesOff.length > 0 ? (
-                            employeesOff.map((employee) => (
-                                <div key={employee.request_id}>
-                                    <ListItem>
+                            employeesOff.map((request) => (
+                                <div key={request.request_id}>
+                                    <ListItem
+                                        secondaryAction={
+                                            <ListItemIcon edge="end">
+                                                <div>
+                                                    {/* Pass the request_id directly to the Dots component */}
+                                                    <Dots requestDetails={request.request_id} />
+                                                </div>
+                                            </ListItemIcon>
+                                        }>
                                         <ListItemText
-                                            primary={<p className="fonts-primary">{employee.name}</p>}
+                                            primary={<p className="fonts-primary">{request.name}</p>}
                                             secondary={
                                                 <div className="textico-normal">
-                                                    <span>Type: {employee.type}</span>
+                                                    <span>Type: {request.type}</span>
+                                                    <span>From: {request.start_date} To: {request.end_date}</span>
                                                 </div>
                                             }
                                         />
@@ -124,6 +135,7 @@ function EmployeesOffList({ filterLeaderEmail }) {
                             !error && <p style={{ color: '#b6b6b6' }}>Loading employees off...</p>
                         )}
                     </List>
+
                 </Box>
             </div>
         </>
