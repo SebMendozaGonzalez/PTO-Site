@@ -51,7 +51,7 @@ function EmployeesOffList({ filterLeaderEmail }) {
                 setError('No employees off on the selected date or matching the leader filter.');
             }
         } catch (err) {
-            setError('Failed to fetch employees off.');
+            setError('There are no accepted requests for this date');
             console.error(err);
         }
     }, [filterLeaderEmail]);
