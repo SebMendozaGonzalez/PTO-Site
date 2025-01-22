@@ -128,7 +128,7 @@ function EmployeesOffList({ filterLeaderEmail }) {
                                                 <div className="textico-normal">
                                                     <span>Type: {request.type}</span>
                                                     <br/>
-                                                    <span>From: {formatDate2(request.start_date)} To: {formatDate2(request.end_date)}</span>
+                                                    <span>From: {formatDate2(request.start_date)} <br/> To: {formatDate2(request.end_date)}</span>
                                                 </div>
                                             }
                                         />
