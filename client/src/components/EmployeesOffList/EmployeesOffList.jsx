@@ -16,6 +16,10 @@ function EmployeesOffList({ filterLeaderEmail }) {
     const [selectedDate, setSelectedDate] = useState(new Date()); // Default to today
 
     const formatDate = (date) => date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+    const formatDate2 = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { timeZone: 'UTC' });
+    };
 
     // Stable fetch function using useCallback
     const fetchEmployeesOff = useCallback(async (date) => {
@@ -124,7 +128,7 @@ function EmployeesOffList({ filterLeaderEmail }) {
                                                 <div className="textico-normal">
                                                     <span>Type: {request.type}</span>
                                                     <br/>
-                                                    <span>From: {formatDate(request.start_date)} To: {formatDate(request.end_date)}</span>
+                                                    <span>From: {formatDate2(request.start_date)} To: {formatDate2(request.end_date)}</span>
                                                 </div>
                                             }
                                         />
