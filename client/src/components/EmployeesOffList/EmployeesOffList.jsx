@@ -114,7 +114,7 @@ function EmployeesOffList({ filterLeaderEmail }) {
                                             <ListItemIcon edge="end">
                                                 <div>
                                                     {/* Pass the request_id directly to the Dots component */}
-                                                    <Dots requestDetails={request.request_id} />
+                                                    <Dots requestDetails={request} />
                                                 </div>
                                             </ListItemIcon>
                                         }>
