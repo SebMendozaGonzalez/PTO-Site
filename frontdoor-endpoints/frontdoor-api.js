@@ -4,7 +4,7 @@ const axios = require('axios');
 const router = express.Router();
 
 // Ensure express.json() middleware is applied globally in your app
-router.use(express.json()); // Parse JSON bodies for this router
+router.use(express.json());
 
 // Middleware: Add APIMS subscription key to outgoing requests
 const addSubscriptionKey = (req, res, next) => {
@@ -32,15 +32,20 @@ router.all('/*', addSubscriptionKey, async (req, res) => {
     const targetUrl = `${apimsBaseUrl}${targetPath}`;
 
     console.log(`[Proxy Middleware] Forwarding request to: ${targetUrl}`);
+    console.log(`[Proxy Middleware] Request Body:`, req.body);
+
+    // Prepare headers (omit conflicting headers)
+    const filteredHeaders = { ...req.headers };
+    delete filteredHeaders['host'];
+    delete filteredHeaders['content-length'];
 
     // Make the request to APIMS
     const response = await axios({
       method: req.method,
       url: targetUrl,
       headers: {
-        ...req.headers, // Forward all headers, including the subscription key
-        Host: new URL(apimsBaseUrl).host, // Explicitly set the Host header
-        'Content-Type': req.headers['content-type'] || 'application/json', // Ensure Content-Type is set
+        ...filteredHeaders, // Forward headers, excluding conflicting ones
+        'Content-Type': req.headers['content-type'] || 'application/json',
       },
       data: req.body, // Forward the request body
     });
