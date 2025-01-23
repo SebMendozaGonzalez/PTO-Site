@@ -41,8 +41,9 @@ export const msalConfig = {
 };
 
 export const loginRequest = {
-  scopes: ["openid", "profile", "User.Read"]
+  scopes: ["openid", "profile", "User.Read", "api://a564ad6f-c874-40c5-82c4-fbb412756468/access_as_user"]
 };
+
 
 // Initialize the msalInstance and export it
 export const msalInstance = new PublicClientApplication(msalConfig);
