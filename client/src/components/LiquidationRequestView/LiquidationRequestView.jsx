@@ -36,7 +36,7 @@ function LiquidationRequestView({ requestDetails, onClose, managerPermissions, e
 
     const cancelRequest = async () => {
         try {
-            const response = await fetch(`/api/liquidation-request/${requestDetails.request_id}`, {
+            const response = await fetch(`/back/liquidation-request/${requestDetails.request_id}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -66,7 +66,7 @@ function LiquidationRequestView({ requestDetails, onClose, managerPermissions, e
         try {
             const acceptedValue = String(decision === 'accept');
             const decided_by = accounts[0]?.username;
-            const response = await fetch(`/api/liquidation-request/${requestDetails.request_id}`, {
+            const response = await fetch(`/back/liquidation-request/${requestDetails.request_id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

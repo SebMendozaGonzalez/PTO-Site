@@ -26,7 +26,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
         const fetchEmployeeDetails = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`/employees-info/${employeeId}`);
+                const response = await fetch(`/back/employee/${employeeId}`);
                 if (!response.ok) throw new Error('Failed to fetch employee details');
                 const data = await response.json();
                 if (data.length > 0) {
@@ -69,7 +69,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
 
         try {
             // API call to submit license request
-            const requestResponse = await fetch('/api/request', {
+            const requestResponse = await fetch('/back/request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
@@ -83,7 +83,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             const newRequest = await requestResponse.json();
 
             // API call to automatically accept the license
-            const decideResponse = await fetch('/api/request', {
+            const decideResponse = await fetch('/back/request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

@@ -14,7 +14,7 @@ const addSubscriptionKey = (req, res, next) => {
   next();
 };
 
-// Proxy logic for all routes under /api
+// Proxy logic for all routes under /back
 router.all('/*', addSubscriptionKey, async (req, res) => {
   try {
     // Validate and fetch base URL for APIMS from environment variables
@@ -24,8 +24,8 @@ router.all('/*', addSubscriptionKey, async (req, res) => {
       return res.status(500).send('Internal Server Error: Missing APIMS Base URL');
     }
 
-    // Construct the APIMS URL, removing the "/api" prefix from the original URL
-    const targetPath = req.originalUrl.replace('/api', ''); // Remove "/api" from the start of the path
+    // Construct the APIMS URL, removing the "/back" prefix from the original URL
+    const targetPath = req.originalUrl.replace('/back', ''); // Remove "/back" from the start of the path
     const targetUrl = `${apimsBaseUrl}${targetPath}`;
 
     console.log(`[Proxy Middleware] Forwarding request to: ${targetUrl}`);

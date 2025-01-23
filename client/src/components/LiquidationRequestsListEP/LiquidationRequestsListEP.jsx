@@ -26,7 +26,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
             }
 
             try {
-                const response = await axios.get(`/api/liquidation-request/${employee_id}`); // Updated endpoint
+                const response = await axios.get(`/back/liquidation-request/${employee_id}`); // Updated endpoint
                 setRequests(response.data);
             } catch (err) {
                 setError("An error occurred while fetching the liquidation requests.");

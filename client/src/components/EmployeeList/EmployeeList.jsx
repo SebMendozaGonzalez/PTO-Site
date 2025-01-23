@@ -28,8 +28,8 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
             try {
                 // Fetch employees by leader email
                 const response = filterLeaderEmail
-                    ? await axios.get(`/api/employees-by-leader/${filterLeaderEmail}`)
-                    : await axios.get('/api/employee');
+                    ? await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`)
+                    : await axios.get('/back/employee');
 
                 if (response.data.length > 0) {
                     setEmployees(response.data);

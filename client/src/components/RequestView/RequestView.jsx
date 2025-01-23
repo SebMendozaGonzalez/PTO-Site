@@ -37,7 +37,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
 
     const cancelRequest = async () => {
         try {
-            const response = await fetch(`/api/request/${requestDetails.request_id}`, {
+            const response = await fetch(`/back/request/${requestDetails.request_id}`, {
                 method: 'DELETE', // Changed method from PATCH to DELETE
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -69,7 +69,7 @@ function RequestView({ requestDetails, onClose, managerPermissions, employeePerm
         try {
             const acceptedValue = String(decision === 'accept');
             const decided_by = accounts[0]?.username;
-            const response = await fetch('/api/request', {
+            const response = await fetch('/back/request', {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

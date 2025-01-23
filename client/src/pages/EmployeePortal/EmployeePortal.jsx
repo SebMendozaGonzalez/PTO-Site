@@ -23,7 +23,7 @@ function EmployeePortal() {
     // Function to fetch the employee ID from the email
     const fetchEmployeeId = async (email) => {
       try {
-        const response = await axios.get(`/api/email_id/${email}`);
+        const response = await axios.get(`/back/email_id/${email}`);
         setEmployeeId(response.data.employee_id);
         console.log('Fetched employee ID:', response.data.employee_id);
       } catch (error) {

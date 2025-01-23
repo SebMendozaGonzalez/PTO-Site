@@ -27,7 +27,7 @@ function EmployeesOffList({ filterLeaderEmail }) {
         setError('');
         try {
             // Fetch the employees-off data
-            const response = await axios.get('/api/employees-off', {
+            const response = await axios.get('/back/employees-off', {
                 params: { date: formatDate(date) },
             });
 
@@ -35,7 +35,7 @@ function EmployeesOffList({ filterLeaderEmail }) {
 
             // If a leader filter is applied, fetch employees reporting to that leader
             if (filterLeaderEmail) {
-                const leaderResponse = await axios.get(`/api/employees-by-leader/${filterLeaderEmail}`);
+                const leaderResponse = await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`);
                 const leaderEmployeeIds = leaderResponse.data.map((employee) => employee.employee_id);
 
                 // the employees-off data to include only those under the specified leader

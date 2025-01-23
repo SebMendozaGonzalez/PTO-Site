@@ -25,7 +25,7 @@ const LiquidationRequestPortal = () => {
             if (!formData.employee_id) return;
 
             try {
-                const response = await fetch(`/api/employee/${formData.employee_id}`);
+                const response = await fetch(`/back/employee/${formData.employee_id}`);
                 if (!response.ok) {
                     throw new Error(`Failed to fetch employee details: ${response.statusText}`);
                 }
@@ -63,7 +63,7 @@ const LiquidationRequestPortal = () => {
             console.log('Submitting liquidation request with data:', formData);
 
             // Make the API call to upload the request
-            const response = await fetch('/api/liquidation-request', {
+            const response = await fetch('/back/liquidation-request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

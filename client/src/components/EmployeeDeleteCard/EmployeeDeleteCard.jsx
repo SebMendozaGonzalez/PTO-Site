@@ -28,7 +28,7 @@ function EmployeeDeleteCard({ onClose, onDelete, employee }) {
         if (terminationReason.trim()) {
             try {
                 // Make an API call to delete the employee
-                const response = await fetch(`/api/employee/${employee.employee_id}`, { // Updated endpoint and method
+                const response = await fetch(`/back/employee/${employee.employee_id}`, { // Updated endpoint and method
                     method: 'DELETE', // Changed from PATCH to DELETE
                     headers: {
                         'Content-Type': 'application/json',

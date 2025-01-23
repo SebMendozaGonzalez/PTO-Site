@@ -58,8 +58,8 @@ app.use((req, res, next) => {
 // Routes
 app.use('/employee-photos', photoRoute);
 app.use('/protected', apiBackdoor); // Attach protected API routes
-app.use('/api', (req, res, next) => {
-  console.log('[Debug: Router Mount] /api prefix detected, passing to router');
+app.use('/back', (req, res, next) => {
+  console.log('[Debug: Router Mount] /back prefix detected, passing to router');
   next();
 }, apiFrontdoor);
 

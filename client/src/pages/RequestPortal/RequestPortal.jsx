@@ -28,7 +28,7 @@ const RequestPortal = () => {
             if (!formData.employee_id) return;
 
             try {
-                const response = await fetch(`/api/employee/${formData.employee_id}`);
+                const response = await fetch(`/back/employee/${formData.employee_id}`);
                 if (!response.ok) {
                     throw new Error(`Failed to fetch employee details: ${response.statusText}`);
                 }
@@ -74,7 +74,7 @@ const RequestPortal = () => {
             });
 
             // Make the API call to upload the request
-            const response = await fetch('/api/request', {
+            const response = await fetch('/back/request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

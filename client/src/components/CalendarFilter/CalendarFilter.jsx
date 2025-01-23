@@ -46,15 +46,15 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
       try {
         // Fetch employees based on filterLeaderEmail
         const leaderResponse = filterLeaderEmail
-          ? await fetch(`/api/employees-by-leader/${filterLeaderEmail}`) // Updated for /api prefix
-          : await fetch('/api/employee'); // Updated for /api prefix
+          ? await fetch(`/back/employees-by-leader/${filterLeaderEmail}`) // Updated for /api prefix
+          : await fetch('/back/employee'); // Updated for /api prefix
         const leaderData = await leaderResponse.json();
         setEmployees(leaderData);
 
         const employeeIds = leaderData.map(emp => emp.employee_id);
 
         // Fetch requests
-        const requestsResponse = await fetch('/api/request'); // Updated for /api prefix
+        const requestsResponse = await fetch('/back/request'); // Updated for /api prefix
         const requestsData = await requestsResponse.json();
 
         // Filter requests for employees
