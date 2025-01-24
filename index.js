@@ -28,6 +28,7 @@ app.use(
 
 // Middleware: Parse JSON bodies
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Middleware: Protect API routes
 const apiBackdoorMiddleware = (req, res, next) => {

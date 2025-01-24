@@ -30,14 +30,17 @@ router.all('/*', addSubscriptionKey, async (req, res) => {
 
     console.log(`[Proxy Middleware] Forwarding request to: ${targetUrl}`);
 
+    // Prepare headers for Axios
+    const headers = {
+      ...req.headers, // Forward all headers, including the subscription key
+      Host: new URL(apimsBaseUrl).host, // Explicitly set the Host header
+    };
+
     // Make the request to APIMS
     const response = await axios({
       method: req.method,
       url: targetUrl,
-      headers: {
-        ...req.headers, // Forward all headers, including the subscription key
-        Host: new URL(apimsBaseUrl).host, // Explicitly set the Host header
-      },
+      headers,
       data: req.body, // Forward the request body
     });
 
