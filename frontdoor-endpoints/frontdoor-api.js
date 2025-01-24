@@ -1,10 +1,72 @@
 const express = require('express');
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
+const jwksClient = require('jwks-rsa');
 
 const router = express.Router();
 
 // Middleware: Parse incoming JSON requests
 router.use(express.json());
+
+// Configure JWT validation
+const tenantId = "33d1ad6a-c8e7-4be9-bd3b-9942f85502bf"; // Your Azure AD Tenant ID
+const audience = "api://a564ad6f-c874-40c5-82c4-fbb412756468"; // Your API's client ID
+const jwksUri = `https://login.microsoftonline.com/${tenantId}/discovery/v2.0/keys`;
+
+// JWKS client for retrieving signing keys
+const client = jwksClient({
+  jwksUri,
+});
+
+// Retrieve signing key
+const getSigningKey = (header, callback) => {
+  client.getSigningKey(header.kid, (err, key) => {
+    if (err) {
+      return callback(err);
+    }
+    const signingKey = key.publicKey || key.rsaPublicKey;
+    callback(null, signingKey);
+  });
+};
+
+// JWT validation middleware
+const validateToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  // Check if the Authorization header exists and starts with "Bearer"
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({
+      error: 'Unauthorized',
+      message: 'No Bearer token provided in the Authorization header.',
+    });
+  }
+
+  const token = authHeader.split(' ')[1]; // Extract the token
+
+  // Verify the token
+  jwt.verify(
+    token,
+    getSigningKey,
+    {
+      audience,
+      issuer: `https://sts.windows.net/${tenantId}/`,
+      algorithms: ['RS256'],
+    },
+    (err, decoded) => {
+      if (err) {
+        console.error('[JWT Middleware] Token validation error:', err.message);
+        return res.status(401).json({
+          error: 'Unauthorized',
+          message: 'Invalid or expired token.',
+        });
+      }
+
+      console.log('[JWT Middleware] Token validated successfully:', decoded);
+      req.user = decoded; // Attach decoded token to the request for downstream use
+      next();
+    }
+  );
+};
 
 // Middleware: Add APIMS subscription key to outgoing requests
 const addSubscriptionKey = (req, res, next) => {
@@ -19,6 +81,9 @@ const addSubscriptionKey = (req, res, next) => {
   req.headers['Ocp-Apim-Subscription-Key'] = subscriptionKey;
   next();
 };
+
+// Apply JWT validation middleware to all routes under /back
+router.use(validateToken);
 
 // Proxy handler for all routes under /back
 router.all('/*', addSubscriptionKey, async (req, res) => {
