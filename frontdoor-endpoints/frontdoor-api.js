@@ -22,7 +22,7 @@ const addSubscriptionKey = (req, res, next) => {
 
 // Proxy handler for all routes under /back
 router.all('/*', addSubscriptionKey, async (req, res) => {
-  try {
+  try {0
     // Validate APIMS Base URL
     const apimsBaseUrl = process.env.APIMS_BASE_URL;
     if (!apimsBaseUrl) {
