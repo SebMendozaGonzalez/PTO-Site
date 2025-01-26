@@ -9,7 +9,7 @@ export const msalConfig = {
   },
   cache: {
     cacheLocation: "sessionStorage",
-    storeAuthStateInCookie: false,
+    storeAuthStateInCookie: true,
   },
   system: {
     loggerOptions: {
@@ -21,17 +21,6 @@ export const msalConfig = {
           case LogLevel.Error:
             console.error(message);
             return;
-          /*
-          case LogLevel.Info:
-            console.info(message);
-            return;
-          case LogLevel.Verbose:
-            console.debug(message);
-            return;
-          case LogLevel.Warning:
-            console.warn(message);
-            return;
-          */
           default:
             return;
         }
@@ -41,9 +30,8 @@ export const msalConfig = {
 };
 
 export const loginRequest = {
-  scopes: ["openid", "profile", "User.Read", "api://a564ad6f-c874-40c5-82c4-fbb412756468/access_as_user"]
+  scopes: ["openid", "profile", "User.Read, "]
 };
-
 
 // Initialize the msalInstance and export it
 export const msalInstance = new PublicClientApplication(msalConfig);
