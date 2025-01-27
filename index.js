@@ -1,89 +1,109 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const employeesInfoRoute = require('./routes/employeesInfo');
-const vacationsInfoRoute = require('./routes/vacationsInfo');
-const email_id = require('./routes/email_id');
-const requestsInfoRoute = require('./routes/requestsInfo');
-const liquidationRequestsInfo = require('./routes/liquidationRequestsInfo')
-const liquidationCancelRoute = require('./routes/liquidationCancelRoute')
-const liquidationDecideRoute = require('./routes/liquidationDecideRoute')
-const vacationRequestRoute = require('./routes/requestRoute');
-const liqRequestRoute = require('./routes/liquidationRequestRoute')
-const decideRequestRoute = require('./routes/decideRequestRoute');
-const cancelRequestRoute = require('./routes/cancelRequestRoute');
-const updateEmployee = require('./routes/employeeUpdateRoute')
-const addEmployee = require('./routes/employeeAddRoute')
-const deleteEmployee = require('./routes/EmployeeRemoveRoute')
-const employeesByLeader = require('./routes/employeesByLeader')
-const photoRoute = require('./routes/photoRoute');
-
-
 require('dotenv').config();
+
+// routes
+const photoRoute = require('./routes/photoRoute');
+const apiFrontdoor = require('./frontdoor-endpoints/frontdoor-api');
+
+const employee_endpoint = require('./backdoor-endpoints/employee/routes');
+const request_endpoint = require('./backdoor-endpoints/request/routes');
+const liquidation_request_endpoint = require('./backdoor-endpoints/liquidation_request/routes');
+const email_id = require('./backdoor-endpoints/email_id');
+const employees_by_leader = require('./backdoor-endpoints/employees_by_leader');
+const vacations_by_leader = require('./backdoor-endpoints/vacations_by_id');
+const employees_off = require('./backdoor-endpoints/employees_off');
 
 const app = express();
 const port = process.env.PORT || 8080;
 
-// Middleware to handle CORS
-app.use(cors({
-    origin: ['https://quantumhr.azurewebsites.net', 'http://localhost:3000', 'https://quantumhr-quantumh-testing.azurewebsites.net'],
-    credentials: true
-}));
+// Middleware: Handle CORS
+app.use(
+  cors({
+    origin: ['https://quantumhr.azurewebsites.net'],
+    credentials: true,
+  })
+);
 
-// Middleware to parse JSON bodies
+// Middleware: Parse JSON bodies
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error('Global Error Handler:', err);
-    res.status(500).send('Something went wrong!');
+// Middleware: Protect API routes
+const apiBackdoorMiddleware = (req, res, next) => {
+  const apiKey = req.headers['api-key'];
+  console.log(`[Protected Middleware] Incoming API Key: ${apiKey}`);
+  if (apiKey === process.env.BACK_API_KEY) {
+    console.log('[Protected Middleware] Valid API Key');
+    next();
+  } else {
+    console.error('[Protected Middleware] Invalid API Key');
+    res.status(403).send('Forbidden: Invalid API Key');
+  }
+};
+
+// Routers
+const apiBackdoor = express.Router(); // Group under '/protected'
+
+apiBackdoor.use(apiBackdoorMiddleware); // Protect '/protected' routes
+
+// Debug log middleware to trace all incoming requests
+app.use((req, res, next) => {
+  console.log(`[Global] Incoming request: ${req.method} ${req.originalUrl}`);
+  console.log(`[Global] Headers:`, req.headers);
+  console.log(`[Global] Body:`, req.body);
+  next();
 });
 
-// API routes for data
-app.use('/employees-info', employeesInfoRoute);
-app.use('/vacations-info', vacationsInfoRoute);
-app.use('/email_id', email_id);
-app.use('/requests-info', requestsInfoRoute);
-app.use('/request', vacationRequestRoute);
+// Routes
 app.use('/employee-photos', photoRoute);
-app.use('/decide-request', decideRequestRoute);
-app.use('/cancel-request', cancelRequestRoute);
-app.use('/update-employee', updateEmployee);
-app.use('/add-employee', addEmployee);
-app.use('/remove-employee', deleteEmployee);
-app.use('/employees-by-leader', employeesByLeader);
-app.use('/liquidation-request', liqRequestRoute);
-app.use('/liquidation-requests-info', liquidationRequestsInfo);
-app.use('/liquidation-cancel-request', liquidationCancelRoute);
-app.use('/liquidation-decide-request', liquidationDecideRoute);
+app.use('/protected', apiBackdoor); // Attach protected API routes
+app.use('/back', (req, res, next) => {
+  console.log('[Debug: Router Mount] /back prefix detected, passing to router');
+  next();
+}, apiFrontdoor);
+
+// Backdoor endpoint routes
+apiBackdoor.use('/employee', employee_endpoint);
+apiBackdoor.use('/request', request_endpoint);
+apiBackdoor.use('/liquidation-request', liquidation_request_endpoint);
+apiBackdoor.use('/vacations-info', vacations_by_leader);
+apiBackdoor.use('/email_id', email_id);
+apiBackdoor.use('/employees-by-leader', employees_by_leader);
+apiBackdoor.use('/employees-off', employees_off);
+
 
 // Logout functionality
 app.get('/logout', (req, res) => {
-    req.session = null; // Clear session data
-    const logoutUrl = `?`;
-    res.redirect(logoutUrl); // Redirect to Azure AD logout
+  console.log('[Logout] Logging out user...');
+  req.session = null; // Clear session data
+  const logoutUrl = process.env.AZURE_AD_LOGOUT_URL || '/';
+  res.redirect(logoutUrl);
 });
 
-// Serve static files from the React app
+// Serve static files from the React app (after API routes)
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// Catch-all for serving the React app
+// React Catch-All Route
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  console.log('[Catch-All] Serving React app for unmatched route:', req.originalUrl);
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
 // Health check route
 app.get('/health', (req, res) => {
-    res.status(200).send('OK');
+  console.log('[Health Check] System is healthy');
+  res.status(200).send('OK');
 });
 
-// Error handling middleware
+// Global error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something went wrong!');
+  console.error('[Global Error Handler] Error:', err);
+  res.status(500).send('Something went wrong!');
 });
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`[Startup] Server is running on port ${port}`);
 });

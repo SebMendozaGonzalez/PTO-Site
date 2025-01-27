@@ -27,9 +27,9 @@ function EmployeeDeleteCard({ onClose, onDelete, employee }) {
     const handleDelete = async () => {
         if (terminationReason.trim()) {
             try {
-                // Make an API call to remove the employee
-                const response = await fetch(`/remove-employee/${employee.employee_id}`, {
-                    method: 'PATCH',
+                // Make an API call to delete the employee
+                const response = await fetch(`/back/employee/${employee.employee_id}`, { // Updated endpoint and method
+                    method: 'DELETE', // Changed from PATCH to DELETE
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -54,6 +54,7 @@ function EmployeeDeleteCard({ onClose, onDelete, employee }) {
             alert('Please provide a termination reason.');
         }
     };
+
 
     return (
         <Dialog open={true} onClose={onClose} fullWidth>

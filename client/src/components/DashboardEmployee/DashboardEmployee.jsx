@@ -3,26 +3,27 @@ import './DashboardEmployee.css';
 import axios from 'axios';
 
 function DashboardEmployee({ employee_id }) {
-  const [vacationInfo, setVacationInfo] = useState(null); 
-  const [photoUrl, setPhotoUrl] = useState(null); 
-  const [error, setError] = useState(null); 
+  const [vacationInfo, setVacationInfo] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState(null);
+  const [error, setError] = useState(null);
 
   const employeeId = employee_id;
 
   useEffect(() => {
     setVacationInfo(null);
     setPhotoUrl(null);
-    setError(null); 
+    setError(null);
 
     const fetchVacationInfo = async () => {
       try {
-        const response = await axios.get(`/vacations-info/${employeeId}`);
+        const response = await axios.get(`/back/vacations-info/${employeeId}`); // Updated endpoint
         setVacationInfo(response.data);
       } catch (err) {
         console.error('Error fetching vacation info:', err);
         setError('Failed to fetch vacation info');
       }
     };
+
     fetchVacationInfo();
 
     const fetchPhotoUrl = async () => {
@@ -37,8 +38,10 @@ function DashboardEmployee({ employee_id }) {
         }
       }
     };
+
     fetchPhotoUrl();
   }, [employeeId]);
+
 
   if (error) return <div>{error}</div>;
   if (!vacationInfo) return <div>Loading vacation info...</div>;

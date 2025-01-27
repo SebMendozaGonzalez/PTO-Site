@@ -30,13 +30,6 @@ function WelcomeHRManagers({ onManageRequestsClick, onManageCollaboratorsClick }
                             Review and decide upon the requests from everyone in the company.
                         </p>
                     </div>
-                    {/* 
-                    <div className='padding'>
-                        <button className='button' onClick={onManageRequestsClick}>
-                            Manage TO Requests
-                        </button>
-                    </div>
-                    */}
                 </div>
 
                 <div className='column flexColStart'>
@@ -48,13 +41,6 @@ function WelcomeHRManagers({ onManageRequestsClick, onManageCollaboratorsClick }
                             Review, manage and update the company's roster.
                         </p>
                     </div>
-                    {/*
-                    <div className='padding'>
-                        <button className='button' onClick={onManageCollaboratorsClick}>
-                        Manage Collaborators
-                        </button>
-                    </div>
-                    */}
                 </div>
             </div>
         </div>

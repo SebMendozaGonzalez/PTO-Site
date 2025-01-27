@@ -19,7 +19,7 @@ function RequestsList({ employee_id, onClickRequest }) {
             setRequests([]);
             setError('');
             try {
-                const response = await axios.get(`/requests-info/${employee_id}`);
+                const response = await axios.get(`/back/request/${employee_id}`);
                 if (response.data.length > 0) {
                     setRequests(response.data);
                 } else {

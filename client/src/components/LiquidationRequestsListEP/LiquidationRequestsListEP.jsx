@@ -13,6 +13,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
     const [requests, setRequests] = useState([]);
     const [error, setError] = useState('');
 
+    console.log(process.env.REACT_APP_APIMS_SUBSCRIPTION_KEY)
     useEffect(() => {
         const fetchRequests = async () => {
             setRequests([]);
@@ -25,7 +26,7 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
             }
 
             try {
-                const response = await axios.get(`/liquidation-requests-info/${employee_id}`);
+                const response = await axios.get(`/back/liquidation-request/${employee_id}`); // Updated endpoint
                 setRequests(response.data);
             } catch (err) {
                 setError("An error occurred while fetching the liquidation requests.");
@@ -35,6 +36,8 @@ function LiquidationRequestsListEP({ employee_id, onClickRequest }) {
 
         fetchRequests();
     }, [employee_id]);
+
+
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);

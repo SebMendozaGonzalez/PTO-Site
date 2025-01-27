@@ -28,13 +28,13 @@ function LiquidationRequestsListMP({ employee_id, onClickRequest, HRportal, filt
             try {
                 let fetchedRequests;
                 if (HRportal) {
-                    const response = await axios.get('/liquidation-requests-info');
+                    const response = await axios.get(`/back/liquidation-request/${employee_id}`);
                     fetchedRequests = response.data;
                 } else {
-                    const liquidationResponse = await axios.get('/liquidation-requests-info');
+                    const liquidationResponse = await axios.get(`/back/liquidation-request/${employee_id}`);
                     const liquidationRequests = liquidationResponse.data;
 
-                    const employeesResponse = await axios.get(`/employees-by-leader/${filterLeaderEmail}`);
+                    const employeesResponse = await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`);
                     const employeeList = employeesResponse.data.map(employee => employee.employee_id);
 
                     fetchedRequests = liquidationRequests.filter(request =>
