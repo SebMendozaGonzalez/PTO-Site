@@ -22,7 +22,7 @@ const Header = () => {
       }
     });
 
-    // Cleanup the callback when the component unmounts
+
     return () => {
       if (callbackId) {
         instance.removeEventCallback(callbackId);
