@@ -1,0 +1,97 @@
+name: Build and deploy Node.js app to Azure Web App - quantumhr (Testing)
+
+on:
+  push:
+    branches:
+      - inside_testing
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Delete old artifacts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          now=$(date +%s)
+          cutoff=$(($now - 86400))  # 86400 secs = 1 day
+          
+          artifacts=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts" | jq --argjson cutoff "$cutoff" -r '.artifacts[] | select(.expired == false) | select((.created_at | fromdateiso8601) < $cutoff) | .id')
+          
+          if [ -n "$artifacts" ]; then
+            echo "$artifacts" | xargs -I {} curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/{}"
+            echo "Deleted old artifacts."
+          else
+            echo "No artifacts older than one day found."
+          fi
+
+  build:
+    runs-on: ubuntu-latest
+    needs: cleanup
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Set up Node.js version
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      # Install dependencies using npm ci
+      - name: Install dependencies
+        run: npm ci
+
+      # Build the frontend
+      - name: Build frontend
+        working-directory: ./client
+        run: |
+          npm ci
+          npm run build
+
+      # Copy frontend build to backend
+      - name: Copy React build to backend
+        run: cp -r ./client/build ./build
+
+      # Zip the backend including frontend build, excluding unnecessary files
+      - name: Zip artifact for deployment
+        run: zip -r release.zip ./* -x node_modules/\* -x client/node_modules/\* -x .git/\* -x .github/\* -x tests/\* -x logs/\* -x *.md
+
+      # Upload the zipped artifact for deployment
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app
+          path: release.zip
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'quantumh-testing'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: node-app
+
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
+      
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'quantumhr'
+          slot-name: 'quantumh-testing'
+          package: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_28307CAD94594F2084D36329CD5863A5 }}
