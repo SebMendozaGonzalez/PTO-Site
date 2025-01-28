@@ -25,7 +25,8 @@ router.get('/:leader_email', async (req, res) => {
                 )
                 SELECT * 
                 FROM RecursiveHierarchy
-                ORDER BY leader_email ASC, name ASC;
+                ORDER BY leader_email ASC, name ASC
+                OPTION (MAXRECURSION 1000);
             `);
 
         // Check if there are any employees in the hierarchy
