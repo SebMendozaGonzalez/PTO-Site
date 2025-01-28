@@ -73,7 +73,7 @@ apiBackdoor.use('/vacations-info', vacations_by_leader);
 apiBackdoor.use('/email_id', email_id);
 apiBackdoor.use('/employees-by-leader', employees_by_leader);
 apiBackdoor.use('/employees-off', employees_off);
-apiBackdoor.use('./employees_graph', employees_graph)
+apiBackdoor.use('/employees_graph', employees_graph)
 
 
 // Logout functionality
