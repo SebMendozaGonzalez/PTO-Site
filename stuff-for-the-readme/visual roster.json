@@ -1,0 +1,337 @@
+[
+    {
+        "email": "roger@surgicalcapital.com",
+        "name": "Roger Velasco",
+        "children": [
+            {
+                "email": "alberto@surgicalcapital.com",
+                "name": "Alberto Chaparro",
+                "children": []
+            },
+            {
+                "email": "d.rodriguez@surgicalcapital.com",
+                "name": "Daniel Rodriguez",
+                "children": []
+            },
+            {
+                "email": "d.munoz@surgicalcapital.com",
+                "name": "David Munoz",
+                "children": [
+                    {
+                        "email": "a.brito@surgicalcapital.com",
+                        "name": "Ana Brito",
+                        "children": []
+                    },
+                    {
+                        "email": "ana@surgicalcapital.com",
+                        "name": "Ana Sanchez",
+                        "children": [
+                            {
+                                "email": "j.agudelo@surgicalcapital.com",
+                                "name": "Juan Agudelo",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "email": "camilo@surgicalcapital.com",
+                        "name": "Camilo Daza",
+                        "children": [
+                            {
+                                "email": "a.rua@surgicalcapital.com",
+                                "name": "Astrid Rua",
+                                "children": []
+                            },
+                            {
+                                "email": "c.florez@surgicalcapital.com",
+                                "name": "Cristian Florez",
+                                "children": []
+                            },
+                            {
+                                "email": "e.pineda@surgicalcapital.com",
+                                "name": "Elizabeth Pineda",
+                                "children": []
+                            },
+                            {
+                                "email": "k.pacheco@surgicalcapital.com",
+                                "name": "Karina Pacheco",
+                                "children": []
+                            },
+                            {
+                                "email": "leandro@surgicalcapital.com",
+                                "name": "Leandro Garcia",
+                                "children": []
+                            },
+                            {
+                                "email": "leonardo@surgicalcapital.com",
+                                "name": "Leonardo Guerrero",
+                                "children": []
+                            },
+                            {
+                                "email": "mariangel@surgicalcapital.com",
+                                "name": "Mariangel Hernandez",
+                                "children": []
+                            },
+                            {
+                                "email": "m.lesmes@surgicalcapital.com",
+                                "name": "Michael Lesmes",
+                                "children": []
+                            },
+                            {
+                                "email": "n.calderon@surgicalcapital.com",
+                                "name": "Nayibe Calderon",
+                                "children": []
+                            },
+                            {
+                                "email": "sara@surgicalcapital.com",
+                                "name": "Sara Marin",
+                                "children": []
+                            },
+                            {
+                                "email": "s.sotelo@surgicalcapital.com",
+                                "name": "Saray Medina",
+                                "children": []
+                            },
+                            {
+                                "email": "steven@surgicalcapital.com",
+                                "name": "Steven Naranjo",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "email": "g.rueda@surgicalcapital.com",
+                        "name": "Giovanny Bernal",
+                        "children": []
+                    },
+                    {
+                        "email": "j.munoz@surgicalcapital.com",
+                        "name": "Juan Muñoz",
+                        "children": []
+                    },
+                    {
+                        "email": "j.salazar@surgicalcapital.com",
+                        "name": "Juliana Salazar",
+                        "children": []
+                    },
+                    {
+                        "email": "j.maya@surgicalcapital.com",
+                        "name": "Julio Alvarez",
+                        "children": []
+                    },
+                    {
+                        "email": "m.ibarra@surgicalcapital.com",
+                        "name": "Maria Jimenez ",
+                        "children": []
+                    },
+                    {
+                        "email": "n.bermudez@surgicalcapital.com",
+                        "name": "Nathalie Bermudez",
+                        "children": []
+                    },
+                    {
+                        "email": "santiago@surgicalcapital.com",
+                        "name": "Santiago Palacios",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "email": "m.suescum@surgicalcapital.com",
+                "name": "Maria Suescum",
+                "children": [
+                    {
+                        "email": "andrea@surgicalcapital.com",
+                        "name": "Andrea Zabala",
+                        "children": []
+                    },
+                    {
+                        "email": "gabriela@surgicalcapital.com",
+                        "name": "Gabriela Vivenes",
+                        "children": []
+                    },
+                    {
+                        "email": "j.marquez@surgicalcapital.com",
+                        "name": "Juan Marquez",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "email": "m.vivenes@surgicalcapital.com",
+                "name": "Maria Vivenes",
+                "children": []
+            },
+            {
+                "email": "mostafa@surgicalcapital.com",
+                "name": "Mostafa Alnoobani",
+                "children": []
+            },
+            {
+                "email": "natalia@surgicalcapital.com",
+                "name": "Natalia Vargas",
+                "children": []
+            },
+            {
+                "email": "p.ruiz@surgicalcapital.com",
+                "name": "Pablo Ruiz",
+                "children": [
+                    {
+                        "email": "carlos@surgicalcapital.com",
+                        "name": "Carlos Correa",
+                        "children": []
+                    },
+                    {
+                        "email": "d.velasquez@surgicalcapital.com",
+                        "name": "Daniela Bedoya",
+                        "children": [
+                            {
+                                "email": "asotobetancur@surgicalcapital.com",
+                                "name": "Alejandra Soto",
+                                "children": []
+                            },
+                            {
+                                "email": "andre@surgicalcapital.com",
+                                "name": "Andre Velez",
+                                "children": []
+                            },
+                            {
+                                "email": "cristian@surgicalcapital.com",
+                                "name": "Cristian Atehortua",
+                                "children": []
+                            },
+                            {
+                                "email": "danerley@surgicalcapital.com",
+                                "name": "Danerley Osorio",
+                                "children": []
+                            },
+                            {
+                                "email": "j.upegui@surgicalcapital.com",
+                                "name": "Juan Castaño",
+                                "children": []
+                            },
+                            {
+                                "email": "p.londono@surgicalcapital.com",
+                                "name": "Paulina Mesa",
+                                "children": []
+                            },
+                            {
+                                "email": "s.herrera@surgicalcapital.com",
+                                "name": "Santiago Gonzalez",
+                                "children": []
+                            },
+                            {
+                                "email": "s.mejia@surgicalcapital.com",
+                                "name": "Sebastian Mejia",
+                                "children": []
+                            },
+                            {
+                                "email": "v.ruiz@surgicalcapital.com",
+                                "name": "Valentina Ruiz",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "email": "j.duque@surgicalcapital.com",
+                        "name": "Juan Duque",
+                        "children": [
+                            {
+                                "email": "a.escobar@surgicalcapital.com",
+                                "name": "Andres Pelaez",
+                                "children": []
+                            },
+                            {
+                                "email": "d.villegas@surgicalcapital.com",
+                                "name": "Dylan Zapata",
+                                "children": []
+                            },
+                            {
+                                "email": "e.velez@surgicalcapital.com",
+                                "name": "Erika Velez",
+                                "children": []
+                            },
+                            {
+                                "email": "f.avendano@surgicalcapital.com",
+                                "name": "Federico Henao",
+                                "children": []
+                            },
+                            {
+                                "email": "m.sanchez@surgicalcapital.com",
+                                "name": "Miguel Suaza",
+                                "children": []
+                            },
+                            {
+                                "email": "m.alzate@surgicalcapital.com",
+                                "name": "Paulina Palacio",
+                                "children": []
+                            },
+                            {
+                                "email": "santiago.m@surgicalcapital.com",
+                                "name": "Santiago Montoya",
+                                "children": []
+                            },
+                            {
+                                "email": "s.osorio@surgicalcapital.com",
+                                "name": "Sofia Muñoz",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "email": "natasha@surgicalcapital.com",
+                        "name": "Natasha Zapata",
+                        "children": [
+                            {
+                                "email": "j.uribe@surgicalcapital.com",
+                                "name": "Jose Alvarez",
+                                "children": []
+                            },
+                            {
+                                "email": "j.restrepo@surgicalcapital.com",
+                                "name": "Juanita Restrepo",
+                                "children": []
+                            },
+                            {
+                                "email": "m.ossa@surgicalcapital.com",
+                                "name": "Maximiliano Salinas",
+                                "children": []
+                            },
+                            {
+                                "email": "r.rojas@surgicalcapital.com",
+                                "name": "Rachel Tayari",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "email": "s.gonzales@surgicalcapital.com",
+                "name": "Sebastian Mendoza",
+                "children": [
+                    {
+                        "email": "john_doe@surgicalcapital.com",
+                        "name": "John Doe",
+                        "children": []
+                    },
+                    {
+                        "email": "mario_gonzalez@surgicalcapital.com",
+                        "name": "Mario González",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "email": "valentina@surgicalcapital.com",
+                "name": "Valentina Diaz",
+                "children": []
+            },
+            {
+                "email": "victor@surgicalcapital.com",
+                "name": "Victor Cifuentes",
+                "children": []
+            }
+        ]
+    }
+]
