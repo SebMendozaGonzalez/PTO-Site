@@ -8,7 +8,8 @@ router.use(express.json());
 
 // Middleware: Add APIMS subscription key to outgoing requests
 const addSubscriptionKey = (req, res, next) => {
-  const subscriptionKey = process.env.REACT_APP_APIMS_SUBSCRIPTION_KEY; // Store securely in .env
+  const subscriptionKey = process.env.REACT_APP_APIMS_SUBSCRIPTION_KEY; // Store securely in .env 
+  console.log(subscriptionKey)
   if (!subscriptionKey) {
     console.error('[Proxy Middleware] Missing APIMS Subscription Key');
     return res.status(500).json({
