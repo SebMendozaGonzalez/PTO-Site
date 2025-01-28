@@ -9,7 +9,7 @@ router.get('/:leader_email', async (req, res) => {
     try {
         const pool = await connectToDatabase();
 
-        // Query to get the hierarchical management graph using a recursive CTE
+        // Query to get the hierarchical management graph with optimized recursion
         const result = await pool.request()
             .input('leader_email', leader_email)
             .query(`
@@ -23,27 +23,34 @@ router.get('/:leader_email', async (req, res) => {
                     INNER JOIN RecursiveHierarchy rh
                     ON r.leader_email = rh.email_surgical
                 )
-                SELECT * 
+                SELECT email_surgical, name, leader_email
                 FROM RecursiveHierarchy
-                ORDER BY leader_email ASC, name ASC
                 OPTION (MAXRECURSION 1000);
             `);
 
-        // Check if there are any employees in the hierarchy
         if (result.recordset.length === 0) {
             console.log(`No employees found under leader email: ${leader_email}`);
             return res.status(404).json({ message: 'No employees found under this leader' });
         }
 
-        // Transform the result into a nested format for the frontend
+        // Optimized tree creation using map-based approach
         const createHierarchyTree = (employees, leaderEmail) => {
+            const employeeMap = new Map();
+
+            // Create a map of employees
+            employees.forEach(emp => {
+                employeeMap.set(emp.email_surgical, { ...emp, children: [] });
+            });
+
             const tree = [];
             employees.forEach(emp => {
                 if (emp.leader_email === leaderEmail) {
-                    const children = createHierarchyTree(employees, emp.email_surgical);
-                    tree.push({ email: emp.email_surgical, name: emp.name, children });
+                    tree.push(employeeMap.get(emp.email_surgical));
+                } else if (employeeMap.has(emp.leader_email)) {
+                    employeeMap.get(emp.leader_email).children.push(employeeMap.get(emp.email_surgical));
                 }
             });
+
             return tree;
         };
 
@@ -51,7 +58,10 @@ router.get('/:leader_email', async (req, res) => {
 
         res.json(hierarchyTree); // Return the nested hierarchy
     } catch (err) {
-        console.error(`Error fetching hierarchy for leader email ${leader_email}:`, err);
+        console.error(`Error fetching hierarchy for leader email ${leader_email}:`, {
+            error: err.message,
+            stack: err.stack,
+        });
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
