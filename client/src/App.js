@@ -8,6 +8,7 @@ import HRPortal from './pages/HRPortal/HRPortal';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import RequestPortal from './pages/RequestPortal/RequestPortal';
+import ClockPortal from './pages/ClockPortal/ClockPortal'
 import LiquidationRequestPortal from './pages/LiquidationRequestPortal/LiquidationRequestPortal';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import './App.css';
@@ -43,7 +44,15 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-
+          <Route
+            path="/clock-portal"
+            element={
+              <ProtectedRoute requiredRole='Clock_Manager'>
+                <ClockPortal />
+              </ProtectedRoute>
+            }
+          />
+          
         </Routes>
       </main>
       <Footer />
