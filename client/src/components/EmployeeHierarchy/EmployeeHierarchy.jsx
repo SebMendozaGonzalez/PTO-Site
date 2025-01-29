@@ -57,27 +57,29 @@ function EmployeeHierarchy({ filterLeaderEmail }) {
     // Recursive function to render employees as a nested list
     const renderEmployees = (employeeList, level = 0) => (
         <List component="nav" disablePadding>
-            {employeeList.map((employee) => (
-                <div key={employee.email}>
-                    <ListItemButton onClick={() => handleToggle(employee.email)} sx={{ pl: 2 + level * 2 }}>
-                        <ListItemIcon>
-                            <Avatar sx={{ width: 32, height: 32 }}>{employee.name.charAt(0)}</Avatar>
-                        </ListItemIcon>
-                        <ListItemText primary={employee.name} secondary={employee.email} />
-                        {employee.children.length > 0 && (
-                            expanded[employee.email] ? <ExpandLess /> : <ExpandMore />
-                        )}
-                    </ListItemButton>
+            {employeeList.map((employee) => {
+                const children = Array.isArray(employee.children) ? employee.children : []; // Ensure children is an array
 
-                    {/* EmployeeClockInfo component */}
-                    <EmployeeClockInfo employee={employee} />
+                return (
+                    <div key={employee.email}>
+                        <ListItemButton onClick={() => handleToggle(employee.email)} sx={{ pl: 2 + level * 2 }}>
+                            <ListItemIcon>
+                                <Avatar sx={{ width: 32, height: 32 }}>{employee.name.charAt(0)}</Avatar>
+                            </ListItemIcon>
+                            <ListItemText primary={employee.name} secondary={employee.email} />
+                            {children.length > 0 && (expanded[employee.email] ? <ExpandLess /> : <ExpandMore />)}
+                        </ListItemButton>
 
-                    {/* Render children recursively */}
-                    <Collapse in={expanded[employee.email]} timeout="auto" unmountOnExit>
-                        {renderEmployees(employee.children, level + 1)}
-                    </Collapse>
-                </div>
-            ))}
+                        {/* EmployeeClockInfo component */}
+                        <EmployeeClockInfo employee={employee} />
+
+                        {/* Render children recursively */}
+                        <Collapse in={expanded[employee.email]} timeout="auto" unmountOnExit>
+                            {renderEmployees(children, level + 1)}
+                        </Collapse>
+                    </div>
+                );
+            })}
         </List>
     );
 
