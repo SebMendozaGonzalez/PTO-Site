@@ -16,7 +16,7 @@ router.get('/:leader_email', async (req, res) => {
                 WITH RecursiveEmployees AS (
                     SELECT *
                     FROM dbo.roster
-                    WHERE leader_email = @leader_email
+                    WHERE (leader_email = @leader_email) AND (leader_email != email_surgical)
                     UNION ALL
                     SELECT r.*
                     FROM dbo.roster r
