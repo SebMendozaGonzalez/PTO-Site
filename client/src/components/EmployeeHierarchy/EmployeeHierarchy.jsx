@@ -18,7 +18,7 @@ const EmployeeHierarchy = ({ leaderEmail }) => {
   useEffect(() => {
     const fetchHierarchy = async () => {
       try {
-        const response = await axios.get(`/back/employees_graph/${leaderEmail}`);
+        const response = await axios.get(`/employees_graph/${leaderEmail}`);
         setHierarchy(response.data);
         setError('');
       } catch (err) {
