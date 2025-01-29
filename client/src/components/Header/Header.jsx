@@ -85,6 +85,15 @@ const Header = () => {
               </NavLink>
             )}
 
+            {accounts[0]?.idTokenClaims?.roles?.includes("Clock_Manager") && (
+              <NavLink
+                to="/clock-portal"
+                className={({ isActive }) => (isActive ? "nav-link active-link" : "nav-link")}
+              >
+                <span>Clock Portal</span>
+              </NavLink>
+            )}
+
             <button className="button btn" onClick={handleLogout}>
               Logout
             </button>
