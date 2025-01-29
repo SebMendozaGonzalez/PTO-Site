@@ -11,14 +11,14 @@ import {
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import EmployeeClockInfo from '../../components/EmployeeClockInfo/EmployeeClockInfo';
 
-function EmployeeHierarchy({ leaderEmail }) {
+function EmployeeHierarchy({ filterLeaderEmail }) {
     const [employees, setEmployees] = useState([]);
     const [expanded, setExpanded] = useState({});
 
     useEffect(() => {
         const fetchHierarchy = async () => {
             try {
-                const response = await axios.get(`/back/employees-by-leader/${leaderEmail}`);
+                const response = await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`);
                 setEmployees(response.data);
             } catch (error) {
                 console.error('Error fetching employee hierarchy:', error);
@@ -26,7 +26,7 @@ function EmployeeHierarchy({ leaderEmail }) {
         };
 
         fetchHierarchy();
-    }, [leaderEmail]);
+    }, [filterLeaderEmail]);
 
     // Toggle expand/collapse for a leader
     const handleToggle = (email) => {
