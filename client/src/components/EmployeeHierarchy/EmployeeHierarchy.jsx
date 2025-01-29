@@ -6,7 +6,8 @@ import {
     ListItemIcon,
     ListItemText,
     Collapse,
-    Avatar
+    Avatar,
+    Typography
 } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import EmployeeClockInfo from '../../components/EmployeeClockInfo/EmployeeClockInfo';
@@ -14,19 +15,39 @@ import EmployeeClockInfo from '../../components/EmployeeClockInfo/EmployeeClockI
 function EmployeeHierarchy({ filterLeaderEmail }) {
     const [employees, setEmployees] = useState([]);
     const [expanded, setExpanded] = useState({});
+    const [error, setError] = useState('');
+    const [debouncedEmail, setDebouncedEmail] = useState(filterLeaderEmail);
+
+    // Debounce effect to wait 500ms before fetching
+    useEffect(() => {
+        const delay = setTimeout(() => {
+            setDebouncedEmail(filterLeaderEmail);
+        }, 500);
+
+        return () => clearTimeout(delay);
+    }, [filterLeaderEmail]);
 
     useEffect(() => {
+        if (!debouncedEmail) {
+            setEmployees([]);
+            setError('');
+            return;
+        }
+
         const fetchHierarchy = async () => {
             try {
-                const response = await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`);
+                const response = await axios.get(`/back/employees-by-leader/${debouncedEmail}`);
                 setEmployees(response.data);
+                setError('');
             } catch (error) {
                 console.error('Error fetching employee hierarchy:', error);
+                setError('No employees found for this email.');
+                setEmployees([]);
             }
         };
 
         fetchHierarchy();
-    }, [filterLeaderEmail]);
+    }, [debouncedEmail]);
 
     // Toggle expand/collapse for a leader
     const handleToggle = (email) => {
@@ -63,7 +84,7 @@ function EmployeeHierarchy({ filterLeaderEmail }) {
     return (
         <div>
             <h2>Employee Hierarchy</h2>
-            {renderEmployees(employees)}
+            {error ? <Typography color="error">{error}</Typography> : renderEmployees(employees)}
         </div>
     );
 }
