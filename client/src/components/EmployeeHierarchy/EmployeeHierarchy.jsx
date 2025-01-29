@@ -1,107 +1,72 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import {
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Collapse,
-  Avatar,
-  Typography,
-  ListSubheader,
-} from "@mui/material";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import EmployeeClockInfo from "../../components/EmployeeClockInfo/EmployeeClockInfo";
+import React, { useEffect, useState } from 'react';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Collapse from '@mui/material/Collapse';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EmployeeClockInfo from '../../components/EmployeeClockInfo/EmployeeClockInfo';
 
-function EmployeeHierarchy({ filterLeaderEmail }) {
-  const [employees, setEmployees] = useState([]);
-  const [expanded, setExpanded] = useState({});
-  const [error, setError] = useState("");
-  const [debouncedEmail, setDebouncedEmail] = useState(filterLeaderEmail);
+const EmployeeHierarchy = ({ leaderEmail }) => {
+    const [hierarchy, setHierarchy] = useState([]);
+    const [openNodes, setOpenNodes] = useState({});
 
-  // Debounce effect to avoid frequent API calls while typing
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      setDebouncedEmail(filterLeaderEmail);
-    }, 500);
+    useEffect(() => {
+        // Fetch the hierarchy data from the API
+        const fetchHierarchy = async () => {
+            try {
+                const response = await fetch(`/employees-by-leader/${leaderEmail}`);
+                const data = await response.json();
+                setHierarchy(data);
+            } catch (error) {
+                console.error('Error fetching employee hierarchy:', error);
+            }
+        };
 
-    return () => clearTimeout(delay);
-  }, [filterLeaderEmail]);
+        fetchHierarchy();
+    }, [leaderEmail]);
 
-  useEffect(() => {
-    if (!debouncedEmail) {
-      setEmployees([]);
-      setError("");
-      return;
-    }
-
-    const fetchHierarchy = async () => {
-      try {
-        const response = await axios.get(`/back/employees-by-leader/${debouncedEmail}`);
-        setEmployees(response.data);
-        setError("");
-      } catch (error) {
-        console.error("Error fetching employee hierarchy:", error);
-        setError("No employees found for this email.");
-        setEmployees([]);
-      }
+    const handleToggle = (email) => {
+        setOpenNodes((prevOpenNodes) => ({
+            ...prevOpenNodes,
+            [email]: !prevOpenNodes[email]
+        }));
     };
 
-    fetchHierarchy();
-  }, [debouncedEmail]);
+    const renderHierarchy = (employees) => {
+        return (
+            <List component="nav" sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                {employees.map((employee) => (
+                    <div key={employee.email}>
+                        <ListItemButton onClick={() => handleToggle(employee.email)}>
+                            <ListItemIcon>
+                                <AccountCircleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={employee.name} />
+                            {employee.children.length > 0 && (openNodes[employee.email] ? <ExpandLess /> : <ExpandMore />)}
+                        </ListItemButton>
+                        <EmployeeClockInfo employee={employee} />
+                        {employee.children.length > 0 && (
+                            <Collapse in={openNodes[employee.email]} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding sx={{ pl: 4 }}>
+                                    {renderHierarchy(employee.children)}
+                                </List>
+                            </Collapse>
+                        )}
+                    </div>
+                ))}
+            </List>
+        );
+    };
 
-  // Toggle expand/collapse for a manager
-  const handleToggle = (email) => {
-    setExpanded((prev) => ({ ...prev, [email]: !prev[email] }));
-  };
-
-  // Recursive function to render employees
-  const renderEmployees = (employeeList, level = 0) =>
-    employeeList.map((employee) => {
-      const children = Array.isArray(employee.children) ? employee.children : [];
-
-      return (
-        <div key={employee.email}>
-          {/* Main Employee List Item */}
-          <ListItemButton onClick={() => handleToggle(employee.email)} sx={{ pl: level * 4 }}>
-            <ListItemIcon>
-              <Avatar sx={{ width: 32, height: 32 }}>{employee.name.charAt(0)}</Avatar>
-            </ListItemIcon>
-            <ListItemText primary={employee.name} secondary={employee.email} />
-            {children.length > 0 && (expanded[employee.email] ? <ExpandLess /> : <ExpandMore />)}
-          </ListItemButton>
-
-          {/* EmployeeClockInfo component */}
-          <EmployeeClockInfo employee={employee} />
-
-          {/* Render children inside a nested Collapse */}
-          {children.length > 0 && (
-            <Collapse in={expanded[employee.email]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {renderEmployees(children, level + 1)}
-              </List>
-            </Collapse>
-          )}
+    return (
+        <div>
+            <span>Employee Hierarchy</span>
+            {renderHierarchy(hierarchy)}
         </div>
-      );
-    });
-
-  return (
-    <div className="employee-list-container paddings">
-      <List
-        sx={{ width: "100%", maxWidth: 600, bgcolor: "background.paper" }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Employee Hierarchy
-          </ListSubheader>
-        }
-      >
-        {error ? <Typography color="error">{error}</Typography> : renderEmployees(employees)}
-      </List>
-    </div>
-  );
-}
+    );
+};
 
 export default EmployeeHierarchy;
