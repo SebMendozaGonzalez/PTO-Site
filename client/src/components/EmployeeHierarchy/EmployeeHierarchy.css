@@ -1,0 +1,42 @@
+.employee-list-container {
+    gap: 5px;
+    height: 45rem;
+    padding: 0;
+    overflow: visible;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.employee-list {
+    min-width: 33vw;
+    max-width: 33vw;
+    max-height: calc(100% - 8rem);
+    background-color: #f8f9fe;
+    overflow-y: auto;
+}
+
+.employee-list,
+.profile {
+    margin: 0;
+    padding: 0;
+}
+
+.profile {
+    min-width: 50vw;
+    min-height: 100%;
+    border-radius: 8px;
+}
+
+.search-bar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fe;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}

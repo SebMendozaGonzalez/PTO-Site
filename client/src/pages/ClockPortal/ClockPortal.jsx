@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import EmployeeHierarchy from '../../components/EmployeeHierarchy/EmployeeHierarchy';
 import { useMsal } from '@azure/msal-react';
+import './ClockPortal.css'
 
 function TimeManagementPortal() {
   const { accounts } = useMsal();
@@ -18,7 +19,7 @@ function TimeManagementPortal() {
   }, [inputValue]);
 
   return (
-    <div>
+    <div className='flexColCenter clock-portal'>
       {isSearchEnabled && (
         <div className='paddings'>
           <label htmlFor="leaderEmail" className='filter-label fonts-primary'>Manager Email: </label>

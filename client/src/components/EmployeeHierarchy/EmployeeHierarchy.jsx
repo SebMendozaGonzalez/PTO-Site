@@ -18,7 +18,7 @@ function EmployeeHierarchy({ filterLeaderEmail }) {
     const [error, setError] = useState('');
     const [debouncedEmail, setDebouncedEmail] = useState(filterLeaderEmail);
 
-    // Debounce effect to wait 500ms before fetching
+    // Debounce effect to avoid unnecessary API calls while typing
     useEffect(() => {
         const delay = setTimeout(() => {
             setDebouncedEmail(filterLeaderEmail);
@@ -55,38 +55,39 @@ function EmployeeHierarchy({ filterLeaderEmail }) {
     };
 
     // Recursive function to render employees as a nested list
-    const renderEmployees = (employeeList, level = 0) => (
-        <List component="nav" disablePadding>
-            {employeeList.map((employee) => {
-                const children = Array.isArray(employee.children) ? employee.children : []; // Ensure children is an array
+    const renderEmployees = (employeeList, level = 0) =>
+        employeeList.map((employee) => {
+            const children = Array.isArray(employee.children) ? employee.children : []; // Ensure children is an array
 
-                return (
-                    <div key={employee.email}>
-                        <ListItemButton onClick={() => handleToggle(employee.email)} sx={{ pl: 2 + level * 2 }}>
-                            <ListItemIcon>
-                                <Avatar sx={{ width: 32, height: 32 }}>{employee.name.charAt(0)}</Avatar>
-                            </ListItemIcon>
-                            <ListItemText primary={employee.name} secondary={employee.email} />
-                            {children.length > 0 && (expanded[employee.email] ? <ExpandLess /> : <ExpandMore />)}
-                        </ListItemButton>
+            return (
+                <div key={employee.email}>
+                    <ListItemButton onClick={() => handleToggle(employee.email)} sx={{ pl: level * 4 }}>
+                        <ListItemIcon>
+                            <Avatar sx={{ width: 32, height: 32 }}>{employee.name.charAt(0)}</Avatar>
+                        </ListItemIcon>
+                        <ListItemText primary={employee.name} secondary={employee.email} />
+                        {children.length > 0 && (expanded[employee.email] ? <ExpandLess /> : <ExpandMore />)}
+                    </ListItemButton>
 
-                        {/* EmployeeClockInfo component */}
-                        <EmployeeClockInfo employee={employee} />
+                    {/* EmployeeClockInfo component */}
+                    <EmployeeClockInfo employee={employee} />
 
-                        {/* Render children recursively */}
+                    {/* Render children inside their parent's Collapse */}
+                    {children.length > 0 && (
                         <Collapse in={expanded[employee.email]} timeout="auto" unmountOnExit>
-                            {renderEmployees(children, level + 1)}
+                            <List disablePadding>
+                                {renderEmployees(children, level + 1)}
+                            </List>
                         </Collapse>
-                    </div>
-                );
-            })}
-        </List>
-    );
+                    )}
+                </div>
+            );
+        });
 
     return (
-        <div>
+        <div className="employee-list-container paddings">
             <h2>Employee Hierarchy</h2>
-            {error ? <Typography color="error">{error}</Typography> : renderEmployees(employees)}
+            {error ? <Typography color="error">{error}</Typography> : <List>{renderEmployees(employees)}</List>}
         </div>
     );
 }
