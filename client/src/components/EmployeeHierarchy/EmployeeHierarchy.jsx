@@ -9,7 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-const EmployeeHierarchy = ({ leaderEmail }) => {
+const EmployeeHierarchy = ({ filterLeaderEmail }) => {
   const [hierarchy, setHierarchy] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -18,7 +18,7 @@ const EmployeeHierarchy = ({ leaderEmail }) => {
   useEffect(() => {
     const fetchHierarchy = async () => {
       try {
-        const response = await axios.get(`/employees_graph/${leaderEmail}`);
+        const response = await axios.get(`/back/employees_graph/${filterLeaderEmail}`);
         setHierarchy(response.data);
         setError('');
       } catch (err) {
@@ -29,10 +29,10 @@ const EmployeeHierarchy = ({ leaderEmail }) => {
       }
     };
 
-    if (leaderEmail) {
+    if (filterLeaderEmail) {
       fetchHierarchy();
     }
-  }, [leaderEmail]);
+  }, [filterLeaderEmail]);
 
   const handleToggle = (email) => {
     setExpanded(prev => ({ ...prev, [email]: !prev[email] }));
