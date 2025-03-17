@@ -1,11 +1,16 @@
 import { PublicClientApplication } from '@azure/msal-browser';
 import { LogLevel } from '@azure/msal-browser';
 
+// Environment-based configuration
+
+console.log("Node env: ", process.env.NODE_ENV);
+console.log(process.env.NODE_ENV === "production");
+
 export const msalConfig = {
   auth: {
     clientId: "a564ad6f-c874-40c5-82c4-fbb412756468",
     authority: "https://login.microsoftonline.com/33d1ad6a-c8e7-4be9-bd3b-9942f85502bf",
-    redirectUri: "https://quantumhr.azurewebsites.net/auth/callback"
+    redirectUri: "https://quantumhr-quantumh-testing.azurewebsites.net/auth/callback",
   },
   cache: {
     cacheLocation: "sessionStorage",
