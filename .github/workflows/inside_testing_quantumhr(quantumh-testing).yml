@@ -94,4 +94,4 @@ jobs:
           app-name: 'quantumhr'
           slot-name: 'quantumh-testing'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_28307CAD94594F2084D36329CD5863A5 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_26EEF8EFB79F43FD8CA6B56A7D2D399E }}
