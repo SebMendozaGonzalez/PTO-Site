@@ -1,11 +1,17 @@
 const { connectToDatabase } = require('../../db/dbConfig');
 
 // Fetch all employees from the roster
-const fetchAllEmployees = async () => {
+const fetchAllEmployees = async (includeUsTeam = false) => {
     const pool = await connectToDatabase();
-    const result = await pool.request().query('SELECT * FROM dbo.roster ORDER BY name ASC');
+    let query = 'SELECT * FROM dbo.roster WHERE (@includeUsTeam = 1 OR us_team = 0) ORDER BY name ASC';
+    
+    const request = pool.request();
+    request.input('includeUsTeam', includeUsTeam ? 1 : 0);
+
+    const result = await request.query(query);
     return result.recordset;
 };
+
 
 // Fetch an employee by ID from the roster
 const fetchEmployeeById = async (employee_id) => {

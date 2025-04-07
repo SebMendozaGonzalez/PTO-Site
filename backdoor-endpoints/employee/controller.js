@@ -3,7 +3,8 @@ const employeeService = require('./service');
 // Fetch all employees
 const getAllEmployees = async (req, res) => {
     try {
-        const employees = await employeeService.fetchAllEmployees();
+        const includeUsTeam = req.query.include_us_team === '1';
+        const employees = await employeeService.fetchAllEmployees(includeUsTeam);
         res.status(200).json(employees);
     } catch (err) {
         console.error('Error fetching roster data:', err);
