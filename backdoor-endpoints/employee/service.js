@@ -45,6 +45,13 @@
         const values = columns.map(col => `@${col}`);
         return `INSERT INTO ${table} (${columns.join(', ')}) VALUES (${values.join(', ')});`;
     };
+    // Helper to bind all keys in a data object to a SQL request
+    const bindInputs = (request, data) => {
+        for (const [key, value] of Object.entries(data)) {
+            request.input(key, value);
+        }
+    };
+
 
     // Add a new employee to the database
     const addEmployeeToDB = async (employeeData) => {
