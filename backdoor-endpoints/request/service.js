@@ -1,24 +1,37 @@
 const { connectToDatabase } = require('../../db/dbConfig');
 
 // Service function to fetch all requests
-const fetchAllRequests = async () => {
+const fetchAllRequests = async (us_team = 0) => {
     const pool = await connectToDatabase();
-    const result = await pool.query('SELECT * FROM request ORDER BY employee_id DESC');
+
+    const result = await pool.request()
+        .input('us_team', us_team)
+        .query(`
+            SELECT * 
+            FROM request 
+            WHERE us_team = @us_team
+            ORDER BY employee_id DESC
+        `);
+
     return result.recordset;
 };
 
 // Service function to fetch requests for a specific employee
-const fetchRequestsByEmployeeId = async (employee_id) => {
+const fetchRequestsByEmployeeId = async (employee_id, us_team = 0) => {
     const pool = await connectToDatabase();
+
     const result = await pool.request()
         .input('employee_id', employee_id)
+        .input('us_team', us_team)
         .query(`
             SELECT * 
             FROM request 
-            WHERE employee_id = @employee_id
+            WHERE employee_id = @employee_id AND us_team = @us_team
         `);
+
     return result.recordset;
 };
+
 
 
 // Service function to insert a new request
@@ -32,13 +45,11 @@ const insertRequest = async ({
     name,
     leader_email,
     department,
+    us_team = 0  // ✅ default to 0 if not provided
 }) => {
     const pool = await connectToDatabase();
-
-    // Start a new request
     const request = pool.request();
 
-    // Add parameters for the SQL query
     request.input('type', type);
     request.input('start_date', start_date);
     request.input('end_date', end_date);
@@ -48,14 +59,21 @@ const insertRequest = async ({
     request.input('name', name);
     request.input('leader_email', leader_email);
     request.input('department', department);
+    request.input('us_team', us_team);  // ✅ include in query
 
-    // Insert the new vacation request with additional columns
     await request.query(`
-        INSERT INTO request (type, start_date, end_date, request_date, explanation, employee_id, is_exception, name, leader_email, department)
-        VALUES (@type, @start_date, @end_date, CURRENT_TIMESTAMP, @explanation, @employee_id, @is_exception, @name, @leader_email, @department)
+        INSERT INTO request (
+            type, start_date, end_date, request_date,
+            explanation, employee_id, is_exception,
+            name, leader_email, department, us_team
+        )
+        VALUES (
+            @type, @start_date, @end_date, CURRENT_TIMESTAMP,
+            @explanation, @employee_id, @is_exception,
+            @name, @leader_email, @department, @us_team
+        )
     `);
 
-    // Retrieve the last inserted row for the given employee
     const result = await request.query(`
         SELECT * 
         FROM request 
@@ -66,6 +84,7 @@ const insertRequest = async ({
 
     return result.recordset[0];
 };
+
 
 
 // Service function to update the decision of a request
