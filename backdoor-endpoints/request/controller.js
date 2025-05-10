@@ -1,9 +1,12 @@
 const requestService = require('./service');
 
 // Controller function to fetch all requests
+// Controller function to fetch all requests
 const getAllRequests = async (req, res) => {
+    const us_team = parseInt(req.query.us_team) || 0; // Default to 0 if not provided
+
     try {
-        const requests = await requestService.fetchAllRequests();
+        const requests = await requestService.fetchAllRequests(us_team);
         res.json(requests);
     } catch (err) {
         console.error('Error fetching all requests:', err);
@@ -14,9 +17,10 @@ const getAllRequests = async (req, res) => {
 // Controller function to fetch requests for a specific employee
 const getRequestsByEmployeeId = async (req, res) => {
     const { employee_id } = req.params;
+    const us_team = parseInt(req.query.us_team) || 0; // Default to 0 if not provided
 
     try {
-        const requests = await requestService.fetchRequestsByEmployeeId(employee_id);
+        const requests = await requestService.fetchRequestsByEmployeeId(employee_id, us_team);
 
         if (requests.length === 0) {
             console.log(`No request data found for employee ID: ${employee_id}`);
@@ -30,7 +34,6 @@ const getRequestsByEmployeeId = async (req, res) => {
     }
 };
 
-
 // Controller function to handle creating a new vacation request
 const createRequest = async (req, res) => {
     const {
@@ -43,9 +46,9 @@ const createRequest = async (req, res) => {
         name,
         leader_email,
         department,
+        us_team = 0  // Default to 0 if not provided
     } = req.body;
 
-    // Log the incoming data
     console.log('Incoming request data:', {
         type,
         start_date,
@@ -56,6 +59,7 @@ const createRequest = async (req, res) => {
         name,
         leader_email,
         department,
+        us_team
     });
 
     try {
@@ -69,6 +73,7 @@ const createRequest = async (req, res) => {
             name,
             leader_email,
             department,
+            us_team
         });
 
         res.status(201).json(newRequest);
@@ -77,6 +82,7 @@ const createRequest = async (req, res) => {
         res.status(500).json({ message: 'Error creating request', error: err.message });
     }
 };
+
 
 
 // Controller function to handle decisions on vacation requests
