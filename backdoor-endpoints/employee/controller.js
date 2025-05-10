@@ -48,8 +48,10 @@ const addEmployee = async (req, res) => {
         emergency_name = null,
         emergency_phone = null,
         department = null,
-        start_date
+        start_date,
+        us_team = 0  // <-- Add this line (default to 0)
     } = req.body;
+    
 
     // Validate required fields
     const mandatoryFields = { employee_id, name, leader_email, email_surgical, start_date };
@@ -77,8 +79,10 @@ const addEmployee = async (req, res) => {
             emergency_name,
             emergency_phone,
             department,
-            start_date
+            start_date,
+            us_team  // <-- Add here
         });
+        
 
         res.status(201).json(result);
     } catch (err) {

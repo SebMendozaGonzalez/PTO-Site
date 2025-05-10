@@ -49,8 +49,11 @@
     // Add a new employee to the database
     const addEmployeeToDB = async (employeeData) => {
         const {
-            employee_id, name, full_name, date_of_birth, position, leader_email, company, email_surgical, email_quantum, home_address, phone_number, emergency_contact, emergency_name, emergency_phone, department, start_date
-        } = employeeData;
+            employee_id, name, full_name, date_of_birth, position, leader_email, company,
+            email_surgical, email_quantum, home_address, phone_number,
+            emergency_contact, emergency_name, emergency_phone, department, start_date,
+            us_team = 0  // <-- Add default to 0 for backward compatibility
+        } = employeeData;        
 
         const pool = await connectToDatabase();
 
@@ -76,8 +79,12 @@
 
         // Prepare data for insertion
         const rosterData = {
-            employee_id, name, full_name, date_of_birth, position, leader_email, company, email_surgical, email_quantum, home_address, phone_number, emergency_contact, emergency_name, emergency_phone, department, start_date
+            employee_id, name, full_name, date_of_birth, position, leader_email, company,
+            email_surgical, email_quantum, home_address, phone_number,
+            emergency_contact, emergency_name, emergency_phone, department, start_date,
+            us_team 
         };
+        
 
         const vacationsData = {
             employee_id,
