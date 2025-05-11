@@ -5,23 +5,28 @@ const { connectToDatabase } = require('../db/dbConfig');
 // Route to fetch all employees under a specific leader
 router.get('/:leader_email', async (req, res) => {
     const { leader_email } = req.params;
+    const us_team = parseInt(req.query.us_team) || 0; // Default to 0
 
     try {
         const pool = await connectToDatabase();
 
-        // Query using a recursive CTE to get hierarchical employees
+        // Recursive CTE to fetch the hierarchy, filtering by us_team
         const result = await pool.request()
             .input('leader_email', leader_email)
+            .input('us_team', us_team)
             .query(`
                 WITH RecursiveEmployees AS (
                     SELECT *
                     FROM dbo.roster
-                    WHERE (leader_email = @leader_email) AND (leader_email != email_surgical)
+                    WHERE (leader_email = @leader_email)
+                      AND (leader_email != email_surgical)
+                      AND (us_team = @us_team)
                     UNION ALL
                     SELECT r.*
                     FROM dbo.roster r
                     INNER JOIN RecursiveEmployees re
-                    ON r.leader_email = re.email_surgical
+                        ON r.leader_email = re.email_surgical
+                    WHERE r.us_team = @us_team
                 )
                 SELECT * 
                 FROM RecursiveEmployees
