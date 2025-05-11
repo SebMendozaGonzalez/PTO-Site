@@ -23,13 +23,14 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
+        if (!accounts || accounts.length === 0) return; // MSAL not ready yet
+
         const fetchEmployees = async () => {
             setEmployees([]);
             setError('');
 
-            // Determine if the user has the 'Us_Team_Reader' role
             const roles = accounts[0]?.idTokenClaims?.roles || [];
-            const isUsTeamReader = roles?.includes('Us_Team_Reader');
+            const isUsTeamReader = roles.includes('Us_Team_Reader');
             const usTeamParam = isUsTeamReader ? '?us_team=1' : '';
 
             try {
@@ -49,7 +50,8 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
         };
 
         fetchEmployees();
-    }, [filterLeaderEmail, accounts]); 
+    }, [filterLeaderEmail, accounts]);
+
 
 
 
