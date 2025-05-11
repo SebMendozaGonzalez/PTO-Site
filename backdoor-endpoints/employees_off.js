@@ -6,6 +6,7 @@ const dayjs = require('dayjs');
 // Route to fetch all requests intersecting with a specific date
 router.get('/', async (req, res) => {
     const { date } = req.query; // Extract date from query parameters
+    const us_team = parseInt(req.query.us_team) || 0; // Default to 0
 
     try {
         const pool = await connectToDatabase();
@@ -19,17 +20,20 @@ router.get('/', async (req, res) => {
             return res.status(400).json({ message: 'Invalid date format. Use YYYY-MM-DD.' });
         }
 
-        // Query the database for requests intersecting with the specified date
+        // Query requests intersecting with the specified date and filter by us_team
         const result = await pool.request()
             .input('selectedDate', selectedDate)
+            .input('us_team', us_team)
             .query(`
-                SELECT * 
-                FROM request
+                SELECT r.*
+                FROM request r
+                JOIN roster e ON r.employee_id = e.employee_id
                 WHERE 
-                    start_date <= @selectedDate 
-                    AND end_date >= @selectedDate
-                    AND accepted = 1
-                    AND cancelled = 0
+                    r.start_date <= @selectedDate 
+                    AND r.end_date >= @selectedDate
+                    AND r.accepted = 1
+                    AND r.cancelled = 0
+                    AND e.us_team = @us_team
             `);
 
         if (result.recordset.length === 0) {
