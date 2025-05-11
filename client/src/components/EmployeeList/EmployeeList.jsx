@@ -12,9 +12,11 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Divider from '@mui/material/Divider';
 import { Avatar, Typography, TextField } from '@mui/material';
 import EmployeeProfile from '../EmployeeProfile/EmployeeProfile';
+import { useMsal } from '@azure/msal-react';
 import './EmployeeList.css';
 
 function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDeleteClick, onAddClick, hasPermissions, onLicenseClick }) {
+    const { accounts } = useMsal();
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [error, setError] = useState('');
@@ -25,11 +27,15 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
             setEmployees([]);
             setError('');
 
+            // Determine if the user has the 'Us_Team_Reader' role
+            const roles = accounts[0]?.idTokenClaims?.roles || [];
+            const isUsTeamReader = roles.includes('Us_Team_Reader');
+            const usTeamParam = isUsTeamReader ? '?us_team=1' : '';
+
             try {
-                // Fetch employees by leader email
                 const response = filterLeaderEmail
-                    ? await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`)
-                    : await axios.get('/back/employee');
+                    ? await axios.get(`/back/employees-by-leader/${filterLeaderEmail}${usTeamParam}`)
+                    : await axios.get(`/back/employee${usTeamParam}`);
 
                 if (response.data.length > 0) {
                     setEmployees(response.data);
@@ -43,7 +49,9 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
         };
 
         fetchEmployees();
-    }, [filterLeaderEmail]);
+    }, [filterLeaderEmail, accounts]); 
+
+
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
