@@ -22,6 +22,9 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
     const [error, setError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
+
+    console.log(accounts[0]?.idTokenClaims?.roles)
+
     useEffect(() => {
         if (!accounts || accounts.length === 0) return; // MSAL not ready yet
 
