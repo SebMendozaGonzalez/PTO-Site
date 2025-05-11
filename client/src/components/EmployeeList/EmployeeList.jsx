@@ -29,7 +29,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
 
             // Determine if the user has the 'Us_Team_Reader' role
             const roles = accounts[0]?.idTokenClaims?.roles || [];
-            const isUsTeamReader = roles.includes('Us_Team_Reader');
+            const isUsTeamReader = roles?.includes('Us_Team_Reader');
             const usTeamParam = isUsTeamReader ? '?us_team=1' : '';
 
             try {
