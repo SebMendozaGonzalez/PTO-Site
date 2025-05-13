@@ -12,7 +12,7 @@ router.get('/:employee_id', async (req, res) => {
             .query(`
                 SELECT col_team, us_team
                 FROM roster
-                WHERE employee_id = '@employee_id';
+                WHERE employee_id = @employee_id;
             `);
 
         if (result.recordset.length === 0) {
