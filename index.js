@@ -15,6 +15,7 @@ const employees_by_leader = require('./backdoor-endpoints/employees_by_leader');
 const vacations_by_leader = require('./backdoor-endpoints/vacations_by_id');
 const employees_off = require('./backdoor-endpoints/employees_off');
 const employees_graph = require('./backdoor-endpoints/employees_graph');
+const team_by_id = require('./backdoor-endpoints/team_by_id')
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -74,6 +75,7 @@ apiBackdoor.use('/email_id', email_id);
 apiBackdoor.use('/employees-by-leader', employees_by_leader);
 apiBackdoor.use('/employees-off', employees_off);
 apiBackdoor.use('/employees_graph', employees_graph)
+apiBackdoor.use('/team_by_id', team_by_id);
 
 
 // Logout functionality
