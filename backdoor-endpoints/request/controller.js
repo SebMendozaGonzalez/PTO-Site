@@ -4,9 +4,10 @@ const requestService = require('./service');
 // Controller function to fetch all requests
 const getAllRequests = async (req, res) => {
     const us_team = parseInt(req.query.us_team) || 0; // Default to 0 if not provided
+    const col_team = parseInt(req.query.col_team) || 1;
 
     try {
-        const requests = await requestService.fetchAllRequests(us_team);
+        const requests = await requestService.fetchAllRequests(us_team, col_team);
         res.json(requests);
     } catch (err) {
         console.error('Error fetching all requests:', err);
@@ -16,11 +17,10 @@ const getAllRequests = async (req, res) => {
 
 // Controller function to fetch requests for a specific employee
 const getRequestsByEmployeeId = async (req, res) => {
-    const { employee_id } = req.params;
-    const us_team = parseInt(req.query.us_team) || 0; // Default to 0 if not provided
+    const { employee_id } = req.params;// Default to 0 if not provided
 
     try {
-        const requests = await requestService.fetchRequestsByEmployeeId(employee_id, us_team);
+        const requests = await requestService.fetchRequestsByEmployeeId(employee_id);
 
         if (requests.length === 0) {
             console.log(`No request data found for employee ID: ${employee_id}`);
@@ -45,8 +45,9 @@ const createRequest = async (req, res) => {
         is_exception,
         name,
         leader_email,
-        department,
-        us_team = 0  // Default to 0 if not provided
+        department, // Default to 0 if not provided
+        us_team = 0,
+        col_team = 1
     } = req.body;
 
     console.log('Incoming request data:', {
@@ -59,7 +60,8 @@ const createRequest = async (req, res) => {
         name,
         leader_email,
         department,
-        us_team
+        us_team,
+        col_team
     });
 
     try {
@@ -73,7 +75,8 @@ const createRequest = async (req, res) => {
             name,
             leader_email,
             department,
-            us_team
+            us_team,
+            col_team
         });
 
         res.status(201).json(newRequest);

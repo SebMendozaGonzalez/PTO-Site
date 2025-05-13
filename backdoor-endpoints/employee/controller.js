@@ -15,10 +15,8 @@ const getAllEmployees = async (req, res) => {
 // Fetch an employee by ID
 const getEmployeeById = async (req, res) => {
     const { employee_id } = req.params;
-    const us_team = req.query.us_team === '1' ? 1 : 0; // Default to 0
-    const col_team = req.query.col_team === '0' ? 0 : 1;
     try {
-        const employee = await employeeService.fetchEmployeeById(employee_id, us_team, col_team);
+        const employee = await employeeService.fetchEmployeeById(employee_id);
         if (!employee || employee.length === 0) {
             console.log(`No roster data found for employee ID: ${employee_id}`);
             return res.status(404).json({ message: 'No roster data found for this employee' });

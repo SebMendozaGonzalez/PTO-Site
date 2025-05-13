@@ -20,18 +20,15 @@
     };
 
     // Fetch an employee by ID from the roster
-    const fetchEmployeeById = async (employee_id, us_team = 0, col_team = 1) => {
+    const fetchEmployeeById = async (employee_id) => {
         const pool = await connectToDatabase();
         const request = pool.request();
 
         request.input('employee_id', employee_id);
-        request.input('us_team', us_team);
-        request.input('col_team', col_team);
         const query = `
             SELECT * 
             FROM dbo.roster 
             WHERE employee_id = @employee_id
-            AND ( (@us_team = 1 AND @col_team = 1 ) OR (us_team = @us_team AND col_team = @col_team))
             ORDER BY name ASC;
         `;
 

@@ -1,15 +1,16 @@
 const { connectToDatabase } = require('../../db/dbConfig');
 
 // Service function to fetch all requests
-const fetchAllRequests = async (us_team = 0) => {
+const fetchAllRequests = async (us_team = 0, col_team = 1) => {
     const pool = await connectToDatabase();
 
     const result = await pool.request()
         .input('us_team', us_team)
+        .input('col_team', col_team)
         .query(`
             SELECT * 
             FROM request 
-            WHERE us_team = @us_team
+            WHERE (@us_team = 1 AND @col_team = 1 ) OR (us_team = @us_team AND col_team = @col_team)
             ORDER BY employee_id DESC
         `);
 
@@ -17,17 +18,16 @@ const fetchAllRequests = async (us_team = 0) => {
 };
 
 // Service function to fetch requests for a specific employee
-const fetchRequestsByEmployeeId = async (employee_id, us_team = 0) => {
+const fetchRequestsByEmployeeId = async (employee_id) => {
     const pool = await connectToDatabase();
 
     const result = await pool.request()
         .input('employee_id', employee_id)
-        .input('us_team', us_team)
         .query(`
             SELECT * 
             FROM request 
-            WHERE employee_id = @employee_id AND us_team = @us_team
-        `);
+            WHERE employee_id = @employee_id
+            `);
 
     return result.recordset;
 };
@@ -44,37 +44,55 @@ const insertRequest = async ({
     is_exception,
     name,
     leader_email,
-    department,
-    us_team = 0  // ✅ default to 0 if not provided
+    department, 
+    us_team = 0,
+    col_team = 1
 }) => {
     const pool = await connectToDatabase();
-    const request = pool.request();
 
-    request.input('type', type);
-    request.input('start_date', start_date);
-    request.input('end_date', end_date);
-    request.input('explanation', explanation);
-    request.input('employee_id', employee_id);
-    request.input('is_exception', is_exception);
-    request.input('name', name);
-    request.input('leader_email', leader_email);
-    request.input('department', department);
-    request.input('us_team', us_team);  // ✅ include in query
+    // Step 1: Get team info in a separate request
+    const teamRequest = pool.request();
+    teamRequest.input('employee_id', employee_id);
+    const teamResult = await teamRequest.query(`
+        SELECT us_team, col_team
+        FROM roster
+        WHERE employee_id = @employee_id
+    `);
 
-    await request.query(`
+    const us_team = teamResult.recordset[0]?.us_team ?? 0;
+    const col_team = teamResult.recordset[0]?.col_team ?? 1;
+
+    // Step 2: Insert request
+    const insert = pool.request();
+    insert.input('type', type);
+    insert.input('start_date', start_date);
+    insert.input('end_date', end_date);
+    insert.input('explanation', explanation);
+    insert.input('employee_id', employee_id);
+    insert.input('is_exception', is_exception);
+    insert.input('name', name);
+    insert.input('leader_email', leader_email);
+    insert.input('department', department);
+    insert.input('us_team', us_team);
+    insert.input('col_team', col_team);
+
+    await insert.query(`
         INSERT INTO request (
             type, start_date, end_date, request_date,
             explanation, employee_id, is_exception,
-            name, leader_email, department, us_team
+            name, leader_email, department, us_team, col_team
         )
         VALUES (
             @type, @start_date, @end_date, CURRENT_TIMESTAMP,
             @explanation, @employee_id, @is_exception,
-            @name, @leader_email, @department, @us_team
+            @name, @leader_email, @department, @us_team, @col_team
         )
     `);
 
-    const result = await request.query(`
+    // Step 3: Return the most recent inserted request
+    const select = pool.request();
+    select.input('employee_id', employee_id);
+    const result = await select.query(`
         SELECT * 
         FROM request 
         WHERE employee_id = @employee_id 
