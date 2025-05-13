@@ -3,7 +3,8 @@ const employeeService = require('./service');
 const getAllEmployees = async (req, res) => {
     try {
         const us_team = req.query.us_team === '1' ? 1 : 0; // Default to 0
-        const employees = await employeeService.fetchAllEmployees(us_team);
+        const col_team = req.query.col_team === '0' ? 0 : 1;
+        const employees = await employeeService.fetchAllEmployees(us_team, col_team);
         res.status(200).json(employees);
     } catch (err) {
         console.error('Error fetching roster data:', err);
@@ -15,8 +16,9 @@ const getAllEmployees = async (req, res) => {
 const getEmployeeById = async (req, res) => {
     const { employee_id } = req.params;
     const us_team = req.query.us_team === '1' ? 1 : 0; // Default to 0
+    const col_team = req.query.col_team === '0' ? 0 : 1;
     try {
-        const employee = await employeeService.fetchEmployeeById(employee_id, us_team);
+        const employee = await employeeService.fetchEmployeeById(employee_id, us_team, col_team);
         if (!employee || employee.length === 0) {
             console.log(`No roster data found for employee ID: ${employee_id}`);
             return res.status(404).json({ message: 'No roster data found for this employee' });
@@ -49,7 +51,8 @@ const addEmployee = async (req, res) => {
         emergency_phone = null,
         department = null,
         start_date,
-        us_team = 0  // <-- Add this line (default to 0)
+        us_team = 0,  // <-- Add this line (default to 0)
+        col_team = 1
     } = req.body;
     
 
@@ -80,7 +83,8 @@ const addEmployee = async (req, res) => {
             emergency_phone,
             department,
             start_date,
-            us_team  // <-- Add here
+            us_team,
+            col_team
         });
         
 

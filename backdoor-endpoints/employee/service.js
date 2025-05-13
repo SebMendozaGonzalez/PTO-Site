@@ -1,16 +1,17 @@
     const { connectToDatabase } = require('../../db/dbConfig');
 
     // Fetch all employees from the roster
-    const fetchAllEmployees = async (us_team = 0) => {
+    const fetchAllEmployees = async (us_team = 0, col_team = 1) => {
         const pool = await connectToDatabase();
         const request = pool.request();
 
         // Filter out US team members if us_team is 0 or undefined
         request.input('us_team', us_team);
+        request.input('col_team', col_team);
         const query = `
             SELECT * 
             FROM dbo.roster 
-            WHERE (@us_team = 1 OR us_team = 0)
+            WHERE (us_team = @us_team) AND (col_team = @col_team)
             ORDER BY name ASC;
         `;
 
@@ -19,18 +20,18 @@
     };
 
     // Fetch an employee by ID from the roster
-    const fetchEmployeeById = async (employee_id, us_team = 0) => {
+    const fetchEmployeeById = async (employee_id, us_team = 0, col_team = 1) => {
         const pool = await connectToDatabase();
         const request = pool.request();
 
         request.input('employee_id', employee_id);
         request.input('us_team', us_team);
-
+        request.input('col_team', col_team);
         const query = `
             SELECT * 
             FROM dbo.roster 
             WHERE employee_id = @employee_id
-            AND (@us_team = 1 OR us_team = 0)
+            AND (us_team = @us_team) AND (col_team = @col_team)
             ORDER BY name ASC;
         `;
 
@@ -59,7 +60,7 @@
             employee_id, name, full_name, date_of_birth, position, leader_email, company,
             email_surgical, email_quantum, home_address, phone_number,
             emergency_contact, emergency_name, emergency_phone, department, start_date,
-            us_team = 0  // <-- Add default to 0 for backward compatibility
+            us_team = 0, col_team = 1  // <-- Add default to 0 for backward compatibility
         } = employeeData;        
 
         const pool = await connectToDatabase();
@@ -89,7 +90,7 @@
             employee_id, name, full_name, date_of_birth, position, leader_email, company,
             email_surgical, email_quantum, home_address, phone_number,
             emergency_contact, emergency_name, emergency_phone, department, start_date,
-            us_team 
+            us_team, col_team
         };
         
 
