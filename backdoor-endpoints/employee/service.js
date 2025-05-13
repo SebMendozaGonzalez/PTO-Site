@@ -11,7 +11,7 @@
         const query = `
             SELECT * 
             FROM dbo.roster 
-            WHERE (@us_team = 1 AND @col_team = 1 ) OR (us_team = @us_team AND (col_team = @col_team)
+            WHERE (@us_team = 1 AND @col_team = 1 ) OR (us_team = @us_team AND col_team = @col_team)
             ORDER BY name ASC;
         `;
 
