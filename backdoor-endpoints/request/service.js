@@ -44,9 +44,7 @@ const insertRequest = async ({
     is_exception,
     name,
     leader_email,
-    department, 
-    us_team = 0,
-    col_team = 1
+    department
 }) => {
     const pool = await connectToDatabase();
 
