@@ -27,16 +27,17 @@ router.get('/', async (req, res) => {
             .input('us_team', us_team)
             .input('col_team', col_team)
             .query(`
-                SELECT r.*
-                FROM request r
-                JOIN roster e ON r.employee_id = e.employee_id
-                WHERE 
-                    r.start_date <= @selectedDate 
-                    AND r.end_date >= @selectedDate
-                    AND r.accepted = 1
-                    AND r.cancelled = 0
-                    AND ((@us_team = 1 AND @col_team = 1 ) OR (us_team = @us_team AND col_team = @col_team))
-            `);
+                    SELECT r.*
+                    FROM request r
+                    JOIN roster e ON r.employee_id = e.employee_id
+                    WHERE 
+                        r.start_date <= @selectedDate 
+                        AND r.end_date >= @selectedDate
+                        AND r.accepted = 1
+                        AND r.cancelled = 0
+                        AND ((@us_team = 1 AND @col_team = 1 ) OR (r.us_team = @us_team AND e.col_team = @col_team))
+                `)
+
 
         if (result.recordset.length === 0) {
             console.log(`No requests found for date: ${selectedDate}.`);
