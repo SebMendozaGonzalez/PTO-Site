@@ -6,7 +6,8 @@ const dayjs = require('dayjs');
 // Route to fetch all requests intersecting with a specific date
 router.get('/', async (req, res) => {
     const { date } = req.query; // Extract date from query parameters
-    const us_team = parseInt(req.query.us_team) || 0; // Default to 0
+    const us_team = req.query.us_team !== undefined ? parseInt(req.query.us_team) : 0;
+    const col_team = req.query.col_team !== undefined ? parseInt(req.query.col_team) : 1;
 
     try {
         const pool = await connectToDatabase();
@@ -24,6 +25,7 @@ router.get('/', async (req, res) => {
         const result = await pool.request()
             .input('selectedDate', selectedDate)
             .input('us_team', us_team)
+            .input('col_team', col_team)
             .query(`
                 SELECT r.*
                 FROM request r
@@ -33,7 +35,7 @@ router.get('/', async (req, res) => {
                     AND r.end_date >= @selectedDate
                     AND r.accepted = 1
                     AND r.cancelled = 0
-                    AND e.us_team = @us_team
+                    AND ((@us_team = 1 AND @col_team = 1 ) OR (us_team = @us_team AND col_team = @col_team))
             `);
 
         if (result.recordset.length === 0) {
