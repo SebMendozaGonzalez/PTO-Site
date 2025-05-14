@@ -3,8 +3,8 @@ const requestService = require('./service');
 // Controller function to fetch all requests
 // Controller function to fetch all requests
 const getAllRequests = async (req, res) => {
-    const us_team = parseInt(req.query.us_team) || 0; // Default to 0 if not provided
-    const col_team = parseInt(req.query.col_team) || 1;
+    const us_team = req.query.us_team !== undefined ? parseInt(req.query.us_team) : 0;
+    const col_team = req.query.col_team !== undefined ? parseInt(req.query.col_team) : 1;
 
     try {
         const requests = await requestService.fetchAllRequests(us_team, col_team);
