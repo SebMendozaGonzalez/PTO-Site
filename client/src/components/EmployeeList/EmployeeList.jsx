@@ -34,21 +34,52 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
 
             const roles = accounts[0]?.idTokenClaims?.roles || [];
             const isUsTeamReader = roles.includes('Us_Team_Reader');
-            const usTeamParam = isUsTeamReader ? '?us_team=1' : '';
+            const isColTeamReader = roles.includes('Col_Team_Reader');
+            const isAllTeamReader = roles.includes('All_Team_Reader');
 
-            try {
-                const response = filterLeaderEmail
-                    ? await axios.get(`/back/employees-by-leader/${filterLeaderEmail}${usTeamParam}`)
-                    : await axios.get(`/back/employee${usTeamParam}`);
+            if (isAllTeamReader){
+                try {
+                    const response = await axios.get(`/back/employee?us_team=1&col_team=1`);
 
-                if (response.data.length > 0) {
-                    setEmployees(response.data);
-                } else {
-                    setError('No employees found.');
+                    if (response.data.length > 0) {
+                        setEmployees(response.data);
+                    } else {
+                        setError('No employees found.');
+                    }
+                } catch (err) {
+                    setError('Failed to fetch employees');
+                    console.error(err);
                 }
-            } catch (err) {
-                setError('Failed to fetch employees');
-                console.error(err);
+            }else if (isUsTeamReader){
+                try {
+                    const response = await axios.get(`/back/employee?us_team=1&col_team=0`);
+
+                    if (response.data.length > 0) {
+                        setEmployees(response.data);
+                    } else {
+                        setError('No employees found.');
+                    }
+                } catch (err) {
+                    setError('Failed to fetch employees');
+                    console.error(err);
+                }
+            }else if (isColTeamReader){
+                try {
+                    const response = filterLeaderEmail
+                        ? await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`)
+                        : await axios.get(`/back/employee`);
+
+                    if (response.data.length > 0) {
+                        setEmployees(response.data);
+                    } else {
+                        setError('No employees found.');
+                    }
+                } catch (err) {
+                    setError('Failed to fetch employees');
+                    console.error(err);
+                }
+            }else{ 
+                setError('You do not have permission to view employee data.'); 
             }
         };
 
