@@ -5,8 +5,8 @@ const { connectToDatabase } = require('../db/dbConfig');
 // Route to fetch all employees under a specific leader
 router.get('/:leader_email', async (req, res) => {
     const { leader_email } = req.params;
-    const us_team = parseInt(req.query.us_team) || 0;
-    const col_team = parseInt(req.query.col_team) || 1;
+    const us_team = req.query.us_team !== undefined ? parseInt(req.query.us_team) : 0;
+    const col_team = req.query.col_team !== undefined ? parseInt(req.query.col_team) : 1;
 
     try {
         const pool = await connectToDatabase();
