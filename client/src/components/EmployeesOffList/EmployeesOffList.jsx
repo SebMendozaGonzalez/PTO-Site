@@ -42,7 +42,7 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
                 filteredEmployees = response.data.filter((employee) =>
                     leaderEmployeeIds.includes(employee.employee_id)
                 );
-            }else if (UsTeam === "1") {
+            }else if (UsTeam) {
                 const leaderResponse = await axios.get(`/back/employee?us_team=1&col_team=0`);
                 const leaderEmployeeIds = leaderResponse.data.map((employee) => employee.employee_id);
 
