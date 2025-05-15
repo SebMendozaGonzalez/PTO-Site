@@ -106,8 +106,10 @@ function EmployeePortal() {
                     employeePermissions={true}
                 />
             )}
+            {isUsTeamReader && (
+                <EmployeesOffList UsTeam={isUsTeamReader}/>
+            )}
             
-            <EmployeesOffList UsTeam={isUsTeamReader}/>
         </div>
     );
 }
