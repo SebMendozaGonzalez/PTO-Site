@@ -9,7 +9,7 @@ import { ListItemIcon } from '@mui/material';
 import Dots from '../Dots/Dots';
 import './EmployeesOffList.css';
 
-function EmployeesOffList({ filterLeaderEmail }) {
+function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
     const [employeesOff, setEmployeesOff] = useState([]);
     const [error, setError] = useState('');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -42,6 +42,14 @@ function EmployeesOffList({ filterLeaderEmail }) {
                 filteredEmployees = response.data.filter((employee) =>
                     leaderEmployeeIds.includes(employee.employee_id)
                 );
+            }else if (UsTeam === "1") {
+                const leaderResponse = await axios.get(`/back/employee?us_team=1&col_team=0`);
+                const leaderEmployeeIds = leaderResponse.data.map((employee) => employee.employee_id);
+
+                // the employees-off data to include only those under the specified leader
+                filteredEmployees = response.data.filter((employee) =>
+                    leaderEmployeeIds.includes(employee.employee_id)
+                );
             }
 
             // Update state with filtered employees or show an error if no matches
@@ -54,7 +62,7 @@ function EmployeesOffList({ filterLeaderEmail }) {
             setError('There are no accepted requests for this date');
             console.error(err);
         }
-    }, [filterLeaderEmail]);
+    }, [filterLeaderEmail, UsTeam]);
 
 
     useEffect(() => {
