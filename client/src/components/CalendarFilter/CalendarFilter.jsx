@@ -25,8 +25,7 @@ const filterOptions = [
 	{ label: 'Filter for Acceptance', key: 'accepted' },
 	{ label: 'Filter for Department', key: 'department' },
 	{ label: 'Filter for Employee', key: 'employee' },
-	{ label: 'Filter for US Team', key: 'us_team' },
-	{ label: 'Filter for COL Team', key: 'col_team' },
+	{ label: 'Filter for Team', key: 'team' }, // unified team filter
 ];
 
 
@@ -45,8 +44,7 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 	const [selectedAcceptances, setSelectedAcceptances] = useState([]);
 	const [selectedDepartments, setSelectedDepartments] = useState([]);
 	const [selectedEmployees, setSelectedEmployees] = useState([]);
-	const [selectedUsTeam, setSelectedUsTeam] = useState([]);
-	const [selectedColTeam, setSelectedColTeam] = useState([]);
+	const [selectedTeams, setSelectedTeams] = useState([]);
 
 
 	useEffect(() => {
@@ -176,15 +174,13 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 			case 'employee':
 				setSelectedEmployees(value);
 				break;
-			case 'us_team':
-				setSelectedUsTeam(value);
-				break;
-			case 'col_team':
-				setSelectedColTeam(value);
+			case 'team':
+				setSelectedTeams(value);
 				break;
 			default:
 				break;
 		}
+
 		onFilterChange(
 			applyFilters(
 				key === 'type' ? value : selectedTypes,
@@ -192,8 +188,7 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 				key === 'accepted' ? value : selectedAcceptances,
 				key === 'department' ? value : selectedDepartments,
 				key === 'employee' ? value : selectedEmployees,
-				key === 'us_team' ? value : selectedUsTeam,
-				key === 'col_team' ? value : selectedColTeam
+				key === 'team' ? value : selectedTeams
 			)
 		);
 	};
@@ -205,8 +200,7 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 		acceptances,
 		departments,
 		employees,
-		usTeamFilter,
-		colTeamFilter
+		teams
 	) => {
 		return requests.filter(request => {
 			const typeMatch = types.length ? types.includes(request.type) : true;
@@ -216,8 +210,11 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 			const employeeMatch = employees.length
 				? employees.some(emp => emp.employee_id === request.employeeId)
 				: true;
-			const usTeamMatch = usTeamFilter.length ? usTeamFilter.includes(request.details.us_team) : true;
-			const colTeamMatch = colTeamFilter.length ? colTeamFilter.includes(request.details.col_team) : true;
+
+			// combined team logic
+			const usTeamMatch = teams.includes('us') ? request.details.us_team === 1 : false;
+			const colTeamMatch = teams.includes('col') ? request.details.col_team === 1 : false;
+			const teamMatch = teams.length ? (usTeamMatch || colTeamMatch) : true;
 
 			return (
 				typeMatch &&
@@ -225,8 +222,7 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 				acceptanceMatch &&
 				departmentMatch &&
 				employeeMatch &&
-				usTeamMatch &&
-				colTeamMatch
+				teamMatch
 			);
 		});
 	};
@@ -241,10 +237,8 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 					accepted: selectedAcceptances,
 					department: selectedDepartments,
 					employee: selectedEmployees,
-					us_team: selectedUsTeam,
-					col_team: selectedColTeam,
+					team: selectedTeams,
 				}[key];
-
 
 				const options = {
 					type: requestTypes.map(type => ({
@@ -267,14 +261,10 @@ function CalendarFilter({ onFilterChange, filterLeaderEmail }) {
 						label: emp.name,
 						value: emp,
 					})),
-					us_team: [0, 1].map(val => ({
-						label: val === 1 ? 'Yes' : 'No',
-						value: val
-					})),
-					col_team: [0, 1].map(val => ({
-						label: val === 1 ? 'Yes' : 'No',
-						value: val
-					})),
+					team: [
+						{ label: 'US Team', value: 'us' },
+						{ label: 'Col Team', value: 'col' },
+					],
 				}[key];
 
 				return (

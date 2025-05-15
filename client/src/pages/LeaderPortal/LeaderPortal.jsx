@@ -6,7 +6,6 @@ import RequestsCalendar from '../../components/RequestsCalendar/RequestsCalendar
 import RequestView from '../../components/RequestView/RequestView';
 import LiquidationRequestView from '../../components/LiquidationRequestView/LiquidationRequestView';
 import EmployeeLicenseCard from '../../components/EmployeeLicenseCard/EmployeeLicenseCard';
-import LiquidationRequestsList from '../../components/LiquidationRequestsListMP/LiquidationRequestsListMP';
 import EmployeesOffList from '../../components/EmployeesOffList/EmployeesOffList';
 import { useMsal } from '@azure/msal-react';
 import './LeaderPortal.css';
@@ -40,10 +39,6 @@ function LeaderPortal() {
     setIsLicenseMode(false);
   };
 
-  // New handler for Liquidation Request click
-  const handleClickLiqRequest = (liqRequest) => {
-    setRequestDetails(liqRequest); // Set liquidation request details
-  };
 
   const isSearchEnabled = accounts[0]?.username === "dev1@surgicalcapital.com";
 
@@ -87,12 +82,6 @@ function LeaderPortal() {
 
         {selectedEmployee && !isLicenseMode && (
           <div>
-            <LiquidationRequestsList
-              employee_id={selectedEmployee.employee_id}
-              HRportal={false}
-              filterLeaderEmail={filterLeaderEmail}
-              onClickRequest={handleClickLiqRequest} // Handle liquidation request click
-            />
             <RequestsCalendar
               employee_id={selectedEmployee.employee_id}
               onEventSelect={handleEventSelect}
