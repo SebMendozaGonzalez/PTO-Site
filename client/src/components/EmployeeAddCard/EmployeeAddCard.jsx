@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, DialogContent, Box, Avatar, TextField, Typography, Button, Divider, Snackbar, Alert } from '@mui/material';
+import { Dialog, DialogContent, Box, Avatar, TextField, Typography, Button, Divider, Snackbar, Alert, FormControlLabel, Checkbox } from '@mui/material'; // 🔧 Added Checkbox import
 import './EmployeeAddCard.css';
 
 function EmployeeAddCard({ onClose }) {
@@ -20,6 +20,8 @@ function EmployeeAddCard({ onClose }) {
         emergency_phone: '',
         department: '',
         start_date: '',
+        us_team: 0,
+        col_team: 1
     });
 
     const [error, setError] = useState(false);
@@ -30,6 +32,14 @@ function EmployeeAddCard({ onClose }) {
         setFormData((prev) => ({
             ...prev,
             [name]: value,
+        }));
+    };
+
+    const handleCheckboxChange = (e) => { // 🔧 Checkbox handler
+        const { name, checked } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: checked ? 1 : 0,
         }));
     };
 
@@ -110,7 +120,6 @@ function EmployeeAddCard({ onClose }) {
 
                         <Divider />
 
-                        {/* Basic Info */}
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                             <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
                                 Basic Info
@@ -163,11 +172,34 @@ function EmployeeAddCard({ onClose }) {
                                 InputLabelProps={{ shrink: true }}
                                 error={error && !formData.start_date}
                             />
+
+                            {/*  Team Checkboxes */}
+                            <Box sx={{ display: 'flex', gap: 2 }}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={formData.us_team === 1}
+                                            onChange={handleCheckboxChange}
+                                            name="us_team"
+                                        />
+                                    }
+                                    label="US Team"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={formData.col_team === 1}
+                                            onChange={handleCheckboxChange}
+                                            name="col_team"
+                                        />
+                                    }
+                                    label="Colombian Team"
+                                />
+                            </Box>
                         </Box>
 
                         <Divider />
 
-                        {/* Contact Info */}
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                             <Typography variant="h6" sx={{ fontFamily: 'Poppins', fontWeight: 700, color: 'var(--secondary)' }}>
                                 Contact Info

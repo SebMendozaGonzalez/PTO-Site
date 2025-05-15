@@ -79,7 +79,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                     console.error(err);
                 }
             } else {
-                setError('You do not have a role to view employee data.');
+                setError('No valid role assigned for viewing employee data.');
             }
         };
 
