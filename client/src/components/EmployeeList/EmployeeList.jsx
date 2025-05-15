@@ -37,7 +37,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
             const isColTeamReader = roles.includes('Col_Team_Reader');
             const isAllTeamReader = roles.includes('All_Team_Reader');
 
-            if (isAllTeamReader){
+            if (isAllTeamReader) {
                 try {
                     const response = await axios.get(`/back/employee?us_team=1&col_team=1`);
 
@@ -50,7 +50,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                     setError('Failed to fetch employees');
                     console.error(err);
                 }
-            }else if (isUsTeamReader){
+            } else if (isUsTeamReader) {
                 try {
                     const response = await axios.get(`/back/employee?us_team=1&col_team=0`);
 
@@ -63,7 +63,7 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                     setError('Failed to fetch employees');
                     console.error(err);
                 }
-            }else if (isColTeamReader){
+            } else if (isColTeamReader) {
                 try {
                     const response = filterLeaderEmail
                         ? await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`)
@@ -78,8 +78,8 @@ function EmployeeList({ filterLeaderEmail, onEmployeeSelect, onEditClick, onDele
                     setError('Failed to fetch employees');
                     console.error(err);
                 }
-            }else{ 
-                setError('You do not have a role to view employee data.'); 
+            } else {
+                setError('You do not have a role to view employee data.');
             }
         };
 
