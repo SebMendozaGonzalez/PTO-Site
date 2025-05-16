@@ -14,8 +14,6 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
     const [error, setError] = useState('');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date()); // Default to today
-
-    console.log(UsTeam)
     const formatDate = (date) => date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
     const formatDate2 = (dateString) => {
         const date = new Date(dateString);
@@ -43,7 +41,8 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
                 filteredEmployees = response.data.filter((employee) =>
                     leaderEmployeeIds.includes(employee.employee_id)
                 );
-            }else if (UsTeam) {
+            }
+            if (UsTeam) {
                 const leaderResponse = await axios.get(`/back/employee?us_team=1&col_team=0`);
                 const leaderEmployeeIds = leaderResponse.data.map((employee) => employee.employee_id);
 
