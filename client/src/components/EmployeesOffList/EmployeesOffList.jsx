@@ -15,6 +15,7 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date()); // Default to today
 
+    console.log(UsTeam)
     const formatDate = (date) => date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
     const formatDate2 = (dateString) => {
         const date = new Date(dateString);
