@@ -35,7 +35,7 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
             // If a leader filter is applied, fetch employees reporting to that leader
             if (filterLeaderEmail) {
                 const leaderResponse = await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`);
-                const leaderEmployeeIds = leaderResponse.data.map((employee) => employee.employee_id);
+                const leaderEmployeeIds = leaderResponse.data.map((employee) => String(employee.employee_id));
 
                 // the employees-off data to include only those under the specified leader
                 filteredEmployees = response.data.filter((employee) =>
@@ -44,11 +44,10 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
             }
             if (UsTeam) {
                 const leaderResponse = await axios.get(`/back/employee?us_team=1&col_team=0`);
-                const leaderEmployeeIds = leaderResponse.data.map((employee) => employee.employee_id);
+                const leaderEmployeeIds = leaderResponse.data.map((employee) => String(employee.employee_id));
 
-                // the employees-off data to include only those under the specified leader
                 filteredEmployees = response.data.filter((employee) =>
-                    leaderEmployeeIds.includes(employee.employee_id)
+                    leaderEmployeeIds.includes(String(employee.employee_id))
                 );
             }
 
