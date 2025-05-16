@@ -17,6 +17,9 @@ function LeaderPortal() {
 	const [requestDetails, setRequestDetails] = useState(null);
 	const [isLicenseMode, setIsLicenseMode] = useState(false);
 
+	const roles = accounts[0]?.idTokenClaims?.roles || [];
+    const isAllTeamReader = roles.includes('All_Team_Reader');
+
 	const handleEmployeeSelect = (employee) => {
 		setSelectedEmployee(employee);
 	};
@@ -114,7 +117,13 @@ function LeaderPortal() {
 					/>
 				)}
 			</div>
-			<EmployeesOffList filterLeaderEmail={filterLeaderEmail} />
+			{!isAllTeamReader && (
+				<EmployeesOffList filterLeaderEmail={filterLeaderEmail} />
+			)}
+			{isAllTeamReader && (
+				<EmployeesOffList AllTeam={isAllTeamReader} />
+			)}
+			
 		</div>
 	);
 }

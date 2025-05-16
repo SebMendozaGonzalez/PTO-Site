@@ -18,7 +18,7 @@ function EmployeePortal() {
     const [requestDetails, setRequestDetails] = useState(null);
 
     const roles = accounts[0]?.idTokenClaims?.roles || [];
-	const isUsTeamReader = roles.includes('Us_Team_Reader');
+    const isUsTeamReader = roles.includes('Us_Team_Reader');
 
     // Determine if the logged-in account is allowed to search
     const isSearchEnabled = accounts[0]?.username === "dev1@surgicalcapital.com";
@@ -84,10 +84,12 @@ function EmployeePortal() {
             <WelcomeEmployees />
             <DashboardEmployee employee_id={employeeId} />
             <RequestsList employee_id={employeeId} onClickRequest={handleClickRequest} />
-            <LiquidationRequestsListEP
-                employee_id={employeeId}
-                onClickRequest={handleClickLiqRequest} // Pass the handler to the LiquidationRequestsListEP component
-            />
+            {!isUsTeamReader &&
+                <LiquidationRequestsListEP
+                    employee_id={employeeId}
+                    onClickRequest={handleClickLiqRequest} // Pass the handler to the LiquidationRequestsListEP component
+                />
+            }
             <RequestsEmployee employee_id={employeeId} />
 
             {/* Render the appropriate request view */}
@@ -107,9 +109,9 @@ function EmployeePortal() {
                 />
             )}
             {isUsTeamReader && (
-                <EmployeesOffList UsTeam={isUsTeamReader}/>
+                <EmployeesOffList UsTeam={isUsTeamReader} />
             )}
-            
+
         </div>
     );
 }

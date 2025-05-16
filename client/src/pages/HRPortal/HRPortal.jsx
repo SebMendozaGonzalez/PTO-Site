@@ -81,7 +81,7 @@ function HRPortal() {
     <div className='flexColCenter hr-portal'>
       <WelcomeHRManagers />
       {HRComponent}
-      <EmployeesOffList />
+      <EmployeesOffList AllTeam={true}/>
     </div>
   );
 }

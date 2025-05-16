@@ -9,7 +9,7 @@ import { ListItemIcon } from '@mui/material';
 import Dots from '../Dots/Dots';
 import './EmployeesOffList.css';
 
-function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
+function EmployeesOffList({ filterLeaderEmail, UsTeam, AllTeam, Supervisor }) {
     const [employeesOff, setEmployeesOff] = useState([]);
     const [error, setError] = useState('');
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -33,21 +33,34 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
             let filteredEmployees = response.data;
 
             // If a leader filter is applied, fetch employees reporting to that leader
-            if (filterLeaderEmail) {
+            if (AllTeam) {
+                const new_response = await axios.get('/back/employees-off', {
+                    params: {
+                        date: formatDate(date),
+                        us_team: 1,
+                        col_team: 1
+                    },
+                });
+                filteredEmployees = new_response.data
+                
+            } 
+            else if (UsTeam) {
+                const new_response = await axios.get('/back/employees-off', {
+                    params: {
+                        date: formatDate(date),
+                        us_team: 1,
+                        col_team: 0
+                    },
+                });
+                filteredEmployees = new_response.data
+            } 
+            else if (filterLeaderEmail) {
                 const leaderResponse = await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`);
-                const leaderEmployeeIds = leaderResponse.data.map((employee) => String(employee.employee_id));
+                const leaderEmployeeIds = leaderResponse.data.map((employee) => employee.employee_id);
 
                 // the employees-off data to include only those under the specified leader
                 filteredEmployees = response.data.filter((employee) =>
                     leaderEmployeeIds.includes(employee.employee_id)
-                );
-            }
-            if (UsTeam) {
-                const leaderResponse = await axios.get(`/back/employee?us_team=1&col_team=0`);
-                const leaderEmployeeIds = leaderResponse.data.map((employee) => String(employee.employee_id));
-
-                filteredEmployees = response.data.filter((employee) =>
-                    leaderEmployeeIds.includes(String(employee.employee_id))
                 );
             }
 
@@ -55,13 +68,13 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam }) {
             if (filteredEmployees.length > 0) {
                 setEmployeesOff(filteredEmployees);
             } else {
-                setError('No employees off on the selected date or matching the leader filter.');
+                setError('No employees off on the selected date or matching the filter.');
             }
         } catch (err) {
             setError('There are no accepted requests for this date');
             console.error(err);
         }
-    }, [filterLeaderEmail, UsTeam]);
+    }, [filterLeaderEmail, UsTeam, AllTeam]);
 
 
     useEffect(() => {
