@@ -53,7 +53,17 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam, AllTeam, Supervisor }) {
                     },
                 });
                 filteredEmployees = new_response.data
-            } 
+            }
+            else if (Supervisor) {
+                const new_response = await axios.get('/back/employees-off', {
+                    params: {
+                        date: formatDate(date),
+                        us_team: 0,
+                        col_team: 1
+                    },
+                });
+                filteredEmployees = new_response.data
+            }  
             else if (filterLeaderEmail) {
                 const leaderResponse = await axios.get(`/back/employees-by-leader/${filterLeaderEmail}`);
                 const leaderEmployeeIds = leaderResponse.data.map((employee) => employee.employee_id);
@@ -74,7 +84,7 @@ function EmployeesOffList({ filterLeaderEmail, UsTeam, AllTeam, Supervisor }) {
             setError('There are no accepted requests for this date');
             console.error(err);
         }
-    }, [filterLeaderEmail, UsTeam, AllTeam]);
+    }, [filterLeaderEmail, UsTeam, AllTeam, Supervisor]);
 
 
     useEffect(() => {

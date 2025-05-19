@@ -19,6 +19,7 @@ function EmployeePortal() {
 
     const roles = accounts[0]?.idTokenClaims?.roles || [];
     const isUsTeamReader = roles.includes('Us_Team_Reader');
+    const isSupervisor = roles.includes('Supervisor');
 
     // Determine if the logged-in account is allowed to search
     const isSearchEnabled = accounts[0]?.username === "dev1@surgicalcapital.com";
@@ -110,6 +111,9 @@ function EmployeePortal() {
             )}
             {isUsTeamReader && (
                 <EmployeesOffList UsTeam={isUsTeamReader} />
+            )}
+            {isSupervisor && (
+                <EmployeesOffList Supervisor={isSupervisor} />
             )}
 
         </div>
