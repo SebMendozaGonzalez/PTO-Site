@@ -71,10 +71,6 @@ function EmployeeProfile({ selectedEmployee }) {
                             Basic Info
                         </Typography>
                         <Typography>
-                            <strong className="fonts-primary">Date of Birth:</strong>{' '}
-                            {formatDate(selectedEmployee.date_of_birth)}
-                        </Typography>
-                        <Typography>
                             <strong className="fonts-primary">Start Date:</strong>{' '}
                             {formatDate(selectedEmployee.start_date)}
                         </Typography>
