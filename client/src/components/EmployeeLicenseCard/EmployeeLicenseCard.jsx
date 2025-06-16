@@ -52,13 +52,11 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
     };
 
     const handleSubmit = async () => {
-        // Validate mandatory fields
         if (!formData.start_date || !formData.end_date || !formData.type) {
             alert('Please fill in all mandatory fields.');
             return;
         }
 
-        // Combine formData and employeeDetails into a single payload
         const payload = {
             ...formData,
             ...employeeDetails,
@@ -68,7 +66,6 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
         console.log('Submitting the following payload:', payload);
 
         try {
-            // API call to submit license request
             const requestResponse = await fetch('/back/request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -81,25 +78,10 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             }
 
             const newRequest = await requestResponse.json();
+            console.log('License created successfully:', newRequest);
 
-            // API call to automatically accept the license
-            const decideResponse = await fetch('/back/request', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    request_id: newRequest.request_id,
-                    accepted: true,
-                    rejection_reason: null,
-                }),
-            });
-
-            if (!decideResponse.ok) {
-                console.error('Failed to accept the license:', await decideResponse.text());
-                throw new Error('Failed to accept the license');
-            }
-
-            // Success notification
-            setNotificationMessage('License successfully created and accepted!');
+            // Notify and close
+            setNotificationMessage('License successfully created!');
             setNotificationOpen(true);
             onClose();
         } catch (error) {
@@ -107,6 +89,7 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
             alert('An error occurred while processing the license request.');
         }
     };
+
 
     // Handle Snackbar close
     const handleNotificationClose = () => {
