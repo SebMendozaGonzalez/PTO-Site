@@ -192,8 +192,8 @@ function EmployeeLicenseCard({ employeeId, onClose }) {
                                     <MenuItem value="Domestic Calamity License">Domestic Calamity License</MenuItem>
                                     <MenuItem value="Bereavement License">Bereavement License</MenuItem>
                                     <MenuItem value="Inability">Inability</MenuItem>
-                                    <MenuItem value="Inability">Paid Time Off</MenuItem>
-                                    <MenuItem value="Inability">Unpaid Time Off</MenuItem>
+                                    <MenuItem value="Paid Time Off">Paid Time Off</MenuItem>
+                                    <MenuItem value="Unpaid Time Off">Unpaid Time Off</MenuItem>
                                 </Select>
                             </FormControl>
                         </Box>
